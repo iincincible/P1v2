@@ -1,0 +1,67 @@
+snapshot_date,match_date,winner,loser,player_1,player_2,odds_player_1,odds_player_2,implied_prob_1,implied_prob_2,bookmaker,actual_winner,p1_is_winner,p2_is_winner
+2023-07-03,2023-07-03,Caroline Garcia,Katie Volynets,Caroline Garcia,Katie Volynets,1.11,6.5,0.9009009009009008,0.1538461538461538,LiveScore Bet,Caroline Garcia,True,False
+2023-07-03,2023-07-03,Nadia Podoroska,Tereza Martincova,Nadia Podoroska,Tereza Martincova,3.35,1.41,0.2985074626865671,0.7092198581560284,Betfair,Nadia Podoroska,True,False
+2023-07-03,2023-07-03,Victoria Azarenka,Yue Yuan,Victoria Azarenka,Yue Yuan,1.22,4.15,0.819672131147541,0.2409638554216867,SportsBet,Victoria Azarenka,True,False
+2023-07-03,2023-07-03,Magda Linette,Jil Teichmann,Jil Teichmann,Magda Linette,2.3,1.75,0.4347826086956522,0.5714285714285714,Betfair,Magda Linette,False,True
+2023-07-03,2023-07-03,Lesia Tsurenko,Claire Liu,Claire Liu,Lesia Tsurenko,3.4,1.39,0.2941176470588235,0.7194244604316548,Betfair,Lesia Tsurenko,False,True
+2023-07-03,2023-07-03,Iga Swiatek,Lin Zhu,Iga Swiatek,Lin Zhu,1.04,13.0,0.9615384615384616,0.0769230769230769,Ladbrokes,Iga Swiatek,True,False
+2023-07-03,2023-07-03,Cristina Bucsa,Kamilla Rakhimova,Cristina Bucsa,Kamilla Rakhimova,1.71,2.38,0.5847953216374269,0.4201680672268907,Betfair,Cristina Bucsa,True,False
+2023-07-03,2023-07-03,Ana Bogdan,Liudmila Samsonova,Ana Bogdan,Liudmila Samsonova,3.25,1.33,0.3076923076923077,0.7518796992481203,888sport,Ana Bogdan,True,False
+2023-07-03,2023-07-03,Barbora Strycova,Maryna Zanevska,Barbora Strycova,Maryna Zanevska,1.61,2.32,0.6211180124223602,0.4310344827586207,Marathon Bet,Barbora Strycova,True,False
+2023-07-03,2023-07-03,Veronika Kudermetova,Kaia Kanepi,Kaia Kanepi,Veronika Kudermetova,10.0,1.1,0.1,0.9090909090909092,Betfair,Veronika Kudermetova,False,True
+2023-07-03,2023-07-03,Petra Martic,Linda Fruhvirtova,Linda Fruhvirtova,Petra Martic,2.4,1.53,0.4166666666666667,0.6535947712418301,Paddy Power,Petra Martic,False,True
+2023-07-03,2023-07-03,Jessica Pegula,Lauren Davis,Jessica Pegula,Lauren Davis,1.19,4.98,0.8403361344537815,0.2008032128514056,BetOnline.ag,Jessica Pegula,True,False
+2023-07-03,2023-07-03,Diane Parry,Harriet Dart,Diane Parry,Harriet Dart,3.35,1.39,0.2985074626865671,0.7194244604316548,Betfair,Diane Parry,True,False
+2023-07-03,2023-07-03,Sofia Kenin,Coco Gauff,Coco Gauff,Sofia Kenin,1.24,3.95,0.8064516129032259,0.2531645569620253,SportsBet,Sofia Kenin,False,True
+2023-07-03,2023-07-03,Elina Svitolina,Venus Williams,Elina Svitolina,Venus Williams,1.49,2.63,0.6711409395973155,0.3802281368821293,Unibet,Elina Svitolina,True,False
+2023-07-03,2023-07-03,Danielle Collins,Julia Grabher,Danielle Collins,Julia Grabher,1.3,3.4,0.7692307692307692,0.2941176470588235,Paddy Power,Danielle Collins,True,False
+2023-07-03,2023-07-03,Marie Bouzkova,Simona Waltert,Marie Bouzkova,Simona Waltert,1.3,3.4,0.7692307692307692,0.2941176470588235,Coral,Marie Bouzkova,True,False
+2023-07-03,2023-07-03,Leylah Fernandez,Kateryna Baindl,Kateryna Baindl,Leylah Fernandez,4.2,1.22,0.238095238095238,0.819672131147541,William Hill,Leylah Fernandez,False,True
+2023-07-03,2023-07-03,Sara Sorribes Tormo,Martina Trevisan,Martina Trevisan,Sara Sorribes Tormo,3.4,1.3,0.2941176470588235,0.7692307692307692,Ladbrokes,Sara Sorribes Tormo,False,True
+2023-07-03,2023-07-03,Marketa Vondrousova,Peyton Stearns,Marketa Vondrousova,Peyton Stearns,1.23,4.2,0.8130081300813008,0.238095238095238,Betr,Marketa Vondrousova,True,False
+2023-07-03,2023-07-03,Rebeka Masarova,Mayar Sherif,Mayar Sherif,Rebeka Masarova,1.96,1.93,0.5102040816326531,0.5181347150259068,Pinnacle,Rebeka Masarova,False,True
+2023-07-03,2023-07-03,Katerina Siniakova,Qinwen Zheng,Katerina Siniakova,Qinwen Zheng,2.0,1.83,0.5,0.5464480874316939,Virgin Bet,Katerina Siniakova,True,False
+2023-07-03,2023-07-03,Belinda Bencic,Katie Swan,Belinda Bencic,Katie Swan,1.48,2.98,0.6756756756756757,0.3355704697986577,Betfair,Belinda Bencic,True,False
+2023-07-03,2023-07-03,Jodie Burrage,Caty Mcnally,Caty McNally,Jodie Burrage,1.38,2.96,0.7246376811594204,0.3378378378378378,SportsBet,Jodie Burrage,False,True
+2023-07-03,2023-07-03,Daria Kasatkina,Caroline Dolehide,Caroline Dolehide,Daria Kasatkina,6.0,1.13,0.1666666666666666,0.8849557522123894,Betsson,Daria Kasatkina,False,True
+2023-07-04,2023-07-03,Mirra Andreeva,Xiyu Wang,Mirra Andreeva,Xiyu Wang,1.57,2.35,0.6369426751592356,0.425531914893617,William Hill (US),Mirra Andreeva,True,False
+2023-07-04,2023-07-03,Beatriz Haddad Maia,Yulia Putintseva,Beatriz Haddad Maia,Yulia Putintseva,1.32,3.45,0.7575757575757576,0.2898550724637681,Unibet,Beatriz Haddad Maia,True,False
+2023-07-04,2023-07-03,Anhelina Kalinina,Jessica Bouzas Maneiro,Anhelina Kalinina,Jessica Bouzas Maneiro,1.28,3.8,0.78125,0.2631578947368421,Nordic Bet,Anhelina Kalinina,True,False
+2023-07-04,2023-07-03,Anna Blinkova,Yanina Wickmayer,Anna Blinkova,Yanina Wickmayer,2.05,1.8,0.4878048780487805,0.5555555555555556,Bet Victor,Anna Blinkova,True,False
+2023-07-04,2023-07-03,Jelena Ostapenko,Greet Minnen,Greet Minnen,Jelena Ostapenko,4.1,1.24,0.2439024390243902,0.8064516129032259,Marathon Bet,Jelena Ostapenko,False,True
+2023-07-04,2023-07-03,Barbora Krejcikova,Heather Watson,Barbora Krejcikova,Heather Watson,1.22,4.35,0.819672131147541,0.2298850574712644,Unibet,Barbora Krejcikova,True,False
+2023-07-04,2023-07-03,Aryna Sabalenka,Panna Udvardy,Aryna Sabalenka,Panna Udvardy,1.03,12.5,0.970873786407767,0.08,Unibet,Aryna Sabalenka,True,False
+2023-07-04,2023-07-03,Jule Niemeier,Karolina Muchova,Jule Niemeier,Karolina Muchova,3.65,1.29,0.273972602739726,0.7751937984496123,Unibet,Jule Niemeier,True,False
+2023-07-04,2023-07-03,Bianca Andreescu,Anna Bondar,Anna Bondar,Bianca Andreescu,4.9,1.23,0.2040816326530612,0.8130081300813008,Betfair,Bianca Andreescu,False,True
+2023-07-04,2023-07-03,Petra Martic,Diane Parry,Diane Parry,Petra Martic,2.95,1.4,0.3389830508474576,0.7142857142857143,888sport,Petra Martic,False,True
+2023-07-04,2023-07-03,Daria Kasatkina,Jodie Burrage,Daria Kasatkina,Jodie Burrage,1.21,4.5,0.8264462809917356,0.2222222222222222,Unibet,Daria Kasatkina,True,False
+2023-07-04,2023-07-03,Iga Swiatek,Sara Sorribes Tormo,Iga Swiatek,Sara Sorribes Tormo,1.03,11.5,0.970873786407767,0.0869565217391304,SportsBet,Iga Swiatek,True,False
+2023-07-04,2023-07-03,Marketa Vondrousova,Veronika Kudermetova,Marketa Vondrousova,Veronika Kudermetova,2.05,1.71,0.4878048780487805,0.5847953216374269,Mr Green,Marketa Vondrousova,True,False
+2023-07-04,2023-07-03,Madison Keys,Sonay Kartal,Madison Keys,Sonay Kartal,1.21,4.67,0.8264462809917356,0.2141327623126338,BetOnline.ag,Madison Keys,True,False
+2023-07-04,2023-07-03,Jaqueline Cristian,Lucia Bronzetti,Jaqueline Cristian,Lucia Bronzetti,3.7,1.29,0.2702702702702702,0.7751937984496123,LiveScore Bet,Jaqueline Cristian,True,False
+2023-07-04,2023-07-03,Dalma Galfi,Linda Noskova,Dalma Galfi,Linda Noskova,2.97,1.37,0.3367003367003366,0.7299270072992701,TopSport,Dalma Galfi,True,False
+2023-07-04,2023-07-03,Jessica Pegula,Cristina Bucsa,Cristina Bucsa,Jessica Pegula,5.75,1.15,0.1739130434782608,0.8695652173913044,Unibet,Jessica Pegula,False,True
+2023-07-04,2023-07-03,Caroline Garcia,Leylah Fernandez,Caroline Garcia,Leylah Fernandez,1.36,3.15,0.7352941176470588,0.3174603174603174,BetRivers,Caroline Garcia,True,False
+2023-07-04,2023-07-03,Ana Bogdan,Alycia Parks,Alycia Parks,Ana Bogdan,2.6,1.5,0.3846153846153846,0.6666666666666666,DraftKings,Ana Bogdan,False,True
+2023-07-04,2023-07-03,Magda Linette,Barbora Strycova,Barbora Strycova,Magda Linette,2.38,1.54,0.4201680672268907,0.6493506493506493,Mr Green,Magda Linette,False,True
+2023-07-04,2023-07-03,Donna Vekic,Shuai Zhang,Donna Vekic,Shuai Zhang,1.14,6.1,0.8771929824561404,0.1639344262295082,Unibet,Donna Vekic,True,False
+2023-07-04,2023-07-03,Zhuoxuan Bai,Ysaline Bonaventure,Ysaline Bonaventure,Zhuoxuan Bai,1.65,2.25,0.6060606060606061,0.4444444444444444,Unibet,Zhuoxuan Bai,False,True
+2023-07-04,2023-07-03,Anett Kontaveit,Lucrezia Stefanini,Anett Kontaveit,Lucrezia Stefanini,1.54,2.65,0.6493506493506493,0.3773584905660377,BetOnline.ag,Anett Kontaveit,True,False
+2023-07-04,2023-07-03,Sloane Stephens,Rebecca Peterson,Rebecca Peterson,Sloane Stephens,2.8,1.4,0.3571428571428571,0.7142857142857143,Mr Green,Sloane Stephens,False,True
+2023-07-04,2023-07-03,Viktoriya Tomova,Bernarda Pera,Bernarda Pera,Viktoriya Tomova,1.46,2.75,0.684931506849315,0.3636363636363636,Unibet,Viktoriya Tomova,False,True
+2023-07-04,2023-07-03,Anastasia Potapova,Celine Naef,Anastasia Potapova,Celine Naef,1.44,3.1,0.6944444444444444,0.3225806451612903,Betfair,Anastasia Potapova,True,False
+2023-07-04,2023-07-03,Madison Brengle,Sara Errani,Madison Brengle,Sara Errani,1.71,2.14,0.5847953216374269,0.4672897196261682,Barstool Sportsbook,Madison Brengle,True,False
+2023-07-04,2023-07-03,Katie Boulter,Daria Saville,Daria Saville,Katie Boulter,3.2,1.36,0.3125,0.7352941176470588,Virgin Bet,Katie Boulter,False,True
+2023-07-04,2023-07-03,Ekaterina Alexandrova,Emma Navarro,Ekaterina Alexandrova,Emma Navarro,1.25,3.8,0.8,0.2631578947368421,Neds,Ekaterina Alexandrova,True,False
+2023-07-04,2023-07-03,Natalija Stevanovic,Karolina Pliskova,Karolina Pliskova,Natalija Stevanovic,1.1,7.1,0.9090909090909092,0.1408450704225352,1xBet,Natalija Stevanovic,False,True
+2023-07-04,2023-07-03,Petra Kvitova,Jasmine Paolini,Jasmine Paolini,Petra Kvitova,7.0,1.09,0.1428571428571428,0.9174311926605504,BetMGM,Petra Kvitova,False,True
+2023-07-04,2023-07-03,Ons Jabeur,Magdalena Frech,Magdalena Frech,Ons Jabeur,3.95,1.26,0.2531645569620253,0.7936507936507936,Unibet,Ons Jabeur,False,True
+2023-07-04,2023-07-03,Marta Kostyuk,Maria Sakkari,Maria Sakkari,Marta Kostyuk,1.3,3.3,0.7692307692307692,0.303030303030303,Paddy Power,Marta Kostyuk,False,True
+2023-07-04,2023-07-03,Viktorija Golubic,Anna Karolina Schmiedlova,Anna Karolina Schmiedlova,Viktorija Golubic,3.3,1.33,0.303030303030303,0.7518796992481203,BetRivers,Viktorija Golubic,False,True
+2023-07-04,2023-07-03,Aliaksandra Sasnovich,Nuria Parrizas Diaz,Aliaksandra Sasnovich,Nuria Parrizas Diaz,1.38,3.1,0.7246376811594204,0.3225806451612903,Unibet,Aliaksandra Sasnovich,True,False
+2023-07-04,2023-07-03,Elena Rybakina,Shelby Rogers,Elena Rybakina,Shelby Rogers,1.12,6.0,0.8928571428571428,0.1666666666666666,Betsson,Elena Rybakina,True,False
+2023-07-04,2023-07-03,Sorana Cirstea,Tatjana Maria,Sorana Cirstea,Tatjana Maria,1.81,2.0,0.5524861878453039,0.5,1xBet,Sorana Cirstea,True,False
+2023-07-04,2023-07-03,Alize Cornet,Nao Hibino,Alize Cornet,Nao Hibino,1.36,3.1,0.7352941176470588,0.3225806451612903,Coral,Alize Cornet,True,False
+2023-07-04,2023-07-03,Varvara Gracheva,Camila Giorgi,Camila Giorgi,Varvara Gracheva,1.39,3.4,0.7194244604316548,0.2941176470588235,Matchbook,Varvara Gracheva,False,True
+2023-07-04,2023-07-03,Tamara Korpatsch,Carol Zhao,Carol Zhao,Tamara Korpatsch,2.38,1.53,0.4201680672268907,0.6535947712418301,Mr Green,Tamara Korpatsch,False,True
+2023-07-04,2023-07-03,Victoria Azarenka,Nadia Podoroska,Nadia Podoroska,Victoria Azarenka,4.0,1.22,0.25,0.819672131147541,Betfair Sportsbook,Victoria Azarenka,False,True

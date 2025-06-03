@@ -1,0 +1,30 @@
+player,bets,wins,winrate,total_staked,profit,roi,avg_ev
+Jiri Vesely,1,1,1.0,19.8,98.98,500.0,0.7504
+Alexandre Muller,1,1,1.0,19.41,60.17,310.0,0.4468
+Diego Schwartzman,1,1,1.0,18.61,29.77,160.0,0.2056
+Corentin Moutet,1,1,1.0,20.94,28.9,138.0,0.1749
+Jason Kubler,1,1,1.0,19.46,25.3,130.0,0.1604
+Laslo Djere,1,1,1.0,21.78,25.04,115.0,0.14
+Daniel Elahi Galan,1,1,1.0,18.59,19.89,107.0,0.1269
+Gregoire Barrere,1,1,1.0,19.03,19.03,100.0,0.113
+Marton Fucsovics,1,1,1.0,18.65,18.65,100.0,0.113
+Maximilian Marterer,1,1,1.0,21.83,18.56,85.0,0.0913
+Aslan Karatsev,1,1,1.0,21.09,16.24,77.0,0.0786
+Jaume Munar,2,1,0.5,39.04,27.96,71.64,0.5284
+Botic Van De Zandschulp,1,1,1.0,19.2,12.87,67.0,0.0609
+Alejandro Davidovich Fokina,1,1,1.0,19.17,12.46,65.0,0.053
+Dominik Koepfer,1,0,0.0,18.99,-18.99,-100.0,0.1607
+Bernabe Zapata Miralles,1,0,0.0,19.36,-19.36,-100.0,0.1613
+Daniel Evans,1,0,0.0,19.75,-19.75,-100.0,0.0921
+Brandon Nakashima,1,0,0.0,20.56,-20.56,-100.0,0.0906
+Borna Gojo,1,0,0.0,20.15,-20.15,-100.0,0.0766
+Constant Lestienne,1,0,0.0,20.98,-20.98,-100.0,0.1633
+Max Purcell,1,0,0.0,21.41,-21.41,-100.0,0.2742
+Alex Molcan,1,0,0.0,21.52,-21.52,-100.0,0.183
+Benjamin Bonzi,1,0,0.0,18.97,-18.97,-100.0,0.1283
+Ryan Peniston,1,0,0.0,19.97,-19.97,-100.0,0.2689
+Gijs Brouwer,1,0,0.0,19.57,-19.57,-100.0,0.3068
+Federico Coria,1,0,0.0,19.42,-19.42,-100.0,1.2459
+Dominic Thiem,1,0,0.0,20.61,-20.61,-100.0,0.5274
+Sho Shimabukuro,1,0,0.0,20.2,-20.2,-100.0,0.4257
+Dennis Novak,1,0,0.0,22.28,-22.28,-100.0,0.1028

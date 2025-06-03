@@ -1,0 +1,37 @@
+# Ignore everything in data except processed outputs and plots
+data/*
+!data/processed/
+!data/processed/**/*.csv
+!data/processed/**/*.png
+!data/processed/**/*.txt
+!data/plots/
+!data/plots/**/*.png
+!data/plots/**/*.csv
+
+# Still ignore raw and archive data
+data/raw/
+data/**/*.tar
+data/**/*.bz2
+data/**/*.zip
+
+# Ignore very large files that exceed GitHub limits
+data/processed/*frenchopen_2023*.csv
+
+# Ignore modeling artifacts unless added later
+modeling/*
+!modeling/README.md
+
+# Ignore logs and temp files
+*.tmp
+*.log
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment
+.venv/
+
+# VSCode (optional)
+.vscode/

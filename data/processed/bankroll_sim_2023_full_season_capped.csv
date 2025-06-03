@@ -1,0 +1,226 @@
+player_staked,stake,player_payout,bankroll,source_file
+Mikael Ymer,20.0,0.0,980.0,value_bets_atp_aus_open_2023_deduped.csv
+Cristian Garin,19.6,0.0,960.4,value_bets_atp_aus_open_2023_deduped.csv
+Bernabe Zapata Miralles,19.208,0.0,941.192,value_bets_atp_aus_open_2023_deduped.csv
+Daniel Altmaier,16.8513230420146,0.0,924.3406769579854,value_bets_atp_aus_open_2023_deduped.csv
+Constant Lestienne,18.48681353915971,37.34336334910261,943.1972267679282,value_bets_atp_aus_open_2023_deduped.csv
+Quentin Halys,16.633409988570044,0.0,926.5638167793581,value_bets_atp_aus_open_2023_deduped.csv
+Jason Kubler,18.53127633558716,24.461284762975055,932.493825206746,value_bets_atp_aus_open_2023_deduped.csv
+Rinky Hijikata,18.64987650413492,37.67275053835254,951.5166992409636,value_bets_atp_aus_open_2023_deduped.csv
+Borna Coric,19.030333984819272,0.0,932.4863652561443,value_bets_atp_aus_open_2023_deduped.csv
+Lorenzo Sonego,18.649727305122887,25.1771318619159,939.0137698129373,value_bets_atp_aus_open_2023_deduped.csv
+Botic Van de Zandschulp,18.780275396258748,0.0,920.2334944166786,value_bets_atp_aus_open_2023_deduped.csv
+Corentin Moutet,18.404669888333572,0.0,901.828824528345,value_bets_atp_aus_open_2023_deduped.csv
+Hubert Hurkacz,18.0365764905669,22.184989083397287,905.9772371211753,value_bets_atp_aus_open_2023_deduped.csv
+Miomir Kecmanovic,18.119544742423507,0.0,887.8576923787518,value_bets_atp_aus_open_2023_deduped.csv
+Ben Shelton,17.757153847575037,25.7478730789838,895.8484116101606,value_bets_atp_aus_open_2023_deduped.csv
+Daniel Elahi Galan,17.916968232203214,0.0,877.9314433779574,value_bets_atp_aus_open_2023_deduped.csv
+Diego Schwartzman,17.558628867559147,24.23090783723162,884.6037223476299,value_bets_atp_aus_open_2023_deduped.csv
+Laslo Djere,17.6920744469526,30.076526559819417,896.9881744604967,value_bets_atp_aus_open_2023_deduped.csv
+Benjamin Bonzi,17.939763489209934,34.803141169067274,913.851552140354,value_bets_atp_aus_open_2023_deduped.csv
+Fabio Fognini,18.27703104280708,0.0,895.574521097547,value_bets_atp_aus_open_2023_deduped.csv
+Richard Gasquet,17.91149042195094,0.0,877.663030675596,value_bets_atp_aus_open_2023_deduped.csv
+Emil Ruusuvuori,17.55326061351192,24.574564858916688,884.6843349210008,value_bets_atp_aus_open_2023_deduped.csv
+Adrian Mannarino,17.693686698420017,35.38737339684003,902.3780216194208,value_bets_atp_aus_open_2023_deduped.csv
+Nuno Borges,18.047560432388416,25.447060209667665,909.7775213967001,value_bets_atp_french_open_2023_deduped.csv
+Matteo Arnaldi,18.195550427934002,27.293325641901003,918.8752966106671,value_bets_atp_french_open_2023_deduped.csv
+Laslo Djere,18.377505932213342,0.0,900.4977906784537,value_bets_atp_french_open_2023_deduped.csv
+Sebastian Korda,18.009955813569075,26.47463504594654,908.9624699108311,value_bets_atp_french_open_2023_deduped.csv
+Jason Kubler,18.179249398216623,39.08538620616574,929.8686067187803,value_bets_atp_french_open_2023_deduped.csv
+Hubert Hurkacz,18.597372134375604,26.966189594844625,938.2374241792493,value_bets_atp_french_open_2023_deduped.csv
+Thanasi Kokkinakis,18.764748483584984,38.46773439134922,957.9404100870136,value_bets_atp_french_open_2023_deduped.csv
+Radu Albot,19.15880820174027,26.82233148243638,965.6039333677097,value_bets_atp_french_open_2023_deduped.csv
+Tallon Griekspoor,19.312078667354196,40.36224441477027,986.6540991151257,value_bets_atp_french_open_2023_deduped.csv
+Sebastian Ofner,19.733081982302515,28.02097641486957,994.9419935476928,value_bets_atp_french_open_2023_deduped.csv
+Oscar Otte,19.898839870953857,0.0,975.0431536767389,value_bets_atp_french_open_2023_deduped.csv
+Lorenzo Sonego,19.50086307353478,27.691225564419387,983.2335161676235,value_bets_atp_french_open_2023_deduped.csv
+Corentin Moutet,19.66467032335247,36.379640098202074,999.9484859424731,value_bets_atp_french_open_2023_deduped.csv
+Lucas Pouille,19.998969718849462,33.598269127667095,1013.5477853512907,value_bets_atp_french_open_2023_deduped.csv
+Mikael Ymer,20.270955707025816,0.0,993.2768296442649,value_bets_atp_french_open_2023_deduped.csv
+Tomas Martin Etcheverry,19.8655365928853,34.56603367162042,1007.977326723,value_bets_atp_french_open_2023_deduped.csv
+Yibing Wu,20.159546534460002,0.0,987.81778018854,value_bets_atp_french_open_2023_deduped.csv
+Federico Coria,19.7563556037708,0.0,968.0614245847693,value_bets_atp_french_open_2023_deduped.csv
+Juncheng Shang,19.361228491695385,0.0,948.7001960930738,value_bets_atp_french_open_2023_deduped.csv
+Aslan Karatsev,18.974003921861478,32.255806667164514,961.9819988383769,value_bets_atp_french_open_2023_deduped.csv
+Diego Schwartzman,19.23963997676754,43.86637914702998,986.6087380086393,value_bets_atp_french_open_2023_deduped.csv
+Denis Shapovalov,19.732174760172786,40.845601753557666,1007.7221650020242,value_bets_atp_french_open_2023_deduped.csv
+Ilya Ivashka,20.154443300040484,0.0,987.5677217019837,value_bets_atp_french_open_2023_deduped.csv
+Marco Cecchinato,19.751354434039676,0.0,967.8163672679441,value_bets_atp_french_open_2023_deduped.csv
+Zhizhen Zhang,19.35632734535888,48.3908183633972,996.8508582859824,value_bets_atp_french_open_2023_deduped.csv
+Pedro Cachin,19.93701716571965,41.07025536138248,1017.9840964816452,value_bets_atp_french_open_2023_deduped.csv
+Thiago Agustin Tirante,20.359681929632906,98.74445735871959,1096.368871910732,value_bets_atp_french_open_2023_deduped.csv
+Arthur Fils,21.92737743821464,0.0,1074.4414944725174,value_bets_atp_french_open_2023_deduped.csv
+Marcos Giron,21.48882988945035,46.20098426231825,1099.1536488453853,value_bets_atp_french_open_2023_deduped.csv
+Matteo Arnaldi,21.983072976907707,0.0,1077.1705758684775,value_bets_atp_french_open_2023_deduped.csv
+Nuno Borges,21.54341151736955,0.0,1055.627164351108,value_bets_atp_french_open_2023_deduped.csv
+Tallon Griekspoor,21.11254328702216,0.0,1034.5146210640858,value_bets_atp_french_open_2023_deduped.csv
+Jason Kubler,20.690292421281715,0.0,1013.8243286428041,value_bets_atp_french_open_2023_deduped.csv
+Lucas Pouille,20.276486572856083,0.0,993.5478420699479,value_bets_atp_french_open_2023_deduped.csv
+Thanasi Kokkinakis,19.87095684139896,37.953527567072015,1011.6304127956209,value_bets_atp_french_open_2023_deduped.csv
+Marcos Giron,20.23260825591242,53.616411878167916,1045.0142164178765,value_bets_atp_french_open_2023_deduped.csv
+Frances Tiafoe,20.90028432835753,40.546551597013604,1064.6604836865326,value_bets_atp_french_open_2023_deduped.csv
+Radu Albot,21.293209673730654,0.0,1043.367274012802,value_bets_atp_french_open_2023_deduped.csv
+Sebastian Ofner,20.86734548025604,51.124996426627305,1073.6249249591733,value_bets_atp_french_open_2023_deduped.csv
+Ugo Humbert,21.472498499183466,0.0,1052.1524264599898,value_bets_atp_french_open_2023_deduped.csv
+Hugo Gaston,21.043048529199798,0.0,1031.10937793079,value_bets_atp_french_open_2023_deduped.csv
+Max Purcell,20.622187558615803,43.306593873093185,1053.7937842452675,value_bets_atp_french_open_2023_deduped.csv
+Lloyd Harris,21.075875684905352,0.0,1032.717908560362,value_bets_atp_french_open_2023_deduped.csv
+Giulio Zeppieri,20.654358171207242,38.417106198445474,1050.4806565876004,value_bets_atp_french_open_2023_deduped.csv
+Miomir Kecmanovic,21.00961313175201,0.0,1029.4710434558483,value_bets_atp_french_open_2023_deduped.csv
+Tommy Paul,20.589420869116967,29.236977634146093,1038.1186002208774,value_bets_atp_french_open_2023_deduped.csv
+Giovanni Mpetshi Perricard,20.76237200441755,0.0,1017.3562282164598,value_bets_atp_french_open_2023_deduped.csv
+Richard Gasquet,20.347124564329196,0.0,997.0091036521306,value_bets_atp_french_open_2023_deduped.csv
+Timofey Skatov,19.940182073042614,0.0,977.068921579088,value_bets_atp_french_open_2023_deduped.csv
+Thiago Seyboth Wild,19.541378431581762,195.41378431581762,1152.941327463324,value_bets_atp_french_open_2023_deduped.csv
+Gregoire Barrere,23.058826549266477,0.0,1129.8825009140573,value_bets_atp_french_open_2023_deduped.csv
+Quentin Halys,22.597650018281147,0.0,1107.2848508957761,value_bets_atp_french_open_2023_deduped.csv
+Jaume Munar,22.145697017915523,0.0,1085.1391538778605,value_bets_atp_french_open_2023_deduped.csv
+Zhizhen Zhang,21.70278307755721,32.98823027788696,1096.4246010781903,value_bets_atp_french_open_2023_deduped.csv
+Emilio Nava,21.92849202156381,0.0,1074.4961090566264,value_bets_atp_us_open_2023_deduped.csv
+Titouan Droguet,21.489922181132528,139.68449417736144,1192.6906810528553,value_bets_atp_us_open_2023_deduped.csv
+Pedro Cachin,23.853813621057107,0.0,1168.8368674317983,value_bets_atp_us_open_2023_deduped.csv
+Yosuke Watanuki,23.376737348635967,0.0,1145.4601300831623,value_bets_atp_us_open_2023_deduped.csv
+Dominic Thiem,22.909202601663246,54.52390219195852,1177.0748296734575,value_bets_atp_us_open_2023_deduped.csv
+Marcos Giron,23.54149659346915,0.0,1153.5333330799883,value_bets_atp_us_open_2023_deduped.csv
+Juan Manuel Cerundolo,23.070666661599766,70.36553331787928,1200.8281997362678,value_bets_atp_us_open_2023_deduped.csv
+Dominic Stricker,24.016563994725356,57.63975358734085,1234.4513893288834,value_bets_atp_us_open_2023_deduped.csv
+Stefano Travaglia,24.689027786577668,0.0,1209.7623615423056,value_bets_atp_us_open_2023_deduped.csv
+Ethan Quinn,24.195247230846114,0.0,1185.5671143114596,value_bets_atp_us_open_2023_deduped.csv
+Jiri Vesely,23.711342286229193,63.54639732709424,1225.4021693523246,value_bets_atp_us_open_2023_deduped.csv
+Laslo Djere,24.50804338704649,60.53486716600484,1261.4289931312828,value_bets_atp_us_open_2023_deduped.csv
+Zachary Svajda,25.228579862625658,0.0,1236.2004132686573,value_bets_atp_us_open_2023_deduped.csv
+Marco Cecchinato,24.724008265373147,0.0,1211.476405003284,value_bets_atp_us_open_2023_deduped.csv
+Juan Pablo Varillas,24.229528100065682,109.03287645029557,1296.279753353514,value_bets_atp_us_open_2023_deduped.csv
+Radu Albot,25.92559506707028,0.0,1270.3541582864436,value_bets_atp_us_open_2023_deduped.csv
+Yoshihito Nishioka,25.407083165728874,0.0,1244.9470751207148,value_bets_atp_us_open_2023_deduped.csv
+Nicolas Moreno De Alboran,24.898941502414296,0.0,1220.0481336183004,value_bets_atp_us_open_2023_deduped.csv
+Taro Daniel,24.40096267236601,0.0,1195.6471709459345,value_bets_atp_us_open_2023_deduped.csv
+Ugo Humbert,23.91294341891869,0.0,1171.7342275270157,value_bets_atp_us_open_2023_deduped.csv
+Aleksandar Vukic,23.434684550540315,0.0,1148.2995429764753,value_bets_atp_us_open_2023_deduped.csv
+Michael Mmoh,22.96599085952951,51.673479433941395,1177.0070315508872,value_bets_atp_us_open_2023_deduped.csv
+Sebastian Baez,23.540140631017746,64.7353867352988,1218.2022776551682,value_bets_atp_us_open_2023_deduped.csv
+Yu Hsiou Hsu,24.364045553103367,146.1842733186202,1340.022505420685,value_bets_atp_us_open_2023_deduped.csv
+Alex Molcan,26.800450108413703,0.0,1313.2220553122713,value_bets_atp_us_open_2023_deduped.csv
+Alexander Shevchenko,26.264441106245428,0.0,1286.957614206026,value_bets_atp_us_open_2023_deduped.csv
+Corentin Moutet,25.739152284120518,0.0,1261.2184619219054,value_bets_atp_us_open_2023_deduped.csv
+Donna Vekic,25.224369238438108,34.30514216427583,1270.299234847743,value_bets_wta_aus_open_2023_deduped.csv
+Nadia Podoroska,24.181238637731354,0.0,1246.1179962100116,value_bets_wta_aus_open_2023_deduped.csv
+Viktoria Hruncakova,24.922359924200233,0.0,1221.1956362858114,value_bets_wta_french_open_2023_deduped.csv
+Marta Kostyuk,24.423912725716228,0.0,1196.771723560095,value_bets_wta_french_open_2023_deduped.csv
+Jessika Ponchet,23.9354344712019,0.0,1172.8362890888932,value_bets_wta_french_open_2023_deduped.csv
+Danielle Collins,23.456725781777862,0.0,1149.3795633071154,value_bets_wta_french_open_2023_deduped.csv
+Madison Brengle,22.98759126614231,0.0,1126.391972040973,value_bets_wta_french_open_2023_deduped.csv
+Katie Volynets,22.527839440819463,0.0,1103.8641326001537,value_bets_wta_french_open_2023_deduped.csv
+Tereza Martincova,22.077282652003074,0.0,1081.7868499481506,value_bets_wta_french_open_2023_deduped.csv
+Alycia Parks,21.63573699896301,0.0,1060.1511129491876,value_bets_wta_french_open_2023_deduped.csv
+Dalma Galfi,21.20302225898375,0.0,1038.9480906902038,value_bets_wta_french_open_2023_deduped.csv
+Elina Avanesyan,20.778961813804077,145.45273269662854,1163.6218615730284,value_bets_wta_french_open_2023_deduped.csv
+Ana Bogdan,23.272437231460568,0.0,1140.3494243415678,value_bets_wta_french_open_2023_deduped.csv
+Kaia Kanepi,22.806988486831354,0.0,1117.5424358547364,value_bets_wta_french_open_2023_deduped.csv
+Dayana Yastremska,22.350848717094728,0.0,1095.1915871376416,value_bets_wta_french_open_2023_deduped.csv
+Anna Karolina Schmiedlova,21.903831742752832,153.32682219926983,1226.6145775941586,value_bets_wta_french_open_2023_deduped.csv
+Maryna Zanevska,24.532291551883173,0.0,1202.0822860422754,value_bets_wta_french_open_2023_deduped.csv
+Katerina Siniakova,24.04164572084551,0.0,1178.04064032143,value_bets_wta_french_open_2023_deduped.csv
+Camila Giorgi,23.560812806428597,0.0,1154.4798275150013,value_bets_wta_french_open_2023_deduped.csv
+Camila Osorio,23.089596550300026,0.0,1131.3902309647012,value_bets_wta_french_open_2023_deduped.csv
+Bernarda Pera,22.627804619294025,50.91256039341155,1159.6749867388187,value_bets_wta_french_open_2023_deduped.csv
+Anna Blinkova,23.193499734776374,69.58049920432913,1206.0619862083715,value_bets_wta_french_open_2023_deduped.csv
+Kayla Day,24.12123972416743,115.78195067600366,1297.7226971602076,value_bets_wta_french_open_2023_deduped.csv
+Daria Kasatkina,25.954453943204154,77.60381729018043,1349.372060507184,value_bets_wta_french_open_2023_deduped.csv
+Danka Kovinic,26.98744121014368,0.0,1322.3846192970402,value_bets_wta_french_open_2023_deduped.csv
+Kateryna Baindl,26.447692385940805,0.0,1295.9369269110994,value_bets_wta_french_open_2023_deduped.csv
+Lucia Bronzetti,25.918738538221987,0.0,1270.0181883728774,value_bets_wta_french_open_2023_deduped.csv
+Fiona Ferro,25.40036376745755,0.0,1244.6178246054199,value_bets_wta_french_open_2023_deduped.csv
+Petra Martic,24.892356492108398,43.561623861189695,1263.2870919745012,value_bets_wta_french_open_2023_deduped.csv
+Anastasia Pavlyuchenkova,25.265741839490026,78.32379970241908,1316.3451498374302,value_bets_wta_french_open_2023_deduped.csv
+Aliona Bolsova,26.326902996748604,0.0,1290.0182468406815,value_bets_wta_french_open_2023_deduped.csv
+Bianca Andreescu,25.80036493681363,65.79093058887474,1330.0088124927427,value_bets_wta_french_open_2023_deduped.csv
+Jasmine Paolini,26.600176249854854,81.92854284955295,1385.3371790924407,value_bets_wta_french_open_2023_deduped.csv
+Clara Burel,27.706743581848816,0.0,1357.630435510592,value_bets_wta_french_open_2023_deduped.csv
+Cristina Bucsa,27.15260871021184,0.0,1330.4778268003802,value_bets_wta_us_open_2023_deduped.csv
+Clervie Ngounoue,26.609556536007602,0.0,1303.8682702643725,value_bets_wta_us_open_2023_deduped.csv
+Kamilla Rakhimova,26.077365405287452,0.0,1277.790904859085,value_bets_wta_us_open_2023_deduped.csv
+Storm Hunter,25.5558180971817,0.0,1252.2350867619034,value_bets_wta_us_open_2023_deduped.csv
+Fiona Ferro,25.044701735238068,0.0,1227.1903850266654,value_bets_wta_us_open_2023_deduped.csv
+Olivia Gadecki,22.05083097090322,0.0,1205.1395540557621,value_bets_wta_us_open_2023_deduped.csv
+Linda Fruhvirtova,24.102791081115242,0.0,1181.036762974647,value_bets_wta_us_open_2023_deduped.csv
+Nadia Podoroska,23.62073525949294,0.0,1157.416027715154,value_bets_wta_us_open_2023_deduped.csv
+Lucia Bronzetti,23.148320554303083,111.1119386606548,1245.3796458215058,value_bets_wta_us_open_2023_deduped.csv
+Arantxa Rus,24.90759291643012,0.0,1220.4720529050758,value_bets_wta_us_open_2023_deduped.csv
+Claire Liu,24.409441058101518,0.0,1196.0626118469743,value_bets_wta_us_open_2023_deduped.csv
+Camila Giorgi,23.921252236939488,0.0,1172.141359610035,value_bets_wta_us_open_2023_deduped.csv
+Alycia Parks,23.4428271922007,0.0,1148.6985324178343,value_bets_wta_us_open_2023_deduped.csv
+Patricia Maria Tig,22.973970648356687,143.58731655222928,1269.311878321707,value_bets_wta_us_open_2023_deduped.csv
+Nadia Podoroska,25.38623756643414,85.04389584755437,1328.969536602827,value_bets_wta_wimbledon_2023_deduped.csv
+Jil Teichmann,26.57939073205654,0.0,1302.3901458707705,value_bets_wta_wimbledon_2023_deduped.csv
+Claire Liu,26.04780291741541,0.0,1276.3423429533552,value_bets_wta_wimbledon_2023_deduped.csv
+Cristina Bucsa,25.526846859067106,43.65090812900475,1294.4664042232928,value_bets_wta_wimbledon_2023_deduped.csv
+Ana Bogdan,25.889328084465856,84.14031627451403,1352.717392413341,value_bets_wta_wimbledon_2023_deduped.csv
+Kaia Kanepi,27.054347848266822,0.0,1325.6630445650742,value_bets_wta_wimbledon_2023_deduped.csv
+Diane Parry,26.513260891301485,88.81942398585997,1387.9692076596327,value_bets_wta_wimbledon_2023_deduped.csv
+Kateryna Baindl,27.759384153192656,0.0,1360.20982350644,value_bets_wta_wimbledon_2023_deduped.csv
+Martina Trevisan,27.2041964701288,0.0,1333.0056270363111,value_bets_wta_wimbledon_2023_deduped.csv
+Mayar Sherif,26.660112540726224,0.0,1306.345514495585,value_bets_wta_wimbledon_2023_deduped.csv
+Katerina Siniakova,26.1269102899117,52.2538205798234,1332.4724247854965,value_bets_wta_wimbledon_2023_deduped.csv
+Belinda Bencic,26.64944849570993,39.44118377365069,1345.2641600634372,value_bets_wta_wimbledon_2023_deduped.csv
+Caroline Dolehide,26.905283201268745,0.0,1318.3588768621685,value_bets_wta_wimbledon_2023_deduped.csv
+Anna Blinkova,26.36717753724337,54.052713951348906,1346.044413276274,value_bets_wta_wimbledon_2023_deduped.csv
+Greet Minnen,26.920888265525484,0.0,1319.1235250107486,value_bets_wta_wimbledon_2023_deduped.csv
+Jule Niemeier,26.38247050021497,96.29601732578465,1389.0370718363183,value_bets_wta_wimbledon_2023_deduped.csv
+Anna Bondar,27.780741436726366,0.0,1361.256330399592,value_bets_wta_wimbledon_2023_deduped.csv
+Jaqueline Cristian,27.22512660799184,100.73296844956981,1434.76417224117,value_bets_wta_wimbledon_2023_deduped.csv
+Dalma Galfi,28.6952834448234,85.22499183112551,1491.293880627472,value_bets_wta_wimbledon_2023_deduped.csv
+Alycia Parks,29.82587761254944,0.0,1461.4680030149225,value_bets_wta_wimbledon_2023_deduped.csv
+Anett Kontaveit,29.22936006029845,45.01321449285962,1477.2518574474836,value_bets_wta_wimbledon_2023_deduped.csv
+Rebecca Peterson,29.545037148949675,0.0,1447.706820298534,value_bets_wta_wimbledon_2023_deduped.csv
+Daria Saville,28.95413640597068,0.0,1418.7526838925633,value_bets_wta_wimbledon_2023_deduped.csv
+Jasmine Paolini,28.375053677851266,0.0,1390.377630214712,value_bets_wta_wimbledon_2023_deduped.csv
+Magdalena Frech,27.807552604294244,0.0,1362.570077610418,value_bets_wta_wimbledon_2023_deduped.csv
+Anna Karolina Schmiedlova,27.25140155220836,0.0,1335.3186760582096,value_bets_wta_wimbledon_2023_deduped.csv
+Sorana Cirstea,26.706373521164192,48.33853607330719,1356.9508386103525,value_bets_wta_wimbledon_2023_deduped.csv
+Aslan Karatsev,27.13901677220705,47.76466951908441,1377.57649135723,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Brandon Nakashima,27.551529827144602,0.0,1350.0249615300854,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Juan Pablo Varillas,27.000499230601708,0.0,1323.0244622994837,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Borna Gojo,26.460489245989674,0.0,1296.563973053494,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Constant Lestienne,25.93127946106988,0.0,1270.6326935924242,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Corentin Moutet,25.412653871848484,60.990369292436355,1306.210409013012,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jaume Munar,26.12420818026024,83.07498201322757,1363.1611828459793,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Pedro Cachin,0.0,0.0,1363.1611828459793,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Casper Ruud,27.263223656919585,33.53376509801109,1369.431724287071,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Aleksandar Vukic,27.38863448574142,40.535179038897304,1382.5782688402269,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Alex Molcan,27.651565376804538,0.0,1354.9267034634224,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Alexander Bublik,27.09853406926845,37.937947696975826,1365.76611709113,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Daniel Elahi Galan,27.315322341822597,56.815870470991,1395.2666652202984,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Diego Schwartzman,27.905333304405968,76.73966658711642,1444.100998503009,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Dominik Koepfer,28.882019970060178,0.0,1415.2189785329488,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Dusan Lajovic,28.304379570658977,0.0,1386.9145989622898,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Roberto Bautista Agut,27.738291979245798,0.0,1359.176306983044,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Daniel Evans,27.18352613966088,0.0,1331.9927808433831,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Emil Ruusuvuori,26.639855616867663,0.0,1305.3529252265155,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Benjamin Bonzi,26.10705850453031,0.0,1279.245866721985,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Bernabe Zapata Miralles,25.5849173344397,0.0,1253.6609493875453,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Borna Coric,25.073218987750906,0.0,1228.5877303997945,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Gregoire Barrere,24.571754607995892,46.686333755192194,1250.7023095469908,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Taylor Fritz,25.014046190939816,31.267557738674768,1256.9558210947257,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Juan Manuel Cerundolo,0.0,0.0,1256.9558210947257,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Alejandro Davidovich Fokina,25.139116421894514,40.47397743925017,1272.2906821120814,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Alexandre Muller,25.445813642241628,106.87241729741484,1353.7172857672547,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Arthur Fery,27.074345715345093,0.0,1326.6429400519096,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Ben Shelton,26.53285880103819,37.67665949747423,1337.7867407483457,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Botic Van De Zandschulp,26.755734814966914,43.611847748396066,1354.6428536817748,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jeremy Chardy,0.0,0.0,1354.6428536817748,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Christopher Eubanks,27.092857073635496,35.76257133719886,1363.312567945338,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Dennis Novak,27.26625135890676,0.0,1336.0463165864312,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Dominic Thiem,26.720926331728624,0.0,1309.3253902547026,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Federico Coria,26.186507805094053,0.0,1283.1388824496084,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Francisco Cerundolo,25.66277764899217,33.87486649666966,1291.350971297286,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Hugo Dellien,25.827019425945718,0.0,1265.5239518713402,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jason Kubler,25.310479037426802,63.276197593567005,1303.4896704274804,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jiri Lehecka,26.069793408549607,40.1474818491664,1317.5673588680972,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jiri Vesely,26.351347177361944,171.28375665285265,1462.499768343588,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Laslo Djere,29.249995366871758,65.81248957546146,1499.0622625521776,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Lorenzo Sonego,29.981245251043553,0.0,1469.0810173011341,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Marton Fucsovics,29.381620346022682,59.35087309896582,1499.0502700540774,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Sho Shimabukuro,0.0,0.0,1499.0502700540774,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Jordan Thompson,29.981005401081546,0.0,1469.0692646529958,value_bets_atp_wimbledon_2023_deduped_capped.csv
+Maximilian Marterer,29.381385293059918,54.35556279216085,1494.0434421520968,value_bets_atp_wimbledon_2023_deduped_capped.csv

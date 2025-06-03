@@ -1,0 +1,3 @@
+match,side,odds,ev,stake,win,profit,player_staked,player_payout,bankroll
+Donna Vekic vs Oksana Selekhmeteva,p1,1.36,0.0531468844490046,20.0,True,7.200000000000003,Donna Vekic,27.200000000000003,1007.2
+Nadia Podoroska vs Victoria Azarenka,p1,8.77,0.1479086336989667,19.172918386306222,False,-19.172918386306222,Nadia Podoroska,0.0,988.0270816136938

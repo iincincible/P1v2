@@ -1,0 +1,461 @@
+market_id,snapshot_date,match_date,winner,loser,player_1,player_2,odds_player_1_x,odds_player_2_x,implied_prob_1,implied_prob_2,bookmaker,actual_winner,p1_is_winner,p2_is_winner,odds_player_1_y,odds_player_2_y
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208566501,2023-01-17,2023-01-16,Thanasi Kokkinakis,Fabio Fognini,Thanasi Kokkinakis,Fabio Fognini,,,,,,Thanasi Kokkinakis,True,False,190.0,190.0
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567626,2023-01-17,2023-01-16,Ugo Humbert,Richard Gasquet,Richard Gasquet,Ugo Humbert,,,,,,Ugo Humbert,False,True,2.12,2.12
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567706,2023-01-17,2023-01-16,Adrian Mannarino,John Isner,John Isner,Adrian Mannarino,,,,,,Adrian Mannarino,False,True,1.39,1.39
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208567721,2023-01-17,2023-01-16,Roberto Bautista Agut,Joao Sousa,Joao Sousa,Roberto Bautista Agut,,,,,,Roberto Bautista Agut,False,True,1.04,1.04
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575184,2023-01-17,2023-01-16,Emil Ruusuvuori,Max Purcell,Max Purcell,Emil Ruusuvuori,,,,,,Emil Ruusuvuori,False,True,1.27,1.27
+1.208575032,2023-01-17,2023-01-16,Enzo Couacaud,Hugo Dellien,Enzo Couacaud,Hugo Dellien,,,,,,Enzo Couacaud,True,False,1.16,1.16
+1.208575032,2023-01-17,2023-01-16,Enzo Couacaud,Hugo Dellien,Enzo Couacaud,Hugo Dellien,,,,,,Enzo Couacaud,True,False,1.16,1.16
+1.208575032,2023-01-17,2023-01-16,Enzo Couacaud,Hugo Dellien,Enzo Couacaud,Hugo Dellien,,,,,,Enzo Couacaud,True,False,1.16,1.16
+1.208575032,2023-01-17,2023-01-16,Enzo Couacaud,Hugo Dellien,Enzo Couacaud,Hugo Dellien,,,,,,Enzo Couacaud,True,False,1.16,1.16
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.208575051,2023-01-17,2023-01-16,Brandon Holt,Aleksandar Vukic,Aleksandar Vukic,Brandon Holt,,,,,,Brandon Holt,False,True,100.0,100.0
+1.2087433,2023-01-17,2023-01-16,Francisco Cerundolo,Corentin Moutet,Francisco Cerundolo,Corentin Moutet,,,,,,Francisco Cerundolo,True,False,1.01,1.01
+1.2087433,2023-01-17,2023-01-16,Francisco Cerundolo,Corentin Moutet,Francisco Cerundolo,Corentin Moutet,,,,,,Francisco Cerundolo,True,False,1.01,1.01
+1.208744242,2023-01-17,2023-01-16,Denis Kudla,Roman Safiullin,Denis Kudla,Roman Safiullin,,,,,,Denis Kudla,True,False,1.01,1.01
+1.208744242,2023-01-17,2023-01-16,Denis Kudla,Roman Safiullin,Denis Kudla,Roman Safiullin,,,,,,Denis Kudla,True,False,1.01,1.01
+1.208744242,2023-01-17,2023-01-16,Denis Kudla,Roman Safiullin,Denis Kudla,Roman Safiullin,,,,,,Denis Kudla,True,False,1.01,1.01
+1.208744242,2023-01-17,2023-01-16,Denis Kudla,Roman Safiullin,Denis Kudla,Roman Safiullin,,,,,,Denis Kudla,True,False,1.01,1.01
+1.208747651,2023-01-17,2023-01-16,Hubert Hurkacz,Lorenzo Sonego,Hubert Hurkacz,Lorenzo Sonego,,,,,,Hubert Hurkacz,True,False,4.3,4.3
+1.208747651,2023-01-17,2023-01-16,Hubert Hurkacz,Lorenzo Sonego,Hubert Hurkacz,Lorenzo Sonego,,,,,,Hubert Hurkacz,True,False,4.3,4.3
+1.208755553,2023-01-16,2023-01-16,Daniil Medvedev,John Millman,John Millman,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,1.03,1.03
+1.208755553,2023-01-16,2023-01-16,Daniil Medvedev,John Millman,John Millman,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,1.03,1.03
+1.208567554,2023-01-17,2023-01-16,Pablo Carreno Busta,Pedro Cachin,Pablo Carreno Busta,Pedro Cachin,,,,,,Pablo Carreno Busta,True,False,1.1,1.1
+1.208567554,2023-01-17,2023-01-16,Pablo Carreno Busta,Pedro Cachin,Pablo Carreno Busta,Pedro Cachin,,,,,,Pablo Carreno Busta,True,False,1.1,1.1
+1.208567554,2023-01-17,2023-01-16,Pablo Carreno Busta,Pedro Cachin,Pablo Carreno Busta,Pedro Cachin,,,,,,Pablo Carreno Busta,True,False,1.1,1.1
+1.208567554,2023-01-17,2023-01-16,Pablo Carreno Busta,Pedro Cachin,Pablo Carreno Busta,Pedro Cachin,,,,,,Pablo Carreno Busta,True,False,1.1,1.1
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567596,2023-01-17,2023-01-16,Jeremy Chardy,Daniel Elahi Galan,Daniel Elahi Galan,Jeremy Chardy,,,,,,Jeremy Chardy,False,True,8.6,8.6
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567602,2023-01-17,2023-01-16,Alejandro Davidovich Fokina,Alexander Bublik,Alejandro Davidovich Fokina,Alexander Bublik,,,,,,Alejandro Davidovich Fokina,True,False,1.01,1.01
+1.208567614,2023-01-17,2023-01-16,Ben Shelton,Zhizhen Zhang,Ben Shelton,Zhizhen Zhang,,,,,,Ben Shelton,True,False,1.49,1.49
+1.208567614,2023-01-17,2023-01-16,Ben Shelton,Zhizhen Zhang,Ben Shelton,Zhizhen Zhang,,,,,,Ben Shelton,True,False,1.49,1.49
+1.208567614,2023-01-17,2023-01-16,Ben Shelton,Zhizhen Zhang,Ben Shelton,Zhizhen Zhang,,,,,,Ben Shelton,True,False,1.49,1.49
+1.208567614,2023-01-17,2023-01-16,Ben Shelton,Zhizhen Zhang,Ben Shelton,Zhizhen Zhang,,,,,,Ben Shelton,True,False,1.49,1.49
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208566513,2023-01-17,2023-01-16,Andrey Rublev,Dominic Thiem,Andrey Rublev,Dominic Thiem,,,,,,Andrey Rublev,True,False,4.2,4.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567757,2023-01-17,2023-01-16,Holger Rune,Filip Krajinovic,Filip Krajinovic,Holger Rune,,,,,,Holger Rune,False,True,1.2,1.2
+1.208567769,2023-01-17,2023-01-16,Daniel Evans,Facundo Bagnis,Facundo Bagnis,Daniel Evans,,,,,,Daniel Evans,False,True,7.6,7.6
+1.208567769,2023-01-17,2023-01-16,Daniel Evans,Facundo Bagnis,Facundo Bagnis,Daniel Evans,,,,,,Daniel Evans,False,True,7.6,7.6
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208566495,2023-01-17,2023-01-16,Novak Djokovic,Roberto Carballes Baena,Roberto Carballes Baena,Novak Djokovic,,,,,,Novak Djokovic,False,True,34.0,34.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208567805,2023-01-17,2023-01-16,Casper Ruud,Tomas Machac,Tomas Machac,Casper Ruud,,,,,,Casper Ruud,False,True,190.0,190.0
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208566507,2023-01-17,2023-01-16,Andy Murray,Matteo Berrettini,Matteo Berrettini,Andy Murray,,,,,,Andy Murray,False,True,1.01,1.01
+1.208567811,2023-01-17,2023-01-16,Grigor Dimitrov,Aslan Karatsev,Grigor Dimitrov,Aslan Karatsev,,,,,,Grigor Dimitrov,True,False,3.35,3.35
+1.208567811,2023-01-17,2023-01-16,Grigor Dimitrov,Aslan Karatsev,Grigor Dimitrov,Aslan Karatsev,,,,,,Grigor Dimitrov,True,False,3.35,3.35
+1.208567811,2023-01-17,2023-01-16,Grigor Dimitrov,Aslan Karatsev,Grigor Dimitrov,Aslan Karatsev,,,,,,Grigor Dimitrov,True,False,3.35,3.35
+1.208567811,2023-01-17,2023-01-16,Grigor Dimitrov,Aslan Karatsev,Grigor Dimitrov,Aslan Karatsev,,,,,,Grigor Dimitrov,True,False,3.35,3.35
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208567829,2023-01-17,2023-01-16,Taylor Fritz,Nikoloz Basilashvili,Taylor Fritz,Nikoloz Basilashvili,,,,,,Taylor Fritz,True,False,23.0,23.0
+1.208575178,2023-01-17,2023-01-16,Benjamin Bonzi,Mattia Bellucci,Mattia Bellucci,Benjamin Bonzi,,,,,,Benjamin Bonzi,False,True,1.43,1.43
+1.208575178,2023-01-17,2023-01-16,Benjamin Bonzi,Mattia Bellucci,Mattia Bellucci,Benjamin Bonzi,,,,,,Benjamin Bonzi,False,True,1.43,1.43
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575685,2023-01-17,2023-01-16,Laslo Djere,Zizou Bergs,Zizou Bergs,Laslo Djere,,,,,,Laslo Djere,False,True,2.9,2.9
+1.208575678,2023-01-17,2023-01-16,Alex De Minaur,Yu Hsiou Hsu,Yu Hsiou Hsu,Alex De Minaur,,,,,,Alex De Minaur,False,True,1.06,1.06
+1.208575678,2023-01-17,2023-01-16,Alex De Minaur,Yu Hsiou Hsu,Yu Hsiou Hsu,Alex De Minaur,,,,,,Alex De Minaur,False,True,1.06,1.06
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208575057,2023-01-17,2023-01-16,Nicolas Jarry,Miomir Kecmanovic,Nicolas Jarry,Miomir Kecmanovic,,,,,,Nicolas Jarry,True,False,75.0,75.0
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.208595656,2023-01-17,2023-01-16,Alexander Zverev,Juan Pablo Varillas,Juan Pablo Varillas,Alexander Zverev,,,,,,Alexander Zverev,False,True,1.01,1.01
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20857502,2023-01-17,2023-01-16,Diego Schwartzman,Oleksii Krutykh,Diego Schwartzman,Oleksii Krutykh,,,,,,Diego Schwartzman,True,False,8.6,8.6
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.20856756,2023-01-16,2023-01-16,Marton Fucsovics,Federico Coria,Federico Coria,Marton Fucsovics,,,,,,Marton Fucsovics,False,True,1.16,1.16
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.208567584,2023-01-16,2023-01-16,Jannik Sinner,Kyle Edmund,Kyle Edmund,Jannik Sinner,,,,,,Jannik Sinner,False,True,1.04,1.04
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856759,2023-01-16,2023-01-16,Denis Shapovalov,Dusan Lajovic,Dusan Lajovic,Denis Shapovalov,,,,,,Denis Shapovalov,False,True,1.13,1.13
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.20856762,2023-01-16,2023-01-16,Jason Kubler,Sebastian Baez,Sebastian Baez,Jason Kubler,,,,,,Jason Kubler,False,True,1.36,1.36
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.2085677,2023-01-16,2023-01-16,Karen Khachanov,Bernabe Zapata Miralles,Karen Khachanov,Bernabe Zapata Miralles,,,,,,Karen Khachanov,True,False,1.07,1.07
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567763,2023-01-16,2023-01-16,Mackenzie Mcdonald,Brandon Nakashima,Brandon Nakashima,Mackenzie McDonald,,,,,,Mackenzie Mcdonald,False,False,1.49,1.49
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567775,2023-01-16,2023-01-16,Tomas Martin Etcheverry,Gregoire Barrere,Tomas Martin Etcheverry,Gregoire Barrere,,,,,,Tomas Martin Etcheverry,True,False,1.05,1.05
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567781,2023-01-16,2023-01-16,Constant Lestienne,Thiago Monteiro,Thiago Monteiro,Constant Lestienne,,,,,,Constant Lestienne,False,True,2.2,2.2
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567787,2023-01-16,2023-01-16,Daniil Medvedev,Marcos Giron,Marcos Giron,Daniil Medvedev,,,,,,Daniil Medvedev,False,True,23.0,23.0
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567542,2023-01-16,2023-01-16,Cameron Norrie,Luca Van Assche,Cameron Norrie,Luca Van Assche,,,,,,Cameron Norrie,True,False,1.08,1.08
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567799,2023-01-16,2023-01-16,Yoshihito Nishioka,Mikael Ymer,Mikael Ymer,Yoshihito Nishioka,,,,,,Yoshihito Nishioka,False,True,1.8,1.8
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567817,2023-01-16,2023-01-16,Lloyd Harris,Lorenzo Musetti,Lorenzo Musetti,Lloyd Harris,,,,,,Lloyd Harris,False,True,1.38,1.38
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567823,2023-01-16,2023-01-16,Alex Molcan,Stan Wawrinka,Alex Molcan,Stan Wawrinka,,,,,,Alex Molcan,True,False,11.5,11.5
+1.208567841,2023-01-16,2023-01-16,Francisco Cerundolo,Guido Pella,Francisco Cerundolo,Guido Pella,,,,,,Francisco Cerundolo,True,False,1.19,1.19
+1.208567841,2023-01-16,2023-01-16,Francisco Cerundolo,Guido Pella,Francisco Cerundolo,Guido Pella,,,,,,Francisco Cerundolo,True,False,1.19,1.19
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567847,2023-01-16,2023-01-16,Corentin Moutet,Yibing Wu,Corentin Moutet,Yibing Wu,,,,,,Corentin Moutet,True,False,21.0,21.0
+1.208567853,2023-01-15,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-15,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567853,2023-01-16,2023-01-16,Stefanos Tsitsipas,Quentin Halys,Stefanos Tsitsipas,Quentin Halys,,,,,,Stefanos Tsitsipas,True,False,1.01,1.01
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567859,2023-01-16,2023-01-16,Lorenzo Sonego,Nuno Borges,Lorenzo Sonego,Nuno Borges,,,,,,Lorenzo Sonego,True,False,1.32,1.32
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567865,2023-01-16,2023-01-16,Sebastian Korda,Cristian Garin,Sebastian Korda,Cristian Garin,,,,,,Sebastian Korda,True,False,11.0,11.0
+1.208567871,2023-01-16,2023-01-16,Hubert Hurkacz,Pedro Martinez,Hubert Hurkacz,Pedro Martinez,,,,,,Hubert Hurkacz,True,False,1.05,1.05
+1.208567871,2023-01-16,2023-01-16,Hubert Hurkacz,Pedro Martinez,Hubert Hurkacz,Pedro Martinez,,,,,,Hubert Hurkacz,True,False,1.05,1.05
+1.208567871,2023-01-16,2023-01-16,Hubert Hurkacz,Pedro Martinez,Hubert Hurkacz,Pedro Martinez,,,,,,Hubert Hurkacz,True,False,1.05,1.05
+1.208567871,2023-01-16,2023-01-16,Hubert Hurkacz,Pedro Martinez,Hubert Hurkacz,Pedro Martinez,,,,,,Hubert Hurkacz,True,False,1.05,1.05
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567877,2023-01-16,2023-01-16,Frances Tiafoe,Daniel Altmaier,Daniel Altmaier,Frances Tiafoe,,,,,,Frances Tiafoe,False,True,12.5,12.5
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567889,2023-01-16,2023-01-16,Botic Van De Zandschulp,Ilya Ivashka,Ilya Ivashka,Botic Van de Zandschulp,,,,,,Botic Van De Zandschulp,False,False,75.0,75.0
+1.208567895,2023-01-16,2023-01-16,Rafael Nadal,Jack Draper,Rafael Nadal,Jack Draper,,,,,,Rafael Nadal,True,False,1.42,1.42
+1.208567895,2023-01-16,2023-01-16,Rafael Nadal,Jack Draper,Rafael Nadal,Jack Draper,,,,,,Rafael Nadal,True,False,1.42,1.42
+1.208567895,2023-01-16,2023-01-16,Rafael Nadal,Jack Draper,Rafael Nadal,Jack Draper,,,,,,Rafael Nadal,True,False,1.42,1.42
+1.208567895,2023-01-16,2023-01-16,Rafael Nadal,Jack Draper,Rafael Nadal,Jack Draper,,,,,,Rafael Nadal,True,False,1.42,1.42
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575164,2023-01-16,2023-01-16,Juncheng Shang,Oscar Otte,Oscar Otte,Juncheng Shang,,,,,,Juncheng Shang,False,True,4.5,4.5
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575172,2023-01-16,2023-01-16,Dalibor Svrcina,Jaume Munar,Jaume Munar,Dalibor Svrcina,,,,,,Dalibor Svrcina,False,True,2.98,2.98
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575045,2023-01-16,2023-01-16,Rinky Hijikata,Yannick Hanfmann,Yannick Hanfmann,Rinky Hijikata,,,,,,Rinky Hijikata,False,True,29.0,29.0
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575421,2023-01-16,2023-01-16,Yosuke Watanuki,Arthur Rinderknech,Yosuke Watanuki,Arthur Rinderknech,,,,,,Yosuke Watanuki,True,False,2.34,2.34
+1.208575414,2023-01-16,2023-01-16,Tallon Griekspoor,Pavel Kotov,Tallon Griekspoor,Pavel Kotov,,,,,,Tallon Griekspoor,True,False,100.0,100.0
+1.208575414,2023-01-16,2023-01-16,Tallon Griekspoor,Pavel Kotov,Tallon Griekspoor,Pavel Kotov,,,,,,Tallon Griekspoor,True,False,100.0,100.0
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
+1.208575026,2023-01-16,2023-01-16,Taro Daniel,Ernesto Escobedo,Ernesto Escobedo,Taro Daniel,,,,,,Taro Daniel,False,True,2.78,2.78
