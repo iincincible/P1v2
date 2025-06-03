@@ -1,28 +1,55 @@
 import argparse
 import pandas as pd
 
+def detect_value_bets(input_csv, output_csv, max_odds=10.0, max_margin=0.10):
+    df = pd.read_csv(input_csv, low_memory=False)
+
+    # Derive missing columns
+    df["pred_prob_1"] = df["pred_prob_player_1"]
+    df["pred_prob_2"] = 1 - df["pred_prob_1"]
+
+    # Compute expected value for each player
+    for i in [1, 2]:
+        prob_col = f"pred_prob_{i}"
+        odds_col = f"odds_player_{i}"
+        df[f"ev_player_{i}"] = df[prob_col] * (df[odds_col] - 1) - (1 - df[prob_col])
+
+    # Filter bets by margin and odds quality
+    df = df[df["odds_margin"] <= max_margin]
+    df = df[(df["odds_player_1"] <= max_odds) & (df["odds_player_2"] <= max_odds)]
+
+    # Stack into long format
+    rows = []
+    for i in [1, 2]:
+        rows.append(df.assign(
+            player=df[f"player_{i}"],
+            predicted_prob=df[f"pred_prob_{i}"],
+            odds=df[f"odds_player_{i}"],
+            expected_value=df[f"ev_player_{i}"],
+            winner=(df["actual_winner"] == df[f"player_{i}"]),
+        )[["player", "predicted_prob", "odds", "expected_value", "winner"]])
+
+    bets = pd.concat(rows, ignore_index=True)
+    bets = bets[bets["expected_value"] > 0]
+    bets = bets.sort_values("expected_value", ascending=False)
+
+    bets.to_csv(output_csv, index=False)
+    print(f"✅ Saved value bet candidates to {output_csv}")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--max_odds", type=float, default=10.0)
+    parser.add_argument("--max_margin", type=float, default=0.10)
     args = parser.parse_args()
 
-    df = pd.read_csv(args.input_csv)
-
-    # Core columns
-    df["odds_player_1"] = pd.to_numeric(df["odds_player_1"], errors="coerce")
-    df["odds_player_2"] = pd.to_numeric(df["odds_player_2"], errors="coerce")
-    df["pred_prob_player_1"] = pd.to_numeric(df["pred_prob_player_1"], errors="coerce")
-
-    # EV calculation
-    df["ev_p1_model"] = df["pred_prob_player_1"] * df["odds_player_1"] - 1
-    df["ev_p2_model"] = (1 - df["pred_prob_player_1"]) * df["odds_player_2"] - 1
-
-    # ✅ Add for compatibility with bankroll sim
-    df["p_model"] = df["pred_prob_player_1"]
-
-    df.to_csv(args.output_csv, index=False)
-    print(f"✅ Saved value bet candidates to {args.output_csv}")
+    detect_value_bets(
+        input_csv=args.input_csv,
+        output_csv=args.output_csv,
+        max_odds=args.max_odds,
+        max_margin=args.max_margin
+    )
 
 if __name__ == "__main__":
     main()
