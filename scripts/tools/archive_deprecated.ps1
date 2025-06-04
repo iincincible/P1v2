@@ -1,29 +1,24 @@
-# Create archive folder if it doesn't exist
-$archiveDir = "scripts/archive"
-if (!(Test-Path $archiveDir)) {
-    New-Item -ItemType Directory -Path $archiveDir
+$archivedFolder = "C:\Users\lucap\Projects\P1v2\scripts\archive"
+
+# Ensure the archive folder exists
+if (-not (Test-Path $archivedFolder)) {
+    New-Item -ItemType Directory -Path $archivedFolder | Out-Null
 }
 
-# Move deprecated or redundant scripts into archive
-$toArchive = @(
-    "fuzzy_repair_selection_ids.py",
-    "merge_sackmann_with_snapshots.py",
-    "merge_snapshots_and_results.py",
-    "manual_value_bet_detector.py",
-    "build_clean_matches_temp.py",
-    "merge_snapshots_temp.py",
-    "deprecated_train_model.py",
-    "debug_ev_bins_old.py",
-    "scan_snapshot_files_temp.py"
+# List of deprecated builder scripts
+$deprecatedScripts = @(
+    "merge_ltps_by_ids.py",
+    "merge_ltps_into_repaired_matches.py"
 )
 
-foreach ($script in $toArchive) {
-    $sourcePath = "scripts/$script"
-    $destinationPath = "$archiveDir/$script"
-    if (Test-Path $sourcePath) {
-        Move-Item $sourcePath $destinationPath -Force
-        Write-Host "Moved $script to archive/"
+# Move each script to the archive folder
+foreach ($script in $deprecatedScripts) {
+    $source = "C:\Users\lucap\Projects\P1v2\scripts\builders\$script"
+    $destination = Join-Path $archivedFolder $script
+    if (Test-Path $source) {
+        Move-Item $source $destination
+        Write-Host "✅ Archived $script"
     } else {
-        Write-Host "$script not found, skipping."
+        Write-Host "⚠️ Not found: $script"
     }
 }

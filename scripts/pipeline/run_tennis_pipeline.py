@@ -1,107 +1,105 @@
 import argparse
 import subprocess
 from pathlib import Path
+import yaml
 
-def run_pipeline(tour, start_date, end_date, label):
+def run_pipeline(config):
     PYTHON = ".venv/Scripts/python.exe"
 
-    # File paths
+    label = config["label"]
     base = f"data/processed/{label}"
-    snapshots_csv = "parsed/betfair_tennis_snapshots.csv"
-    match_csv = f"data/tennis_{tour.lower()}/{tour.lower()}_matches_2023.csv"
+    snapshots_csv = config["snapshots_csv"]
+    sackmann_csv = config.get("sackmann_csv")
+    alias_csv = config.get("alias_csv")
+    fuzzy = config.get("fuzzy_match", False)
+    snapshot_only = config.get("snapshot_only", False)
+
     merged_csv = f"{base}_merged.csv"
-    ids_csv = f"{base}_ids.csv"
-    patched_csv = f"{base}_patched.csv"
-    features_csv = f"{base}_features.csv"
-    preds_csv = f"{base}_predictions.csv"
-    value_csv = f"{base}_value_bets.csv"
-    sim_csv = f"modeling/{label}_bankroll.csv"
-    player_roi_csv = f"modeling/{label}_player_roi.csv"
-    matchup_roi_csv = f"modeling/{label}_matchup_roi.csv"
-    bankroll_plot = f"data/plots/bankroll_curves/bankroll_{label}.png"
 
-    subprocess.run([
-        PYTHON, "scripts/parse_betfair_snapshots.py",
-        "--input_dir", "data/BASIC/",
-        "--output_csv", snapshots_csv,
-        "--start_date", start_date,
-        "--end_date", end_date,
-        "--mode", "full"
-    ], check=True)
-
-    subprocess.run([
-        PYTHON, "scripts/merge_sackmann_with_snapshots.py",
-        "--match_csv", match_csv,
+    # Step 1: Build clean matches
+    builder_cmd = [
+        PYTHON, "scripts/builders/build_clean_matches_generic.py",
+        "--tour", config["tour"],
+        "--tournament", config["tournament"],
+        "--year", str(config["year"]),
         "--snapshots_csv", snapshots_csv,
-        "--ltps_csv", snapshots_csv,
         "--output_csv", merged_csv
-    ], check=True)
+    ]
+    if sackmann_csv and not snapshot_only:
+        builder_cmd += ["--sackmann_csv", sackmann_csv]
+    if snapshot_only:
+        builder_cmd.append("--snapshot_only")
+    if fuzzy:
+        builder_cmd.append("--fuzzy_match")
+    if alias_csv:
+        builder_cmd += ["--alias_csv", alias_csv]
 
+    subprocess.run(builder_cmd, check=True)
+
+    # Step 2: Match selection IDs
+    ids_csv = f"{base}_ids.csv"
     subprocess.run([
-        PYTHON, "scripts/match_selection_ids.py",
+        PYTHON, "scripts/pipeline/match_selection_ids.py",
         "--merged_csv", merged_csv,
         "--snapshots_csv", snapshots_csv,
-        "--output_csv", ids_csv,
-        "--method", "jaro_winkler",
-        "--fuzzy_threshold", "0.85"
+        "--output_csv", ids_csv
     ], check=True)
 
+    # Step 3: Merge final LTPs
+    patched_csv = f"{base}_with_odds.csv"
     subprocess.run([
-        PYTHON, "scripts/merge_ltps_by_ids.py",
-        "--merged_csv", ids_csv,
-        "--ltps_csv", snapshots_csv,
+        PYTHON, "scripts/builders/merge_final_ltps_into_matches.py",
+        "--match_csv", ids_csv,
+        "--snapshots_csv", snapshots_csv,
         "--output_csv", patched_csv
     ], check=True)
 
+    # Step 4: Build odds features
+    features_csv = f"{base}_features.csv"
     subprocess.run([
-        PYTHON, "scripts/build_odds_features.py",
+        PYTHON, "scripts/pipeline/build_odds_features.py",
         "--input_csv", patched_csv,
-        "--output_csv", features_csv,
-        "--cap", "10.0"
+        "--output_csv", features_csv
     ], check=True)
 
+    # Step 5: Train win model
+    preds_csv = f"{base}_predictions.csv"
     subprocess.run([
-        PYTHON, "scripts/train_win_model_from_odds.py",
+        PYTHON, "scripts/pipeline/train_win_model_from_odds.py",
         "--input_csv", features_csv,
         "--output_csv", preds_csv
     ], check=True)
 
+    # Step 6: Detect value bets
+    value_csv = f"{base}_value_bets.csv"
     subprocess.run([
-        PYTHON, "scripts/detect_value_bets.py",
+        PYTHON, "scripts/pipeline/detect_value_bets.py",
         "--input_csv", preds_csv,
         "--output_csv", value_csv
     ], check=True)
 
+    # Step 7: Simulate bankroll growth
+    bankroll_csv = f"modeling/{label}_bankroll.csv"
     subprocess.run([
-        PYTHON, "scripts/simulate_bankroll_growth.py",
-        "--input_glob", value_csv,
-        "--output_csv", sim_csv,
+        PYTHON, "scripts/pipeline/simulate_bankroll_growth.py",
+        "--input_csvs", value_csv,
+        "--output_csv", bankroll_csv,
         "--ev_threshold", "0.05",
         "--odds_cap", "10",
-        "--plot",
-        "--plot_path", bankroll_plot
+        "--plot"
     ], check=True)
 
-    subprocess.run([
-        PYTHON, "scripts/log_player_matchup_roi.py",
-        "--input_glob", sim_csv,
-        "--player_output_csv", player_roi_csv,
-        "--matchup_output_csv", matchup_roi_csv
-    ], check=True)
-
-    subprocess.run([
-        PYTHON, "scripts/combine_bankrolls.py"
-    ], check=True)
+    print(f"✅ Pipeline complete for {label}")
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--tour", required=True, choices=["ATP", "WTA"])
-    parser.add_argument("--start_date", required=True)
-    parser.add_argument("--end_date", required=True)
-    parser.add_argument("--label", required=True)
+    parser.add_argument("--config", required=True, help="YAML config file for the tournament")
     args = parser.parse_args()
 
-    run_pipeline(args.tour, args.start_date, args.end_date, args.label)
+    with open(args.config, "r") as f:
+        config = yaml.safe_load(f)
+
+    run_pipeline(config)
 
 if __name__ == "__main__":
     main()
