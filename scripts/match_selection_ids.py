@@ -1,68 +1,75 @@
 import argparse
 import pandas as pd
+from rapidfuzz import fuzz
+from tqdm import tqdm
 
-def clean_name(name):
-    return str(name).lower().replace(".", "").replace("-", " ").replace("  ", " ").strip()
+def normalize_name(name):
+    return str(name).lower().replace(".", "").replace("-", " ").replace(",", "").strip()
 
-def match_with_difflib(player, candidates, threshold=0.8):
-    from difflib import get_close_matches
-    matches = get_close_matches(player, candidates, n=1, cutoff=threshold)
-    return matches[0] if matches else None
+def token_overlap_match(player_name, candidates, min_token_match=2):
+    tokens = set(normalize_name(player_name).split())
+    for cand in candidates:
+        cand_tokens = set(normalize_name(cand).split())
+        if len(tokens & cand_tokens) >= min(min_token_match, len(tokens)):
+            return cand
+    return None
 
-def match_with_fuzzywuzzy(player, candidates, threshold=90):
-    from fuzzywuzzy import process
-    match, score = process.extractOne(player, candidates)
-    return match if score >= threshold else None
-
-def match_with_rapidfuzz(player, candidates, threshold=90):
-    from rapidfuzz import fuzz, process
-    match = process.extractOne(player, candidates, scorer=fuzz.WRatio)
-    return match[0] if match and match[1] >= threshold else None
-
-def match_ids(df, snaps_df, method, fuzzy_threshold):
-    df["player_1_clean"] = df["player_1"].apply(clean_name)
-    df["player_2_clean"] = df["player_2"].apply(clean_name)
-    snaps_df["runner_clean"] = snaps_df["runner_name"].apply(clean_name)
+def match_ids(df, snaps_df, threshold=85):
+    df["player_1_clean"] = df["player_1"].apply(normalize_name)
+    df["player_2_clean"] = df["player_2"].apply(normalize_name)
+    snaps_df["runner_clean"] = snaps_df["runner_name"].apply(normalize_name)
 
     ref = snaps_df.dropna(subset=["market_id", "runner_clean", "selection_id"]).drop_duplicates(
         subset=["market_id", "runner_clean"]
     )
 
-    def get_selection_ids(row):
+    selection_id_1 = []
+    selection_id_2 = []
+
+    tqdm.pandas(desc="🔍 Matching IDs with fallback")
+
+    for _, row in df.iterrows():
         subset = ref[ref["market_id"] == row["market_id"]]
         candidates = subset["runner_clean"].tolist()
-
         sid1 = sid2 = None
 
-        if method == "exact":
+        # Try exact match first
+        if row["player_1_clean"] in candidates:
             sid1 = subset.loc[subset["runner_clean"] == row["player_1_clean"], "selection_id"].squeeze()
+        if row["player_2_clean"] in candidates:
             sid2 = subset.loc[subset["runner_clean"] == row["player_2_clean"], "selection_id"].squeeze()
-        elif method == "difflib":
-            m1 = match_with_difflib(row["player_1_clean"], candidates, fuzzy_threshold)
-            m2 = match_with_difflib(row["player_2_clean"], candidates, fuzzy_threshold)
-            sid1 = subset.loc[subset["runner_clean"] == m1, "selection_id"].squeeze() if m1 else None
-            sid2 = subset.loc[subset["runner_clean"] == m2, "selection_id"].squeeze() if m2 else None
-        elif method == "fuzzywuzzy":
-            m1 = match_with_fuzzywuzzy(row["player_1_clean"], candidates, int(fuzzy_threshold * 100))
-            m2 = match_with_fuzzywuzzy(row["player_2_clean"], candidates, int(fuzzy_threshold * 100))
-            sid1 = subset.loc[subset["runner_clean"] == clean_name(m1), "selection_id"].squeeze() if m1 else None
-            sid2 = subset.loc[subset["runner_clean"] == clean_name(m2), "selection_id"].squeeze() if m2 else None
-        elif method == "jaro_winkler":
-            m1 = match_with_rapidfuzz(row["player_1_clean"], candidates, int(fuzzy_threshold * 100))
-            m2 = match_with_rapidfuzz(row["player_2_clean"], candidates, int(fuzzy_threshold * 100))
-            sid1 = subset.loc[subset["runner_clean"] == clean_name(m1), "selection_id"].squeeze() if m1 else None
-            sid2 = subset.loc[subset["runner_clean"] == clean_name(m2), "selection_id"].squeeze() if m2 else None
-        else:
-            raise ValueError(f"Invalid matching method: {method}")
 
-        return pd.Series([sid1, sid2])
+        # Try fuzzy fallback (Jaro-Winkler)
+        if pd.isna(sid1):
+            best = max(candidates, key=lambda c: fuzz.WRatio(row["player_1_clean"], c), default=None)
+            if best and fuzz.WRatio(row["player_1_clean"], best) >= threshold:
+                sid1 = subset.loc[subset["runner_clean"] == best, "selection_id"].squeeze()
 
-    df[["selection_id_1", "selection_id_2"]] = df.apply(get_selection_ids, axis=1)
+        if pd.isna(sid2):
+            best = max(candidates, key=lambda c: fuzz.WRatio(row["player_2_clean"], c), default=None)
+            if best and fuzz.WRatio(row["player_2_clean"], best) >= threshold:
+                sid2 = subset.loc[subset["runner_clean"] == best, "selection_id"].squeeze()
 
+        # Final fallback: token containment
+        if pd.isna(sid1):
+            match = token_overlap_match(row["player_1"], subset["runner_name"].tolist())
+            if match:
+                match_clean = normalize_name(match)
+                sid1 = subset.loc[subset["runner_clean"] == match_clean, "selection_id"].squeeze()
+
+        if pd.isna(sid2):
+            match = token_overlap_match(row["player_2"], subset["runner_name"].tolist())
+            if match:
+                match_clean = normalize_name(match)
+                sid2 = subset.loc[subset["runner_clean"] == match_clean, "selection_id"].squeeze()
+
+        selection_id_1.append(sid1)
+        selection_id_2.append(sid2)
+
+    df["selection_id_1"] = selection_id_1
+    df["selection_id_2"] = selection_id_2
     matched = df["selection_id_1"].notna().sum()
-    total = len(df)
-    print(f"✅ Matched selection IDs for {matched}/{total} rows ({matched / total:.1%})")
-
+    print(f"✅ Matched selection IDs for {matched}/{len(df)} rows")
     return df
 
 def main():
@@ -70,8 +77,7 @@ def main():
     parser.add_argument("--merged_csv", required=True)
     parser.add_argument("--snapshots_csv", required=True)
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--method", choices=["exact", "difflib", "fuzzywuzzy", "jaro_winkler"], default="jaro_winkler")
-    parser.add_argument("--fuzzy_threshold", type=float, default=0.8)
+    parser.add_argument("--fuzzy_threshold", type=int, default=85)
     args = parser.parse_args()
 
     df = pd.read_csv(args.merged_csv)
@@ -84,7 +90,7 @@ def main():
     if "runner_name" not in snaps_df.columns or "selection_id" not in snaps_df.columns:
         raise ValueError("❌ snapshots_csv must contain 'runner_name' and 'selection_id' columns")
 
-    df_patched = match_ids(df, snaps_df, args.method, args.fuzzy_threshold)
+    df_patched = match_ids(df, snaps_df, args.fuzzy_threshold)
     df_patched.to_csv(args.output_csv, index=False)
     print(f"📁 Saved patched file to: {args.output_csv}")
 
