@@ -1,55 +1,64 @@
-import argparse
 import pandas as pd
+from thefuzz import fuzz
+from tqdm import tqdm
+import argparse
 
-def merge_ltps_by_ids(merged_csv, ltps_csv, output_csv):
-    # Load merged match data
-    df = pd.read_csv(merged_csv, low_memory=False)
-    df = df.dropna(subset=["selection_id_1", "selection_id_2"])
-    print(f"🔎 Filtered to {len(df):,} rows with both selection IDs")
+parser = argparse.ArgumentParser()
+parser.add_argument("--merged_csv", required=True)
+parser.add_argument("--ltps_csv", required=True)
+parser.add_argument("--output_csv", required=True)
+args = parser.parse_args()
 
-    # Normalize ID types
-    df["selection_id_1"] = pd.to_numeric(df["selection_id_1"], errors="coerce").astype("Int64").astype(str)
-    df["selection_id_2"] = pd.to_numeric(df["selection_id_2"], errors="coerce").astype("Int64").astype(str)
-    df["market_id"] = df["market_id"].astype(str)
+# Load data
+merged = pd.read_csv(args.merged_csv)
+snapshots = pd.read_csv(args.ltps_csv)
 
-    # Load snapshot file
-    ltps = pd.read_csv(ltps_csv, low_memory=False)
-    ltps["selection_id"] = pd.to_numeric(ltps["selection_id"], errors="coerce")
-    ltps["market_id"] = ltps["market_id"].astype(str)
-    ltps["selection_id"] = ltps["selection_id"].astype("Int64").astype(str)
-    ltps["timestamp"] = pd.to_datetime(ltps["timestamp"], errors="coerce")
-    ltps = ltps.sort_values("timestamp").drop_duplicates(["market_id", "selection_id"], keep="last")
-    ltps_clean = ltps[["market_id", "selection_id", "ltp"]].dropna(subset=["ltp"])
+# Prep types
+merged["market_id"] = merged["market_id"].astype(str)
+snapshots["market_id"] = snapshots["market_id"].astype(str)
 
-    # Drop any preexisting odds columns
-    df = df.drop(columns=[c for c in df.columns if c.startswith("odds_player_")], errors="ignore")
+merged["selection_id_1"] = pd.to_numeric(merged["selection_id_1"], errors="coerce").astype("Int64")
+merged["selection_id_2"] = pd.to_numeric(merged["selection_id_2"], errors="coerce").astype("Int64")
+snapshots["selection_id"] = pd.to_numeric(snapshots["selection_id"], errors="coerce").astype("Int64")
 
-    # Merge LTPs
-    df = df.merge(
-        ltps_clean.rename(columns={"selection_id": "selection_id_1", "ltp": "odds_player_1"}),
-        on=["market_id", "selection_id_1"], how="left"
-    )
-    df = df.merge(
-        ltps_clean.rename(columns={"selection_id": "selection_id_2", "ltp": "odds_player_2"}),
-        on=["market_id", "selection_id_2"], how="left"
-    )
+# Exact LTP merge by selection_id
+merged["ltp_player_1"] = merged.merge(
+    snapshots[["market_id", "selection_id", "ltp"]],
+    left_on=["market_id", "selection_id_1"],
+    right_on=["market_id", "selection_id"],
+    how="left"
+)["ltp"]
 
-    # Validate
-    before = len(df)
-    df = df.dropna(subset=["odds_player_1", "odds_player_2"])
-    after = len(df)
-    print(f"✅ Merged LTPs for {after:,} / {before:,} rows")
+merged["ltp_player_2"] = merged.merge(
+    snapshots[["market_id", "selection_id", "ltp"]],
+    left_on=["market_id", "selection_id_2"],
+    right_on=["market_id", "selection_id"],
+    how="left"
+)["ltp"]
 
-    df.to_csv(output_csv, index=False)
-    print(f"📁 Saved patched output to {output_csv}")
+# Fuzzy fallback if LTP is missing
+def fuzzy_lookup(row, player_col, fallback_col):
+    if pd.notna(row[fallback_col]):
+        return row[fallback_col]
+    snap = snapshots[snapshots["market_id"] == row["market_id"]]
+    best_score = -1
+    best_ltp = None
+    for _, srow in snap.iterrows():
+        score = fuzz.token_set_ratio(str(row[player_col]).lower(), str(srow["runner_name"]).lower())
+        if score > 90 and score > best_score:
+            best_score = score
+            best_ltp = srow["ltp"]
+    return best_ltp
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--merged_csv", required=True)
-    parser.add_argument("--ltps_csv", required=True)
-    parser.add_argument("--output_csv", required=True)
-    args = parser.parse_args()
-    merge_ltps_by_ids(args.merged_csv, args.ltps_csv, args.output_csv)
+tqdm.pandas(desc="🔍 Fuzzy fallback for player 1")
+merged["ltp_player_1"] = merged.progress_apply(lambda r: fuzzy_lookup(r, "player_1", "ltp_player_1"), axis=1)
 
-if __name__ == "__main__":
-    main()
+tqdm.pandas(desc="🔍 Fuzzy fallback for player 2")
+merged["ltp_player_2"] = merged.progress_apply(lambda r: fuzzy_lookup(r, "player_2", "ltp_player_2"), axis=1)
+
+# Save
+merged.to_csv(args.output_csv, index=False)
+total = len(merged)
+matched = merged["ltp_player_1"].notna().sum() + merged["ltp_player_2"].notna().sum()
+print(f"✅ Merged LTPs for approx {matched // 2} / {total} matches")
+print(f"📁 Saved patched output to {args.output_csv}")
