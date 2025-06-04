@@ -1,55 +1,66 @@
-P1v2 — Tennis Predictive Betting Model
-Overview
-P1v2 is a data pipeline and predictive model for tennis betting, focused initially on the 2023 Australian Open. The project processes Betfair snapshot data and player match metadata to build odds-based features and train a logistic regression model that predicts match winners.
+# P1v2 — Tennis Grand Slam Value Betting Model (ATP)
 
-Current Status
-Full data parsing pipeline for Betfair tennis snapshots and match metadata
+This repository contains a full pipeline to detect and simulate value bets across ATP Grand Slam tournaments using Betfair Exchange data and Jeff Sackmann’s tennis match results.
 
-Robust matching and enrichment of player IDs and selection IDs
+## ✅ Completed Pipeline
 
-Odds feature engineering with support for multiple column suffixes (_x, _y)
+The following ATP 2023 Grand Slam tournaments are fully processed:
 
-Balanced dataset creation with player order normalization and binary win labels
+| Tournament         | Data Parsed | Modeling Complete | Value Bets | Bankroll Simulated |
+|-------------------|-------------|-------------------|------------|---------------------|
+| Australian Open   | ✅           | ✅                 | ✅          | ✅                  |
+| French Open       | ✅           | ✅                 | ✅          | ✅                  |
+| Wimbledon         | ✅           | ✅                 | ✅          | ✅                  |
+| US Open           | ✅           | ✅                 | ✅          | ✅                  |
 
-Logistic regression model trained on balanced dataset with baseline accuracy (~50%)
+## 🧠 Model Strategy
 
-Next planned phases: value bet detection, expected value calculation, and bankroll simulation
+- Logistic regression trained on odds from prior Slams
+- LTPs used to calculate implied probabilities
+- Value bets filtered by:
+  - Expected value threshold
+  - Max odds
+  - Max market overround
 
-Installation
-Create a Python virtual environment and install dependencies:
+## 🧪 Evaluation
 
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+Final bankroll result on US Open (cross-slam evaluation):
+- 📉 **ROI: -54.2%** (Final bankroll: $-5420.00 on 642 bets)
+
+## 📂 Project Structure
+
+```
+P1v2/
+├── data/
+│   └── processed/                 # Merged, enriched, and feature CSVs
+├── parsed/                        # Parsed Betfair snapshots
+├── modeling/                      # Output of bankroll simulations
+├── scripts/                       # All modular pipeline scripts
+└── README.md                      # This file
+```
+
+## 🔁 One-Command Pipeline
+
+The full pipeline for a tournament includes:
+
+```bash
+# Example: US Open
+python scripts/parse_betfair_snapshots.py ...
+python scripts/merge_sackmann_with_snapshots.py ...
+python scripts/match_selection_ids.py ...
+python scripts/merge_ltps_by_ids.py ...
+python scripts/build_clean_matches_usopen_2023_atp.py
+python scripts/build_odds_features.py ...
+python scripts/train_eval_model_cross_slam.py ...
+```
+
+## 🛠️ Dependencies
+
+- Python 3.10+
+- pandas, scikit-learn, numpy, tqdm, thefuzz
+
+Install with:
+
+```bash
 pip install -r requirements.txt
-
-Usage
-Running the pipeline
-Build clean snapshot matches:
-
-python scripts/build_clean_matches_from_snapshots.py
-
-Build odds features:
-
-python scripts/build_odds_features.py --input_csv data/processed/ausopen_2023_clean_snapshot_matches.csv --output_csv data/processed/ausopen_2023_features.csv --cap 10.0
-
-Expand and balance dataset:
-
-python scripts/expand_and_balance_dataset.py
-
-Train the logistic regression win model:
-
-python scripts/train_win_model_from_odds.py --input_csv data/processed/ausopen_2023_features_expanded.csv --output_csv data/processed/ausopen_2023_model_preds.csv
-
-Data
-Raw data (e.g., .bz2 snapshot archives) and large files are excluded via .gitignore
-
-Processed datasets and outputs are stored under data/processed/
-
-Contributing
-Feel free to open issues or pull requests for improvements.
-
-License
-MIT License
-
-Contact
-GitHub: puntingpro
+```
