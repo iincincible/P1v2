@@ -1,66 +1,85 @@
-# P1v2 — Tennis Grand Slam Value Betting Model (ATP)
+# 🎾 Tennis Value Betting Model (P1v2)
 
-This repository contains a full pipeline to detect and simulate value bets across ATP Grand Slam tournaments using Betfair Exchange data and Jeff Sackmann’s tennis match results.
+This project builds and evaluates a data-driven **value betting model** for ATP and WTA tennis tournaments using:
 
-## ✅ Completed Pipeline
+- 📊 Betfair Exchange **snapshot data** (LTP odds)
+- 📁 Jeff Sackmann’s **match results**
+- 🤖 Logistic regression models to detect value bets
+- 💸 Bankroll simulation with customizable strategies
 
-The following ATP 2023 Grand Slam tournaments are fully processed:
+---
 
-| Tournament         | Data Parsed | Modeling Complete | Value Bets | Bankroll Simulated |
-|-------------------|-------------|-------------------|------------|---------------------|
-| Australian Open   | ✅           | ✅                 | ✅          | ✅                  |
-| French Open       | ✅           | ✅                 | ✅          | ✅                  |
-| Wimbledon         | ✅           | ✅                 | ✅          | ✅                  |
-| US Open           | ✅           | ✅                 | ✅          | ✅                  |
+## 🔁 Core Workflow Overview
 
-## 🧠 Model Strategy
-
-- Logistic regression trained on odds from prior Slams
-- LTPs used to calculate implied probabilities
-- Value bets filtered by:
-  - Expected value threshold
-  - Max odds
-  - Max market overround
-
-## 🧪 Evaluation
-
-Final bankroll result on US Open (cross-slam evaluation):
-- 📉 **ROI: -54.2%** (Final bankroll: $-5420.00 on 642 bets)
-
-## 📂 Project Structure
-
-```
-P1v2/
-├── data/
-│   └── processed/                 # Merged, enriched, and feature CSVs
-├── parsed/                        # Parsed Betfair snapshots
-├── modeling/                      # Output of bankroll simulations
-├── scripts/                       # All modular pipeline scripts
-└── README.md                      # This file
+```mermaid
+graph LR
+A[Betfair Snapshots] --> B[Clean Match Builder]
+B --> C[Odds Feature Builder]
+C --> D[Model Training]
+D --> E[Value Bet Detection]
+E --> F[Bankroll Simulation]
 ```
 
-## 🔁 One-Command Pipeline
+---
 
-The full pipeline for a tournament includes:
+## 🛠 Key Components
+
+| Folder          | Purpose                                                                 |
+|-----------------|-------------------------------------------------------------------------|
+| `scripts/pipeline/` | Core pipeline: features → train → predict → value → simulate        |
+| `scripts/builders/` | Builds match datasets (e.g. AO, FO, IW), joins results               |
+| `scripts/debug/`    | Tools to analyze expected value bins, LTP coverage, misalignments    |
+| `scripts/archive/`  | Deprecated or superseded scripts (for reference only)                |
+| `scripts/tools/`    | PowerShell utilities for cleaning and organizing the project         |
+| `data/`             | Raw and processed match/csv data                                     |
+| `modeling/`         | Trained models, bankroll logs, and value bet outputs                 |
+| `parsed/`           | Intermediate files like snapshots, clean matches, form lookups       |
+
+---
+
+## ▶️ One-Off Pipeline Steps
+
+You can run individual pipeline stages with:
 
 ```bash
-# Example: US Open
-python scripts/parse_betfair_snapshots.py ...
-python scripts/merge_sackmann_with_snapshots.py ...
-python scripts/match_selection_ids.py ...
-python scripts/merge_ltps_by_ids.py ...
-python scripts/build_clean_matches_usopen_2023_atp.py
-python scripts/build_odds_features.py ...
-python scripts/train_eval_model_cross_slam.py ...
+python scripts/pipeline/build_odds_features.py ...
+python scripts/pipeline/train_win_model_from_odds.py ...
+python scripts/pipeline/detect_value_bets.py ...
+python scripts/pipeline/simulate_bankroll_growth.py ...
 ```
 
-## 🛠️ Dependencies
+---
 
-- Python 3.10+
-- pandas, scikit-learn, numpy, tqdm, thefuzz
+## 🔁 Typical Workflow (Example)
 
-Install with:
+1. Parse snapshot files (optional)
+2. Build clean matches from snapshot-only markets
+3. Generate odds-based features
+4. Train model or evaluate on holdout Slam
+5. Detect value bets and simulate bankroll
+
+---
+
+## ✅ Project Status
+
+- [x] AO + FO + WB + USO ATP modeling
+- [x] Indian Wells ATP snapshot alignment
+- [x] Bankroll simulation framework in place
+- [ ] Miami and WTA support upcoming
+- [ ] Player stats and Elo integration planned
+
+---
+
+## 📂 Setup
+
+Install dependencies:
 
 ```bash
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
 ```
+
+---
+
+Let me know if you’d like a one-command launcher (e.g. `run_pipeline.py`) for automating a full tournament cycle.
