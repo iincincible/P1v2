@@ -5,7 +5,6 @@ from tqdm import tqdm
 import os
 
 def kelly_stake(prob, odds, bankroll):
-    """Return the Kelly bet size."""
     b = odds - 1
     q = 1 - prob
     edge = (b * prob - q) / b
@@ -28,13 +27,7 @@ def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=
         if ev < ev_threshold or odds > odds_cap:
             continue
 
-        if strategy == "flat":
-            stake = 1.0
-        elif strategy == "kelly":
-            stake = kelly_stake(prob, odds, bankroll)
-        else:
-            raise ValueError(f"Unknown strategy: {strategy}")
-
+        stake = 1.0 if strategy == "flat" else kelly_stake(prob, odds, bankroll)
         payout = stake * (odds if won else 0)
         bankroll += payout - stake
         peak = max(peak, bankroll)
@@ -52,6 +45,17 @@ def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=
 
     return pd.DataFrame(history), bankroll, max_drawdown
 
+def save_plot(df, png_path):
+    plt.figure(figsize=(10, 5))
+    plt.plot(df["bankroll"], label="Bankroll")
+    plt.xlabel("Bet #")
+    plt.ylabel("Bankroll")
+    plt.title("Simulated Bankroll Over Time")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(png_path)
+    print(f"🖼️ Saved bankroll plot to {png_path}")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csvs", required=True, help="Comma-separated list of CSV files")
@@ -62,35 +66,26 @@ def main():
     parser.add_argument("--plot", action="store_true")
     args = parser.parse_args()
 
-    # 🔧 Split comma-separated list
-    files = args.input_csvs.split(",")
+    if os.path.exists(args.output_csv):
+        print(f"⏭️ Output already exists: {args.output_csv}")
+        return
 
-    # Load and tag each file
-    df = pd.concat(
-        [pd.read_csv(f).assign(source_file=os.path.basename(f)) for f in files],
-        ignore_index=True
-    )
+    files = args.input_csvs.split(",")
+    df = pd.concat([pd.read_csv(f).assign(source_file=os.path.basename(f)) for f in files], ignore_index=True)
 
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
-        df,
-        strategy=args.strategy,
-        ev_threshold=args.ev_threshold,
-        odds_cap=args.odds_cap
+        df, strategy=args.strategy, ev_threshold=args.ev_threshold, odds_cap=args.odds_cap
     )
 
     sim_df.to_csv(args.output_csv, index=False)
-
     print(f"\n📈 Simulated {len(sim_df)} bets")
     print(f"💰 Final bankroll: {final_bankroll:.2f}")
     print(f"📉 Max drawdown: {max_drawdown:.2f}")
 
+    png_path = os.path.splitext(args.output_csv)[0] + ".png"
+    save_plot(sim_df, png_path)
+
     if args.plot:
-        plt.plot(sim_df["bankroll"])
-        plt.title("Bankroll Over Time")
-        plt.xlabel("Bet Number")
-        plt.ylabel("Bankroll")
-        plt.grid(True)
-        plt.tight_layout()
         plt.show()
 
 if __name__ == "__main__":

@@ -2,9 +2,10 @@ import argparse
 import subprocess
 import yaml
 from pathlib import Path
+import sys
+import time
 
-# Explicit Python path inside .venv for Windows
-PYTHON = ".venv\\Scripts\\python.exe"
+PYTHON = sys.executable
 
 def run_pipeline_for_tournament(tournament, skip_existing=False):
     key = tournament["key"]
@@ -14,6 +15,10 @@ def run_pipeline_for_tournament(tournament, skip_existing=False):
     print(f"\n🚀 Running pipeline for: {key}")
 
     preds_csv = f"{base}_predictions.csv"
+    value_bets_csv = f"{base}_value_bets.csv"
+    bankroll_csv = f"{base}_bankroll.csv"
+    ev_threshold = str(tournament.get("ev_threshold", 0.01))
+
     if skip_existing and Path(preds_csv).exists():
         print(f"⏭️ Skipping {key} — predictions already exist at {preds_csv}")
         return True
@@ -45,24 +50,35 @@ def run_pipeline_for_tournament(tournament, skip_existing=False):
         ("Detect value bets", [
             PYTHON, "scripts/pipeline/detect_value_bets.py",
             "--input_csv", preds_csv,
-            "--output_csv", f"{base}_value_bets.csv",
-            "--ev_threshold", "0.01",
+            "--output_csv", value_bets_csv,
+            "--ev_threshold", ev_threshold,
             "--max_odds", "10.0",
             "--max_margin", "0.05",
             "--filter_model", "modeling/ev_filter_model.pkl",
             "--min_confidence", "0.5"
+        ]),
+        ("Simulate bankroll", [
+            PYTHON, "scripts/pipeline/simulate_bankroll_growth.py",
+            "--input_csvs", value_bets_csv,
+            "--output_csv", bankroll_csv,
+            "--strategy", "flat",
+            "--ev_threshold", ev_threshold,
+            "--odds_cap", "10.0"
         ])
     ]
 
     for step_name, cmd in steps:
         try:
             print(f"🔧 Step: {step_name}")
+            t0 = time.perf_counter()
             subprocess.run(cmd, check=True)
+            t1 = time.perf_counter()
+            print(f"✅ {step_name} completed in {t1 - t0:.2f} seconds")
         except subprocess.CalledProcessError:
             print(f"❌ Pipeline failed for {key} during step: {step_name}")
             return False
 
-    print(f"✅ {key}: pipeline complete — predictions and value bets saved.")
+    print(f"✅ {key}: pipeline complete — predictions, value bets, and bankroll simulated.")
     return True
 
 if __name__ == "__main__":

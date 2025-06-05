@@ -13,7 +13,11 @@ def main():
     parser.add_argument("--ev_threshold", type=float, default=0.0)
     args = parser.parse_args()
 
-    required_cols = {"pred_prob_player_1", "odds_player_1", "implied_prob_1", "odds_margin", "actual_winner", "player_1"}
+    required_cols = {
+        "pred_prob_player_1", "odds_player_1", "odds_player_2",
+        "implied_prob_1", "implied_prob_2", "odds_margin", "implied_diff",
+        "actual_winner", "player_1"
+    }
 
     files = glob.glob(args.input_glob)
     dfs = []
@@ -25,6 +29,7 @@ def main():
             print(f"⚠️ Skipping {file} — missing required columns")
             skipped += 1
             continue
+
         df["ev"] = (df["pred_prob_player_1"] * df["odds_player_1"]) - 1
         df = df[df["ev"] > args.ev_threshold].copy()
         df["bet_success"] = (df["actual_winner"] == df["player_1"]).astype(int)
@@ -36,7 +41,12 @@ def main():
     data = pd.concat(dfs, ignore_index=True)
     print(f"✅ Loaded {len(data)} EV bet rows from {len(files) - skipped} valid files")
 
-    features = ["pred_prob_player_1", "odds_player_1", "implied_prob_1", "odds_margin", "ev"]
+    features = [
+        "pred_prob_player_1", "odds_player_1", "odds_player_2",
+        "implied_prob_1", "implied_prob_2", "odds_margin",
+        "implied_diff", "ev"
+    ]
+
     X = data[features]
     y = data["bet_success"]
 

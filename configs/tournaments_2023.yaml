@@ -7,6 +7,10 @@ tournaments:
     snapshots_csv: parsed/betfair_ausopen_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: hard
+    tier: grand_slam
 
   - label: ausopen_2023_wta
     key: ausopen_2023_wta
@@ -16,6 +20,10 @@ tournaments:
     snapshots_csv: parsed/betfair_ausopen_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: hard
+    tier: grand_slam
 
   - label: frenchopen_2023_atp
     key: frenchopen_2023_atp
@@ -25,6 +33,10 @@ tournaments:
     snapshots_csv: parsed/betfair_frenchopen_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: clay
+    tier: grand_slam
 
   - label: frenchopen_2023_wta
     key: frenchopen_2023_wta
@@ -34,6 +46,10 @@ tournaments:
     snapshots_csv: parsed/betfair_frenchopen_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: clay
+    tier: grand_slam
 
   - label: wimbledon_2023_atp
     key: wimbledon_2023_atp
@@ -43,6 +59,10 @@ tournaments:
     snapshots_csv: parsed/betfair_wimbledon_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: grass
+    tier: grand_slam
 
   - label: wimbledon_2023_wta
     key: wimbledon_2023_wta
@@ -52,6 +72,10 @@ tournaments:
     snapshots_csv: parsed/betfair_wimbledon_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: grass
+    tier: grand_slam
 
   - label: usopen_2023_atp
     key: usopen_2023_atp
@@ -61,6 +85,10 @@ tournaments:
     snapshots_csv: parsed/betfair_usopen_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: hard
+    tier: grand_slam
 
   - label: usopen_2023_wta
     key: usopen_2023_wta
@@ -70,6 +98,10 @@ tournaments:
     snapshots_csv: parsed/betfair_usopen_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.02
+    surface: hard
+    tier: grand_slam
 
   - label: indianwells_2023_atp
     key: indianwells_2023_atp
@@ -79,6 +111,10 @@ tournaments:
     snapshots_csv: parsed/betfair_indianwells_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: hard
+    tier: masters
 
   - label: indianwells_2023_wta
     key: indianwells_2023_wta
@@ -88,6 +124,10 @@ tournaments:
     snapshots_csv: parsed/betfair_indianwells_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: hard
+    tier: masters
 
   - label: miami_2023_atp
     key: miami_2023_atp
@@ -97,6 +137,10 @@ tournaments:
     snapshots_csv: parsed/betfair_miami_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: hard
+    tier: masters
 
   - label: miami_2023_wta
     key: miami_2023_wta
@@ -106,6 +150,10 @@ tournaments:
     snapshots_csv: parsed/betfair_miami_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: hard
+    tier: masters
 
   - label: madrid_2023_atp
     key: madrid_2023_atp
@@ -115,6 +163,10 @@ tournaments:
     snapshots_csv: parsed/betfair_madrid_2023_atp_snapshots.csv
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: clay
+    tier: masters
 
   - label: madrid_2023_wta
     key: madrid_2023_wta
@@ -124,3 +176,7 @@ tournaments:
     snapshots_csv: parsed/betfair_madrid_2023_wta_snapshots.csv
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
+    alias_csv: configs/player_aliases.csv
+    ev_threshold: 0.01
+    surface: clay
+    tier: masters
