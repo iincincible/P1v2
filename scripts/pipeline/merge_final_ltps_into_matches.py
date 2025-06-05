@@ -2,29 +2,65 @@ import pandas as pd
 from pathlib import Path
 import argparse
 
+def fallback_fill_with_runner_name(merged_df, snaps_df):
+    # Ensure LTP columns exist
+    if "odds_player_1" not in merged_df.columns:
+        merged_df["odds_player_1"] = None
+    if "odds_player_2" not in merged_df.columns:
+        merged_df["odds_player_2"] = None
+
+    # Normalize names for matching
+    def norm(x): return str(x).lower().replace(".", "").replace("-", " ").strip()
+
+    snaps_df = snaps_df.dropna(subset=["market_id", "selection_id", "ltp", "runner_name"])
+    snaps_df["market_id"] = snaps_df["market_id"].astype(str)
+    snaps_df["runner_clean"] = snaps_df["runner_name"].map(norm)
+
+    for idx, row in merged_df.iterrows():
+        if pd.isna(row["odds_player_1"]) and pd.notna(row.get("player_1")):
+            mc = norm(row["player_1"])
+            snapshot_match = snaps_df[
+                (snaps_df["market_id"] == row["market_id"]) &
+                (snaps_df["runner_clean"] == mc)
+            ]
+            if not snapshot_match.empty:
+                merged_df.at[idx, "odds_player_1"] = snapshot_match.sort_values("timestamp").iloc[-1]["ltp"]
+
+        if pd.isna(row["odds_player_2"]) and pd.notna(row.get("player_2")):
+            mc = norm(row["player_2"])
+            snapshot_match = snaps_df[
+                (snaps_df["market_id"] == row["market_id"]) &
+                (snaps_df["runner_clean"] == mc)
+            ]
+            if not snapshot_match.empty:
+                merged_df.at[idx, "odds_player_2"] = snapshot_match.sort_values("timestamp").iloc[-1]["ltp"]
+
+    return merged_df
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--match_csv", required=True, help="Match file with selection_id_1/2 and market_id")
-    parser.add_argument("--snapshots_csv", required=True, help="Snapshot file with final LTPs")
-    parser.add_argument("--output_csv", required=True, help="Path to save match file with odds_player_1/2")
+    parser.add_argument("--match_csv", required=True)
+    parser.add_argument("--snapshots_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
     args = parser.parse_args()
 
-    # === Load match file
+    # Load matches
     match_df = pd.read_csv(args.match_csv)
     match_df["market_id"] = match_df["market_id"].astype(str)
     match_df["selection_id_1"] = pd.to_numeric(match_df["selection_id_1"], errors="coerce").astype("Int64")
     match_df["selection_id_2"] = pd.to_numeric(match_df["selection_id_2"], errors="coerce").astype("Int64")
 
-    # === Load snapshot file and reduce to final snapshot per runner
+    # Load and clean snapshots
     snaps = pd.read_csv(args.snapshots_csv)
     snaps = snaps.dropna(subset=["market_id", "selection_id", "ltp", "timestamp"])
     snaps["market_id"] = snaps["market_id"].astype(str)
     snaps["selection_id"] = pd.to_numeric(snaps["selection_id"], errors="coerce").astype("Int64")
     snaps["timestamp"] = pd.to_datetime(snaps["timestamp"])
     snaps = snaps.sort_values("timestamp")
+
     latest = snaps.drop_duplicates(["market_id", "selection_id"], keep="last")[["market_id", "selection_id", "ltp"]]
 
-    # === Merge LTPs into matches
+    # Merge by selection ID
     merged = match_df.merge(
         latest.rename(columns={"selection_id": "selection_id_1", "ltp": "odds_player_1"}),
         on=["market_id", "selection_id_1"],
@@ -35,17 +71,17 @@ def main():
         how="left"
     )
 
-    # === Save and report
+    # Fallback fill by runner name
+    merged = fallback_fill_with_runner_name(merged, snaps)
+
+    # Save
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(args.output_csv, index=False)
     print(f"✅ Saved {len(merged)} rows to {args.output_csv}")
 
-    if "odds_player_1" in merged.columns and "odds_player_2" in merged.columns:
-        valid = merged["odds_player_1"].notna() & merged["odds_player_2"].notna()
-        matched = valid.sum()
-        print(f"📊 LTP odds matched for {matched} of {len(merged)} rows ({matched / len(merged):.1%})")
-    else:
-        print("⚠️ Warning: odds_player_1 or odds_player_2 columns missing after merge")
+    # Diagnostics
+    num_missing = merged["odds_player_1"].isna().sum() + merged["odds_player_2"].isna().sum()
+    print(f"⚠️ Final missing LTPs after fallback: {num_missing} of {2 * len(merged)}")
 
 if __name__ == "__main__":
     main()
