@@ -18,7 +18,7 @@ def apply_confidence_model(df, model):
     features = ["pred_prob_player_1", "odds_player_1", "implied_prob_1", "odds_margin", "ev"]
     X = df[features]
     if X.empty:
-        print("⚠️ No EV bets passed base filters — skipping confidence scoring.")
+        print("⚠️ No rows left for confidence scoring.")
         df["confidence_score"] = []
         return df
     df["confidence_score"] = model.predict_proba(X)[:, 1]
@@ -41,26 +41,39 @@ def main():
 
     df = pd.read_csv(args.input_csv)
     df = compute_ev(df)
+
     original_count = len(df)
+    print(f"📊 Starting with {original_count} rows")
 
-    filtered = df[
-        (df["ev"] >= args.ev_threshold) &
-        (df["odds_player_1"] <= args.max_odds) &
-        (df["odds_margin"] <= args.max_margin)
-    ].copy()
+    df_ev = df[df["ev"] >= args.ev_threshold]
+    print(f"✅ {len(df_ev)} rows pass EV ≥ {args.ev_threshold}")
 
-    if args.filter_model:
+    df_odds = df_ev[df_ev["odds_player_1"] <= args.max_odds]
+    print(f"✅ {len(df_odds)} rows pass odds ≤ {args.max_odds}")
+
+    df_margin = df_odds[df_odds["odds_margin"] <= args.max_margin]
+    print(f"✅ {len(df_margin)} rows pass margin ≤ {args.max_margin}")
+
+    filtered = df_margin
+
+    if filtered.empty:
+        print("⚠️ No EV bets passed base filters — skipping confidence scoring.")
+        print("💡 Try relaxing --ev_threshold, --max_margin, or --max_odds.")
+    elif args.filter_model:
+        print(f"🔍 Applying confidence filter: {args.filter_model}")
         model = joblib.load(args.filter_model)
         filtered = apply_confidence_model(filtered, model)
         if args.min_confidence is not None:
+            before = len(filtered)
             filtered = filtered[filtered["confidence_score"] >= args.min_confidence]
+            print(f"✅ {len(filtered)} rows pass confidence ≥ {args.min_confidence} (of {before})")
 
-    filtered["kelly_stake"] = compute_kelly_stake(
-        filtered["pred_prob_player_1"],
-        filtered["odds_player_1"]
-    )
-
-    filtered = filtered.sort_values("ev", ascending=False)
+    if not filtered.empty:
+        filtered["kelly_stake"] = compute_kelly_stake(
+            filtered["pred_prob_player_1"],
+            filtered["odds_player_1"]
+        )
+        filtered = filtered.sort_values("ev", ascending=False)
 
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     filtered.to_csv(args.output_csv, index=False)

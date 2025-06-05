@@ -1,92 +1,92 @@
-market_id,player_1,player_2,odds_player_1_x,odds_player_2_x,actual_winner,winner_name,loser_name,match_date,player_1_clean,player_2_clean,selection_id_1,selection_id_2,odds_player_1_y,odds_player_2_y,odds_player_1,odds_player_2
-1.213328659,Thanasi Kokkinakis,Jaume Munar,38.0,1.83,Jaume Munar,Jaume Munar,Thanasi Kokkinakis,2023-04-24,thanasi kokkinakis,jaume munar,8172416,9350385,38.0,1.83,38.0,1.83
-1.213328661,Richard Gasquet,Martin Landaluce,1.18,6.2,Richard Gasquet,Richard Gasquet,Martin Landaluce,2023-04-24,richard gasquet,martin landaluce,2249399,49038329,1.18,6.2,1.18,6.2
-1.213328665,Gregoire Barrere,Emilio Nava,1.57,190.0,Gregoire Barrere,Gregoire Barrere,Emilio Nava,2023-04-24,gregoire barrere,emilio nava,8842295,12646384,1.57,190.0,1.57,190.0
-1.213328862,Quentin Halys,Alexei Popyrin,1.45,3.2,Quentin Halys,Quentin Halys,Alexei Popyrin,2023-04-24,quentin halys,alexei popyrin,7287690,10706479,1.45,3.2,1.45,3.2
-1.213328963,Marc-Andrea Huesler,Cristian Garin,3.1,1.46,Cristian Garin,Cristian Garin,Marc Andrea Huesler,2023-04-24,marc andrea huesler,cristian garin,9631939,23814703,3.1,1.46,3.1,1.46
-1.213329322,Jason Kubler,Dusan Lajovic,2.74,1.58,Dusan Lajovic,Dusan Lajovic,Jason Kubler,2023-04-24,jason kubler,dusan lajovic,4448756,4688724,2.74,1.58,2.74,1.58
-1.213329358,Bernabe Zapata Miralles,Mackenzie McDonald,1.16,7.6,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Mackenzie Mcdonald,2023-04-24,bernabe zapata miralles,mackenzie mcdonald,9630472,10691901,1.16,7.6,1.16,7.6
-1.213329732,Jeremy Chardy,Hugo Gaston,22.0,1.04,Hugo Gaston,Hugo Gaston,Jeremy Chardy,2023-04-24,jeremy chardy,hugo gaston,2304933,10303696,22.0,1.04,22.0,1.04
-1.213329763,David Goffin,Roberto Carballes Baena,2.78,1.52,Roberto Carballes Baena,Roberto Carballes Baena,David Goffin,2023-04-24,david goffin,roberto carballes baena,19924835,42313578,2.78,1.52,2.78,1.52
-1.21333011,Albert Ramos-Vinolas,Ilya Ivashka,2.16,1.86,Albert Ramos,Albert Ramos,Ilya Ivashka,2023-04-24,albert ramos vinolas,ilya ivashka,8621877,19924837,2.16,1.86,2.16,1.86
-1.213330121,Daniel Elahi Galan,Alexander Bublik,21.0,1.01,Alexander Bublik,Alexander Bublik,Daniel Elahi Galan,2023-04-24,daniel elahi galan,alexander bublik,8860646,8907933,21.0,1.01,21.0,1.01
-1.213330399,Emil Ruusuvuori,Ugo Humbert,1.05,17.5,Emil Ruusuvuori,Emil Ruusuvuori,Ugo Humbert,2023-04-24,emil ruusuvuori,ugo humbert,8979329,9633253,1.05,17.5,1.05,17.5
-1.21333041,Adrian Mannarino,Tomas Martin Etcheverry,4.5,1.3,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Adrian Mannarino,2023-04-24,adrian mannarino,tomas martin etcheverry,3066621,9631399,4.5,1.3,4.5,1.3
-1.213330661,Maxime Cressy,Stan Wawrinka,12.0,1.08,Stan Wawrinka,Stan Wawrinka,Maxime Cressy,2023-04-24,maxime cressy,stan wawrinka,11510005,19924832,12.0,1.08,12.0,1.08
-1.213330673,Filip Krajinovic,Christopher O'Connell,26.0,1.9,Christopher Oconnell,Christopher Oconnell,Filip Krajinovic,2023-04-24,filip krajinovic,christopher o'connell,3509265,8942164,26.0,1.9,26.0,1.9
-1.213330917,Marcos Giron,Nuno Borges,1.04,26.0,Marcos Giron,Marcos Giron,Nuno Borges,2023-04-24,marcos giron,nuno borges,8230256,9633043,1.04,26.0,1.04,26.0
-1.213331184,Kyle Edmund,Dominic Thiem,7.6,1.13,Dominic Thiem,Dominic Thiem,Kyle Edmund,2023-04-24,kyle edmund,dominic thiem,5626817,5720747,7.6,1.13,7.6,1.13
-1.213412623,Diego Schwartzman,Hugo Grenier,9.4,1.11,Hugo Grenier,Hugo Grenier,Diego Schwartzman,2023-04-24,diego schwartzman,hugo grenier,8736474,8813394,9.4,1.11,9.4,1.11
-1.213412627,Benoit Paire,Matteo Arnaldi,3.5,1.4,Matteo Arnaldi,Matteo Arnaldi,Benoit Paire,2023-04-24,benoit paire,matteo arnaldi,3911345,21067270,3.5,1.4,3.5,1.4
-1.213412633,Oscar Otte,Pavel Kotov,1.86,100.0,Oscar Otte,Oscar Otte,Pavel Kotov,2023-04-24,oscar otte,pavel kotov,9624731,10166537,1.86,100.0,1.86,100.0
-1.213412893,Yannick Hanfmann,Juan Pablo Varillas,1.01,100.0,Yannick Hanfmann,Yannick Hanfmann,Juan Pablo Varillas,2023-04-24,yannick hanfmann,juan pablo varillas,8639275,11772759,1.01,100.0,1.01,100.0
-1.213413113,Thiago Monteiro,Borna Gojo,2.16,100.0,Thiago Monteiro,Thiago Monteiro,Borna Gojo,2023-04-24,thiago monteiro,borna gojo,8326656,10760646,2.16,100.0,2.16,100.0
-1.213413416,Nicolas Jarry,Roman Safiullin,26.0,1.04,Roman Safiullin,Roman Safiullin,Nicolas Jarry,2023-04-24,nicolas jarry,roman safiullin,8260515,9125686,26.0,1.04,26.0,1.04
-1.213413417,Alexander Shevchenko,J.j. Wolf,1.03,34.0,Alexander Shevchenko,Alexander Shevchenko,J J Wolf,2023-04-24,alexander shevchenko,jj wolf,15134244,24339655,1.03,34.0,1.03,34.0
-1.21341342,Zhizhen Zhang,Jurij Rodionov,1.02,100.0,Zhizhen Zhang,Zhizhen Zhang,Jurij Rodionov,2023-04-24,zhizhen zhang,jurij rodionov,9628959,10555106,1.02,100.0,1.02,100.0
-1.21341372,Jan-Lennard Struff,Lorenzo Sonego,2.24,1.81,Jan Lennard Struff,Jan Lennard Struff,Lorenzo Sonego,2023-04-24,jan lennard struff,lorenzo sonego,8259098,8826925,2.24,1.81,2.24,1.81
-1.213413722,Marton Fucsovics,Marco Cecchinato,1.58,2.72,Marco Cecchinato,Marco Cecchinato,Marton Fucsovics,2023-04-24,marton fucsovics,marco cecchinato,4827766,6374165,1.58,2.72,1.58,2.72
-1.213413733,Aslan Karatsev,Laslo Djere,1.01,26.0,Aslan Karatsev,Aslan Karatsev,Laslo Djere,2023-04-24,aslan karatsev,laslo djere,7659748,7692106,1.01,26.0,1.01,26.0
-1.213414122,Andy Murray,Andrea Vavassori,5.8,1.2,Andrea Vavassori,Andrea Vavassori,Andy Murray,2023-04-24,andy murray,andrea vavassori,2256509,9414510,5.8,1.2,5.8,1.2
-1.213426047,Corentin Moutet,Yosuke Watanuki,95.0,1.01,Yosuke Watanuki,Yosuke Watanuki,Corentin Moutet,2023-04-24,corentin moutet,yosuke watanuki,8842291,19924830,95.0,1.01,95.0,1.01
-1.213446138,Borna Coric,Hugo Gaston,1.57,2.76,Borna Coric,Borna Coric,Hugo Gaston,2023-04-24,borna coric,hugo gaston,7446579,10303696,1.57,2.76,1.57,2.76
-1.213447636,Grigor Dimitrov,Gregoire Barrere,1.22,5.6,Grigor Dimitrov,Grigor Dimitrov,Gregoire Barrere,2023-04-24,grigor dimitrov,gregoire barrere,3120169,8842295,1.22,5.6,1.22,5.6
-1.213449369,Albert Ramos-Vinolas,Alejandro Davidovich Fokina,50.0,1.02,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Albert Ramos,2023-04-24,albert ramos vinolas,alejandro davidovich fokina,8621877,9953368,50.0,1.02,50.0,1.02
-1.213449374,Yoshihito Nishioka,Alex Molcan,1.04,34.0,Yoshihito Nishioka,Yoshihito Nishioka,Alex Molcan,2023-04-24,yoshihito nishioka,alex molcan,7137497,8960879,1.04,34.0,1.04,34.0
-1.213450721,Roberto Bautista Agut,Quentin Halys,1.01,44.0,Roberto Bautista Agut,Roberto Bautista Agut,Quentin Halys,2023-04-24,roberto bautista agut,quentin halys,4290403,7287690,1.01,44.0,1.01,44.0
-1.213452338,Alexander Zverev,Roberto Carballes Baena,1.25,1000.0,Alexander Zverev,Alexander Zverev,Roberto Carballes Baena,2023-04-24,alexander zverev,roberto carballes baena,19924823,42313578,1.25,1000.0,1.25,1000.0
-1.213454198,Alexander Bublik,Holger Rune,6.0,1.2,Holger Rune,Holger Rune,Alexander Bublik,2023-04-24,alexander bublik,holger rune,8907933,39127965,6.0,1.2,6.0,1.2
-1.213456107,Yannick Hanfmann,Lorenzo Musetti,1.03,34.0,Yannick Hanfmann,Yannick Hanfmann,Lorenzo Musetti,2023-04-24,yannick hanfmann,lorenzo musetti,8639275,13834991,1.03,34.0,1.03,34.0
-1.213456882,Andrey Rublev,Stan Wawrinka,1.33,4.4,Andrey Rublev,Andrey Rublev,Stan Wawrinka,2023-04-24,andrey rublev,stan wawrinka,7797771,19924832,1.33,4.4,1.33,4.4
-1.213457211,Hugo Grenier,Sebastian Korda,1.21,6.2,Hugo Grenier,Hugo Grenier,Sebastian Korda,2023-04-24,hugo grenier,sebastian korda,8813394,10902223,1.21,6.2,1.21,6.2
-1.21345813,Casper Ruud,Matteo Arnaldi,26.0,1.04,Matteo Arnaldi,Matteo Arnaldi,Casper Ruud,2023-04-24,casper ruud,matteo arnaldi,9629711,21067270,26.0,1.04,26.0,1.04
-1.21345926,Emil Ruusuvuori,Carlos Alcaraz,24.0,1.05,Carlos Alcaraz,Carlos Alcaraz,Emil Ruusuvuori,2023-04-24,emil ruusuvuori,carlos alcaraz,8979329,25215583,24.0,1.05,24.0,1.05
-1.213460137,Richard Gasquet,Hubert Hurkacz,4.7,1.27,Hubert Hurkacz,Hubert Hurkacz,Richard Gasquet,2023-04-24,richard gasquet,hubert hurkacz,2249399,19924838,4.7,1.27,4.7,1.27
-1.213461895,Tallon Griekspoor,Jaume Munar,140.0,2.74,Jaume Munar,Jaume Munar,Tallon Griekspoor,2023-04-24,tallon griekspoor,jaume munar,9198585,9350385,140.0,2.74,140.0,2.74
-1.213461919,Karen Khachanov,Thiago Monteiro,1.28,200.0,Karen Khachanov,Karen Khachanov,Thiago Monteiro,2023-04-24,karen khachanov,thiago monteiro,7659623,8326656,1.28,200.0,1.28,200.0
-1.213488365,Tomas Martin Etcheverry,Frances Tiafoe,9.4,1.11,Frances Tiafoe,Frances Tiafoe,Tomas Martin Etcheverry,2023-04-24,tomas martin etcheverry,frances tiafoe,9631399,19924839,9.4,1.11,9.4,1.11
-1.213488469,Jiri Lehecka,Alexander Shevchenko,1.45,3.25,Alexander Shevchenko,Alexander Shevchenko,Jiri Lehecka,2023-04-24,jiri lehecka,alexander shevchenko,13203243,15134244,1.45,3.25,1.45,3.25
-1.213488606,Dominic Thiem,Stefanos Tsitsipas,4.0,1.28,Stefanos Tsitsipas,Stefanos Tsitsipas,Dominic Thiem,2023-04-24,dominic thiem,stefanos tsitsipas,5720747,9193006,4.0,1.28,4.0,1.28
-1.213491035,Zhizhen Zhang,Denis Shapovalov,1.02,50.0,Zhizhen Zhang,Zhizhen Zhang,Denis Shapovalov,2023-04-24,zhizhen zhang,denis shapovalov,9628959,19924829,1.02,50.0,1.02,50.0
-1.213491513,Yosuke Watanuki,Cameron Norrie,15.0,1.07,Cameron Norrie,Cameron Norrie,Yosuke Watanuki,2023-04-24,yosuke watanuki,cameron norrie,19924830,42669524,15.0,1.07,15.0,1.07
-1.213492113,Miomir Kecmanovic,Cristian Garin,140.0,1.01,Cristian Garin,Cristian Garin,Miomir Kecmanovic,2023-04-24,miomir kecmanovic,cristian garin,9657480,23814703,140.0,1.01,140.0,1.01
-1.21349288,Pedro Cachin,Francisco Cerundolo,1.01,1.41,Pedro Cachin,Pedro Cachin,Francisco Cerundolo,2023-04-24,pedro cachin,francisco cerundolo,8461316,11204210,1.01,1.41,1.01,1.41
-1.213494479,Marcos Giron,Sebastian Baez,23.0,1.06,Sebastian Baez,Sebastian Baez,Marcos Giron,2023-04-24,marcos giron,sebastian baez,8230256,11285506,23.0,1.06,23.0,1.06
-1.21349458,Jan-Lennard Struff,Ben Shelton,3.3,1.33,Jan Lennard Struff,Jan Lennard Struff,Ben Shelton,2023-04-24,jan lennard struff,ben shelton,8259098,39460566,3.3,1.33,3.3,1.33
-1.213499414,Marco Cecchinato,Alex De Minaur,9.4,1.01,Alex De Minaur,Alex De Minaur,Marco Cecchinato,2023-04-24,marco cecchinato,alex de minaur,6374165,10109527,9.4,1.01,9.4,1.01
-1.213502134,Christopher O'Connell,Taylor Fritz,120.0,1.34,Taylor Fritz,Taylor Fritz,Christopher Oconnell,2023-04-24,christopher o'connell,taylor fritz,8942164,10279360,120.0,1.34,120.0,1.34
-1.213502262,Andrea Vavassori,Daniil Medvedev,13.5,1.08,Daniil Medvedev,Daniil Medvedev,Andrea Vavassori,2023-04-24,andrea vavassori,daniil medvedev,9414510,19924831,13.5,1.08,13.5,1.08
-1.21350239,Oscar Otte,Daniel Altmaier,30.0,1.01,Daniel Altmaier,Daniel Altmaier,Oscar Otte,2023-04-24,oscar otte,daniel altmaier,9624731,9632088,30.0,1.01,30.0,1.01
-1.213504524,Dusan Lajovic,Felix Auger-Aliassime,1.09,95.0,Dusan Lajovic,Dusan Lajovic,Felix Auger Aliassime,2023-04-24,dusan lajovic,felix auger aliassime,4688724,12210252,1.09,95.0,1.09,95.0
-1.21350743,Aslan Karatsev,Botic Van de Zandschulp,3.05,11.0,Aslan Karatsev,Aslan Karatsev,Botic Van De Zandschulp,2023-04-24,aslan karatsev,botic van de zandschulp,7659748,11204614,3.05,11.0,3.05,11.0
-1.213507438,Daniel  Evans,Bernabe Zapata Miralles,110.0,2.18,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Daniel Evans,2023-04-24,daniel  evans,bernabe zapata miralles,3103121,9630472,110.0,2.18,110.0,2.18
-1.213531946,Jaume Munar,Matteo Arnaldi,2.44,1.7,Jaume Munar,Jaume Munar,Matteo Arnaldi,2023-04-24,jaume munar,matteo arnaldi,9350385,21067270,2.44,1.7,2.44,1.7
-1.213534842,Yannick Hanfmann,Daniel Altmaier,17.5,1.05,Daniel Altmaier,Daniel Altmaier,Yannick Hanfmann,2023-04-24,yannick hanfmann,daniel altmaier,8639275,9632088,17.5,1.05,17.5,1.05
-1.213534846,Yoshihito Nishioka,Andrey Rublev,5.5,1.23,Andrey Rublev,Andrey Rublev,Yoshihito Nishioka,2023-04-24,yoshihito nishioka,andrey rublev,7137497,7797771,5.5,1.23,5.5,1.23
-1.213542544,Grigor Dimitrov,Carlos Alcaraz,110.0,1.09,Carlos Alcaraz,Carlos Alcaraz,Grigor Dimitrov,2023-04-24,grigor dimitrov,carlos alcaraz,3120169,25215583,110.0,1.09,110.0,1.09
-1.213542633,Roberto Bautista Agut,Karen Khachanov,160.0,1.64,Karen Khachanov,Karen Khachanov,Roberto Bautista Agut,2023-04-24,roberto bautista agut,karen khachanov,4290403,7659623,160.0,1.64,160.0,1.64
-1.213544899,Borna Coric,Hubert Hurkacz,3.0,30.0,Borna Coric,Borna Coric,Hubert Hurkacz,2023-04-24,borna coric,hubert hurkacz,7446579,19924838,3.0,30.0,3.0,30.0
-1.213545183,Alejandro Davidovich Fokina,Holger Rune,1.01,10.0,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Holger Rune,2023-04-24,alejandro davidovich fokina,holger rune,9953368,39127965,1.01,10.0,1.01,10.0
-1.21355104,Hugo Grenier,Alexander Zverev,8.8,1.13,Alexander Zverev,Alexander Zverev,Hugo Grenier,2023-04-24,hugo grenier,alexander zverev,8813394,19924823,8.8,1.13,8.8,1.13
-1.213575469,Dusan Lajovic,Jan-Lennard Struff,1.7,1.07,Jan Lennard Struff,Jan Lennard Struff,Dusan Lajovic,2023-04-24,dusan lajovic,jan lennard struff,4688724,8259098,1.7,1.07,1.7,1.07
-1.21357701,Roman Safiullin,Bernabe Zapata Miralles,29.0,1.03,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Roman Safiullin,2023-04-24,roman safiullin,bernabe zapata miralles,9125686,9630472,29.0,1.03,29.0,1.03
-1.213577012,Aslan Karatsev,Alex De Minaur,1.01,100.0,Aslan Karatsev,Aslan Karatsev,Alex De Minaur,2023-04-24,aslan karatsev,alex de minaur,7659748,10109527,1.01,100.0,1.01,100.0
-1.213582947,Pedro Cachin,Frances Tiafoe,1.02,40.0,Pedro Cachin,Pedro Cachin,Frances Tiafoe,2023-04-24,pedro cachin,frances tiafoe,8461316,19924839,1.02,40.0,1.02,40.0
-1.213584215,Taylor Fritz,Cristian Garin,1.01,2.86,Taylor Fritz,Taylor Fritz,Cristian Garin,2023-04-24,taylor fritz,cristian garin,10279360,23814703,1.01,2.86,1.01,2.86
-1.213585293,Zhizhen Zhang,Cameron Norrie,1.03,34.0,Zhizhen Zhang,Zhizhen Zhang,Cameron Norrie,2023-04-24,zhizhen zhang,cameron norrie,9628959,42669524,1.03,34.0,1.03,34.0
-1.213588961,Stefanos Tsitsipas,Sebastian Baez,1.01,100.0,Stefanos Tsitsipas,Stefanos Tsitsipas,Sebastian Baez,2023-04-24,stefanos tsitsipas,sebastian baez,9193006,11285506,1.01,100.0,1.01,100.0
-1.213626115,Karen Khachanov,Andrey Rublev,1.01,100.0,Karen Khachanov,Karen Khachanov,Andrey Rublev,2023-04-24,karen khachanov,andrey rublev,7659623,7797771,1.01,100.0,1.01,100.0
-1.213636637,Alexander Zverev,Carlos Alcaraz,4.8,1.28,Carlos Alcaraz,Carlos Alcaraz,Alexander Zverev,2023-04-24,alexander zverev,carlos alcaraz,19924823,25215583,4.8,1.28,4.8,1.28
-1.213641065,Jaume Munar,Daniel Altmaier,1.82,2.2,Daniel Altmaier,Daniel Altmaier,Jaume Munar,2023-04-24,jaume munar,daniel altmaier,9350385,9632088,1.82,2.2,1.82,2.2
-1.213645765,Borna Coric,Alejandro Davidovich Fokina,2.66,1.63,Borna Coric,Borna Coric,Alejandro Davidovich Fokina,2023-04-24,borna coric,alejandro davidovich fokina,7446579,9953368,2.66,1.63,2.66,1.63
-1.213671413,Aslan Karatsev,Daniil Medvedev,1.01,100.0,Aslan Karatsev,Aslan Karatsev,Daniil Medvedev,2023-04-24,aslan karatsev,daniil medvedev,7659748,19924831,1.01,100.0,1.01,100.0
-1.213672894,Jan-Lennard Struff,Pedro Cachin,1.73,50.0,Jan Lennard Struff,Jan Lennard Struff,Pedro Cachin,2023-04-24,jan lennard struff,pedro cachin,8259098,8461316,1.73,50.0,1.73,50.0
-1.21368697,Stefanos Tsitsipas,Bernabe Zapata Miralles,1.19,6.2,Stefanos Tsitsipas,Stefanos Tsitsipas,Bernabe Zapata Miralles,2023-04-24,stefanos tsitsipas,bernabe zapata miralles,9193006,9630472,1.19,6.2,1.19,6.2
-1.213689094,Zhizhen Zhang,Taylor Fritz,1.45,3.2,Zhizhen Zhang,Zhizhen Zhang,Taylor Fritz,2023-04-24,zhizhen zhang,taylor fritz,9628959,10279360,1.45,3.2,1.45,3.2
-1.213718849,Karen Khachanov,Carlos Alcaraz,120.0,1.13,Carlos Alcaraz,Carlos Alcaraz,Karen Khachanov,2023-04-24,karen khachanov,carlos alcaraz,7659623,25215583,120.0,1.13,120.0,1.13
-1.213719372,Borna Coric,Daniel Altmaier,1.48,3.05,Borna Coric,Borna Coric,Daniel Altmaier,2023-04-24,borna coric,daniel altmaier,7446579,9632088,1.48,3.05,1.48,3.05
-1.21372631,Aslan Karatsev,Zhizhen Zhang,1.7,1000.0,Aslan Karatsev,Aslan Karatsev,Zhizhen Zhang,2023-04-24,aslan karatsev,zhizhen zhang,7659748,9628959,1.7,1000.0,1.7,1000.0
-1.213730077,Jan-Lennard Struff,Stefanos Tsitsipas,1.14,8.2,Jan Lennard Struff,Jan Lennard Struff,Stefanos Tsitsipas,2023-04-24,jan lennard struff,stefanos tsitsipas,8259098,9193006,1.14,8.2,1.14,8.2
-1.213767342,Borna Coric,Carlos Alcaraz,12.5,1.09,Carlos Alcaraz,Carlos Alcaraz,Borna Coric,2023-04-24,borna coric,carlos alcaraz,7446579,25215583,12.5,1.09,12.5,1.09
-1.213806507,Aslan Karatsev,Jan-Lennard Struff,100.0,1.01,Jan Lennard Struff,Jan Lennard Struff,Aslan Karatsev,2023-04-24,aslan karatsev,jan lennard struff,7659748,8259098,100.0,1.01,100.0,1.01
-1.213849136,Jan-Lennard Struff,Carlos Alcaraz,1000.0,1.08,Carlos Alcaraz,Carlos Alcaraz,Jan Lennard Struff,2023-04-24,jan lennard struff,carlos alcaraz,8259098,25215583,1000.0,1.08,1000.0,1.08
+market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_name,loser_name,match_date,player_1_clean,player_2_clean,selection_id_1,selection_id_2
+1.213328659,Thanasi Kokkinakis,Jaume Munar,,,Jaume Munar,Jaume Munar,Thanasi Kokkinakis,2023-04-24,thanasi kokkinakis,jaume munar,8172416,9350385
+1.213328661,Richard Gasquet,Martin Landaluce,,,Richard Gasquet,Richard Gasquet,Martin Landaluce,2023-04-24,richard gasquet,martin landaluce,2249399,49038329
+1.213328665,Gregoire Barrere,Emilio Nava,,,Gregoire Barrere,Gregoire Barrere,Emilio Nava,2023-04-24,gregoire barrere,emilio nava,8842295,12646384
+1.213328862,Quentin Halys,Alexei Popyrin,,,Quentin Halys,Quentin Halys,Alexei Popyrin,2023-04-24,quentin halys,alexei popyrin,7287690,10706479
+1.213328963,Marc-Andrea Huesler,Cristian Garin,,,Cristian Garin,Cristian Garin,Marc Andrea Huesler,2023-04-24,marc andrea huesler,cristian garin,9631939,23814703
+1.213329322,Jason Kubler,Dusan Lajovic,,,Dusan Lajovic,Dusan Lajovic,Jason Kubler,2023-04-24,jason kubler,dusan lajovic,4448756,4688724
+1.213329358,Bernabe Zapata Miralles,Mackenzie McDonald,,,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Mackenzie Mcdonald,2023-04-24,bernabe zapata miralles,mackenzie mcdonald,9630472,10691901
+1.213329732,Jeremy Chardy,Hugo Gaston,,,Hugo Gaston,Hugo Gaston,Jeremy Chardy,2023-04-24,jeremy chardy,hugo gaston,2304933,10303696
+1.213329763,David Goffin,Roberto Carballes Baena,,,Roberto Carballes Baena,Roberto Carballes Baena,David Goffin,2023-04-24,david goffin,roberto carballes baena,19924835,42313578
+1.21333011,Albert Ramos-Vinolas,Ilya Ivashka,,,Albert Ramos,Albert Ramos,Ilya Ivashka,2023-04-24,albert ramos vinolas,ilya ivashka,8621877,19924837
+1.213330121,Daniel Elahi Galan,Alexander Bublik,,,Alexander Bublik,Alexander Bublik,Daniel Elahi Galan,2023-04-24,daniel elahi galan,alexander bublik,8860646,8907933
+1.213330399,Emil Ruusuvuori,Ugo Humbert,,,Emil Ruusuvuori,Emil Ruusuvuori,Ugo Humbert,2023-04-24,emil ruusuvuori,ugo humbert,8979329,9633253
+1.21333041,Adrian Mannarino,Tomas Martin Etcheverry,,,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Adrian Mannarino,2023-04-24,adrian mannarino,tomas martin etcheverry,3066621,9631399
+1.213330661,Maxime Cressy,Stan Wawrinka,,,Stan Wawrinka,Stan Wawrinka,Maxime Cressy,2023-04-24,maxime cressy,stan wawrinka,11510005,19924832
+1.213330673,Filip Krajinovic,Christopher O'Connell,,,Christopher Oconnell,Christopher Oconnell,Filip Krajinovic,2023-04-24,filip krajinovic,christopher o'connell,3509265,8942164
+1.213330917,Marcos Giron,Nuno Borges,,,Marcos Giron,Marcos Giron,Nuno Borges,2023-04-24,marcos giron,nuno borges,8230256,9633043
+1.213331184,Kyle Edmund,Dominic Thiem,,,Dominic Thiem,Dominic Thiem,Kyle Edmund,2023-04-24,kyle edmund,dominic thiem,5626817,5720747
+1.213412623,Diego Schwartzman,Hugo Grenier,,,Hugo Grenier,Hugo Grenier,Diego Schwartzman,2023-04-24,diego schwartzman,hugo grenier,8736474,8813394
+1.213412627,Benoit Paire,Matteo Arnaldi,,,Matteo Arnaldi,Matteo Arnaldi,Benoit Paire,2023-04-24,benoit paire,matteo arnaldi,3911345,21067270
+1.213412633,Oscar Otte,Pavel Kotov,,,Oscar Otte,Oscar Otte,Pavel Kotov,2023-04-24,oscar otte,pavel kotov,9624731,10166537
+1.213412893,Yannick Hanfmann,Juan Pablo Varillas,,,Yannick Hanfmann,Yannick Hanfmann,Juan Pablo Varillas,2023-04-24,yannick hanfmann,juan pablo varillas,8639275,11772759
+1.213413113,Thiago Monteiro,Borna Gojo,,,Thiago Monteiro,Thiago Monteiro,Borna Gojo,2023-04-24,thiago monteiro,borna gojo,8326656,10760646
+1.213413416,Nicolas Jarry,Roman Safiullin,,,Roman Safiullin,Roman Safiullin,Nicolas Jarry,2023-04-24,nicolas jarry,roman safiullin,8260515,9125686
+1.213413417,Alexander Shevchenko,J.j. Wolf,,,Alexander Shevchenko,Alexander Shevchenko,J J Wolf,2023-04-24,alexander shevchenko,jj wolf,15134244,24339655
+1.21341342,Zhizhen Zhang,Jurij Rodionov,,,Zhizhen Zhang,Zhizhen Zhang,Jurij Rodionov,2023-04-24,zhizhen zhang,jurij rodionov,9628959,10555106
+1.21341372,Jan-Lennard Struff,Lorenzo Sonego,,,Jan Lennard Struff,Jan Lennard Struff,Lorenzo Sonego,2023-04-24,jan lennard struff,lorenzo sonego,8259098,8826925
+1.213413722,Marton Fucsovics,Marco Cecchinato,,,Marco Cecchinato,Marco Cecchinato,Marton Fucsovics,2023-04-24,marton fucsovics,marco cecchinato,4827766,6374165
+1.213413733,Aslan Karatsev,Laslo Djere,,,Aslan Karatsev,Aslan Karatsev,Laslo Djere,2023-04-24,aslan karatsev,laslo djere,7659748,7692106
+1.213414122,Andy Murray,Andrea Vavassori,,,Andrea Vavassori,Andrea Vavassori,Andy Murray,2023-04-24,andy murray,andrea vavassori,2256509,9414510
+1.213426047,Corentin Moutet,Yosuke Watanuki,,,Yosuke Watanuki,Yosuke Watanuki,Corentin Moutet,2023-04-24,corentin moutet,yosuke watanuki,8842291,19924830
+1.213446138,Borna Coric,Hugo Gaston,,,Borna Coric,Borna Coric,Hugo Gaston,2023-04-24,borna coric,hugo gaston,7446579,10303696
+1.213447636,Grigor Dimitrov,Gregoire Barrere,,,Grigor Dimitrov,Grigor Dimitrov,Gregoire Barrere,2023-04-24,grigor dimitrov,gregoire barrere,3120169,8842295
+1.213449369,Albert Ramos-Vinolas,Alejandro Davidovich Fokina,,,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Albert Ramos,2023-04-24,albert ramos vinolas,alejandro davidovich fokina,8621877,9953368
+1.213449374,Yoshihito Nishioka,Alex Molcan,,,Yoshihito Nishioka,Yoshihito Nishioka,Alex Molcan,2023-04-24,yoshihito nishioka,alex molcan,7137497,8960879
+1.213450721,Roberto Bautista Agut,Quentin Halys,,,Roberto Bautista Agut,Roberto Bautista Agut,Quentin Halys,2023-04-24,roberto bautista agut,quentin halys,4290403,7287690
+1.213452338,Alexander Zverev,Roberto Carballes Baena,,,Alexander Zverev,Alexander Zverev,Roberto Carballes Baena,2023-04-24,alexander zverev,roberto carballes baena,19924823,42313578
+1.213454198,Alexander Bublik,Holger Rune,,,Holger Rune,Holger Rune,Alexander Bublik,2023-04-24,alexander bublik,holger rune,8907933,39127965
+1.213456107,Yannick Hanfmann,Lorenzo Musetti,,,Yannick Hanfmann,Yannick Hanfmann,Lorenzo Musetti,2023-04-24,yannick hanfmann,lorenzo musetti,8639275,13834991
+1.213456882,Andrey Rublev,Stan Wawrinka,,,Andrey Rublev,Andrey Rublev,Stan Wawrinka,2023-04-24,andrey rublev,stan wawrinka,7797771,19924832
+1.213457211,Hugo Grenier,Sebastian Korda,,,Hugo Grenier,Hugo Grenier,Sebastian Korda,2023-04-24,hugo grenier,sebastian korda,8813394,10902223
+1.21345813,Casper Ruud,Matteo Arnaldi,,,Matteo Arnaldi,Matteo Arnaldi,Casper Ruud,2023-04-24,casper ruud,matteo arnaldi,9629711,21067270
+1.21345926,Emil Ruusuvuori,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Emil Ruusuvuori,2023-04-24,emil ruusuvuori,carlos alcaraz,8979329,25215583
+1.213460137,Richard Gasquet,Hubert Hurkacz,,,Hubert Hurkacz,Hubert Hurkacz,Richard Gasquet,2023-04-24,richard gasquet,hubert hurkacz,2249399,19924838
+1.213461895,Tallon Griekspoor,Jaume Munar,,,Jaume Munar,Jaume Munar,Tallon Griekspoor,2023-04-24,tallon griekspoor,jaume munar,9198585,9350385
+1.213461919,Karen Khachanov,Thiago Monteiro,,,Karen Khachanov,Karen Khachanov,Thiago Monteiro,2023-04-24,karen khachanov,thiago monteiro,7659623,8326656
+1.213488365,Tomas Martin Etcheverry,Frances Tiafoe,,,Frances Tiafoe,Frances Tiafoe,Tomas Martin Etcheverry,2023-04-24,tomas martin etcheverry,frances tiafoe,9631399,19924839
+1.213488469,Jiri Lehecka,Alexander Shevchenko,,,Alexander Shevchenko,Alexander Shevchenko,Jiri Lehecka,2023-04-24,jiri lehecka,alexander shevchenko,13203243,15134244
+1.213488606,Dominic Thiem,Stefanos Tsitsipas,,,Stefanos Tsitsipas,Stefanos Tsitsipas,Dominic Thiem,2023-04-24,dominic thiem,stefanos tsitsipas,5720747,9193006
+1.213491035,Zhizhen Zhang,Denis Shapovalov,,,Zhizhen Zhang,Zhizhen Zhang,Denis Shapovalov,2023-04-24,zhizhen zhang,denis shapovalov,9628959,19924829
+1.213491513,Yosuke Watanuki,Cameron Norrie,,,Cameron Norrie,Cameron Norrie,Yosuke Watanuki,2023-04-24,yosuke watanuki,cameron norrie,19924830,42669524
+1.213492113,Miomir Kecmanovic,Cristian Garin,,,Cristian Garin,Cristian Garin,Miomir Kecmanovic,2023-04-24,miomir kecmanovic,cristian garin,9657480,23814703
+1.21349288,Pedro Cachin,Francisco Cerundolo,,,Pedro Cachin,Pedro Cachin,Francisco Cerundolo,2023-04-24,pedro cachin,francisco cerundolo,8461316,11204210
+1.213494479,Marcos Giron,Sebastian Baez,,,Sebastian Baez,Sebastian Baez,Marcos Giron,2023-04-24,marcos giron,sebastian baez,8230256,11285506
+1.21349458,Jan-Lennard Struff,Ben Shelton,,,Jan Lennard Struff,Jan Lennard Struff,Ben Shelton,2023-04-24,jan lennard struff,ben shelton,8259098,39460566
+1.213499414,Marco Cecchinato,Alex De Minaur,,,Alex De Minaur,Alex De Minaur,Marco Cecchinato,2023-04-24,marco cecchinato,alex de minaur,6374165,10109527
+1.213502134,Christopher O'Connell,Taylor Fritz,,,Taylor Fritz,Taylor Fritz,Christopher Oconnell,2023-04-24,christopher o'connell,taylor fritz,8942164,10279360
+1.213502262,Andrea Vavassori,Daniil Medvedev,,,Daniil Medvedev,Daniil Medvedev,Andrea Vavassori,2023-04-24,andrea vavassori,daniil medvedev,9414510,19924831
+1.21350239,Oscar Otte,Daniel Altmaier,,,Daniel Altmaier,Daniel Altmaier,Oscar Otte,2023-04-24,oscar otte,daniel altmaier,9624731,9632088
+1.213504524,Dusan Lajovic,Felix Auger-Aliassime,,,Dusan Lajovic,Dusan Lajovic,Felix Auger Aliassime,2023-04-24,dusan lajovic,felix auger aliassime,4688724,12210252
+1.21350743,Aslan Karatsev,Botic Van de Zandschulp,,,Aslan Karatsev,Aslan Karatsev,Botic Van De Zandschulp,2023-04-24,aslan karatsev,botic van de zandschulp,7659748,11204614
+1.213507438,Daniel  Evans,Bernabe Zapata Miralles,,,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Daniel Evans,2023-04-24,daniel  evans,bernabe zapata miralles,3103121,9630472
+1.213531946,Jaume Munar,Matteo Arnaldi,,,Jaume Munar,Jaume Munar,Matteo Arnaldi,2023-04-24,jaume munar,matteo arnaldi,9350385,21067270
+1.213534842,Yannick Hanfmann,Daniel Altmaier,,,Daniel Altmaier,Daniel Altmaier,Yannick Hanfmann,2023-04-24,yannick hanfmann,daniel altmaier,8639275,9632088
+1.213534846,Yoshihito Nishioka,Andrey Rublev,,,Andrey Rublev,Andrey Rublev,Yoshihito Nishioka,2023-04-24,yoshihito nishioka,andrey rublev,7137497,7797771
+1.213542544,Grigor Dimitrov,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Grigor Dimitrov,2023-04-24,grigor dimitrov,carlos alcaraz,3120169,25215583
+1.213542633,Roberto Bautista Agut,Karen Khachanov,,,Karen Khachanov,Karen Khachanov,Roberto Bautista Agut,2023-04-24,roberto bautista agut,karen khachanov,4290403,7659623
+1.213544899,Borna Coric,Hubert Hurkacz,,,Borna Coric,Borna Coric,Hubert Hurkacz,2023-04-24,borna coric,hubert hurkacz,7446579,19924838
+1.213545183,Alejandro Davidovich Fokina,Holger Rune,,,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Holger Rune,2023-04-24,alejandro davidovich fokina,holger rune,9953368,39127965
+1.21355104,Hugo Grenier,Alexander Zverev,,,Alexander Zverev,Alexander Zverev,Hugo Grenier,2023-04-24,hugo grenier,alexander zverev,8813394,19924823
+1.213575469,Dusan Lajovic,Jan-Lennard Struff,,,Jan Lennard Struff,Jan Lennard Struff,Dusan Lajovic,2023-04-24,dusan lajovic,jan lennard struff,4688724,8259098
+1.21357701,Roman Safiullin,Bernabe Zapata Miralles,,,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Roman Safiullin,2023-04-24,roman safiullin,bernabe zapata miralles,9125686,9630472
+1.213577012,Aslan Karatsev,Alex De Minaur,,,Aslan Karatsev,Aslan Karatsev,Alex De Minaur,2023-04-24,aslan karatsev,alex de minaur,7659748,10109527
+1.213582947,Pedro Cachin,Frances Tiafoe,,,Pedro Cachin,Pedro Cachin,Frances Tiafoe,2023-04-24,pedro cachin,frances tiafoe,8461316,19924839
+1.213584215,Taylor Fritz,Cristian Garin,,,Taylor Fritz,Taylor Fritz,Cristian Garin,2023-04-24,taylor fritz,cristian garin,10279360,23814703
+1.213585293,Zhizhen Zhang,Cameron Norrie,,,Zhizhen Zhang,Zhizhen Zhang,Cameron Norrie,2023-04-24,zhizhen zhang,cameron norrie,9628959,42669524
+1.213588961,Stefanos Tsitsipas,Sebastian Baez,,,Stefanos Tsitsipas,Stefanos Tsitsipas,Sebastian Baez,2023-04-24,stefanos tsitsipas,sebastian baez,9193006,11285506
+1.213626115,Karen Khachanov,Andrey Rublev,,,Karen Khachanov,Karen Khachanov,Andrey Rublev,2023-04-24,karen khachanov,andrey rublev,7659623,7797771
+1.213636637,Alexander Zverev,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Alexander Zverev,2023-04-24,alexander zverev,carlos alcaraz,19924823,25215583
+1.213641065,Jaume Munar,Daniel Altmaier,,,Daniel Altmaier,Daniel Altmaier,Jaume Munar,2023-04-24,jaume munar,daniel altmaier,9350385,9632088
+1.213645765,Borna Coric,Alejandro Davidovich Fokina,,,Borna Coric,Borna Coric,Alejandro Davidovich Fokina,2023-04-24,borna coric,alejandro davidovich fokina,7446579,9953368
+1.213671413,Aslan Karatsev,Daniil Medvedev,,,Aslan Karatsev,Aslan Karatsev,Daniil Medvedev,2023-04-24,aslan karatsev,daniil medvedev,7659748,19924831
+1.213672894,Jan-Lennard Struff,Pedro Cachin,,,Jan Lennard Struff,Jan Lennard Struff,Pedro Cachin,2023-04-24,jan lennard struff,pedro cachin,8259098,8461316
+1.21368697,Stefanos Tsitsipas,Bernabe Zapata Miralles,,,Stefanos Tsitsipas,Stefanos Tsitsipas,Bernabe Zapata Miralles,2023-04-24,stefanos tsitsipas,bernabe zapata miralles,9193006,9630472
+1.213689094,Zhizhen Zhang,Taylor Fritz,,,Zhizhen Zhang,Zhizhen Zhang,Taylor Fritz,2023-04-24,zhizhen zhang,taylor fritz,9628959,10279360
+1.213718849,Karen Khachanov,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Karen Khachanov,2023-04-24,karen khachanov,carlos alcaraz,7659623,25215583
+1.213719372,Borna Coric,Daniel Altmaier,,,Borna Coric,Borna Coric,Daniel Altmaier,2023-04-24,borna coric,daniel altmaier,7446579,9632088
+1.21372631,Aslan Karatsev,Zhizhen Zhang,,,Aslan Karatsev,Aslan Karatsev,Zhizhen Zhang,2023-04-24,aslan karatsev,zhizhen zhang,7659748,9628959
+1.213730077,Jan-Lennard Struff,Stefanos Tsitsipas,,,Jan Lennard Struff,Jan Lennard Struff,Stefanos Tsitsipas,2023-04-24,jan lennard struff,stefanos tsitsipas,8259098,9193006
+1.213767342,Borna Coric,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Borna Coric,2023-04-24,borna coric,carlos alcaraz,7446579,25215583
+1.213806507,Aslan Karatsev,Jan-Lennard Struff,,,Jan Lennard Struff,Jan Lennard Struff,Aslan Karatsev,2023-04-24,aslan karatsev,jan lennard struff,7659748,8259098
+1.213849136,Jan-Lennard Struff,Carlos Alcaraz,,,Carlos Alcaraz,Carlos Alcaraz,Jan Lennard Struff,2023-04-24,jan lennard struff,carlos alcaraz,8259098,25215583

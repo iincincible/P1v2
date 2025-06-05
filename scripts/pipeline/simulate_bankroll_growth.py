@@ -46,6 +46,9 @@ def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=
     return pd.DataFrame(history), bankroll, max_drawdown
 
 def save_plot(df, png_path):
+    if "bankroll" not in df.columns or df.empty:
+        print("⚠️ No bankroll data to plot — skipping plot generation.")
+        return
     plt.figure(figsize=(10, 5))
     plt.plot(df["bankroll"], label="Bankroll")
     plt.xlabel("Bet #")
@@ -72,6 +75,20 @@ def main():
 
     files = args.input_csvs.split(",")
     df = pd.concat([pd.read_csv(f).assign(source_file=os.path.basename(f)) for f in files], ignore_index=True)
+
+    # === Patch missing expected columns ===
+    if "predicted_prob" not in df.columns:
+        df["predicted_prob"] = df.get("pred_prob_player_1", pd.NA)
+    if "odds" not in df.columns:
+        df["odds"] = df.get("odds_player_1", pd.NA)
+    if "expected_value" not in df.columns:
+        df["expected_value"] = (df["predicted_prob"] * df["odds"]) - 1
+    if "winner" not in df.columns:
+        if "actual_winner" in df.columns and "player_1" in df.columns:
+            df["winner"] = df["actual_winner"].str.strip().str.lower() == df["player_1"].str.strip().str.lower()
+            df["winner"] = df["winner"].astype(int)
+        else:
+            raise ValueError("❌ 'winner' column missing and cannot be derived from actual_winner/player_1")
 
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
         df, strategy=args.strategy, ev_threshold=args.ev_threshold, odds_cap=args.odds_cap

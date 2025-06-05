@@ -1,1 +1,90 @@
-player,predicted_prob,odds,expected_value,winner
+match_id,player,odds,pred_prob,ev,actual_winner,won
+,Stefanos Tsitsipas,1.3,1.0,0.30000000000000004,Stefanos Tsitsipas,True
+,Alex Michelsen,1.01,1.0,0.010000000000000009,Alex Michelsen,True
+,Roman Safiullin,1.1,0.9999999988338768,0.09999999871726457,Roman Safiullin,True
+,Andy Murray,1.32,0.9999999983053762,0.3199999977630967,Andy Murray,True
+,Fabian Marozsan,1.02,1.0,0.020000000000000018,Fabian Marozsan,True
+,Alejandro Davidovich Fokina,1.57,1.0,0.5700000000000001,Alejandro Davidovich Fokina,True
+,Ilya Ivashka,1.5,0.8515230283247609,0.27728454248714135,Juan Manuel Cerundolo,False
+,Borna Coric,1.58,0.8310835195134548,0.3131119608312587,Sebastian Baez,False
+,Ben Shelton,1.01,1.0,0.010000000000000009,Ben Shelton,True
+,Juan Pablo Varillas,1.08,0.9999999988343005,0.07999999874104458,Juan Pablo Varillas,True
+,Bernabe Zapata Miralles,1.56,0.8363822385619509,0.3047562921566435,Bernabe Zapata Miralles,True
+,Grigor Dimitrov,1.28,0.8988520675468165,0.1505306464599251,Grigor Dimitrov,True
+,Rinky Hijikata,1.96,1.0,0.96,Rinky Hijikata,True
+,Holger Rune,1.15,0.9230170746466123,0.06146963584360407,Roberto Carballes Baena,False
+,Daniel  Evans,1.39,0.8767614861460536,0.2186984657430145,Daniel Evans,False
+,Cameron Norrie,1.25,1.0,0.25,Cameron Norrie,True
+,Alexander Zverev,1.14,0.9999780699091406,0.13997499969642022,Alexander Zverev,True
+,Hubert Hurkacz,1.09,1.0,0.09000000000000008,Hubert Hurkacz,True
+,Stan Wawrinka,1.5,0.6911687963787085,0.03675319456806281,Stan Wawrinka,True
+,Benjamin Bonzi,1.03,1.0,0.030000000000000027,Benjamin Bonzi,True
+,Yibing Wu,1.01,1.0,0.010000000000000009,Yibing Wu,True
+,Matteo Berrettini,1.51,0.8491134965425005,0.2821613797791757,Matteo Berrettini,True
+,John Isner,1.4,0.874242543634299,0.2239395610880185,John Isner,True
+,Arthur Fils,1.08,0.9999999999993067,0.07999999999925127,Arthur Fils,True
+,Michael Mmoh,2.88,1.0,1.88,Michael Mmoh,True
+,Dominic Thiem,2.4,0.928573348220421,1.2285760357290103,Dominic Thiem,True
+,Lloyd Harris,1.42,0.8221830466762972,0.16749992628034188,Lloyd Harris,True
+,Taylor Fritz,1.05,0.9999999999999573,0.049999999999955164,Taylor Fritz,True
+,Diego Schwartzman,1.84,0.7504663168094775,0.3808580229294387,Arthur Rinderknech,False
+,Constant Lestienne,2.16,0.6226750061119677,0.3449780132018503,Daniel Altmaier,False
+,Carlos Alcaraz,1.02,1.0,0.020000000000000018,Carlos Alcaraz,True
+,Borna Gojo,1.13,0.9999895671913622,0.12998821092623922,Borna Gojo,True
+,Alexei Popyrin,1.58,0.8310835195134548,0.3131119608312587,Dominic Stricker,False
+,Tommy Paul,1.07,1.0,0.07000000000000006,Tommy Paul,True
+,Casper Ruud,1.2,0.913608899709932,0.09633067965191833,Casper Ruud,True
+,Francisco Cerundolo,1.43,0.9744028386823531,0.3933960593157649,Francisco Cerundolo,True
+,Jiri Vesely,1.32,0.8911937712245022,0.1763757780163429,Jiri Vesely,True
+,Jakub Mensik,1.01,1.0,0.010000000000000009,Jakub Mensik,True
+,Hugo Gaston,1.03,1.0,0.030000000000000027,Hugo Gaston,True
+,Lorenzo Sonego,1.3,0.8947428539844371,0.16316571017976828,Lorenzo Sonego,True
+,Yu Hsiou Hsu,1.01,1.0,0.010000000000000009,Yu Hsiou Hsu,True
+,Tomas Martin Etcheverry,1.63,0.9269808700239299,0.5109788181390057,Tomas Martin Etcheverry,True
+,James Duckworth,2.14,0.6314443127505307,0.35129082928613575,Felipe Meligeni Alves,False
+,Ben Shelton,1.01,1.0,0.010000000000000009,Ben Shelton,True
+,Adrian Mannarino,1.41,0.8723892733896395,0.23006887547939153,Adrian Mannarino,True
+,Alejandro Davidovich Fokina,1.1,0.9312452234679582,0.02436974581475415,Alejandro Davidovich Fokina,True
+,Casper Ruud,1.25,0.9917048815593585,0.23963110194919818,Zhizhen Zhang,False
+,Rinky Hijikata,3.4,1.0,2.4,Rinky Hijikata,True
+,Titouan Droguet,2.2,0.6043337847659316,0.32953432648504954,Jakub Mensik,False
+,Laslo Djere,1.68,0.9717640502196334,0.6325636043689841,Laslo Djere,True
+,Benjamin Bonzi,1.04,0.9999998791340693,0.0399998742994321,Benjamin Bonzi,True
+,Borna Gojo,1.01,1.0,0.010000000000000009,Borna Gojo,True
+,Andrey Rublev,1.15,0.9219778750626897,0.060274556322093054,Andrey Rublev,True
+,Arthur Rinderknech,5.2,1.0,4.2,Arthur Rinderknech,True
+,Daniil Medvedev,1.05,1.0,0.050000000000000044,Daniil Medvedev,True
+,Nicolas Jarry,1.59,0.8280989844069753,0.31667738520709077,Nicolas Jarry,True
+,Matteo Arnaldi,2.5,0.46640445987859086,0.16601114969647712,Matteo Arnaldi,True
+,Alexander Zverev,1.1,0.9999999970491236,0.09999999675403601,Alexander Zverev,True
+,Cameron Norrie,1.14,0.9999682079314951,0.1399637570419043,Cameron Norrie,True
+,Dominic Stricker,1.09,0.99999998110768,0.08999997940737123,Dominic Stricker,True
+,Sebastian Baez,1.1,0.9482200632752706,0.043042069602797786,Sebastian Baez,True
+,Grigor Dimitrov,1.87,1.0,0.8700000000000001,Grigor Dimitrov,True
+,Michael Mmoh,1.17,0.9998595121233146,0.169835629184278,Michael Mmoh,True
+,Daniel  Evans,1.62,0.9697703460407886,0.5710279605860776,Daniel Evans,False
+,Alex De Minaur,1.24,1.0,0.24,Alex De Minaur,True
+,Andrey Rublev,1.49,1.0,0.49,Andrey Rublev,True
+,Jack Draper,2.72,0.9252465425048564,1.5166705956132096,Jack Draper,True
+,Carlos Alcaraz,1.02,1.0,0.020000000000000018,Carlos Alcaraz,True
+,Stan Wawrinka,1.33,1.0,0.33000000000000007,Stan Wawrinka,True
+,Dominic Stricker,1.01,1.0,0.010000000000000009,Dominic Stricker,True
+,Aslan Karatsev,2.58,0.42981973524082334,0.10893491692132418,Ben Shelton,False
+,Frances Tiafoe,1.01,1.0,0.010000000000000009,Frances Tiafoe,True
+,Rinky Hijikata,1.01,1.0,0.010000000000000009,Rinky Hijikata,True
+,Jack Draper,1.38,0.8986056938548891,0.24007585751974686,Jack Draper,True
+,Alex De Minaur,1.27,0.98560457070558,0.2517178047960867,Alex De Minaur,True
+,Jannik Sinner,1.13,0.99901488066735,0.12888681515410538,Jannik Sinner,True
+,Carlos Alcaraz,1.04,1.0,0.040000000000000036,Carlos Alcaraz,True
+,Daniil Medvedev,1.02,1.0,0.020000000000000018,Daniil Medvedev,True
+,Ben Shelton,1.15,0.9999331736482308,0.14992314969546527,Ben Shelton,True
+,Taylor Fritz,1.15,0.9846210498788044,0.13231420736062496,Taylor Fritz,True
+,Carlos Alcaraz,1.04,1.0,0.040000000000000036,Carlos Alcaraz,True
+,Andrey Rublev,1.41,0.9730285477700632,0.371970252355789,Andrey Rublev,True
+,Alexander Zverev,1.06,0.9999999999280867,0.059999999923772,Alexander Zverev,True
+,Daniil Medvedev,1.38,0.8083142201751511,0.1154736238417084,Daniil Medvedev,True
+,Ben Shelton,1.01,1.0,0.010000000000000009,Ben Shelton,True
+,Novak Djokovic,1.16,0.9843373349022853,0.14183130848665082,Novak Djokovic,True
+,Daniil Medvedev,1.01,1.0,0.010000000000000009,Daniil Medvedev,True
+,Carlos Alcaraz,1.21,1.0,0.20999999999999996,Carlos Alcaraz,True
+,Novak Djokovic,1.11,0.9999999988525692,0.1099999987263519,Novak Djokovic,True
