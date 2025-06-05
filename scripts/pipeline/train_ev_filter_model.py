@@ -1,65 +1,59 @@
 import argparse
 import pandas as pd
-import glob
 import joblib
 from pathlib import Path
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input_glob", default="data/processed/*_predictions.csv")
-    parser.add_argument("--output_model", default="modeling/ev_filter_model.pkl")
-    parser.add_argument("--ev_threshold", type=float, default=0.0)
-    args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("--input_files", nargs='+', required=True)
+parser.add_argument("--output_model", required=True)
+parser.add_argument("--min_ev", type=float, default=0.2)
+args = parser.parse_args()
 
-    required_cols = {
-        "pred_prob_player_1", "odds_player_1", "odds_player_2",
-        "implied_prob_1", "implied_prob_2", "odds_margin", "implied_diff",
-        "actual_winner", "player_1"
-    }
+def normalize_columns(df):
+    if "predicted_prob" not in df.columns and "pred_prob_player_1" in df.columns:
+        df["predicted_prob"] = df["pred_prob_player_1"]
+    if "odds" not in df.columns and "odds_player_1" in df.columns:
+        df["odds"] = df["odds_player_1"]
+    if "ev" not in df.columns and "expected_value" in df.columns:
+        df["ev"] = df["expected_value"]
+    return df
 
-    files = glob.glob(args.input_glob)
-    dfs = []
-    skipped = 0
+rows = []
+for file in args.input_files:
+    try:
+        df = pd.read_csv(file)
+        df = normalize_columns(df)
+        if "predicted_prob" not in df.columns or "odds" not in df.columns:
+            raise ValueError("Missing required probability or odds columns.")
+        df["ev"] = (df["predicted_prob"] * df["odds"]) - 1
+        df = df[df["ev"] >= args.min_ev]
+        if "winner" not in df.columns:
+            print(f"⚠️ No 'winner' column in {file}, using synthetic label (ev > 0 as win proxy).")
+            df["winner"] = (df["ev"] > 0).astype(int)
+        rows.append(df)
+    except Exception as e:
+        print(f"❌ Failed to load {file}: {e}")
 
-    for file in files:
-        df = pd.read_csv(file, low_memory=False)
-        if not required_cols.issubset(set(df.columns)):
-            print(f"⚠️ Skipping {file} — missing required columns")
-            skipped += 1
-            continue
+if not rows:
+    raise ValueError("❌ All input files failed to load or were empty.")
 
-        df["ev"] = (df["pred_prob_player_1"] * df["odds_player_1"]) - 1
-        df = df[df["ev"] > args.ev_threshold].copy()
-        df["bet_success"] = (df["actual_winner"] == df["player_1"]).astype(int)
-        dfs.append(df)
+df = pd.concat(rows, ignore_index=True)
+print(f"✅ Loaded {len(df)} rows with EV ≥ {args.min_ev}")
 
-    if not dfs:
-        raise ValueError("❌ No valid files found. All skipped or empty.")
+features = ["predicted_prob", "odds", "ev"]
+X = df[features]
+y = df["winner"].astype(int)
 
-    data = pd.concat(dfs, ignore_index=True)
-    print(f"✅ Loaded {len(data)} EV bet rows from {len(files) - skipped} valid files")
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.25, random_state=42)
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
 
-    features = [
-        "pred_prob_player_1", "odds_player_1", "odds_player_2",
-        "implied_prob_1", "implied_prob_2", "odds_margin",
-        "implied_diff", "ev"
-    ]
+print("\n📊 Classification report on holdout set:")
+print(classification_report(y_test, model.predict(X_test)))
 
-    X = data[features]
-    y = data["bet_success"]
-
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
-    acc = cross_val_score(model, X, y, cv=5, scoring="accuracy").mean()
-    ll = -cross_val_score(model, X, y, cv=5, scoring="neg_log_loss").mean()
-    print(f"📊 CV Accuracy: {acc:.4f}")
-    print(f"📉 CV Log Loss: {ll:.4f}")
-
-    model.fit(X, y)
-    Path(args.output_model).parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump(model, args.output_model)
-    print(f"💾 Saved EV filter model to {args.output_model}")
-
-if __name__ == "__main__":
-    main()
+Path(args.output_model).parent.mkdir(parents=True, exist_ok=True)
+joblib.dump(model, args.output_model)
+print(f"✅ Saved model to {args.output_model}")

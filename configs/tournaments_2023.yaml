@@ -8,7 +8,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: hard
     tier: grand_slam
 
@@ -21,7 +21,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: hard
     tier: grand_slam
 
@@ -34,7 +34,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: clay
     tier: grand_slam
 
@@ -47,7 +47,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: clay
     tier: grand_slam
 
@@ -60,7 +60,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: grass
     tier: grand_slam
 
@@ -73,7 +73,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.2
     surface: grass
     tier: grand_slam
 
@@ -86,7 +86,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.3
     surface: hard
     tier: grand_slam
 
@@ -99,7 +99,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.02
+    ev_threshold: 0.2
     surface: hard
     tier: grand_slam
 
@@ -112,7 +112,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: hard
     tier: masters
 
@@ -125,7 +125,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: hard
     tier: masters
 
@@ -138,7 +138,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: hard
     tier: masters
 
@@ -151,7 +151,7 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: hard
     tier: masters
 
@@ -164,7 +164,7 @@ tournaments:
     sackmann_csv: data/tennis_atp/atp_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: clay
     tier: masters
 
@@ -177,6 +177,6 @@ tournaments:
     sackmann_csv: data/tennis_wta/wta_matches_2023.csv
     fuzzy_match: true
     alias_csv: configs/player_aliases.csv
-    ev_threshold: 0.01
+    ev_threshold: 0.3
     surface: clay
     tier: masters

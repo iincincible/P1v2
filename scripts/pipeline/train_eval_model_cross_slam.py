@@ -4,6 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss, accuracy_score
 from scripts.utils.betting_math import compute_ev, compute_kelly_stake
 from tqdm import tqdm
+import os
 
 # --- Parse CLI arguments ---
 parser = argparse.ArgumentParser()
@@ -16,6 +17,7 @@ parser.add_argument("--ev_threshold", type=float, default=0.0)
 parser.add_argument("--max_odds", type=float, default=1000.0)
 parser.add_argument("--max_margin", type=float, default=1.0)
 parser.add_argument("--fixed_stake", type=float, default=10.0)
+parser.add_argument("--strategy", choices=["flat", "kelly"], default="kelly")
 args = parser.parse_args()
 
 # --- Load and concatenate training data ---
@@ -66,7 +68,16 @@ df_bets = df_test[
     (df_test["odds_player_1"] <= args.max_odds)
 ].copy()
 
-df_bets["stake"] = args.fixed_stake
+# --- Auto-switch to flat if too few bets ---
+strategy_used = args.strategy
+if args.strategy == "kelly" and len(df_bets) < 10:
+    print(f"⚠️ Only {len(df_bets)} value bets — switching to flat staking for safety.")
+    strategy_used = "flat"
+
+df_bets["stake"] = args.fixed_stake if strategy_used == "flat" else df_bets.apply(
+    lambda row: compute_kelly_stake(row["pred_prob_player_1"], row["odds_player_1"]),
+    axis=1
+)
 df_bets["kelly_stake"] = df_bets.apply(
     lambda row: compute_kelly_stake(row["pred_prob_player_1"], row["odds_player_1"]),
     axis=1
@@ -82,14 +93,13 @@ drawdown = 0.0
 bankroll_history = []
 
 for _, row in tqdm(df_bets.iterrows(), total=len(df_bets), desc="Simulating bankroll"):
-    stake = row["stake"]
-    if "actual_winner" in row:
-        won = row["actual_winner"] == row["player_1"]
-        payout = stake * (row["odds_player_1"] - 1) if won else -stake
-        bankroll += payout
-        peak = max(peak, bankroll)
-        drawdown = max(drawdown, peak - bankroll)
-        bankroll_history.append(bankroll)
+    stake = args.fixed_stake if strategy_used == "flat" else row["kelly_stake"]
+    won = row["actual_winner"] == row["player_1"]
+    payout = stake * (row["odds_player_1"] - 1) if won else -stake
+    bankroll += payout
+    peak = max(peak, bankroll)
+    drawdown = max(drawdown, peak - bankroll)
+    bankroll_history.append(bankroll)
 
 pd.DataFrame({"bankroll": bankroll_history}).to_csv(args.bankroll_csv, index=False)
 print(f"\n📈 Simulated {len(df_bets)} bets")

@@ -5,17 +5,23 @@ import argparse
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-def kelly_stake(prob, odds, bankroll):
+def kelly_stake(prob, odds, bankroll, cap_fraction=0.05):
     b = odds - 1
     q = 1 - prob
-    edge = (b * prob - q) / b
-    return max(0, edge * bankroll)
+    edge = (b * prob - q) / b if b > 0 else 0
+    stake = edge * bankroll
+    return max(0, min(stake, bankroll * cap_fraction))
 
 def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=0.01, odds_cap=10.0):
     bankroll = starting_bankroll
     max_drawdown = 0
     peak = bankroll
     history = []
+
+    actual_strategy = strategy
+    if strategy == "kelly" and len(df) < 10:
+        print(f"⚠️ Only {len(df)} bets — switching to flat staking for safety.")
+        actual_strategy = "flat"
 
     for _, row in tqdm(df.iterrows(), total=len(df), desc="Simulating bankroll"):
         prob = row["predicted_prob"]
@@ -28,7 +34,7 @@ def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=
         if ev < ev_threshold or odds > odds_cap:
             continue
 
-        stake = 1.0 if strategy == "flat" else kelly_stake(prob, odds, bankroll)
+        stake = 1.0 if actual_strategy == "flat" else kelly_stake(prob, odds, bankroll)
         payout = stake * (odds if won else 0)
         bankroll += payout - stake
         peak = max(peak, bankroll)
@@ -57,13 +63,12 @@ def load_valid_csvs():
             if df.empty:
                 continue
 
-            # Force fallback mapping
             df["predicted_prob"] = df.get("pred_prob_player_1", df.get("predicted_prob"))
             df["odds"] = df.get("odds_player_1", df.get("odds"))
-            df["expected_value"] = (df["predicted_prob"] * df["odds"]) - 1  # true EV
+            df["expected_value"] = (df["predicted_prob"] * df["odds"]) - 1
 
             if "winner" not in df.columns:
-                if "actual_winner" in df.columns and "player_1" in df.columns and "player_2" in df.columns:
+                if "actual_winner" in df.columns and "player_1" in df.columns:
                     df["winner"] = df["actual_winner"].str.strip().str.lower() == df["player_1"].str.strip().str.lower()
                     df["winner"] = df["winner"].astype(int)
                 else:
@@ -110,13 +115,17 @@ def main():
     print(f"💰 Final bankroll: {final_bankroll:.2f}")
     print(f"📉 Max drawdown: {max_drawdown:.2f}")
 
+    png_path = os.path.splitext(args.output_csv)[0] + ".png"
+    plt.plot(sim_df["bankroll"])
+    plt.title("Simulated Bankroll Over Time")
+    plt.xlabel("Bet #")
+    plt.ylabel("Bankroll")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(png_path)
+    print(f"🖼️ Saved bankroll plot to {png_path}")
+
     if args.plot:
-        plt.plot(sim_df["bankroll"])
-        plt.title("Bankroll Over Time")
-        plt.xlabel("Bet Number")
-        plt.ylabel("Bankroll")
-        plt.grid(True)
-        plt.tight_layout()
         plt.show()
 
 if __name__ == "__main__":
