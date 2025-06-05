@@ -1,0 +1,85 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_name,loser_name,match_date
+1.213326064,Anna Kalinskaya,Brenda Fruhvirtova,1.05,21.0,Anna Kalinskaya,Anna Kalinskaya,Brenda Fruhvirtova,2023-04-24
+1.21332607,Varvara Gracheva,Xiyu Wang,21.0,1.01,Xiyu Wang,Xiyu Wang,Varvara Gracheva,2023-04-24
+1.21332645,Sloane Stephens,Jaqueline Cristian,5.1,1.24,Jaqueline Cristian,Jaqueline Cristian,Sloane Stephens,2023-04-24
+1.213326452,Elina Svitolina,Aliaksandra Sasnovich,34.0,2.28,Aliaksandra Sasnovich,Aliaksandra Sasnovich,Elina Svitolina,2023-04-24
+1.213326706,Lesia Tsurenko,Lucia Bronzetti,1.62,60.0,Lesia Tsurenko,Lesia Tsurenko,Lucia Bronzetti,2023-04-24
+1.213326834,Maryna Zanevska,Sofia Kenin,1.04,26.0,Maryna Zanevska,Maryna Zanevska,Sofia Kenin,2023-04-24
+1.213326835,Cristina Bucsa,Rebeka Masarova,12.5,1.08,Rebeka Masarova,Rebeka Masarova,Cristina Bucsa,2023-04-24
+1.21332703,Barbora Strycova,Elisabetta Cocciaretto,21.0,1.04,Elisabetta Cocciaretto,Elisabetta Cocciaretto,Barbora Strycova,2023-04-24
+1.21332731,Anastasia Pavlyuchenkova,Victoria Jimenez Kasint,1.01,100.0,Anastasia Pavlyuchenkova,Anastasia Pavlyuchenkova,Victoria Jimenez Kasintseva,2023-04-24
+1.213327474,Ana Bogdan,Anna Bondar,1.58,40.0,Ana Bogdan,Ana Bogdan,Anna Bondar,2023-04-24
+1.213327476,Rebecca Marino,Lin Zhu,1.02,2.04,Rebecca Marino,Rebecca Marino,Lin Zhu,2023-04-24
+1.213327477,Jule Niemeier,Xinyu Wang,1.61,120.0,Jule Niemeier,Jule Niemeier,Xin Yu Wang,2023-04-24
+1.213327743,Anett Kontaveit,Karolina Muchova,300.0,1.3,Karolina Muchova,Karolina Muchova,Anett Kontaveit,2023-04-24
+1.213328205,Yulia Putintseva,Claire Liu,1.03,29.0,Yulia Putintseva,Yulia Putintseva,Claire Liu,2023-04-24
+1.213328371,Lauren Davis,Sorana Cirstea ,50.0,1.29,Sorana Cirstea,Sorana Cirstea,Lauren Davis,2023-04-24
+1.213328469,Leylah Fernandez,Mirra Andreeva,1.77,2.32,Mirra Andreeva,Mirra Andreeva,Leylah Fernandez,2023-04-24
+1.213394472,Petra Kvitova,Jule Niemeier,200.0,1.01,Jule Niemeier,Jule Niemeier,Petra Kvitova,2023-04-24
+1.213397001,Ana Bogdan,Shelby Rogers,1.77,2.26,Shelby Rogers,Shelby Rogers,Ana Bogdan,2023-04-24
+1.213398627,Sorana Cirstea ,A Sabalenka,100.0,1.01,Aryna Sabalenka,Aryna Sabalenka,Sorana Cirstea,2023-04-24
+1.213400195,Paula Badosa,Elisabetta Cocciaretto,1.01,21.0,Paula Badosa,Paula Badosa,Elisabetta Cocciaretto,2023-04-24
+1.213400425,Karolina Muchova,Irinia-Camelia Begu,8.6,1.13,Irina Camelia Begu,Irina Camelia Begu,Karolina Muchova,2023-04-24
+1.213402836,Maryna Zanevska,Liudmila Samsonova,50.0,1.63,Liudmila Samsonova,Liudmila Samsonova,Maryna Zanevska,2023-04-24
+1.213405471,Rebecca Marino,Elise Mertens,140.0,1.34,Elise Mertens,Elise Mertens,Rebecca Marino,2023-04-24
+1.213409678,Jelena Ostapenko,Linda Fruhvirtova,1.2,120.0,Jelena Ostapenko,Jelena Ostapenko,Linda Fruhvirtova,2023-04-24
+1.21341044,Yulia Putintseva,Caroline Garcia,100.0,1.53,Caroline Garcia,Caroline Garcia,Yulia Putintseva,2023-04-24
+1.213414409,Magdalena Frech,Jasmine Paolini,1.01,65.0,Magdalena Frech,Magdalena Frech,Jasmine Paolini,2023-04-24
+1.213414411,Arantxa Rus,Amanda Anisimova,1.02,50.0,Arantxa Rus,Arantxa Rus,Amanda Anisimova,2023-04-24
+1.213414418,Eugenie Bouchard,Dayana Yastremska,1.01,50.0,Eugenie Bouchard,Eugenie Bouchard,Dayana Yastremska,2023-04-24
+1.213414687,Clara Burel,Camila Osorio,50.0,1.04,Camila Osorio,Camila Osorio,Clara Burel,2023-04-24
+1.213414693,Nuria Parrizas Diaz,Anna Blinkova,1.79,2.12,Nuria Parrizas Diaz,Nuria Parrizas Diaz,Anna Blinkova,2023-04-24
+1.213414731,Kaia Kanepi,Irene Burillo Escorihue,21.0,4.2,Irene Burillo Escorihuela,Irene Burillo Escorihuela,Kaia Kanepi,2023-04-24
+1.213415073,Laura Siegemund,Nadia Podoroska,1.06,23.0,Laura Siegemund,Laura Siegemund,Nadia Podoroska,2023-04-24
+1.213415084,Alize Cornet,Elena-Gabriela Ruse,1.02,100.0,Alize Cornet,Alize Cornet,Elena Gabriela Ruse,2023-04-24
+1.213415124,Sara Errani,Danka Kovinic,2.62,1.61,Danka Kovinic,Danka Kovinic,Sara Errani,2023-04-24
+1.213415478,Alycia Parks,Anna Karolina Schmiedlova,1.03,21.0,Alycia Parks,Alycia Parks,Anna Karolina Schmiedlova,2023-04-24
+1.213415489,Marketa Vondrousova,Marina Bassols Ribera,1.07,13.5,Marketa Vondrousova,Marketa Vondrousova,Marina Bassols Ribera,2023-04-24
+1.213445827,Beatriz Haddad Maia,Mirra Andreeva,1.86,1.02,Mirra Andreeva,Mirra Andreeva,Beatriz Haddad Maia,2023-04-24
+1.213446721,Viktoriya Tomova,Julia Grabher,5.4,1.23,Julia Grabher,Julia Grabher,Viktoriya Tomova,2023-04-24
+1.213447877,Anhelina Kalinina,Mayar Sherif,1.58,1.04,Mayar Sherif,Mayar Sherif,Anhelina Kalinina,2023-04-24
+1.213448163,Donna Vekic,Rebeka Masarova,100.0,1.01,Rebeka Masarova,Rebeka Masarova,Donna Vekic,2023-04-24
+1.213448607,Arantxa Rus,Maria Sakkari,100.0,1.02,Maria Sakkari,Maria Sakkari,Arantxa Rus,2023-04-24
+1.213450242,Anna Kalinskaya,Elena Rybakina,5.5,1.21,Anna Kalinskaya,Anna Kalinskaya,Elena Rybakina,2023-04-24
+1.21345037,Camila Osorio,Marta Kostyuk,1.01,55.0,Camila Osorio,Camila Osorio,Marta Kostyuk,2023-04-24
+1.213450953,Aliaksandra Sasnovich,Marie Bouzkova,2.36,1.75,Marie Bouzkova,Marie Bouzkova,Aliaksandra Sasnovich,2023-04-24
+1.213452168,Veronika Kudermetova,Nuria Parrizas Diaz,1.02,3.05,Veronika Kudermetova,Veronika Kudermetova,Nuria Parrizas Diaz,2023-04-24
+1.213452515,Bianca Andreescu,Xiyu Wang,1.54,2.82,Xiyu Wang,Xiyu Wang,Bianca Andreescu,2023-04-24
+1.213452645,Jessica Pegula,Magdalena Frech,1.01,8.0,Jessica Pegula,Jessica Pegula,Magdalena Frech,2023-04-24
+1.213456547,Lesia Tsurenko,Jil Teichmann,1.91,10.0,Lesia Tsurenko,Lesia Tsurenko,Jil Teichmann,2023-04-24
+1.213457511,Daria Kasatkina,Anastasia Pavlyuchenkova,1.43,4.0,Daria Kasatkina,Daria Kasatkina,Anastasia Pavlyuchenkova,2023-04-24
+1.213457928,Magda Linette,Marketa Vondrousova,1.17,6.8,Magda Linette,Magda Linette,Marketa Vondrousova,2023-04-24
+1.213458744,Victoria Azarenka,Alycia Parks,5.7,1.01,Alycia Parks,Alycia Parks,Victoria Azarenka,2023-04-24
+1.213458998,Petra Martic,Laura Siegemund,1.7,2.42,Petra Martic,Petra Martic,Laura Siegemund,2023-04-24
+1.213459132,Eugenie Bouchard,Martina Trevisan,17.5,1.04,Martina Trevisan,Martina Trevisan,Eugenie Bouchard,2023-04-24
+1.213463723,Jaqueline Cristian,Anastasia Potapova,70.0,1.33,Anastasia Potapova,Anastasia Potapova,Jaqueline Cristian,2023-04-24
+1.213463867,Alize Cornet,Ekaterina Alexandrova,3.25,1.02,Ekaterina Alexandrova,Ekaterina Alexandrova,Alize Cornet,2023-04-24
+1.213491384,Maria Sakkari,Rebeka Masarova,1.5,50.0,Maria Sakkari,Maria Sakkari,Rebeka Masarova,2023-04-24
+1.213493093,Jelena Ostapenko,Liudmila Samsonova,1.67,2.46,Liudmila Samsonova,Liudmila Samsonova,Jelena Ostapenko,2023-04-24
+1.213496111,Paula Badosa,Coco Gauff,1.78,990.0,Paula Badosa,Paula Badosa,Coco Gauff,2023-04-24
+1.213496891,Elise Mertens,Jule Niemeier,1.28,4.6,Elise Mertens,Elise Mertens,Jule Niemeier,2023-04-24
+1.213498428,Magda Linette,Mirra Andreeva,2.48,1.64,Mirra Andreeva,Mirra Andreeva,Magda Linette,2023-04-24
+1.213499902,Caroline Garcia,Mayar Sherif,1.26,1.01,Mayar Sherif,Mayar Sherif,Caroline Garcia,2023-04-24
+1.213535459,Petra Martic,Anna Kalinskaya,1.01,55.0,Petra Martic,Petra Martic,Anna Kalinskaya,2023-04-24
+1.213536177,Ekaterina Alexandrova,Qinwen Zheng,1.01,55.0,Ekaterina Alexandrova,Ekaterina Alexandrova,Qinwen Zheng,2023-04-24
+1.213537635,Martina Trevisan,Alycia Parks,1.7,100.0,Martina Trevisan,Martina Trevisan,Alycia Parks,2023-04-24
+1.21354284,Veronika Kudermetova,Anastasia Potapova,1.01,1.56,Veronika Kudermetova,Veronika Kudermetova,Anastasia Potapova,2023-04-24
+1.213544369,Lesia Tsurenko,Daria Kasatkina,2.44,1.01,Daria Kasatkina,Daria Kasatkina,Lesia Tsurenko,2023-04-24
+1.21354471,Bernarda Pera,I Swiatek,17.5,1.07,Iga Swiatek,Iga Swiatek,Bernarda Pera,2023-04-24
+1.213545031,Jessica Pegula,Marie Bouzkova,1.25,300.0,Jessica Pegula,Jessica Pegula,Marie Bouzkova,2023-04-24
+1.213570082,Irinia-Camelia Begu,Liudmila Samsonova,1.02,120.0,Irina Camelia Begu,Irina Camelia Begu,Liudmila Samsonova,2023-04-24
+1.213578309,Mirra Andreeva,A Sabalenka,5.1,1.26,Aryna Sabalenka,Aryna Sabalenka,Mirra Andreeva,2023-04-24
+1.213589179,Elise Mertens,Mayar Sherif,3.85,1.29,Mayar Sherif,Mayar Sherif,Elise Mertens,2023-04-24
+1.213595139,Paula Badosa,Maria Sakkari,55.0,1.01,Maria Sakkari,Maria Sakkari,Paula Badosa,2023-04-24
+1.213629171,Daria Kasatkina,Veronika Kudermetova,28.0,2.24,Veronika Kudermetova,Veronika Kudermetova,Daria Kasatkina,2023-04-24
+1.213629427,Jessica Pegula,Martina Trevisan,1.01,5.2,Jessica Pegula,Jessica Pegula,Martina Trevisan,2023-04-24
+1.21363448,Petra Martic,Barbora Krejcikova,4.7,100.0,Petra Martic,Petra Martic,Barbora Krejcikova,2023-04-24
+1.213637236,Ekaterina Alexandrova,I Swiatek,200.0,1.01,Iga Swiatek,Iga Swiatek,Ekaterina Alexandrova,2023-04-24
+1.213670666,Mayar Sherif,A Sabalenka,10.0,1.12,Aryna Sabalenka,Aryna Sabalenka,Mayar Sherif,2023-04-24
+1.213679729,Maria Sakkari,Irinia-Camelia Begu,1.01,120.0,Maria Sakkari,Maria Sakkari,Irina Camelia Begu,2023-04-24
+1.213688172,Jessica Pegula,Veronika Kudermetova,6.8,1.2,Veronika Kudermetova,Veronika Kudermetova,Jessica Pegula,2023-04-24
+1.213689817,Petra Martic,I Swiatek,1000.0,1.07,Iga Swiatek,Iga Swiatek,Petra Martic,2023-04-24
+1.213727436,Maria Sakkari,A Sabalenka,1000.0,1.41,Aryna Sabalenka,Aryna Sabalenka,Maria Sakkari,2023-04-24
+1.213764164,Veronika Kudermetova,I Swiatek,1000.0,1.06,Iga Swiatek,Iga Swiatek,Veronika Kudermetova,2023-04-24
+1.213809213,A Sabalenka,I Swiatek,1.16,8.0,Aryna Sabalenka,Aryna Sabalenka,Iga Swiatek,2023-04-24
+1.213834894,Lauren Davis,Sorana Cirstea ,26.0,1.05,Sorana Cirstea,Sorana Cirstea,Lauren Davis,2023-04-24

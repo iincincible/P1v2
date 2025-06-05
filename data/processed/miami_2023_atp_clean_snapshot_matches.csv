@@ -1,0 +1,88 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_name,loser_name,match_date
+1.211665131,Kyle Edmund,Yibing Wu,7.6,1.06,Yibing Wu,Yibing Wu,Kyle Edmund,2023-03-20
+1.211665141,Albert Ramos-Vinolas,Marc-Andrea Huesler,50.0,1.01,Marc Andrea Huesler,Marc Andrea Huesler,Albert Ramos,2023-03-20
+1.211665405,Guido Pella,Juan Pablo Varillas,1.75,2.26,Guido Pella,Guido Pella,Juan Pablo Varillas,2023-03-20
+1.211665541,Daniel Elahi Galan,Mackenzie McDonald,7.0,1.17,Mackenzie Mcdonald,Mackenzie Mcdonald,Daniel Elahi Galan,2023-03-20
+1.211665802,John Isner,Emilio Nava,12.0,1.09,Emilio Nava,Emilio Nava,John Isner,2023-03-20
+1.211665812,Alexander Bublik,J.j. Wolf,310.0,1.9,J J Wolf,J J Wolf,Alexander Bublik,2023-03-20
+1.211666201,Andy Murray,Dusan Lajovic,30.0,1.01,Dusan Lajovic,Dusan Lajovic,Andy Murray,2023-03-20
+1.211666213,Quentin Halys,Pedro Martinez,1.04,3.55,Quentin Halys,Quentin Halys,Pedro Martinez,2023-03-20
+1.211666496,Adrian Mannarino,Juncheng Shang,1.45,3.2,Adrian Mannarino,Adrian Mannarino,Juncheng Shang,2023-03-20
+1.211666508,Jason Kubler,Thiago Monteiro,1.4,3.45,Thiago Monteiro,Thiago Monteiro,Jason Kubler,2023-03-20
+1.211667103,Bernabe Zapata Miralles,Roberto Carballes Baena,1.91,2.1,Roberto Carballes Baena,Roberto Carballes Baena,Bernabe Zapata Miralles,2023-03-20
+1.211667112,Gael Monfils,Ugo Humbert,4.2,1.34,Ugo Humbert,Ugo Humbert,Gael Monfils,2023-03-20
+1.211667336,Dominic Thiem,Lorenzo Sonego,2.38,1.57,Lorenzo Sonego,Lorenzo Sonego,Dominic Thiem,2023-03-20
+1.211667511,Oscar Otte,Brandon Nakashima,600.0,1.45,Brandon Nakashima,Brandon Nakashima,Oscar Otte,2023-03-20
+1.211667637,Marton Fucsovics,Pedro Cachin,1.01,110.0,Marton Fucsovics,Marton Fucsovics,Pedro Cachin,2023-03-20
+1.21171693,Daniel Altmaier,Ilya Ivashka,2.82,1.54,Ilya Ivashka,Ilya Ivashka,Daniel Altmaier,2023-03-20
+1.211716953,Facundo Bagnis,Felipe Meligeni Alves,1.26,4.0,Facundo Bagnis,Facundo Bagnis,Felipe Meligeni Alves,2023-03-20
+1.211717127,Benoit Paire,Yosuke Watanuki,2.38,1.73,Yosuke Watanuki,Yosuke Watanuki,Benoit Paire,2023-03-20
+1.211717134,Laslo Djere,Aleksandar Vukic,2.32,1.76,Laslo Djere,Laslo Djere,Aleksandar Vukic,2023-03-20
+1.2117174,Tomas Martin Etcheverry,Pavel Kotov,1.94,2.1,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Pavel Kotov,2023-03-20
+1.211717401,Denis Kudla,Christopher Eubanks,130.0,1.68,Christopher Eubanks,Christopher Eubanks,Denis Kudla,2023-03-20
+1.21171766,Thanasi Kokkinakis,Zizou Bergs,1.01,3.7,Thanasi Kokkinakis,Thanasi Kokkinakis,Zizou Bergs,2023-03-20
+1.211717661,Marcos Giron,Cristian Garin,18.0,1.03,Cristian Garin,Cristian Garin,Marcos Giron,2023-03-20
+1.211717674,Jaume Munar,Aleksandar Kovacevic,2.52,1.71,Aleksandar Kovacevic,Aleksandar Kovacevic,Jaume Munar,2023-03-20
+1.211718,Richard Gasquet,Christopher O'Connell,2.12,290.0,Richard Gasquet,Richard Gasquet,Christopher Oconnell,2023-03-20
+1.211718012,Alex Molcan,Jordan Thompson,1.09,1.64,Alex Molcan,Alex Molcan,Jordan Thompson,2023-03-20
+1.211718338,Gregoire Barrere,Roman Safiullin,1.02,65.0,Gregoire Barrere,Gregoire Barrere,Roman Safiullin,2023-03-20
+1.211718682,Emil Ruusuvuori,Nuno Borges,1.4,3.45,Emil Ruusuvuori,Emil Ruusuvuori,Nuno Borges,2023-03-20
+1.211718801,Fabio Fognini,Jan-Lennard Struff,13.0,1.08,Jan Lennard Struff,Jan Lennard Struff,Fabio Fognini,2023-03-20
+1.211742608,Taro Daniel,Alexander Zverev,5.5,1.24,Taro Daniel,Taro Daniel,Alexander Zverev,2023-03-20
+1.211746574,Alejandro Davidovich Fokina,Brandon Nakashima,1.65,6.2,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Brandon Nakashima,2023-03-20
+1.211747376,Facundo Bagnis,Carlos Alcaraz,50.0,1.02,Carlos Alcaraz,Carlos Alcaraz,Facundo Bagnis,2023-03-20
+1.211747465,Tommy Paul,Marc-Andrea Huesler,1.19,290.0,Tommy Paul,Tommy Paul,Marc Andrea Huesler,2023-03-20
+1.211748056,Marton Fucsovics,Holger Rune,17.5,1.04,Holger Rune,Holger Rune,Marton Fucsovics,2023-03-20
+1.211750004,Laslo Djere,Jannik Sinner,12.0,1.08,Jannik Sinner,Jannik Sinner,Laslo Djere,2023-03-20
+1.21175043,Andrey Rublev,J.j. Wolf,1.02,50.0,Andrey Rublev,Andrey Rublev,J J Wolf,2023-03-20
+1.211750558,Alexei Popyrin,Botic Van de Zandschulp,50.0,1.02,Botic Van De Zandschulp,Botic Van De Zandschulp,Alexei Popyrin,2023-03-20
+1.211750671,Guido Pella,Denis Shapovalov,200.0,1.38,Denis Shapovalov,Denis Shapovalov,Guido Pella,2023-03-20
+1.211752545,Casper Ruud,Ilya Ivashka,1.45,3.3,Casper Ruud,Casper Ruud,Ilya Ivashka,2023-03-20
+1.211753071,Roberto Bautista Agut,Emil Ruusuvuori,2.1,1.94,Emil Ruusuvuori,Emil Ruusuvuori,Roberto Bautista Agut,2023-03-20
+1.211753073,Diego Schwartzman,Yibing Wu,2.88,1.52,Diego Schwartzman,Diego Schwartzman,Yibing Wu,2023-03-20
+1.211753283,Dusan Lajovic,Maxime Cressy,2.48,100.0,Dusan Lajovic,Dusan Lajovic,Maxime Cressy,2023-03-20
+1.211755294,Ugo Humbert,Miomir Kecmanovic,13.5,1.04,Miomir Kecmanovic,Miomir Kecmanovic,Ugo Humbert,2023-03-20
+1.211755829,Grigor Dimitrov,Jan-Lennard Struff,1.53,2.84,Grigor Dimitrov,Grigor Dimitrov,Jan Lennard Struff,2023-03-20
+1.21175945,Taylor Fritz,Emilio Nava,1.07,14.0,Taylor Fritz,Taylor Fritz,Emilio Nava,2023-03-20
+1.211780222,Jiri Lehecka,Lorenzo Musetti,1.02,100.0,Jiri Lehecka,Jiri Lehecka,Lorenzo Musetti,2023-03-20
+1.211782195,Quentin Halys,Alex De Minaur,1.15,6.0,Quentin Halys,Quentin Halys,Alex De Minaur,2023-03-20
+1.211782872,Francisco Cerundolo,Aleksandar Kovacevic,1.01,210.0,Francisco Cerundolo,Francisco Cerundolo,Aleksandar Kovacevic,2023-03-20
+1.211784195,Adrian Mannarino,Ben Shelton,2.46,490.0,Adrian Mannarino,Adrian Mannarino,Ben Shelton,2023-03-20
+1.211784204,Sebastian Baez,Cristian Garin,50.0,1.71,Cristian Garin,Cristian Garin,Sebastian Baez,2023-03-20
+1.211786752,Yoshihito Nishioka,Alex Molcan,21.0,1.05,Alex Molcan,Alex Molcan,Yoshihito Nishioka,2023-03-20
+1.211786754,Christopher Eubanks,Borna Coric,3.4,490.0,Christopher Eubanks,Christopher Eubanks,Borna Coric,2023-03-20
+1.211788925,Matteo Berrettini,Mackenzie McDonald,5.3,1.24,Mackenzie Mcdonald,Mackenzie Mcdonald,Matteo Berrettini,2023-03-20
+1.211789119,Yosuke Watanuki,Frances Tiafoe,100.0,1.01,Frances Tiafoe,Frances Tiafoe,Yosuke Watanuki,2023-03-20
+1.211794905,Thiago Monteiro,Felix Auger-Aliassime,26.0,1.1,Felix Auger Aliassime,Felix Auger Aliassime,Thiago Monteiro,2023-03-20
+1.211795561,Gregoire Barrere,Cameron Norrie,1.02,1.16,Gregoire Barrere,Gregoire Barrere,Cameron Norrie,2023-03-20
+1.211795563,Karen Khachanov,Tomas Martin Etcheverry,1.37,3.65,Karen Khachanov,Karen Khachanov,Tomas Martin Etcheverry,2023-03-20
+1.211801229,Thanasi Kokkinakis,Hubert Hurkacz,2.4,1.35,Hubert Hurkacz,Hubert Hurkacz,Thanasi Kokkinakis,2023-03-20
+1.211836245,Taylor Fritz,Denis Shapovalov,1.4,120.0,Taylor Fritz,Taylor Fritz,Denis Shapovalov,2023-03-20
+1.211840869,Andrey Rublev,Miomir Kecmanovic,1.24,5.0,Andrey Rublev,Andrey Rublev,Miomir Kecmanovic,2023-03-20
+1.211841353,Grigor Dimitrov,Jannik Sinner,26.0,1.21,Jannik Sinner,Jannik Sinner,Grigor Dimitrov,2023-03-20
+1.211842535,Tommy Paul,Alejandro Davidovich Fokina,1.03,42.0,Tommy Paul,Tommy Paul,Alejandro Davidovich Fokina,2023-03-20
+1.211842847,Dusan Lajovic,Carlos Alcaraz,32.0,1.04,Carlos Alcaraz,Carlos Alcaraz,Dusan Lajovic,2023-03-20
+1.211842939,Casper Ruud,Botic Van de Zandschulp,100.0,1.01,Botic Van De Zandschulp,Botic Van De Zandschulp,Casper Ruud,2023-03-20
+1.211843471,Diego Schwartzman,Holger Rune,5.0,1.23,Holger Rune,Holger Rune,Diego Schwartzman,2023-03-20
+1.211847102,Taro Daniel,Emil Ruusuvuori,2.52,1.63,Emil Ruusuvuori,Emil Ruusuvuori,Taro Daniel,2023-03-20
+1.21189053,Stefanos Tsitsipas,Cristian Garin,1.01,70.0,Stefanos Tsitsipas,Stefanos Tsitsipas,Cristian Garin,2023-03-20
+1.211891416,Quentin Halys,Mackenzie McDonald,1.01,34.0,Quentin Halys,Quentin Halys,Mackenzie Mcdonald,2023-03-20
+1.211893904,Francisco Cerundolo,Felix Auger-Aliassime,5.1,1.23,Francisco Cerundolo,Francisco Cerundolo,Felix Auger Aliassime,2023-03-20
+1.211903772,Karen Khachanov,Jiri Lehecka,2.0,210.0,Karen Khachanov,Karen Khachanov,Jiri Lehecka,2023-03-20
+1.211910153,Christopher Eubanks,Gregoire Barrere,1.25,5.1,Christopher Eubanks,Christopher Eubanks,Gregoire Barrere,2023-03-20
+1.211910613,Adrian Mannarino,Hubert Hurkacz,3.75,1000.0,Adrian Mannarino,Adrian Mannarino,Hubert Hurkacz,2023-03-20
+1.211911139,Lorenzo Sonego,Frances Tiafoe,1.01,1.38,Lorenzo Sonego,Lorenzo Sonego,Frances Tiafoe,2023-03-20
+1.211937439,Taylor Fritz,Holger Rune,1.73,2.32,Taylor Fritz,Taylor Fritz,Holger Rune,2023-03-20
+1.211939375,Tommy Paul,Carlos Alcaraz,6.2,1.19,Carlos Alcaraz,Carlos Alcaraz,Tommy Paul,2023-03-20
+1.211951613,Andrey Rublev,Jannik Sinner,2.54,1.02,Jannik Sinner,Jannik Sinner,Andrey Rublev,2023-03-20
+1.211953809,Emil Ruusuvuori,Botic Van de Zandschulp,1.01,42.0,Emil Ruusuvuori,Emil Ruusuvuori,Botic Van De Zandschulp,2023-03-20
+1.211987729,Karen Khachanov,Stefanos Tsitsipas,1.01,150.0,Karen Khachanov,Karen Khachanov,Stefanos Tsitsipas,2023-03-20
+1.21198834,Quentin Halys,Daniil Medvedev,10.0,1.11,Daniil Medvedev,Daniil Medvedev,Quentin Halys,2023-03-20
+1.211994766,Adrian Mannarino,Christopher Eubanks,5.0,1.26,Christopher Eubanks,Christopher Eubanks,Adrian Mannarino,2023-03-20
+1.211995163,Lorenzo Sonego,Francisco Cerundolo,1.64,1.01,Francisco Cerundolo,Francisco Cerundolo,Lorenzo Sonego,2023-03-20
+1.212028904,Taylor Fritz,Carlos Alcaraz,1000.0,1.24,Carlos Alcaraz,Carlos Alcaraz,Taylor Fritz,2023-03-20
+1.212043562,Karen Khachanov,Francisco Cerundolo,1.39,3.35,Karen Khachanov,Karen Khachanov,Francisco Cerundolo,2023-03-20
+1.212045543,Christopher Eubanks,Daniil Medvedev,60.0,1.01,Daniil Medvedev,Daniil Medvedev,Christopher Eubanks,2023-03-20
+1.212110872,Karen Khachanov,Daniil Medvedev,290.0,1.28,Daniil Medvedev,Daniil Medvedev,Karen Khachanov,2023-03-20
+1.212116601,Jannik Sinner,Carlos Alcaraz,3.2,180.0,Jannik Sinner,Jannik Sinner,Carlos Alcaraz,2023-03-20
+1.212181666,Jannik Sinner,Daniil Medvedev,2.1,1.9,Daniil Medvedev,Daniil Medvedev,Jannik Sinner,2023-03-20

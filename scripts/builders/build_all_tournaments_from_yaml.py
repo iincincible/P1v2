@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 
 # Path to your Python virtual environment interpreter
-PYTHON = ".venv/Scripts/python.exe"
+PYTHON = ".venv\\Scripts\\python.exe"
 CONFIG_FILE = "configs/tournaments_2023.yaml"
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 
@@ -11,8 +11,8 @@ BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 with open(CONFIG_FILE, "r") as f:
     configs = yaml.safe_load(f)
 
-# Loop through each tournament config and run the builder
-for conf in configs:
+# Loop through each tournament config
+for conf in configs["tournaments"]:
     print(f"\n🏗️ Building: {conf['label']}")
 
     cmd = [
@@ -21,7 +21,7 @@ for conf in configs:
         "--tournament", conf["tournament"],
         "--year", str(conf["year"]),
         "--snapshots_csv", conf["snapshots_csv"],
-        "--output_csv", f"data/processed/{conf['label']}_merged.csv"
+        "--output_csv", f"data/processed/{conf['label']}_clean_snapshot_matches.csv"
     ]
 
     # Optional fields
@@ -35,7 +35,7 @@ for conf in configs:
         cmd += ["--alias_csv", conf["alias_csv"]]
 
     # Ensure output folder exists
-    Path(f"data/processed/{conf['label']}_merged.csv").parent.mkdir(parents=True, exist_ok=True)
+    Path(f"data/processed/{conf['label']}_clean_snapshot_matches.csv").parent.mkdir(parents=True, exist_ok=True)
 
     # Run subprocess
     subprocess.run(cmd, check=True)

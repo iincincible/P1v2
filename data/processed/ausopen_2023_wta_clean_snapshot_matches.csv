@@ -2,6 +2,7 @@ market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_nam
 1.208566268,Daria Kasatkina,Varvara Gracheva,55.0,1.01,Varvara Gracheva,Varvara Gracheva,Daria Kasatkina,2023-01-16
 1.208566276,Harriet Dart,Jil Teichmann,2.66,1.61,Jil Teichmann,Jil Teichmann,Harriet Dart,2023-01-16
 1.20856628,Maria Sakkari,Yue Yuan,1.01,1000.0,Maria Sakkari,Maria Sakkari,Yue Yuan,2023-01-16
+1.208566284,Xinyu Wang,Storm Hunter,2.2,100.0,Xin Yu Wang,Xin Yu Wang,Storm Hunter,2023-01-16
 1.208566288,Rebecca Marino,Lin Zhu,100.0,2.26,Lin Zhu,Lin Zhu,Rebecca Marino,2023-01-16
 1.208566292,Victoria Azarenka,Sofia Kenin,1.59,2.58,Victoria Azarenka,Victoria Azarenka,Sofia Kenin,2023-01-16
 1.208566296,Madison Keys,Anna Blinkova,1.01,50.0,Madison Keys,Madison Keys,Anna Blinkova,2023-01-16
@@ -66,6 +67,7 @@ market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_nam
 1.208745233,Jelena Ostapenko,Anna Bondar,1.2,5.4,Jelena Ostapenko,Jelena Ostapenko,Anna Bondar,2023-01-16
 1.208747188,Victoria Azarenka,Nadia Podoroska,1.11,10.0,Victoria Azarenka,Victoria Azarenka,Nadia Podoroska,2023-01-16
 1.2087489,Lin Zhu,Jil Teichmann,1.01,26.0,Lin Zhu,Lin Zhu,Jil Teichmann,2023-01-16
+1.208755401,Madison Keys,Xinyu Wang,1.22,5.6,Madison Keys,Madison Keys,Xin Yu Wang,2023-01-16
 1.208778364,Taylor Townsend,Ekaterina Alexandrova,100.0,1.01,Ekaterina Alexandrova,Ekaterina Alexandrova,Taylor Townsend,2023-01-16
 1.20877843,Camila Giorgi,Anna Karolina Schmiedlova,1.4,3.5,Camila Giorgi,Camila Giorgi,Anna Karolina Schmiedlova,2023-01-16
 1.208778566,Shelby Rogers,Aryna Sabalenka,5.7,1.22,Aryna Sabalenka,Aryna Sabalenka,Shelby Rogers,2023-01-16
