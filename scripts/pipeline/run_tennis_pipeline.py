@@ -1,88 +1,69 @@
 import argparse
 import subprocess
-from pathlib import Path
 import yaml
+import os
 
-def run_pipeline(config):
-    PYTHON = ".venv/Scripts/python.exe"
+PYTHON = "python"
 
-    label = config["label"]
-    base = f"data/processed/{label}"
-    snapshots_csv = config["snapshots_csv"]
-    sackmann_csv = config.get("sackmann_csv")
-    alias_csv = config.get("alias_csv")
-    fuzzy = config.get("fuzzy_match", False)
-    snapshot_only = config.get("snapshot_only", False)
+def run_pipeline_for_tournament(tournament):
+    key = tournament["key"]  # e.g. indianwells_2023_atp
+    base = f"data/processed/{key}"
+    parsed = f"parsed/betfair_{key}_snapshots.csv"
 
-    merged_csv = f"{base}_merged.csv"
-
-    print(f"\n🚀 Running pipeline for: {label}")
+    print(f"\n🚀 Running pipeline for: {key}")
 
     # Step 1: Match selection IDs
-    ids_csv = f"{base}_ids.csv"
     subprocess.run([
         PYTHON, "scripts/pipeline/match_selection_ids.py",
-        "--merged_csv", merged_csv,
-        "--snapshots_csv", snapshots_csv,
-        "--output_csv", ids_csv
+        "--merged_csv", f"{base}_clean_snapshot_matches.csv",
+        "--snapshots_csv", parsed,
+        "--output_csv", f"{base}_ids.csv"
     ], check=True)
 
-    # Step 2: Merge final LTPs (FIXED path)
-    patched_csv = f"{base}_with_odds.csv"
+    # Step 2: Merge final LTPs
     subprocess.run([
-        PYTHON, "scripts/pipeline/merge_final_ltps_into_matches.py",  # <- fixed here
-        "--match_csv", ids_csv,
-        "--snapshots_csv", snapshots_csv,
-        "--output_csv", patched_csv
+        PYTHON, "scripts/pipeline/merge_final_ltps_into_matches.py",
+        "--match_csv", f"{base}_ids.csv",
+        "--snapshots_csv", parsed,
+        "--output_csv", f"{base}_with_odds.csv"
     ], check=True)
 
     # Step 3: Build odds features
     features_csv = f"{base}_features.csv"
     subprocess.run([
         PYTHON, "scripts/pipeline/build_odds_features.py",
-        "--input_csv", patched_csv,
+        "--input_csv", f"{base}_with_odds.csv",
         "--output_csv", features_csv
     ], check=True)
 
-    # Step 4: Train win model
+    # Step 4: Predict win probabilities using pretrained model
     preds_csv = f"{base}_predictions.csv"
     subprocess.run([
-        PYTHON, "scripts/pipeline/train_win_model_from_odds.py",
+        PYTHON, "scripts/pipeline/predict_win_probs.py",
         "--input_csv", features_csv,
+        "--model_path", "modeling/win_model.pkl",
         "--output_csv", preds_csv
     ], check=True)
 
     # Step 5: Detect value bets
-    value_csv = f"{base}_value_bets.csv"
     subprocess.run([
         PYTHON, "scripts/pipeline/detect_value_bets.py",
         "--input_csv", preds_csv,
-        "--output_csv", value_csv
+        "--output_csv", f"{base}_value_bets.csv",
+        "--ev_threshold", "0.01",
+        "--max_odds", "10.0",
+        "--max_margin", "0.05",
+        "--filter_model", "modeling/ev_filter_model.pkl",
+        "--min_confidence", "0.5"
     ], check=True)
 
-    # Step 6: Simulate bankroll growth
-    bankroll_csv = f"modeling/{label}_bankroll.csv"
-    subprocess.run([
-        PYTHON, "scripts/pipeline/simulate_bankroll_growth.py",
-        "--input_csvs", value_csv,
-        "--output_csv", bankroll_csv,
-        "--ev_threshold", "0.05",
-        "--odds_cap", "10",
-        "--plot"
-    ], check=True)
-
-    print(f"✅ Pipeline complete for {label}")
-
-def main():
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", required=True, help="YAML config file for the tournament(s)")
+    parser.add_argument("--config", required=True, help="Path to YAML config with tournaments list")
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
-        configs = yaml.safe_load(f)
+        config = yaml.safe_load(f)
 
-    for config in configs:
-        run_pipeline(config)
-
-if __name__ == "__main__":
-    main()
+    for tournament in config["tournaments"]:
+        run_pipeline_for_tournament(tournament)
