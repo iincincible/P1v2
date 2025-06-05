@@ -35,15 +35,17 @@ def main():
         how="left"
     )
 
+    # === Save and report
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(args.output_csv, index=False)
+    print(f"✅ Saved {len(merged)} rows to {args.output_csv}")
 
-    # === Report
-    total = len(merged)
-    valid = merged["odds_player_1"].notna() & merged["odds_player_2"].notna()
-    matched = valid.sum()
-    print(f"✅ Saved {total} rows to {args.output_csv}")
-    print(f"📊 LTP odds matched for {matched} of {total} rows ({matched / total:.1%})")
+    if "odds_player_1" in merged.columns and "odds_player_2" in merged.columns:
+        valid = merged["odds_player_1"].notna() & merged["odds_player_2"].notna()
+        matched = valid.sum()
+        print(f"📊 LTP odds matched for {matched} of {len(merged)} rows ({matched / len(merged):.1%})")
+    else:
+        print("⚠️ Warning: odds_player_1 or odds_player_2 columns missing after merge")
 
 if __name__ == "__main__":
     main()

@@ -10,19 +10,17 @@ def main():
 
     df = pd.read_csv(args.preds_csv)
 
-    # Confirm expected columns
+    # Confirm required columns
     required = ["odds_player_1", "odds_player_2", "pred_prob_player_1", "player_1", "player_2", "actual_winner"]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"❌ Missing columns: {missing}")
 
-    # Compute derived values
     df["pred_prob_player_2"] = 1 - df["pred_prob_player_1"]
 
     for i in [1, 2]:
         df[f"ev_player_{i}"] = df[f"pred_prob_player_{i}"] * (df[f"odds_player_{i}"] - 1) - (1 - df[f"pred_prob_player_{i}"])
 
-    # Flatten to long format
     bets = []
     for i in [1, 2]:
         bets.append(df.assign(
@@ -34,22 +32,33 @@ def main():
         )[["player", "predicted_prob", "odds", "expected_value", "won"]])
 
     all_bets = pd.concat(bets, ignore_index=True)
-
-    # Filter bad rows
     all_bets = all_bets.dropna(subset=["expected_value", "odds"])
 
-    # Bin by EV and odds
+    # Compute ROI
+    all_bets["payout"] = all_bets["won"] * all_bets["odds"]
+    all_bets["roi"] = all_bets["payout"] - 1
+
+    # ROI by EV bucket
     ev_bins = pd.cut(all_bets["expected_value"], bins=[-1, 0, 0.02, 0.05, 0.1, 0.2, 1])
+    ev_roi = all_bets.groupby(ev_bins).agg(
+        count=("expected_value", "size"),
+        mean_ev=("expected_value", "mean"),
+        mean_roi=("roi", "mean")
+    )
+
+    # ROI by odds bucket
     odds_bins = pd.cut(all_bets["odds"], bins=[0, 1.5, 2.0, 3.0, 5.0, 10.0, 100])
+    odds_roi = all_bets.groupby(odds_bins).agg(
+        count=("odds", "size"),
+        mean_odds=("odds", "mean"),
+        mean_roi=("roi", "mean")
+    )
 
-    ev_summary = all_bets.groupby(ev_bins)["expected_value"].agg(["count", "mean"])
-    odds_summary = all_bets.groupby(odds_bins)["expected_value"].agg(["count", "mean"])
+    print("\n📊 ROI by EV bin:")
+    print(ev_roi)
 
-    print("\n📊 Expected Value Distribution (EV bins):")
-    print(ev_summary)
-
-    print("\n📊 Expected Value by Odds Range:")
-    print(odds_summary)
+    print("\n📊 ROI by Odds bin:")
+    print(odds_roi)
 
     if args.plot:
         import seaborn as sns

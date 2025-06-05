@@ -2,29 +2,31 @@ import yaml
 import subprocess
 from pathlib import Path
 
+# Path to your Python virtual environment interpreter
+PYTHON = ".venv/Scripts/python.exe"
 CONFIG_FILE = "configs/tournaments_2023.yaml"
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 
+# Load YAML config
 with open(CONFIG_FILE, "r") as f:
     configs = yaml.safe_load(f)
 
+# Loop through each tournament config and run the builder
 for conf in configs:
-    print(f"\n🏗️ Building: {conf['name']}")
+    print(f"\n🏗️ Building: {conf['label']}")
 
     cmd = [
-        "python", BUILDER_SCRIPT,
+        PYTHON, BUILDER_SCRIPT,
         "--tour", conf["tour"],
         "--tournament", conf["tournament"],
         "--year", str(conf["year"]),
         "--snapshots_csv", conf["snapshots_csv"],
-        "--output_csv", conf["output_csv"],
+        "--output_csv", f"data/processed/{conf['label']}_merged.csv"
     ]
 
-    # Optional: include Sackmann join if not snapshot-only
+    # Optional fields
     if not conf.get("snapshot_only", False):
         cmd += ["--sackmann_csv", conf["sackmann_csv"]]
-
-    # Optional flags
     if conf.get("snapshot_only"):
         cmd.append("--snapshot_only")
     if conf.get("fuzzy_match"):
@@ -32,5 +34,8 @@ for conf in configs:
     if "alias_csv" in conf:
         cmd += ["--alias_csv", conf["alias_csv"]]
 
-    Path(conf["output_csv"]).parent.mkdir(parents=True, exist_ok=True)
+    # Ensure output folder exists
+    Path(f"data/processed/{conf['label']}_merged.csv").parent.mkdir(parents=True, exist_ok=True)
+
+    # Run subprocess
     subprocess.run(cmd, check=True)

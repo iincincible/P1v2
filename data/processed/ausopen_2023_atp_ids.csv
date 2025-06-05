@@ -1,0 +1,112 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_name,loser_name,match_date,player_1_clean,player_2_clean,selection_id_1,selection_id_2
+1.208566495,Novak Djokovic,Roberto Carballes Baena,1.03,34.0,Novak Djokovic,Novak Djokovic,Roberto Carballes Baena,2023-01-16,novak djokovic,roberto carballes baena,2249229,7185192
+1.208566501,Fabio Fognini,Thanasi Kokkinakis,190.0,1.2,Thanasi Kokkinakis,Thanasi Kokkinakis,Fabio Fognini,2023-01-16,fabio fognini,thanasi kokkinakis,2319544,8172416
+1.208566507,Andy Murray,Matteo Berrettini,1.01,1000.0,Andy Murray,Andy Murray,Matteo Berrettini,2023-01-16,andy murray,matteo berrettini,2256509,8962036
+1.208566513,Dominic Thiem,Andrey Rublev,4.2,1.32,Andrey Rublev,Andrey Rublev,Dominic Thiem,2023-01-16,dominic thiem,andrey rublev,5720747,7797771
+1.208567542,Luca Van Assche,Cameron Norrie,13.5,1.08,Cameron Norrie,Cameron Norrie,Luca Van Assche,2023-01-16,luca van assche,cameron norrie,27752969,42669524
+1.208567548,Jordan Thompson,J.j. Wolf,1000.0,1.01,J J Wolf,J J Wolf,Jordan Thompson,2023-01-16,jordan thompson,jj wolf,19924841,35727604
+1.208567554,Pablo Carreno Busta,Pedro Cachin,1.1,100.0,Pablo Carreno Busta,Pablo Carreno Busta,Pedro Cachin,2023-01-16,pablo carreno busta,pedro cachin,5479878,8461316
+1.20856756,Marton Fucsovics,Federico Coria,1.16,4.1,Marton Fucsovics,Marton Fucsovics,Federico Coria,2023-01-16,marton fucsovics,federico coria,4827766,8326752
+1.208567566,Albert Ramos-Vinolas,Maxime Cressy,5.1,1.25,Maxime Cressy,Maxime Cressy,Albert Ramos,2023-01-16,albert ramos vinolas,maxime cressy,8621877,11510005
+1.208567572,Christopher O'Connell,Jenson Brooksby,2.98,1.5,Jenson Brooksby,Jenson Brooksby,Christopher Oconnell,2023-01-16,christopher o'connell,jenson brooksby,8942164,11881072
+1.208567578,John Millman,Marc-Andrea Huesler,2.28,1.78,John Millman,John Millman,Marc Andrea Huesler,2023-01-16,john millman,marc andrea huesler,4415206,9631939
+1.208567584,Kyle Edmund,Jannik Sinner,19.0,1.04,Jannik Sinner,Jannik Sinner,Kyle Edmund,2023-01-16,kyle edmund,jannik sinner,5626817,10372253
+1.20856759,Dusan Lajovic,Denis Shapovalov,9.0,1.13,Denis Shapovalov,Denis Shapovalov,Dusan Lajovic,2023-01-16,dusan lajovic,denis shapovalov,4688724,19924829
+1.208567596,Jeremy Chardy,Daniel Elahi Galan,1.15,8.6,Jeremy Chardy,Jeremy Chardy,Daniel Elahi Galan,2023-01-16,jeremy chardy,daniel elahi galan,2304933,8860646
+1.208567602,Alexander Bublik,Alejandro Davidovich Fokina,120.0,1.01,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Alexander Bublik,2023-01-16,alexander bublik,alejandro davidovich fokina,8907933,10901351
+1.208567608,Vasek Pospisil,Felix Auger-Aliassime,12.5,1.07,Felix Auger Aliassime,Felix Auger Aliassime,Vasek Pospisil,2023-01-16,vasek pospisil,felix auger aliassime,4903598,12210252
+1.208567614,Zhizhen Zhang,Ben Shelton,3.1,1.49,Ben Shelton,Ben Shelton,Zhizhen Zhang,2023-01-16,zhizhen zhang,ben shelton,9628959,39460566
+1.20856762,Jason Kubler,Sebastian Baez,1.36,3.65,Jason Kubler,Jason Kubler,Sebastian Baez,2023-01-16,jason kubler,sebastian baez,4448756,11285506
+1.208567626,Richard Gasquet,Ugo Humbert,200.0,2.12,Ugo Humbert,Ugo Humbert,Richard Gasquet,2023-01-16,richard gasquet,ugo humbert,2249399,9633253
+1.208567639,Alexei Popyrin,Chun-Hsin Tseng,1.18,6.4,Alexei Popyrin,Alexei Popyrin,Chun Hsin Tseng,2023-01-16,alexei popyrin,chun hsin tseng,10706479,24432271
+1.2085677,Karen Khachanov,Bernabe Zapata Miralles,1.07,21.0,Karen Khachanov,Karen Khachanov,Bernabe Zapata Miralles,2023-01-16,karen khachanov,bernabe zapata miralles,7659623,9630472
+1.208567706,John Isner,Adrian Mannarino,1.39,2.2,Adrian Mannarino,Adrian Mannarino,John Isner,2023-01-16,john isner,adrian mannarino,2474763,3066621
+1.208567757,Filip Krajinovic,Holger Rune,50.0,1.2,Holger Rune,Holger Rune,Filip Krajinovic,2023-01-16,filip krajinovic,holger rune,3509265,39127965
+1.208567763,Mackenzie McDonald,Brandon Nakashima,2.82,1.49,Mackenzie Mcdonald,Mackenzie Mcdonald,Brandon Nakashima,2023-01-16,mackenzie mcdonald,brandon nakashima,7569897,17806048
+1.208567775,Gregoire Barrere,Tomas Martin Etcheverry,30.0,1.05,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Gregoire Barrere,2023-01-16,gregoire barrere,tomas martin etcheverry,8842295,9631399
+1.208567781,Constant Lestienne,Thiago Monteiro,2.2,1.86,Constant Lestienne,Constant Lestienne,Thiago Monteiro,2023-01-16,constant lestienne,thiago monteiro,7797931,8326656
+1.208567787,Marcos Giron,Daniil Medvedev,23.0,1.04,Daniil Medvedev,Daniil Medvedev,Marcos Giron,2023-01-16,marcos giron,daniil medvedev,8230256,19924831
+1.208567793,Christopher Eubanks,Soonwoo Kwon,1.01,21.0,Christopher Eubanks,Christopher Eubanks,Soon Woo Kwon,2023-01-16,christopher eubanks,soonwoo kwon,7445660,16149526
+1.208567799,Yoshihito Nishioka,Mikael Ymer,2.24,1.8,Yoshihito Nishioka,Yoshihito Nishioka,Mikael Ymer,2023-01-16,yoshihito nishioka,mikael ymer,7137497,8679651
+1.208567805,Casper Ruud,Tomas Machac,1.21,190.0,Casper Ruud,Casper Ruud,Tomas Machac,2023-01-16,casper ruud,tomas machac,9629711,16149495
+1.208567811,Grigor Dimitrov,Aslan Karatsev,1.42,3.35,Grigor Dimitrov,Grigor Dimitrov,Aslan Karatsev,2023-01-16,grigor dimitrov,aslan karatsev,3120169,7659748
+1.208567817,Lloyd Harris,Lorenzo Musetti,1.01,1.38,Lloyd Harris,Lloyd Harris,Lorenzo Musetti,2023-01-16,lloyd harris,lorenzo musetti,11313212,13834991
+1.208567823,Alex Molcan,Stan Wawrinka,1.01,11.5,Alex Molcan,Alex Molcan,Stan Wawrinka,2023-01-16,alex molcan,stan wawrinka,8960879,19924832
+1.208567829,Nikoloz Basilashvili,Taylor Fritz,23.0,1.04,Taylor Fritz,Taylor Fritz,Nikoloz Basilashvili,2023-01-16,nikoloz basilashvili,taylor fritz,8257807,10279360
+1.208567847,Corentin Moutet,Yibing Wu,1.01,21.0,Corentin Moutet,Corentin Moutet,Yibing Wu,2023-01-16,corentin moutet,yibing wu,8842291,9633377
+1.208567853,Quentin Halys,Stefanos Tsitsipas,65.0,1.01,Stefanos Tsitsipas,Stefanos Tsitsipas,Quentin Halys,2023-01-16,quentin halys,stefanos tsitsipas,7287690,9193006
+1.208567859,Lorenzo Sonego,Nuno Borges,1.32,4.1,Lorenzo Sonego,Lorenzo Sonego,Nuno Borges,2023-01-16,lorenzo sonego,nuno borges,8826925,9633043
+1.208567865,Sebastian Korda,Cristian Garin,1.09,11.0,Sebastian Korda,Sebastian Korda,Cristian Garin,2023-01-16,sebastian korda,cristian garin,10902223,23814703
+1.208567871,Pedro Martinez,Hubert Hurkacz,21.0,1.05,Hubert Hurkacz,Hubert Hurkacz,Pedro Martinez,2023-01-16,pedro martinez,hubert hurkacz,13181195,19924838
+1.208567877,Daniel Altmaier,Frances Tiafoe,12.5,1.1,Frances Tiafoe,Frances Tiafoe,Daniel Altmaier,2023-01-16,daniel altmaier,frances tiafoe,9632088,19924839
+1.208567889,Ilya Ivashka,Botic Van de Zandschulp,75.0,1.01,Botic Van De Zandschulp,Botic Van De Zandschulp,Ilya Ivashka,2023-01-16,ilya ivashka,botic van de zandschulp,19924837,40921814
+1.20857502,Diego Schwartzman,Oleksii Krutykh,1.71,8.6,Diego Schwartzman,Diego Schwartzman,Oleksii Krutykh,2023-01-16,diego schwartzman,oleksii krutykh,8736474,19064021
+1.208575026,Taro Daniel,Ernesto Escobedo,1.01,2.78,Taro Daniel,Taro Daniel,Ernesto Escobedo,2023-01-16,taro daniel,ernesto escobedo,8173434,8700174
+1.208575045,Yannick Hanfmann,Rinky Hijikata,29.0,1.01,Rinky Hijikata,Rinky Hijikata,Yannick Hanfmann,2023-01-16,yannick hanfmann,rinky hijikata,8639275,12343905
+1.208575051,Aleksandar Vukic,Brandon Holt,100.0,1.97,Brandon Holt,Brandon Holt,Aleksandar Vukic,2023-01-16,aleksandar vukic,brandon holt,8979695,10410230
+1.208575057,Nicolas Jarry,Miomir Kecmanovic,4.0,75.0,Nicolas Jarry,Nicolas Jarry,Miomir Kecmanovic,2023-01-16,nicolas jarry,miomir kecmanovic,8260515,9657480
+1.208575164,Oscar Otte,Juncheng Shang,4.5,1.09,Juncheng Shang,Juncheng Shang,Oscar Otte,2023-01-16,oscar otte,juncheng shang,9624731,38901959
+1.208575172,Jaume Munar,Dalibor Svrcina,1.51,2.98,Dalibor Svrcina,Dalibor Svrcina,Jaume Munar,2023-01-16,jaume munar,dalibor svrcina,9350385,13714711
+1.208575184,Emil Ruusuvuori,Max Purcell,1.27,100.0,Emil Ruusuvuori,Emil Ruusuvuori,Max Purcell,2023-01-16,emil ruusuvuori,max purcell,8979329,10460213
+1.20857519,Jan-Lennard Struff,Tommy Paul,3.4,1.45,Tommy Paul,Tommy Paul,Jan Lennard Struff,2023-01-16,jan lennard struff,tommy paul,8259098,8859306
+1.208575685,Laslo Djere,Zizou Bergs,1.5,2.9,Laslo Djere,Laslo Djere,Zizou Bergs,2023-01-16,laslo djere,zizou bergs,7692106,9634024
+1.208595656,Juan Pablo Varillas,Alexander Zverev,38.0,1.01,Alexander Zverev,Alexander Zverev,Juan Pablo Varillas,2023-01-16,juan pablo varillas,alexander zverev,11772759,19924823
+1.2087433,Corentin Moutet,Francisco Cerundolo,22.0,1.01,Francisco Cerundolo,Francisco Cerundolo,Corentin Moutet,2023-01-16,corentin moutet,francisco cerundolo,8842291,11204210
+1.208743605,Sebastian Korda,Yosuke Watanuki,1.01,90.0,Sebastian Korda,Sebastian Korda,Yosuke Watanuki,2023-01-16,sebastian korda,yosuke watanuki,10902223,19924830
+1.208744242,Denis Kudla,Roman Safiullin,1.01,110.0,Denis Kudla,Denis Kudla,Roman Safiullin,2023-01-16,denis kudla,roman safiullin,4829260,9125686
+1.208745476,Jason Kubler,Karen Khachanov,4.3,1.3,Karen Khachanov,Karen Khachanov,Jason Kubler,2023-01-16,jason kubler,karen khachanov,4448756,7659623
+1.208745572,Yoshihito Nishioka,Dalibor Svrcina,1.3,990.0,Yoshihito Nishioka,Yoshihito Nishioka,Dalibor Svrcina,2023-01-16,yoshihito nishioka,dalibor svrcina,7137497,13714711
+1.208745668,Tallon Griekspoor,Botic Van de Zandschulp,2.2,1.82,Tallon Griekspoor,Tallon Griekspoor,Botic Van De Zandschulp,2023-01-16,tallon griekspoor,botic van de zandschulp,9198585,40921814
+1.208745764,Taro Daniel,Denis Shapovalov,6.6,1.17,Denis Shapovalov,Denis Shapovalov,Taro Daniel,2023-01-16,taro daniel,denis shapovalov,8173434,19924829
+1.208746105,Rafael Nadal,Mackenzie McDonald,1000.0,1.01,Mackenzie Mcdonald,Mackenzie Mcdonald,Rafael Nadal,2023-01-16,rafael nadal,mackenzie mcdonald,2251410,10691901
+1.208747651,Lorenzo Sonego,Hubert Hurkacz,4.3,1.31,Hubert Hurkacz,Hubert Hurkacz,Lorenzo Sonego,2023-01-16,lorenzo sonego,hubert hurkacz,8826925,19924838
+1.208747747,Christopher Eubanks,Jiri Lehecka,3.15,1.46,Jiri Lehecka,Jiri Lehecka,Christopher Eubanks,2023-01-16,christopher eubanks,jiri lehecka,7445660,13203243
+1.208750606,Stefanos Tsitsipas,Rinky Hijikata,1.04,22.0,Stefanos Tsitsipas,Stefanos Tsitsipas,Rinky Hijikata,2023-01-16,stefanos tsitsipas,rinky hijikata,9193006,12343905
+1.208750919,Constant Lestienne,Cameron Norrie,11.0,1.1,Cameron Norrie,Cameron Norrie,Constant Lestienne,2023-01-16,constant lestienne,cameron norrie,7797931,42669524
+1.208752082,Alex Molcan,Felix Auger-Aliassime,13.5,1.07,Felix Auger Aliassime,Felix Auger Aliassime,Alex Molcan,2023-01-16,alex molcan,felix auger aliassime,8960879,12210252
+1.208755649,Marton Fucsovics,Lloyd Harris,1.98,1.97,Marton Fucsovics,Marton Fucsovics,Lloyd Harris,2023-01-16,marton fucsovics,lloyd harris,4827766,11313212
+1.208782724,Grigor Dimitrov,Laslo Djere,1.31,1000.0,Grigor Dimitrov,Grigor Dimitrov,Laslo Djere,2023-01-16,grigor dimitrov,laslo djere,3120169,7692106
+1.208787744,Pablo Carreno Busta,Benjamin Bonzi,1.38,3.65,Benjamin Bonzi,Benjamin Bonzi,Pablo Carreno Busta,2023-01-16,pablo carreno busta,benjamin bonzi,5479878,9632014
+1.208791811,Tommy Paul,"Alejandro Davidovich Fokina
+",1.5,3.0,Tommy Paul,Tommy Paul,Alejandro Davidovich Fokina,2023-01-16,tommy paul,alejandro davidovich fokina,8859306,11265008
+1.208791981,Diego Schwartzman,JJ Wolf,2.8,1.54,J J Wolf,J J Wolf,Diego Schwartzman,2023-01-16,diego schwartzman,jj wolf,8736474,42316645
+1.208797267,Nicolas Jarry,Ben Shelton,12.0,2.64,Ben Shelton,Ben Shelton,Nicolas Jarry,2023-01-16,nicolas jarry,ben shelton,8260515,39460566
+1.208799621,Casper Ruud,Jenson Brooksby,1.3,4.2,Jenson Brooksby,Jenson Brooksby,Casper Ruud,2023-01-16,casper ruud,jenson brooksby,9629711,11881072
+1.208799955,Taylor Fritz,Alexei Popyrin,130.0,1.01,Alexei Popyrin,Alexei Popyrin,Taylor Fritz,2023-01-16,taylor fritz,alexei popyrin,10279360,10706479
+1.208831573,Michael Mmoh,Alexander Zverev,1.01,100.0,Michael Mmoh,Michael Mmoh,Alexander Zverev,2023-01-16,michael mmoh,alexander zverev,8798905,19924823
+1.208831735,Andrey Rublev,Emil Ruusuvuori,1.01,5.3,Andrey Rublev,Andrey Rublev,Emil Ruusuvuori,2023-01-16,andrey rublev,emil ruusuvuori,7797771,8979329
+1.208835389,Karen Khachanov,Frances Tiafoe,1.01,100.0,Karen Khachanov,Karen Khachanov,Frances Tiafoe,2023-01-16,karen khachanov,frances tiafoe,7659623,19924839
+1.20883577,Andy Murray,Thanasi Kokkinakis,1.01,1000.0,Andy Murray,Andy Murray,Thanasi Kokkinakis,2023-01-16,andy murray,thanasi kokkinakis,2256509,8172416
+1.208835867,Roberto Bautista Agut,Brandon Holt,1.11,9.4,Roberto Bautista Agut,Roberto Bautista Agut,Brandon Holt,2023-01-16,roberto bautista agut,brandon holt,4290403,10410230
+1.208835965,Adrian Mannarino,Alex De Minaur,6.4,1.17,Alex De Minaur,Alex De Minaur,Adrian Mannarino,2023-01-16,adrian mannarino,alex de minaur,3066621,10109527
+1.208836061,Maxime Cressy,Holger Rune,1000.0,1.21,Holger Rune,Holger Rune,Maxime Cressy,2023-01-16,maxime cressy,holger rune,11510005,39127965
+1.208837911,Yoshihito Nishioka,Mackenzie McDonald,1.01,110.0,Yoshihito Nishioka,Yoshihito Nishioka,Mackenzie Mcdonald,2023-01-16,yoshihito nishioka,mackenzie mcdonald,7137497,10691901
+1.208840033,Novak Djokovic,Enzo Couacaud,1.03,36.0,Novak Djokovic,Novak Djokovic,Enzo Couacaud,2023-01-16,novak djokovic,enzo couacaud,2249229,8174333
+1.208840394,Felix Auger Aliassime,Francisco Cerundolo,1.12,9.4,Felix Auger Aliassime,Felix Auger Aliassime,Francisco Cerundolo,2023-01-16,felix auger aliassime,francisco cerundolo,9321841,11204210
+1.208840756,Stefanos Tsitsipas,Tallon Griekspoor,1.12,9.6,Stefanos Tsitsipas,Stefanos Tsitsipas,Tallon Griekspoor,2023-01-16,stefanos tsitsipas,tallon griekspoor,9193006,9198585
+1.208840942,Sebastian Korda,Daniil Medvedev,1.01,1000.0,Sebastian Korda,Sebastian Korda,Daniil Medvedev,2023-01-16,sebastian korda,daniil medvedev,10902223,19924831
+1.208841756,Denis Shapovalov,Hubert Hurkacz,100.0,1.01,Hubert Hurkacz,Hubert Hurkacz,Denis Shapovalov,2023-01-16,denis shapovalov,hubert hurkacz,19924829,19924838
+1.208842167,Jiri Lehecka,Cameron Norrie,4.2,300.0,Jiri Lehecka,Jiri Lehecka,Cameron Norrie,2023-01-16,jiri lehecka,cameron norrie,13203243,42669524
+1.208857339,Marton Fucsovics,Jannik Sinner,7.6,1.14,Jannik Sinner,Jannik Sinner,Marton Fucsovics,2023-01-16,marton fucsovics,jannik sinner,4827766,10372253
+1.208864574,Daniel Evans,Andrey Rublev,800.0,1.35,Andrey Rublev,Andrey Rublev,Daniel Evans,2023-01-16,daniel evans,andrey rublev,3103121,7797771
+1.208865484,Tommy Paul,Jenson Brooksby,1.74,110.0,Tommy Paul,Tommy Paul,Jenson Brooksby,2023-01-16,tommy paul,jenson brooksby,8859306,11881072
+1.208870907,Ugo Humbert,Holger Rune,26.0,1.24,Holger Rune,Holger Rune,Ugo Humbert,2023-01-16,ugo humbert,holger rune,9633253,39127965
+1.20887101,Alexei Popyrin,Ben Shelton,100.0,1.01,Ben Shelton,Ben Shelton,Alexei Popyrin,2023-01-16,alexei popyrin,ben shelton,10706479,39460566
+1.208871106,Michael Mmoh,J.j. Wolf,3.65,1.4,J J Wolf,J J Wolf,Michael Mmoh,2023-01-16,michael mmoh,jj wolf,8798905,35727604
+1.20887491,Benjamin Bonzi,Alex De Minaur,6.0,1.19,Alex De Minaur,Alex De Minaur,Benjamin Bonzi,2023-01-16,benjamin bonzi,alex de minaur,9632014,10706482
+1.208875024,Novak Djokovic,Grigor Dimitrov,1.33,4.1,Novak Djokovic,Novak Djokovic,Grigor Dimitrov,2023-01-16,novak djokovic,grigor dimitrov,2249229,3120169
+1.208886038,Andy Murray,Roberto Bautista Agut,1000.0,1.01,Roberto Bautista Agut,Roberto Bautista Agut,Andy Murray,2023-01-16,andy murray,roberto bautista agut,2256509,4290403
+1.208909547,Stefanos Tsitsipas,Jannik Sinner,1.01,1000.0,Stefanos Tsitsipas,Stefanos Tsitsipas,Jannik Sinner,2023-01-16,stefanos tsitsipas,jannik sinner,9193006,10372253
+1.208919088,Felix Auger-Aliassime,Jiri Lehecka,1000.0,1.01,Jiri Lehecka,Jiri Lehecka,Felix Auger Aliassime,2023-01-16,felix auger aliassime,jiri lehecka,12210252,13203243
+1.208927293,Yoshihito Nishioka,Karen Khachanov,100.0,1.53,Karen Khachanov,Karen Khachanov,Yoshihito Nishioka,2023-01-16,yoshihito nishioka,karen khachanov,7137497,7659623
+1.208929763,Sebastian Korda,Hubert Hurkacz,1.01,120.0,Sebastian Korda,Sebastian Korda,Hubert Hurkacz,2023-01-16,sebastian korda,hubert hurkacz,10902223,19924838
+1.208960327,Andrey Rublev,Holger Rune,2.24,1000.0,Andrey Rublev,Andrey Rublev,Holger Rune,2023-01-16,andrey rublev,holger rune,7797771,39127965
+1.208969851,J.j. Wolf,Ben Shelton,50.0,1.01,Ben Shelton,Ben Shelton,J J Wolf,2023-01-16,jj wolf,ben shelton,35727604,39460566
+1.208972695,Novak Djokovic,Alex De Minaur,1.26,4.6,Novak Djokovic,Novak Djokovic,Alex De Minaur,2023-01-16,novak djokovic,alex de minaur,2249229,10109527
+1.208977527,Roberto Bautista Agut,Tommy Paul,1000.0,1.86,Tommy Paul,Tommy Paul,Roberto Bautista Agut,2023-01-16,roberto bautista agut,tommy paul,4290403,8859306
+1.209010531,Karen Khachanov,Sebastian Korda,2.08,1000.0,Karen Khachanov,Karen Khachanov,Sebastian Korda,2023-01-16,karen khachanov,sebastian korda,7659623,10902223
+1.209026301,Stefanos Tsitsipas,Jiri Lehecka,1.18,28.0,Stefanos Tsitsipas,Stefanos Tsitsipas,Jiri Lehecka,2023-01-16,stefanos tsitsipas,jiri lehecka,9193006,13203243
+1.209056619,Tommy Paul,Ben Shelton,1.01,1000.0,Tommy Paul,Tommy Paul,Ben Shelton,2023-01-16,tommy paul,ben shelton,8859306,39460566
+1.209101622,Karen Khachanov,Stefanos Tsitsipas,260.0,1.3,Stefanos Tsitsipas,Stefanos Tsitsipas,Karen Khachanov,2023-01-16,karen khachanov,stefanos tsitsipas,7659623,9193006
+1.209134319,Novak Djokovic,Tommy Paul,1.07,15.0,Novak Djokovic,Novak Djokovic,Tommy Paul,2023-01-16,novak djokovic,tommy paul,2249229,8859306
+1.209205488,Novak Djokovic,Stefanos Tsitsipas,1.01,410.0,Novak Djokovic,Novak Djokovic,Stefanos Tsitsipas,2023-01-16,novak djokovic,stefanos tsitsipas,2249229,9193006

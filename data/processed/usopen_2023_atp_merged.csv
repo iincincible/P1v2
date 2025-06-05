@@ -1,0 +1,117 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,actual_winner,winner_name,loser_name,match_date
+1.217514502,Milos Raonic,Stefanos Tsitsipas,990.0,1.3,Stefanos Tsitsipas,Stefanos Tsitsipas,Milos Raonic,2023-08-28
+1.217514505,Albert Ramos-Vinolas,Alex Michelsen,55.0,1.01,Alex Michelsen,Alex Michelsen,Albert Ramos,2023-08-28
+1.217514827,Marco Cecchinato,Roman Safiullin,13.5,1.1,Roman Safiullin,Roman Safiullin,Marco Cecchinato,2023-08-28
+1.217515267,Andy Murray,Corentin Moutet,1.32,1000.0,Andy Murray,Andy Murray,Corentin Moutet,2023-08-28
+1.217515294,Zhizhen Zhang,J.j. Wolf,1.01,220.0,Zhizhen Zhang,Zhizhen Zhang,J J Wolf,2023-08-28
+1.2175158,Richard Gasquet,Fabian Marozsan,50.0,1.02,Fabian Marozsan,Fabian Marozsan,Richard Gasquet,2023-08-28
+1.217515831,Nicolas Jarry,Luca Van Assche,1.04,50.0,Nicolas Jarry,Nicolas Jarry,Luca Van Assche,2023-08-28
+1.217515855,Botic Van de Zandschulp,Jordan Thompson,1.01,160.0,Botic Van De Zandschulp,Botic Van De Zandschulp,Jordan Thompson,2023-08-28
+1.217516783,Marcos Giron,Alejandro Davidovich Fokina,100.0,1.57,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Marcos Giron,2023-08-28
+1.217517277,Ilya Ivashka,Manuel Cerundolo,1.5,2.98,Juan Manuel Cerundolo,Juan Manuel Cerundolo,Ilya Ivashka,2023-08-28
+1.217517304,Borna Coric,Sebastian Baez,1.58,2.72,Sebastian Baez,Sebastian Baez,Borna Coric,2023-08-28
+1.217517747,Adrian Mannarino,Yosuke Watanuki,1.09,2.9,Adrian Mannarino,Adrian Mannarino,Yosuke Watanuki,2023-08-28
+1.217517808,Pedro Cachin,Ben Shelton,34.0,1.01,Ben Shelton,Ben Shelton,Pedro Cachin,2023-08-28
+1.217518224,Frances Tiafoe,Learner Tien,1.04,28.0,Frances Tiafoe,Frances Tiafoe,Learner Tien,2023-08-28
+1.217518254,Miomir Kecmanovic,Juan Pablo Varillas,13.5,1.08,Juan Pablo Varillas,Juan Pablo Varillas,Miomir Kecmanovic,2023-08-28
+1.217519296,Bernabe Zapata Miralles,Ethan Quinn,1.56,2.78,Bernabe Zapata Miralles,Bernabe Zapata Miralles,Ethan Quinn,2023-08-28
+1.21751932,Grigor Dimitrov,Alex Molcan,1.28,4.6,Grigor Dimitrov,Grigor Dimitrov,Alex Molcan,2023-08-28
+1.217519662,Christopher Eubanks,Soonwoo Kwon,1.03,34.0,Christopher Eubanks,Christopher Eubanks,Soon Woo Kwon,2023-08-28
+1.217520001,Pavel Kotov,Rinky Hijikata,100.0,1.96,Rinky Hijikata,Rinky Hijikata,Pavel Kotov,2023-08-28
+1.217520204,Holger Rune,Roberto Carballes Baena,1.15,7.8,Roberto Carballes Baena,Roberto Carballes Baena,Holger Rune,2023-08-28
+1.217520429,Daniel  Evans,Daniel Elahi Galan,1.39,3.6,Daniel Evans,Daniel Evans,Daniel Elahi Galan,2023-08-28
+1.21752077,Sebastian Ofner,Nuno Borges,1.02,2.16,Sebastian Ofner,Sebastian Ofner,Nuno Borges,2023-08-28
+1.217521063,Laslo Djere,Brandon Nakashima,1.01,75.0,Laslo Djere,Laslo Djere,Brandon Nakashima,2023-08-28
+1.217521239,Alexander Shevchenko,Cameron Norrie,1000.0,1.25,Cameron Norrie,Cameron Norrie,Alexander Shevchenko,2023-08-28
+1.217521372,Aleksandar Vukic,Alexander Zverev,8.2,1.14,Alexander Zverev,Alexander Zverev,Aleksandar Vukic,2023-08-28
+1.217521802,Marc-Andrea Huesler,Hubert Hurkacz,1000.0,1.09,Hubert Hurkacz,Hubert Hurkacz,Marc Andrea Huesler,2023-08-28
+1.21752233,Yoshihito Nishioka,Stan Wawrinka,2.86,1.5,Stan Wawrinka,Stan Wawrinka,Yoshihito Nishioka,2023-08-28
+1.217522888,Quentin Halys,Benjamin Bonzi,27.0,1.03,Benjamin Bonzi,Benjamin Bonzi,Quentin Halys,2023-08-28
+1.217523276,Dusan Lajovic,Yibing Wu,220.0,1.01,Yibing Wu,Yibing Wu,Dusan Lajovic,2023-08-28
+1.217524117,Matteo Berrettini,Ugo Humbert,1.51,2.96,Matteo Berrettini,Matteo Berrettini,Ugo Humbert,2023-08-28
+1.217524285,John Isner,Facundo Diaz Acosta,1.4,3.35,John Isner,John Isner,Facundo Diaz Acosta,2023-08-28
+1.217524987,Tallon Griekspoor,Arthur Fils,17.5,1.08,Arthur Fils,Arthur Fils,Tallon Griekspoor,2023-08-28
+1.217525163,Karen Khachanov,Michael Mmoh,160.0,2.88,Michael Mmoh,Michael Mmoh,Karen Khachanov,2023-08-28
+1.217525693,Dominic Thiem,Alexander Bublik,2.4,140.0,Dominic Thiem,Dominic Thiem,Alexander Bublik,2023-08-28
+1.217525842,Christopher O'Connell,Max Purcell,1.03,7.2,Christopher Oconnell,Christopher Oconnell,Max Purcell,2023-08-28
+1.217526381,Aslan Karatsev,Jiri Lehecka,1.02,1.61,Aslan Karatsev,Aslan Karatsev,Jiri Lehecka,2023-08-28
+1.217526727,Marton Fucsovics,Sebastian Korda,1.06,17.5,Marton Fucsovics,Marton Fucsovics,Sebastian Korda,2023-08-28
+1.217528006,Guido Pella,Lloyd Harris,3.25,1.42,Lloyd Harris,Lloyd Harris,Guido Pella,2023-08-28
+1.217528332,Steve Johnson,Taylor Fritz,19.0,1.05,Taylor Fritz,Taylor Fritz,Steve Johnson,2023-08-28
+1.217528571,Diego Schwartzman,Arthur Rinderknech,1.84,2.2,Arthur Rinderknech,Arthur Rinderknech,Diego Schwartzman,2023-08-28
+1.21752923,Constant Lestienne,Daniel Altmaier,2.16,1.87,Daniel Altmaier,Daniel Altmaier,Constant Lestienne,2023-08-28
+1.217529492,Radu Albot,Jack Draper,5.0,1.01,Jack Draper,Jack Draper,Radu Albot,2023-08-28
+1.217529987,Dominik Koepfer,Carlos Alcaraz,46.0,1.02,Carlos Alcaraz,Carlos Alcaraz,Dominik Koepfer,2023-08-28
+1.217530454,Novak Djokovic,Alexandre Muller,1.01,95.0,Novak Djokovic,Novak Djokovic,Alexandre Muller,2023-08-28
+1.217610114,Hugo Dellien,Borna Gojo,8.6,1.13,Borna Gojo,Borna Gojo,Hugo Dellien,2023-08-28
+1.217610119,Alexei Popyrin,Dominic Stricker,1.58,2.72,Dominic Stricker,Dominic Stricker,Alexei Popyrin,2023-08-28
+1.217610393,Stefano Travaglia,Tommy Paul,990.0,1.07,Tommy Paul,Tommy Paul,Stefano Travaglia,2023-08-28
+1.217610543,Lorenzo Musetti,Titouan Droguet,1.12,1.02,Titouan Droguet,Titouan Droguet,Lorenzo Musetti,2023-08-28
+1.217610678,Casper Ruud,Emilio Nava,1.2,6.0,Casper Ruud,Casper Ruud,Emilio Nava,2023-08-28
+1.217611023,Francisco Cerundolo,Zachary Svajda,1.43,100.0,Francisco Cerundolo,Francisco Cerundolo,Zachary Svajda,2023-08-28
+1.217611298,Jiri Vesely,Enzo Couacaud,1.32,4.2,Jiri Vesely,Jiri Vesely,Enzo Couacaud,2023-08-28
+1.217611517,Gregoire Barrere,Jakub Mensik,50.0,1.01,Jakub Mensik,Jakub Mensik,Gregoire Barrere,2023-08-28
+1.217611556,Sho Shimabukuro,Hugo Gaston,34.0,1.03,Hugo Gaston,Hugo Gaston,Sho Shimabukuro,2023-08-28
+1.217612194,Lorenzo Sonego,Nicolas Moreno De Albor,1.3,4.2,Lorenzo Sonego,Lorenzo Sonego,Nicolas Moreno De Alboran,2023-08-28
+1.217612477,Thanasi Kokkinakis,Yu Hsiou Hsu,50.0,1.01,Yu Hsiou Hsu,Yu Hsiou Hsu,Thanasi Kokkinakis,2023-08-28
+1.217612742,Tomas Martin Etcheverry,Otto Virtanen,1.63,60.0,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Otto Virtanen,2023-08-28
+1.217612929,Alex De Minaur,Timofey Skatov,1.02,65.0,Alex De Minaur,Alex De Minaur,Timofey Skatov,2023-08-28
+1.217613172,Gael Monfils,Taro Daniel,1.04,21.0,Gael Monfils,Gael Monfils,Taro Daniel,2023-08-28
+1.217652462,James Duckworth,Felipe Meligeni Alves,2.14,1.89,Felipe Meligeni Alves,Felipe Meligeni Alves,James Duckworth,2023-08-28
+1.217682342,Dominic Thiem,Ben Shelton,320.0,1.01,Ben Shelton,Ben Shelton,Dominic Thiem,2023-08-28
+1.217684058,Adrian Mannarino,Fabian Marozsan,1.41,3.45,Adrian Mannarino,Adrian Mannarino,Fabian Marozsan,2023-08-28
+1.217684219,Alejandro Davidovich Fokina,Manuel Cerundolo,1.1,9.4,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,Juan Manuel Cerundolo,2023-08-28
+1.217686175,Zhizhen Zhang,Casper Ruud,5.0,1.25,Zhizhen Zhang,Zhizhen Zhang,Casper Ruud,2023-08-28
+1.217687229,Aslan Karatsev,Roberto Carballes Baena,1.05,21.0,Aslan Karatsev,Aslan Karatsev,Roberto Carballes Baena,2023-08-28
+1.217687239,Taylor Fritz,Juan Pablo Varillas,1.03,26.0,Taylor Fritz,Taylor Fritz,Juan Pablo Varillas,2023-08-28
+1.217687787,Marton Fucsovics,Rinky Hijikata,1000.0,3.4,Rinky Hijikata,Rinky Hijikata,Marton Fucsovics,2023-08-28
+1.217688066,Titouan Droguet,Jakub Mensik,2.2,1.7,Jakub Mensik,Jakub Mensik,Titouan Droguet,2023-08-28
+1.217692243,Tommy Paul,Roman Safiullin,1.01,100.0,Tommy Paul,Tommy Paul,Roman Safiullin,2023-08-28
+1.217695339,Laslo Djere,Hugo Gaston,1.68,120.0,Laslo Djere,Laslo Djere,Hugo Gaston,2023-08-28
+1.217696198,Christopher Eubanks,Benjamin Bonzi,11.0,1.04,Benjamin Bonzi,Benjamin Bonzi,Christopher Eubanks,2023-08-28
+1.217696436,Mackenzie McDonald,Borna Gojo,110.0,1.01,Borna Gojo,Borna Gojo,Mackenzie Mcdonald,2023-08-28
+1.217699265,Novak Djokovic,Bernabe Zapata Miralles,1.02,65.0,Novak Djokovic,Novak Djokovic,Bernabe Zapata Miralles,2023-08-28
+1.217722946,Andrey Rublev,Arthur Cazaux,1.15,7.0,Andrey Rublev,Andrey Rublev,Arthur Cazaux,2023-08-28
+1.21772836,Matteo Berrettini,Arthur Rinderknech,1000.0,5.2,Arthur Rinderknech,Arthur Rinderknech,Matteo Berrettini,2023-08-28
+1.217728848,Christopher O'Connell,Daniil Medvedev,26.0,1.05,Daniil Medvedev,Daniil Medvedev,Christopher Oconnell,2023-08-28
+1.217729964,Nicolas Jarry,Alex Michelsen,1.59,2.58,Nicolas Jarry,Nicolas Jarry,Alex Michelsen,2023-08-28
+1.217731635,Matteo Arnaldi,Arthur Fils,2.5,1.64,Matteo Arnaldi,Matteo Arnaldi,Arthur Fils,2023-08-28
+1.217732027,Daniel Altmaier,Alexander Zverev,13.0,1.1,Alexander Zverev,Alexander Zverev,Daniel Altmaier,2023-08-28
+1.217732334,Yu Hsiou Hsu,Cameron Norrie,8.0,1.14,Cameron Norrie,Cameron Norrie,Yu Hsiou Hsu,2023-08-28
+1.21773276,Stefanos Tsitsipas,Dominic Stricker,12.0,1.09,Dominic Stricker,Dominic Stricker,Stefanos Tsitsipas,2023-08-28
+1.217733134,Sebastian Baez,Felipe Meligeni Alves,1.1,26.0,Sebastian Baez,Sebastian Baez,Felipe Meligeni Alves,2023-08-28
+1.217733573,Andy Murray,Grigor Dimitrov,400.0,1.87,Grigor Dimitrov,Grigor Dimitrov,Andy Murray,2023-08-28
+1.217733758,John Isner,Michael Mmoh,7.2,1.17,Michael Mmoh,Michael Mmoh,John Isner,2023-08-28
+1.217734054,Daniel  Evans,Botic Van de Zandschulp,1.62,110.0,Daniel Evans,Daniel Evans,Botic Van De Zandschulp,2023-08-28
+1.217735062,Yibing Wu,Alex De Minaur,1000.0,1.24,Alex De Minaur,Alex De Minaur,Yibing Wu,2023-08-28
+1.217737782,Gael Monfils,Andrey Rublev,200.0,1.49,Andrey Rublev,Andrey Rublev,Gael Monfils,2023-08-28
+1.217737785,Jack Draper,Hubert Hurkacz,2.72,170.0,Jack Draper,Jack Draper,Hubert Hurkacz,2023-08-28
+1.21773924,Lloyd Harris,Carlos Alcaraz,42.0,1.02,Carlos Alcaraz,Carlos Alcaraz,Lloyd Harris,2023-08-28
+1.217740585,Tomas Martin Etcheverry,Stan Wawrinka,1000.0,1.33,Stan Wawrinka,Stan Wawrinka,Tomas Martin Etcheverry,2023-08-28
+1.21776456,Novak Djokovic,Laslo Djere,1.01,70.0,Novak Djokovic,Novak Djokovic,Laslo Djere,2023-08-28
+1.217765457,Benjamin Bonzi,Dominic Stricker,50.0,1.01,Dominic Stricker,Dominic Stricker,Benjamin Bonzi,2023-08-28
+1.217765736,Aslan Karatsev,Ben Shelton,2.58,1.67,Ben Shelton,Ben Shelton,Aslan Karatsev,2023-08-28
+1.217774508,Tommy Paul,Alejandro Davidovich Fokina,1.03,2.38,Tommy Paul,Tommy Paul,Alejandro Davidovich Fokina,2023-08-28
+1.217774761,Adrian Mannarino,Frances Tiafoe,1000.0,1.01,Frances Tiafoe,Frances Tiafoe,Adrian Mannarino,2023-08-28
+1.21777641,Zhizhen Zhang,Rinky Hijikata,30.0,1.01,Rinky Hijikata,Rinky Hijikata,Zhizhen Zhang,2023-08-28
+1.217802974,Michael Mmoh,Jack Draper,3.6,1.38,Jack Draper,Jack Draper,Michael Mmoh,2023-08-28
+1.217805415,Matteo Arnaldi,Cameron Norrie,1.01,65.0,Matteo Arnaldi,Matteo Arnaldi,Cameron Norrie,2023-08-28
+1.217805416,Nicolas Jarry,Alex De Minaur,4.7,1.27,Alex De Minaur,Alex De Minaur,Nicolas Jarry,2023-08-28
+1.217805886,Jannik Sinner,Stan Wawrinka,1.13,250.0,Jannik Sinner,Jannik Sinner,Stan Wawrinka,2023-08-28
+1.217807488,Andrey Rublev,Arthur Rinderknech,1.02,50.0,Andrey Rublev,Andrey Rublev,Arthur Rinderknech,2023-08-28
+1.217810419,Daniel  Evans,Carlos Alcaraz,1000.0,1.04,Carlos Alcaraz,Carlos Alcaraz,Daniel Evans,2023-08-28
+1.21781676,Sebastian Baez,Daniil Medvedev,46.0,1.02,Daniil Medvedev,Daniil Medvedev,Sebastian Baez,2023-08-28
+1.217836433,Tommy Paul,Ben Shelton,7.6,1.15,Ben Shelton,Ben Shelton,Tommy Paul,2023-08-28
+1.217839998,Rinky Hijikata,Frances Tiafoe,5.5,1.02,Frances Tiafoe,Frances Tiafoe,Rinky Hijikata,2023-08-28
+1.217841295,Taylor Fritz,Dominic Stricker,1.15,100.0,Taylor Fritz,Taylor Fritz,Dominic Stricker,2023-08-28
+1.217864487,Matteo Arnaldi,Carlos Alcaraz,400.0,1.04,Carlos Alcaraz,Carlos Alcaraz,Matteo Arnaldi,2023-08-28
+1.217868587,Andrey Rublev,Jack Draper,1.41,95.0,Andrey Rublev,Andrey Rublev,Jack Draper,2023-08-28
+1.217873675,Jannik Sinner,Alexander Zverev,15.0,1.06,Alexander Zverev,Alexander Zverev,Jannik Sinner,2023-08-28
+1.217875804,Alex De Minaur,Daniil Medvedev,3.2,1.38,Daniil Medvedev,Daniil Medvedev,Alex De Minaur,2023-08-28
+1.217905086,Frances Tiafoe,Ben Shelton,100.0,1.01,Ben Shelton,Ben Shelton,Frances Tiafoe,2023-08-28
+1.217914061,Novak Djokovic,Taylor Fritz,1.16,100.0,Novak Djokovic,Novak Djokovic,Taylor Fritz,2023-08-28
+1.217952709,Andrey Rublev,Daniil Medvedev,26.0,1.01,Daniil Medvedev,Daniil Medvedev,Andrey Rublev,2023-08-28
+1.217956805,Alexander Zverev,Carlos Alcaraz,290.0,1.21,Carlos Alcaraz,Carlos Alcaraz,Alexander Zverev,2023-08-28
+1.217985517,Novak Djokovic,Ben Shelton,1.11,1000.0,Novak Djokovic,Novak Djokovic,Ben Shelton,2023-08-28
+1.218021735,Daniil Medvedev,Carlos Alcaraz,1.01,100.0,Daniil Medvedev,Daniil Medvedev,Carlos Alcaraz,2023-08-28
+1.21809026,Novak Djokovic,Daniil Medvedev,1.01,100.0,Novak Djokovic,Novak Djokovic,Daniil Medvedev,2023-08-28

@@ -1,82 +1,97 @@
 import argparse
 import pandas as pd
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 import os
 
-def simulate(df, strategy="kelly", fixed_stake=10.0):
-    bankroll = 1000.0
-    max_drawdown = 0.0
+def kelly_stake(prob, odds, bankroll):
+    """Return the Kelly bet size."""
+    b = odds - 1
+    q = 1 - prob
+    edge = (b * prob - q) / b
+    return max(0, edge * bankroll)
+
+def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=0.01, odds_cap=10.0):
+    bankroll = starting_bankroll
+    max_drawdown = 0
     peak = bankroll
-    bankroll_history = []
+    history = []
 
     for _, row in tqdm(df.iterrows(), total=len(df), desc="Simulating bankroll"):
         prob = row["predicted_prob"]
         odds = row["odds"]
-        winner = row["winner"]
+        ev = row["expected_value"]
+        won = row["winner"]
 
-        # Skip obviously broken rows
-        if pd.isna(prob) or pd.isna(odds):
+        if pd.isna(prob) or pd.isna(odds) or pd.isna(ev):
+            continue
+        if ev < ev_threshold or odds > odds_cap:
             continue
 
-        # Kelly stake (fraction of bankroll)
-        if strategy == "kelly":
-            edge = prob * (odds - 1) - (1 - prob)
-            frac = edge / (odds - 1) if odds > 1 else 0
-            stake = max(0, frac) * bankroll
+        if strategy == "flat":
+            stake = 1.0
+        elif strategy == "kelly":
+            stake = kelly_stake(prob, odds, bankroll)
         else:
-            stake = fixed_stake
+            raise ValueError(f"Unknown strategy: {strategy}")
 
-        payout = stake * (odds if winner else -1)
-        bankroll += payout
+        payout = stake * (odds if won else 0)
+        bankroll += payout - stake
         peak = max(peak, bankroll)
         drawdown = peak - bankroll
         max_drawdown = max(max_drawdown, drawdown)
 
-        bankroll_history.append({
-            "bet": row.get("player", row.get("player_1", "UNKNOWN")),
+        history.append({
+            "bankroll": bankroll,
             "stake": stake,
+            "payout": payout,
             "odds": odds,
-            "prob": prob,
-            "won": winner,
-            "bankroll": bankroll
+            "won": won,
+            "ev": ev
         })
 
-    return pd.DataFrame(bankroll_history), bankroll, max_drawdown
+    return pd.DataFrame(history), bankroll, max_drawdown
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input_csvs", nargs="+", required=True)
+    parser.add_argument("--input_csvs", required=True, help="Comma-separated list of CSV files")
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--ev_threshold", type=float, default=0.01)
+    parser.add_argument("--odds_cap", type=float, default=10.0)
+    parser.add_argument("--strategy", choices=["flat", "kelly"], default="flat")
     parser.add_argument("--plot", action="store_true")
-    parser.add_argument("--plot_path", default=None)
-    parser.add_argument("--ev_threshold", type=float, default=0.0)
-    parser.add_argument("--odds_cap", type=float, default=100.0)
-    parser.add_argument("--strategy", choices=["kelly", "fixed"], default="kelly")
-    parser.add_argument("--fixed_stake", type=float, default=10.0)
     args = parser.parse_args()
 
-    # Load value bet CSV(s)
-    files = args.input_csvs
-    df = pd.concat([pd.read_csv(f).assign(source_file=os.path.basename(f)) for f in files], ignore_index=True)
+    # 🔧 Split comma-separated list
+    files = args.input_csvs.split(",")
 
-    # Detect long format
-    if {"player", "predicted_prob", "odds", "expected_value", "winner"}.issubset(df.columns):
-        long_format = True
-    else:
-        raise ValueError("Missing expected long-format columns in input CSV.")
+    # Load and tag each file
+    df = pd.concat(
+        [pd.read_csv(f).assign(source_file=os.path.basename(f)) for f in files],
+        ignore_index=True
+    )
 
-    # Filter high-EV, capped-odds bets
-    df = df[df["expected_value"] > args.ev_threshold]
-    df = df[df["odds"] <= args.odds_cap]
+    sim_df, final_bankroll, max_drawdown = simulate_bankroll(
+        df,
+        strategy=args.strategy,
+        ev_threshold=args.ev_threshold,
+        odds_cap=args.odds_cap
+    )
 
-    # Simulate
-    history, final_bankroll, max_drawdown = simulate(df, strategy=args.strategy, fixed_stake=args.fixed_stake)
+    sim_df.to_csv(args.output_csv, index=False)
 
-    # Output
-    history.to_csv(args.output_csv, index=False)
-    print(f"\n📈 Simulated {len(history)} bets")
+    print(f"\n📈 Simulated {len(sim_df)} bets")
     print(f"💰 Final bankroll: {final_bankroll:.2f}")
     print(f"📉 Max drawdown: {max_drawdown:.2f}")
+
+    if args.plot:
+        plt.plot(sim_df["bankroll"])
+        plt.title("Bankroll Over Time")
+        plt.xlabel("Bet Number")
+        plt.ylabel("Bankroll")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
 
 if __name__ == "__main__":
     main()
