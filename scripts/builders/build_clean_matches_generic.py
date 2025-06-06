@@ -1,34 +1,22 @@
 import pandas as pd
 import argparse
 from pathlib import Path
-from rapidfuzz import fuzz
 import hashlib
-import os  # ADDED
-
-def normalize(name):
-    return str(name).lower().replace(".", "").replace("-", " ").strip()
-
-def resolve_player(betfair_name, roster_map, alias_map, use_fuzzy):
-    if betfair_name in alias_map:
-        return alias_map[betfair_name]
-    clean_bf = normalize(betfair_name)
-    for rc, full_name in roster_map.items():
-        if rc in clean_bf or clean_bf in rc:
-            return full_name
-    if use_fuzzy:
-        best_match, best_score = None, 0
-        for rc, full_name in roster_map.items():
-            score = fuzz.token_sort_ratio(clean_bf, rc)
-            if score > best_score:
-                best_match, best_score = full_name, score
-        return best_match if best_score >= 80 else None
-    return None
+import os
+from scripts.utils.matching import (
+    normalize_name,
+    load_alias_map,
+    build_roster_map,
+    resolve_player
+)
+from scripts.utils.logger import log_info, log_success, log_warning, log_error
 
 def build_matches(args):
     if os.path.exists(args.output_csv):
-        print(f"⏭️ Output already exists: {args.output_csv}")
+        log_info(f"Output already exists: {args.output_csv}")
         return
 
+    log_info(f"Loading snapshots: {args.snapshots_csv}")
     snaps = pd.read_csv(args.snapshots_csv)
     snaps = snaps.dropna(subset=["runner_name", "ltp", "market_id", "selection_id", "timestamp"])
     snaps["timestamp"] = pd.to_datetime(snaps["timestamp"])
@@ -43,28 +31,23 @@ def build_matches(args):
         if len(runners) == 2:
             runner_map[mid] = {"runners": runners, "odds": odds}
 
-    sack, roster_map, alias_map = None, {}, {}
+    sack, alias_map, roster_map = None, {}, {}
     sack_exists = args.sackmann_csv and Path(args.sackmann_csv).exists()
 
     if sack_exists:
         sack = pd.read_csv(args.sackmann_csv)
         if sack.empty:
-            print(f"⚠️ Sackmann file is empty — falling back to snapshot-only mode.")
+            log_warning("Sackmann file is empty — falling back to snapshot-only mode.")
             args.snapshot_only = True
         else:
             sack["match_date"] = pd.to_datetime(sack["tourney_date"], format="%Y%m%d", errors="coerce").dt.date
-            sack["winner_clean"] = sack["winner_name"].map(normalize)
-            sack["loser_clean"] = sack["loser_name"].map(normalize)
             if args.alias_csv and Path(args.alias_csv).exists():
-                alias_df = pd.read_csv(args.alias_csv)
-                alias_map = dict(zip(alias_df["alias"].str.strip(), alias_df["full_name"].str.strip()))
-            roster = pd.Series(pd.concat([sack["winner_name"], sack["loser_name"]], ignore_index=True).unique())
-            roster_clean = roster.map(normalize).tolist()
-            roster_map = dict(zip(roster_clean, roster))
+                alias_map = load_alias_map(args.alias_csv)
+            roster_map = build_roster_map(sack)
             if args.tournament:
                 sack = sack[sack["tourney_name"].str.lower().str.contains(args.tournament.lower().replace("_", " "))]
     else:
-        print(f"⚠️ Sackmann CSV not provided — falling back to snapshot-only mode.")
+        log_warning("Sackmann CSV not provided — falling back to snapshot-only mode.")
         args.snapshot_only = True
 
     matched_rows = []
@@ -101,11 +84,11 @@ def build_matches(args):
         join_col = args.join_stats_on
         df_out = df_out.merge(stats_df.add_suffix("_p1"), left_on="player_1", right_on=f"{join_col}_p1", how="left")
         df_out = df_out.merge(stats_df.add_suffix("_p2"), left_on="player_2", right_on=f"{join_col}_p2", how="left")
-        print(f"🧠 Enriched with player stats: {args.player_stats_csv}")
+        log_info(f"Enriched with player stats: {args.player_stats_csv}")
 
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     df_out.to_csv(args.output_csv, index=False)
-    print(f"✅ Saved {len(df_out)} matches to {args.output_csv}")
+    log_success(f"Saved {len(df_out)} matches to {args.output_csv}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

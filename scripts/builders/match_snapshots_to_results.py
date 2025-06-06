@@ -1,46 +1,26 @@
 import pandas as pd
 from pathlib import Path
-from rapidfuzz import fuzz
 import argparse
-
-def normalize(x):
-    return str(x).lower().replace(".", "").replace("-", " ").strip()
-
-def load_alias_map(alias_csv):
-    if alias_csv and Path(alias_csv).exists():
-        alias_df = pd.read_csv(alias_csv)
-        return dict(zip(alias_df["alias"].str.strip(), alias_df["full_name"].str.strip()))
-    return {}
-
-def resolve_player(bf_name, roster_map, alias_map, use_fuzzy):
-    if bf_name in alias_map:
-        return alias_map[bf_name]
-    bf_clean = normalize(bf_name)
-    for rc, full_name in roster_map.items():
-        if rc in bf_clean or bf_clean in rc:
-            return full_name
-    if use_fuzzy:
-        best_match, best_score = None, 0
-        for rc, full_name in roster_map.items():
-            score = fuzz.token_sort_ratio(bf_clean, rc)
-            if score > best_score:
-                best_score = score
-                best_match = full_name
-        return best_match if best_score >= 80 else None
-    return None
+from scripts.utils.matching import (
+    normalize_name,
+    load_alias_map,
+    build_roster_map,
+    resolve_player
+)
 
 def match_snapshot_with_results(snapshot_csv, results_csv, output_csv, alias_csv=None, fuzzy=False):
     snap = pd.read_csv(snapshot_csv)
     results = pd.read_csv(results_csv)
+
     snap["timestamp"] = pd.to_datetime(snap["timestamp"])
     snap = snap.sort_values("timestamp").drop_duplicates(["market_id", "selection_id"], keep="last")
+
     results["match_date"] = pd.to_datetime(results["tourney_date"], errors="coerce").dt.date
-    results["winner_clean"] = results["winner_name"].map(normalize)
-    results["loser_clean"] = results["loser_name"].map(normalize)
+    results["winner_clean"] = results["winner_name"].map(normalize_name)
+    results["loser_clean"] = results["loser_name"].map(normalize_name)
 
     alias_map = load_alias_map(alias_csv)
-    roster = pd.Series(pd.concat([results["winner_name"], results["loser_name"]]).unique())
-    roster_map = dict(zip(roster.map(normalize), roster))
+    roster_map = build_roster_map(results)
 
     runner_map = {}
     for mid, group in snap.groupby("market_id"):
@@ -85,7 +65,6 @@ def match_snapshot_with_results(snapshot_csv, results_csv, output_csv, alias_csv
     df_out.to_csv(output_csv, index=False)
     print(f"✅ Matched {len(df_out)} snapshot matches to results at {output_csv}")
 
-# === CLI ===
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--snapshot_csv", required=True)
