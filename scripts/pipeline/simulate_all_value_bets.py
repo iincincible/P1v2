@@ -1,132 +1,104 @@
-import pandas as pd
-import os
-import glob
+# scripts/pipeline/simulate_all_value_bets.py
+
 import argparse
+import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import glob
+import os
 
-def kelly_stake(prob, odds, bankroll, cap_fraction=0.05):
-    b = odds - 1
-    q = 1 - prob
-    edge = (b * prob - q) / b if b > 0 else 0
-    stake = edge * bankroll
-    return max(0, min(stake, bankroll * cap_fraction))
-
-def simulate_bankroll(df, strategy="flat", starting_bankroll=1000, ev_threshold=0.01, odds_cap=10.0):
-    bankroll = starting_bankroll
-    max_drawdown = 0
+def simulate_bankroll(df, strategy, initial_bankroll):
+    bankroll = initial_bankroll
     peak = bankroll
-    history = []
-
-    actual_strategy = strategy
-    if strategy == "kelly" and len(df) < 10:
-        print(f"⚠️ Only {len(df)} bets — switching to flat staking for safety.")
-        actual_strategy = "flat"
+    max_drawdown = 0
+    bankroll_trajectory = [bankroll]
+    logs = []
 
     for _, row in tqdm(df.iterrows(), total=len(df), desc="Simulating bankroll"):
-        prob = row["predicted_prob"]
+        stake = 1.0 if strategy == "flat" else min(bankroll, bankroll * row["kelly_stake"])
+        win = row["winner"]
         odds = row["odds"]
-        ev = row["expected_value"]
-        won = row["winner"]
-
-        if pd.isna(prob) or pd.isna(odds) or pd.isna(ev):
-            continue
-        if ev < ev_threshold or odds > odds_cap:
-            continue
-
-        stake = 1.0 if actual_strategy == "flat" else kelly_stake(prob, odds, bankroll)
-        payout = stake * (odds if won else 0)
-        bankroll += payout - stake
+        payout = stake * (odds - 1) if win else -stake
+        bankroll += payout
         peak = max(peak, bankroll)
-        drawdown = peak - bankroll
-        max_drawdown = max(max_drawdown, drawdown)
+        max_drawdown = max(max_drawdown, peak - bankroll)
+        bankroll_trajectory.append(bankroll)
 
-        history.append({
-            "bankroll": bankroll,
+        logs.append({
+            "match": row.get("match_id", ""),
             "stake": stake,
-            "payout": payout,
             "odds": odds,
-            "won": won,
-            "ev": ev,
-            "source_file": row.get("source_file", "unknown")
+            "won": bool(win),
+            "payout": payout,
+            "bankroll": bankroll
         })
 
-    return pd.DataFrame(history), bankroll, max_drawdown
-
-def load_valid_csvs():
-    valid = []
-    for f in glob.glob("data/processed/*_value_bets.csv"):
-        if os.path.getsize(f) == 0:
-            continue
-        try:
-            df = pd.read_csv(f)
-            if df.empty:
-                continue
-
-            df["predicted_prob"] = df.get("pred_prob_player_1", df.get("predicted_prob"))
-            df["odds"] = df.get("odds_player_1", df.get("odds"))
-            df["expected_value"] = (df["predicted_prob"] * df["odds"]) - 1
-
-            if "winner" not in df.columns:
-                if "actual_winner" in df.columns and "player_1" in df.columns:
-                    df["winner"] = df["actual_winner"].str.strip().str.lower() == df["player_1"].str.strip().str.lower()
-                    df["winner"] = df["winner"].astype(int)
-                else:
-                    continue
-
-            if df[["predicted_prob", "odds", "expected_value", "winner"]].dropna().empty:
-                continue
-
-            df["source_file"] = os.path.basename(f)
-            valid.append(df)
-        except Exception as e:
-            print(f"⚠️ Skipped {f}: {e}")
-            continue
-
-    return pd.concat(valid, ignore_index=True) if valid else pd.DataFrame()
+    return bankroll, max_drawdown, bankroll_trajectory, pd.DataFrame(logs)
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output_csv", default="data/processed/bankroll_sim_all.csv")
+    parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for value bet CSVs")
+    parser.add_argument("--output_csv", required=True)
     parser.add_argument("--strategy", choices=["flat", "kelly"], default="kelly")
-    parser.add_argument("--ev_threshold", type=float, default=0.01)
-    parser.add_argument("--odds_cap", type=float, default=10.0)
+    parser.add_argument("--ev_threshold", type=float, default=0.2)
+    parser.add_argument("--odds_cap", type=float, default=6.0)
+    parser.add_argument("--initial_bankroll", type=float, default=1000.0)
     parser.add_argument("--plot", action="store_true")
+    parser.add_argument("--save_plots", action="store_true")
+
     args = parser.parse_args()
 
-    df = load_valid_csvs()
-    if df.empty:
-        print("⚠️ No valid value bet files found.")
-        return
+    files = glob.glob(args.value_bets_glob)
+    if not files:
+        raise ValueError("❌ No valid value bet files found.")
 
-    sim_df, final_bankroll, max_drawdown = simulate_bankroll(
-        df,
-        strategy=args.strategy,
-        ev_threshold=args.ev_threshold,
-        odds_cap=args.odds_cap
-    )
+    all_bets = []
+    for file in files:
+        df = pd.read_csv(file)
+        required_cols = {"expected_value", "odds", "predicted_prob", "winner"}
+        if not required_cols.issubset(df.columns):
+            print(f"⚠️ Skipping {file} — missing required columns.")
+            continue
+        df["source_file"] = os.path.basename(file)
+        all_bets.append(df)
 
-    if sim_df.empty:
-        print("\n⚠️ No bets were executed after filtering. Nothing to plot or save.")
-        return
+    df = pd.concat(all_bets, ignore_index=True)
+    print(f"📊 Loaded {len(df)} total bets from {len(files)} files")
 
-    sim_df.to_csv(args.output_csv, index=False)
-    print(f"\n📈 Simulated {len(sim_df)} bets")
-    print(f"💰 Final bankroll: {final_bankroll:.2f}")
-    print(f"📉 Max drawdown: {max_drawdown:.2f}")
+    # Apply filters
+    df = df[df["expected_value"] >= args.ev_threshold]
+    df = df[df["odds"] <= args.odds_cap]
+    print(f"✅ {len(df)} bets after applying EV ≥ {args.ev_threshold} and odds ≤ {args.odds_cap}")
 
-    png_path = os.path.splitext(args.output_csv)[0] + ".png"
-    plt.plot(sim_df["bankroll"])
-    plt.title("Simulated Bankroll Over Time")
-    plt.xlabel("Bet #")
-    plt.ylabel("Bankroll")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(png_path)
-    print(f"🖼️ Saved bankroll plot to {png_path}")
+    # Compute Kelly stake if needed
+    if args.strategy == "kelly":
+        df["kelly_stake"] = (df["predicted_prob"] - (1 / df["odds"])) / (1 - (1 / df["odds"]))
+        df["kelly_stake"] = df["kelly_stake"].clip(lower=0)
 
-    if args.plot:
-        plt.show()
+    final_bankroll, max_drawdown, trajectory, logs = simulate_bankroll(df, args.strategy, args.initial_bankroll)
+    df["strategy"] = args.strategy
+    df["stake"] = logs["stake"]
+    df["payout"] = logs["payout"]
+    df["final_bankroll"] = final_bankroll
+    df["max_drawdown"] = max_drawdown
+
+    df.to_csv(args.output_csv, index=False)
+    print(f"✅ Saved simulation to {args.output_csv}")
+    print(f"💰 Final bankroll: {final_bankroll:,.2f}")
+    print(f"📉 Max drawdown: {max_drawdown:,.2f}")
+
+    if args.plot or args.save_plots:
+        plt.figure(figsize=(10, 5))
+        plt.plot(trajectory)
+        plt.title("Bankroll Trajectory")
+        plt.xlabel("Bet Number")
+        plt.ylabel("Bankroll")
+        if args.save_plots:
+            out_path = os.path.splitext(args.output_csv)[0] + ".png"
+            plt.savefig(out_path)
+            print(f"🖼️ Saved bankroll plot to {out_path}")
+        if args.plot:
+            plt.show()
 
 if __name__ == "__main__":
     main()
