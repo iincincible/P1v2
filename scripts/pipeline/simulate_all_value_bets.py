@@ -6,6 +6,12 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import glob
 import os
+import sys
+
+# Allow importing utils
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from scripts.utils.normalize_columns import normalize_columns
+
 
 def simulate_bankroll(df, strategy, initial_bankroll):
     bankroll = initial_bankroll
@@ -35,6 +41,7 @@ def simulate_bankroll(df, strategy, initial_bankroll):
 
     return bankroll, max_drawdown, bankroll_trajectory, pd.DataFrame(logs)
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for value bet CSVs")
@@ -45,7 +52,6 @@ def main():
     parser.add_argument("--initial_bankroll", type=float, default=1000.0)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--save_plots", action="store_true")
-
     args = parser.parse_args()
 
     files = glob.glob(args.value_bets_glob)
@@ -54,13 +60,35 @@ def main():
 
     all_bets = []
     for file in files:
-        df = pd.read_csv(file)
+        try:
+            df = pd.read_csv(file)
+            df = normalize_columns(df)
+        except Exception as e:
+            print(f"⚠️ Skipping {file} — normalization failed: {e}")
+            continue
+
+        # Patch 'winner' if missing
+        if "winner" not in df.columns:
+            if "actual_winner" in df.columns and "player_1" in df.columns:
+                df["winner"] = (
+                    df["actual_winner"].str.strip().str.lower() ==
+                    df["player_1"].str.strip().str.lower()
+                ).astype(int)
+                print(f"🩹 Patched 'winner' column in: {file}")
+            else:
+                print(f"⚠️ Skipping {file} — cannot derive 'winner'")
+                continue
+
         required_cols = {"expected_value", "odds", "predicted_prob", "winner"}
         if not required_cols.issubset(df.columns):
-            print(f"⚠️ Skipping {file} — missing required columns.")
+            print(f"⚠️ Skipping {file} — missing required columns after normalization.")
             continue
+
         df["source_file"] = os.path.basename(file)
         all_bets.append(df)
+
+    if not all_bets:
+        raise ValueError("❌ No value bet files could be normalized or passed validation.")
 
     df = pd.concat(all_bets, ignore_index=True)
     print(f"📊 Loaded {len(df)} total bets from {len(files)} files")
@@ -99,6 +127,7 @@ def main():
             print(f"🖼️ Saved bankroll plot to {out_path}")
         if args.plot:
             plt.show()
+
 
 if __name__ == "__main__":
     main()
