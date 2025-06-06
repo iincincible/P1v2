@@ -1,13 +1,11 @@
 import argparse
 import yaml
 import subprocess
+import time
 import os
 from pathlib import Path
 
-# ✅ Ensure the subprocesses use .venv explicitly
-PYTHON = os.environ.get("PYTHON", str(Path(".venv/Scripts/python.exe").resolve()))
-
-# Paths to individual step scripts
+PYTHON = os.environ.get("PYTHON", "python")
 SELECTION_SCRIPT = "scripts/pipeline/match_selection_ids.py"
 MERGE_SCRIPT = "scripts/pipeline/merge_final_ltps_into_matches.py"
 FEATURE_SCRIPT = "scripts/pipeline/build_odds_features.py"
@@ -75,8 +73,7 @@ def run_pipeline(tournament, skip_existing):
     if not skip_existing or not Path(paths["predictions_csv"]).exists():
         cmd = [
             PYTHON, PREDICT_SCRIPT,
-            "--input_csv", paths["features_csv"],
-            "--model_path", "modeling/final_model.joblib",
+            "--features_csv", paths["features_csv"],
             "--output_csv", paths["predictions_csv"]
         ]
         run(cmd)
