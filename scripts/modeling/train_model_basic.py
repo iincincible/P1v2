@@ -1,30 +1,51 @@
 import argparse
 import pandas as pd
-import joblib
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, log_loss
+import joblib
+
+def load_data(csv_paths):
+    dfs = []
+    for path in csv_paths:
+        df = pd.read_csv(path)
+        dfs.append(df)
+    return pd.concat(dfs, ignore_index=True)
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_csvs", nargs="+", required=True)
-    parser.add_argument("--model_output", required=True)
+    parser.add_argument("--train_csvs", nargs="+", required=True, help="List of CSVs for training")
+    parser.add_argument("--model_output", type=str, required=True, help="Path to save model")
     args = parser.parse_args()
 
-    dfs = [pd.read_csv(path) for path in args.train_csvs]
-    df = pd.concat(dfs, ignore_index=True)
-    df = df.dropna(subset=["implied_prob_1", "implied_prob_2", "actual_winner", "player_1"])
+    df = load_data(args.train_csvs)
 
-    X = df[["implied_prob_1", "implied_prob_2"]]
-    y = (df["actual_winner"] == df["player_1"]).astype(int)
+    required_cols = [
+        "implied_prob_1",
+        "implied_prob_2",
+        "implied_diff",
+        "odds_player_1",
+        "odds_player_2",
+        "odds_margin",
+        "won"
+    ]
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        raise ValueError(f"Missing required columns in training data: {missing_cols}")
 
-    model = LogisticRegression(solver="liblinear")
+    X = df[["implied_prob_1", "implied_prob_2", "implied_diff", "odds_player_1", "odds_player_2", "odds_margin"]]
+    y = df["won"]
+
+    model = LogisticRegression(max_iter=1000)
     model.fit(X, y)
 
-    y_pred = model.predict(X)
-    y_prob = model.predict_proba(X)[:, 1]
+    preds = model.predict_proba(X)
+    pred_labels = model.predict(X)
 
-    print(f"✅ Accuracy: {accuracy_score(y, y_pred):.4f}")
-    print(f"✅ Log Loss: {log_loss(y, y_prob):.5f}")
+    acc = accuracy_score(y, pred_labels)
+    ll = log_loss(y, preds)
+
+    print(f"✅ Accuracy: {acc:.4f}")
+    print(f"✅ Log Loss: {ll:.5f}")
 
     joblib.dump(model, args.model_output)
     print(f"✅ Saved model to {args.model_output}")

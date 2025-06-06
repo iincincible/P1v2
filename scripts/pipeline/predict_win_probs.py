@@ -1,8 +1,9 @@
+import sys
+sys.path.append(r"C:\Users\lucap\Projects\P1v2\.venv\Lib\site-packages")  # 🩹 Hack to force joblib import
+
 import argparse
 import pandas as pd
 import joblib
-from pathlib import Path
-import os
 
 def main():
     parser = argparse.ArgumentParser()
@@ -11,17 +12,20 @@ def main():
     parser.add_argument("--output_csv", required=True)
     args = parser.parse_args()
 
-    if os.path.exists(args.output_csv):
-        print(f"⏭️ Output already exists: {args.output_csv}")
-        return
-
     df = pd.read_csv(args.input_csv)
+
+    # 🛠 Patch missing implied_prob_diff if needed
+    if "implied_prob_diff" not in df.columns and "implied_prob_1" in df.columns and "implied_prob_2" in df.columns:
+        df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
+
     model = joblib.load(args.model_path)
 
-    features = ["implied_prob_1", "implied_prob_2", "odds_margin", "implied_diff"]
-    df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
+    X = df[["implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"]]
+    preds = model.predict_proba(X)
 
-    Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
+    df["pred_prob_player_1"] = preds[:, 1]
+    df["pred_prob_player_2"] = 1 - df["pred_prob_player_1"]
+
     df.to_csv(args.output_csv, index=False)
     print(f"✅ Saved predictions to {args.output_csv}")
 
