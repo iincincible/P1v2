@@ -1,97 +1,128 @@
 import argparse
-import subprocess
 import yaml
+import subprocess
+import os
 from pathlib import Path
-import sys
-import time
 
-PYTHON = sys.executable
+# ✅ Ensure the subprocesses use .venv explicitly
+PYTHON = os.environ.get("PYTHON", str(Path(".venv/Scripts/python.exe").resolve()))
 
-def run_pipeline_for_tournament(tournament, skip_existing=False):
-    key = tournament["key"]
-    base = f"data/processed/{key}"
-    parsed = f"parsed/betfair_{key}_snapshots.csv"
+# Paths to individual step scripts
+SELECTION_SCRIPT = "scripts/pipeline/match_selection_ids.py"
+MERGE_SCRIPT = "scripts/pipeline/merge_final_ltps_into_matches.py"
+FEATURE_SCRIPT = "scripts/pipeline/build_odds_features.py"
+PREDICT_SCRIPT = "scripts/pipeline/predict_win_probs.py"
+VALUE_SCRIPT = "scripts/pipeline/detect_value_bets.py"
+SIM_SCRIPT = "scripts/pipeline/simulate_bankroll.py"
 
-    print(f"\n🚀 Running pipeline for: {key}")
+def run(cmd):
+    subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
 
-    preds_csv = f"{base}_predictions.csv"
-    value_bets_csv = f"{base}_value_bets.csv"
-    bankroll_csv = f"{base}_bankroll.csv"
-    ev_threshold = str(tournament.get("ev_threshold", 0.01))
+def run_pipeline(tournament, skip_existing):
+    label = tournament["label"]
+    print(f"\n🚀 Running pipeline for: {label}")
 
-    if skip_existing and Path(preds_csv).exists():
-        print(f"⏭️ Skipping {key} — predictions already exist at {preds_csv}")
-        return True
+    paths = {
+        "raw_csv": f"data/processed/{label}_clean_snapshot_matches.csv",
+        "ids_csv": f"data/processed/{label}_ids.csv",
+        "odds_csv": f"data/processed/{label}_with_odds.csv",
+        "features_csv": f"data/processed/{label}_features.csv",
+        "predictions_csv": f"data/processed/{label}_predictions.csv",
+        "value_csv": f"data/processed/{label}_value_bets.csv",
+        "bankroll_csv": f"data/processed/{label}_bankroll.csv",
+    }
 
-    steps = [
-        ("Match selection IDs", [
-            PYTHON, "scripts/pipeline/match_selection_ids.py",
-            "--merged_csv", f"{base}_clean_snapshot_matches.csv",
-            "--snapshots_csv", parsed,
-            "--output_csv", f"{base}_ids.csv"
-        ]),
-        ("Merge final LTPs", [
-            PYTHON, "scripts/pipeline/merge_final_ltps_into_matches.py",
-            "--match_csv", f"{base}_ids.csv",
-            "--snapshots_csv", parsed,
-            "--output_csv", f"{base}_with_odds.csv"
-        ]),
-        ("Build odds features", [
-            PYTHON, "scripts/pipeline/build_odds_features.py",
-            "--input_csv", f"{base}_with_odds.csv",
-            "--output_csv", f"{base}_features.csv"
-        ]),
-        ("Predict win probabilities", [
-            PYTHON, "scripts/pipeline/predict_win_probs.py",
-            "--input_csv", f"{base}_features.csv",
-            "--model_path", "modeling/win_model.pkl",
-            "--output_csv", preds_csv
-        ]),
-        ("Detect value bets", [
-            PYTHON, "scripts/pipeline/detect_value_bets.py",
-            "--input_csv", preds_csv,
-            "--output_csv", value_bets_csv,
-            "--ev_threshold", ev_threshold,
-            "--max_odds", "10.0",
-            "--max_margin", "0.05",
-            "--filter_model", "modeling/ev_filter_model.pkl",
-            "--min_confidence", "0.5"
-        ]),
-        ("Simulate bankroll", [
-            PYTHON, "scripts/pipeline/simulate_bankroll_growth.py",
-            "--input_csvs", value_bets_csv,
-            "--output_csv", bankroll_csv,
-            "--strategy", "flat",
-            "--ev_threshold", ev_threshold,
-            "--odds_cap", "10.0"
-        ])
-    ]
+    # Step 1: Match selection IDs
+    print("🔧 Step: Match selection IDs")
+    if not skip_existing or not Path(paths["ids_csv"]).exists():
+        cmd = [
+            PYTHON, SELECTION_SCRIPT,
+            "--input_csv", paths["raw_csv"],
+            "--snapshots_csv", tournament["snapshots_csv"],
+            "--output_csv", paths["ids_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['ids_csv']} (already exists)")
 
-    for step_name, cmd in steps:
-        try:
-            print(f"🔧 Step: {step_name}")
-            t0 = time.perf_counter()
-            subprocess.run(cmd, check=True)
-            t1 = time.perf_counter()
-            print(f"✅ {step_name} completed in {t1 - t0:.2f} seconds")
-        except subprocess.CalledProcessError:
-            print(f"❌ Pipeline failed for {key} during step: {step_name}")
-            return False
+    # Step 2: Merge final LTPs
+    print("🔧 Step: Merge final LTPs")
+    if not skip_existing or not Path(paths["odds_csv"]).exists():
+        cmd = [
+            PYTHON, MERGE_SCRIPT,
+            "--merged_csv", paths["ids_csv"],
+            "--snapshots_csv", tournament["snapshots_csv"],
+            "--output_csv", paths["odds_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['odds_csv']} (already exists)")
 
-    print(f"✅ {key}: pipeline complete — predictions, value bets, and bankroll simulated.")
-    return True
+    # Step 3: Build odds features
+    print("🔧 Step: Build odds features")
+    if not skip_existing or not Path(paths["features_csv"]).exists():
+        cmd = [
+            PYTHON, FEATURE_SCRIPT,
+            "--input_csv", paths["odds_csv"],
+            "--output_csv", paths["features_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['features_csv']} (already exists)")
 
-if __name__ == "__main__":
+    # Step 4: Predict win probabilities
+    print("🔧 Step: Predict win probabilities")
+    if not skip_existing or not Path(paths["predictions_csv"]).exists():
+        cmd = [
+            PYTHON, PREDICT_SCRIPT,
+            "--input_csv", paths["features_csv"],
+            "--model_path", "modeling/final_model.joblib",
+            "--output_csv", paths["predictions_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['predictions_csv']} (already exists)")
+
+    # Step 5: Detect value bets
+    print("🔧 Step: Detect value bets")
+    if not skip_existing or not Path(paths["value_csv"]).exists():
+        cmd = [
+            PYTHON, VALUE_SCRIPT,
+            "--predictions_csv", paths["predictions_csv"],
+            "--output_csv", paths["value_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['value_csv']} (already exists)")
+
+    # Step 6: Simulate bankroll
+    print("🔧 Step: Simulate bankroll")
+    if not skip_existing or not Path(paths["bankroll_csv"]).exists():
+        cmd = [
+            PYTHON, SIM_SCRIPT,
+            "--value_bets_csv", paths["value_csv"],
+            "--output_csv", paths["bankroll_csv"]
+        ]
+        run(cmd)
+    else:
+        print(f"⏭️ Skipping {paths['bankroll_csv']} (already exists)")
+
+def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", required=True, help="Path to YAML config with tournaments list")
-    parser.add_argument("--skip_existing", action="store_true", help="Skip tournaments if predictions already exist")
+    parser.add_argument("--config", required=True)
+    parser.add_argument("--skip_existing", action="store_true")
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
         config = yaml.safe_load(f)
 
     for tournament in config["tournaments"]:
-        success = run_pipeline_for_tournament(tournament, skip_existing=args.skip_existing)
-        if not success:
-            print(f"⚠️ Aborting further processing due to error in {tournament['key']}")
+        try:
+            run_pipeline(tournament, args.skip_existing)
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Pipeline failed for {tournament['label']} during step: {e.cmd[-2]}")
+            print(f"⚠️ Aborting further processing due to error in {tournament['label']}")
             break
+
+if __name__ == "__main__":
+    main()

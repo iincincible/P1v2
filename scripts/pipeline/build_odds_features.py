@@ -1,6 +1,7 @@
-import argparse
 import pandas as pd
+import argparse
 from pathlib import Path
+from scripts.utils.betting_math import compute_ev, compute_kelly_stake
 
 def main():
     parser = argparse.ArgumentParser()
@@ -9,17 +10,22 @@ def main():
     args = parser.parse_args()
 
     df = pd.read_csv(args.input_csv)
-    required_cols = ["odds_player_1", "odds_player_2"]
-    for col in required_cols:
-        if col not in df.columns:
-            raise ValueError(f"Missing required column: {col}")
 
+    # Rename consistent odds columns
+    df["odds_player_1"] = df["ltp_player_1"]
+    df["odds_player_2"] = df["ltp_player_2"]
+
+    # Compute implied probabilities and margin
     df["implied_prob_1"] = 1 / df["odds_player_1"]
     df["implied_prob_2"] = 1 / df["odds_player_2"]
     df["odds_margin"] = df["implied_prob_1"] + df["implied_prob_2"] - 1
     df["implied_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
 
-    Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
+    # Optional: compute EV using predicted_prob if already present
+    if "predicted_prob" in df.columns:
+        df["expected_value"] = compute_ev(df["predicted_prob"], df["odds_player_1"])
+        df["kelly_stake"] = compute_kelly_stake(df["predicted_prob"], df["odds_player_1"])
+
     df.to_csv(args.output_csv, index=False)
     print(f"✅ Saved odds features to {args.output_csv}")
 
