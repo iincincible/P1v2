@@ -5,6 +5,8 @@ import sys
 import time
 import os
 
+from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
+
 PYTHON = sys.executable
 CONFIG_FILE = "configs/tournaments_2024.yaml"
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
@@ -13,7 +15,8 @@ BETFAIR_DATA_DIR = "data/BASIC"
 
 def parse_snapshots_if_missing(conf):
     label = conf["label"]
-    snapshot_csv = conf["snapshots_csv"]
+    snapshot_csv = conf.get("snapshots_csv") or get_snapshot_csv_path(label)
+    conf["snapshots_csv"] = snapshot_csv  # patch in case it was missing
     start = conf.get("start_date", "2023-01-01")
     end = conf.get("end_date", "2023-12-31")
 
@@ -52,7 +55,7 @@ for conf in configs["tournaments"]:
     try:
         parse_snapshots_if_missing(conf)
 
-        output_path = f"data/processed/{label}_clean_snapshot_matches.csv"
+        output_path = get_pipeline_paths(label)["raw_csv"]
         if Path(output_path).exists():
             print(f"⏭️ Output already exists: {output_path}")
             continue
@@ -63,7 +66,7 @@ for conf in configs["tournaments"]:
             "--tournament", conf["tournament"],
             "--year", str(conf["year"]),
             "--snapshots_csv", conf["snapshots_csv"],
-            "--output_csv", output_path
+            "--output_csv", str(output_path)
         ]
 
         if conf.get("sackmann_csv") and not conf.get("snapshot_only", False):

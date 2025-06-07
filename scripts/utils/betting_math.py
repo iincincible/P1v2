@@ -26,3 +26,15 @@ def add_ev_and_kelly(df: pd.DataFrame, prob_col="predicted_prob", odds_col="odds
     df["expected_value"] = compute_ev(df[prob_col], df[odds_col])
     df["kelly_stake"] = compute_kelly_stake(df[prob_col], df[odds_col])
     return df
+
+def compute_kelly_stake_capped(prob: float, odds: float, bankroll: float = 1.0, cap: float = 0.05) -> float:
+    """
+    Computes the Kelly stake (fraction of bankroll), capped at a maximum %.
+    """
+    b = odds - 1
+    q = 1 - prob
+    if b <= 0:
+        return 0
+    edge = (b * prob - q) / b
+    stake = edge * bankroll
+    return max(0, min(stake, bankroll * cap))

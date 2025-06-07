@@ -3,8 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import glob
 import os
+from pathlib import Path
 
 from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.logger import log_info, log_success, log_warning
 
 def main():
     parser = argparse.ArgumentParser()
@@ -29,11 +31,11 @@ def main():
         dfs.append(df)
 
     all_bets = pd.concat(dfs, ignore_index=True)
-    print(f"✅ Loaded {len(all_bets)} value bets after filtering")
+    log_info(f"Loaded {len(all_bets)} value bets after filtering")
 
     if args.output_csv:
         all_bets.to_csv(args.output_csv, index=False)
-        print(f"📁 Saved filtered bets to {args.output_csv}")
+        log_success(f"Saved filtered bets to {args.output_csv}")
 
     # Plot EV histogram
     plt.figure(figsize=(10, 5))
@@ -44,9 +46,12 @@ def main():
     plt.grid(True)
 
     if args.save_plot:
-        plot_path = "ev_distribution.png"
-        plt.savefig(plot_path)
-        print(f"📊 Saved EV distribution plot to {plot_path}")
+        if args.output_csv:
+            out_path = Path(args.output_csv).with_name(Path(args.output_csv).stem + "_ev_distribution.png")
+        else:
+            out_path = "ev_distribution.png"
+        plt.savefig(out_path)
+        log_success(f"Saved EV distribution plot to {out_path}")
 
     if args.plot:
         plt.show()

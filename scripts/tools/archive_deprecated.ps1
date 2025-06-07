@@ -7,7 +7,8 @@ $DeprecatedFiles = @(
     "scripts\builders\filter_snapshots.py",
     "scripts\pipeline\expand_and_balance_dataset.py",
     "scripts\analysis\compare_ev_bins.py",
-    "scripts\utils\merge_csvs_no_dup_header.py"
+    "scripts\utils\merge_csvs_no_dup_header.py",
+    "scripts\builders\match_snapshots_to_results.py"
 )
 
 $ArchiveFolder = "scripts\archive"

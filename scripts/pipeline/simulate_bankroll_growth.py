@@ -14,6 +14,7 @@ from scripts.utils.constants import (
     DEFAULT_MAX_ODDS,
     DEFAULT_STRATEGY
 )
+from scripts.utils.filters import filter_value_bets
 
 def main():
     parser = argparse.ArgumentParser()
@@ -48,6 +49,7 @@ def main():
                 else:
                     raise ValueError("Cannot compute 'winner' — missing actual_winner or player_1")
 
+            df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
             dfs.append(df)
         except Exception as e:
             print(f"⚠️ Skipping {f}: {e}")
@@ -60,8 +62,8 @@ def main():
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
         df,
         strategy=args.strategy,
-        ev_threshold=args.ev_threshold,
-        odds_cap=args.odds_cap,
+        ev_threshold=0.0,
+        odds_cap=100.0,
         initial_bankroll=1000.0,
         cap_fraction=0.05
     )

@@ -1,11 +1,10 @@
 import argparse
 import pandas as pd
-from difflib import get_close_matches
-from collections import defaultdict
 from tqdm import tqdm
 import os
 
 from scripts.utils.cli_utils import should_run
+from scripts.utils.selection import build_market_runner_map, match_player_to_selection_id
 
 def main():
     parser = argparse.ArgumentParser()
@@ -23,21 +22,15 @@ def main():
     snapshots = pd.read_csv(args.snapshots_csv)
 
     print(f"🔍 Matching selection_ids for {len(df)} matches...")
-    snapshots["runner_name_clean"] = snapshots["runner_name"].str.lower().str.strip()
-    market_runner_map = defaultdict(dict)
-
-    for _, row in snapshots.iterrows():
-        market_runner_map[str(row["market_id"])][row["runner_name_clean"]] = row["selection_id"]
-
-    def find_best_match(market_id, player_name):
-        player_clean = str(player_name).lower().strip()
-        candidates = list(market_runner_map.get(str(market_id), {}).keys())
-        match = get_close_matches(player_clean, candidates, n=1, cutoff=0.8)
-        return market_runner_map[str(market_id)].get(match[0]) if match else None
+    market_runner_map = build_market_runner_map(snapshots)
 
     tqdm.pandas()
-    df["selection_id_1"] = df.progress_apply(lambda row: find_best_match(row["market_id"], row["player_1"]), axis=1)
-    df["selection_id_2"] = df.progress_apply(lambda row: find_best_match(row["market_id"], row["player_2"]), axis=1)
+    df["selection_id_1"] = df.progress_apply(
+        lambda row: match_player_to_selection_id(market_runner_map, row["market_id"], row["player_1"]), axis=1
+    )
+    df["selection_id_2"] = df.progress_apply(
+        lambda row: match_player_to_selection_id(market_runner_map, row["market_id"], row["player_2"]), axis=1
+    )
 
     unmatched_1 = df["selection_id_1"].isna().sum()
     unmatched_2 = df["selection_id_2"].isna().sum()

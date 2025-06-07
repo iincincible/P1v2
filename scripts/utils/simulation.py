@@ -2,17 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-def compute_kelly_stake(prob: float, odds: float, bankroll: float = 1.0, cap: float = 0.05) -> float:
-    """
-    Computes the Kelly stake (fraction of bankroll), capped at a maximum %.
-    """
-    b = odds - 1
-    q = 1 - prob
-    if b <= 0:
-        return 0
-    edge = (b * prob - q) / b
-    stake = edge * bankroll
-    return max(0, min(stake, bankroll * cap))
+from scripts.utils.betting_math import compute_kelly_stake_capped
 
 def simulate_bankroll(
     df: pd.DataFrame,
@@ -57,7 +47,7 @@ def simulate_bankroll(
         odds = row["odds"]
         won = row["winner"]
 
-        stake = 1.0 if actual_strategy == "flat" else compute_kelly_stake(prob, odds, bankroll, cap=cap_fraction)
+        stake = 1.0 if actual_strategy == "flat" else compute_kelly_stake_capped(prob, odds, bankroll, cap=cap_fraction)
         payout = stake * (odds if won else 0)
         bankroll += payout - stake
         peak = max(peak, bankroll)

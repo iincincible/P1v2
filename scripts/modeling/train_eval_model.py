@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score, log_loss
 from pathlib import Path
 from tqdm import tqdm
 
-from scripts.utils.betting_math import compute_ev, compute_kelly_stake, add_ev_and_kelly
+from scripts.utils.betting_math import compute_kelly_stake, add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.cli_utils import should_run
@@ -16,6 +16,7 @@ from scripts.utils.constants import (
     DEFAULT_STRATEGY,
     DEFAULT_FIXED_STAKE
 )
+from scripts.utils.filters import filter_value_bets
 
 def main():
     parser = argparse.ArgumentParser()
@@ -35,7 +36,6 @@ def main():
     parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
-    # Check both outputs before proceeding
     if not should_run(args.value_bets_csv, args.overwrite, args.dry_run):
         return
     if not should_run(args.bankroll_csv, args.overwrite, args.dry_run):
@@ -59,7 +59,7 @@ def main():
     df_train = pd.concat(train_dfs, ignore_index=True)
     log_info(f"Loaded {len(df_train)} training rows")
 
-    # === Load test data ===
+    # === Load and prepare test data ===
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
     df_test = df_test.dropna(subset=args.features + ["odds", "player_1"])
@@ -80,12 +80,8 @@ def main():
         log_success(f"Accuracy: {accuracy_score(y_true, df_test['predicted_prob'] > 0.5):.4f}")
         log_success(f"Log Loss: {log_loss(y_true, df_test['predicted_prob']):.5f}")
 
-    # === EV Filtering ===
-    df_filtered = df_test[
-        (df_test["expected_value"] >= args.ev_threshold) &
-        (df_test["odds"] <= args.max_odds) &
-        (df_test["odds_margin"] <= args.max_margin)
-    ].copy()
+    # === EV Filtering using shared logic ===
+    df_filtered = filter_value_bets(df_test, args.ev_threshold, args.max_odds, args.max_margin)
 
     # === Stake assignment ===
     strategy_used = args.strategy

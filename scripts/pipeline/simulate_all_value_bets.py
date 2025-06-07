@@ -19,6 +19,7 @@ from scripts.utils.constants import (
     DEFAULT_INITIAL_BANKROLL,
     DEFAULT_STRATEGY
 )
+from scripts.utils.filters import filter_value_bets
 
 def main():
     parser = argparse.ArgumentParser()
@@ -67,6 +68,8 @@ def main():
             log_warning(f"Skipping {file} — missing required columns after normalization.")
             continue
 
+        # Use consistent filtering
+        df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
         df["source_file"] = os.path.basename(file)
         all_bets.append(df)
 
@@ -75,7 +78,7 @@ def main():
 
     df = pd.concat(all_bets, ignore_index=True)
 
-    # ⚠️ NEW: Cap extreme EVs
+    # Cap extreme EVs to avoid runaway variance
     df = df[df["expected_value"] <= 2.0]
 
     log_info(f"Loaded {len(df)} total bets from {len(files)} files")
@@ -84,8 +87,8 @@ def main():
         df,
         strategy=args.strategy,
         initial_bankroll=args.initial_bankroll,
-        ev_threshold=args.ev_threshold,
-        odds_cap=args.odds_cap,
+        ev_threshold=0.0,
+        odds_cap=100.0,
         cap_fraction=0.05
     )
 

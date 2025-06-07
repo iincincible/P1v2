@@ -8,6 +8,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.cli_utils import should_run
+from scripts.utils.logger import log_info, log_success, log_error
 
 def main():
     parser = argparse.ArgumentParser()
@@ -21,10 +22,20 @@ def main():
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
 
+    if not os.path.exists(args.input_csv):
+        log_error(f"Input file not found: {args.input_csv}")
+        return
+    if not os.path.exists(args.model_path):
+        log_error(f"Model file not found: {args.model_path}")
+        return
+
+    log_info(f"Loading input: {args.input_csv}")
     df = pd.read_csv(args.input_csv)
     df = normalize_columns(df)
 
+    log_info(f"Loading model: {args.model_path}")
     model = joblib.load(args.model_path)
+
     X = df[model.feature_names_in_]
     preds = model.predict_proba(X)
 
@@ -32,7 +43,7 @@ def main():
     df["pred_prob_player_2"] = 1 - df["pred_prob_player_1"]
 
     df.to_csv(args.output_csv, index=False)
-    print(f"✅ Saved predictions to {args.output_csv}")
+    log_success(f"Saved predictions to {args.output_csv}")
 
 if __name__ == "__main__":
     main()
