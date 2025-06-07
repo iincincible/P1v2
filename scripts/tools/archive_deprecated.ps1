@@ -1,33 +1,23 @@
-# Create archive folder if it doesn't exist
-if (-not (Test-Path -Path "scripts/archive")) {
-    New-Item -ItemType Directory -Path "scripts/archive"
+# archive_deprecated.ps1
+$DeprecatedFiles = @(
+    "scripts\builders\extract_valid_ausopen_market_ids.py",
+    "scripts\builders\extract_sackmann_matches.py",
+    "scripts\builders\group_markets_by_day.py",
+    "scripts\builders\extract_market_ids.py",
+    "scripts\builders\filter_snapshots.py",
+    "scripts\pipeline\expand_and_balance_dataset.py",
+    "scripts\analysis\compare_ev_bins.py",
+    "scripts\utils\merge_csvs_no_dup_header.py"
+)
+
+$ArchiveFolder = "scripts\archive"
+
+foreach ($file in $DeprecatedFiles) {
+    $dest = Join-Path -Path $ArchiveFolder -ChildPath (Split-Path $file -Leaf)
+    if (Test-Path $file) {
+        Move-Item $file $dest -Force
+        Write-Host "✅ Archived: $file -> $dest"
+    } else {
+        Write-Host "⚠️ File not found: $file"
+    }
 }
-
-Write-Host "📦 Archiving deprecated modeling scripts..."
-Move-Item scripts/modeling/train_model_basic.py scripts/archive/
-Move-Item scripts/modeling/train_win_model.py scripts/archive/
-Move-Item scripts/modeling/train_eval_model_cross_slam.py scripts/archive/
-
-Write-Host "📦 Archiving old match extractor scripts..."
-Move-Item scripts/builders/extract_indianwells_wta_matches.py scripts/archive/
-Move-Item scripts/builders/extract_wimbledon_wta_matches.py scripts/archive/
-
-Write-Host "📦 Archiving legacy market grouping scripts..."
-Move-Item scripts/builders/group_atp_markets_by_tournament.py scripts/archive/
-Move-Item scripts/builders/group_wta_markets_by_tournament.py scripts/archive/
-
-Write-Host "📦 Archiving snapshot filter variants..."
-Move-Item scripts/builders/filter_snapshots_by_match_ids.py scripts/archive/
-Move-Item scripts/builders/filter_snapshots_by_players_and_date.py scripts/archive/
-Move-Item scripts/builders/filter_snapshots_to_market_ids.py scripts/archive/
-Move-Item scripts/builders/filter_match_rows_with_valid_snapshots.py scripts/archive/
-
-Write-Host "📦 Archiving obsolete debug tools..."
-Move-Item scripts/debug/debug_ev_distribution.py scripts/archive/
-Move-Item scripts/debug/debug_snapshot_and_odds_coverage.py scripts/archive/
-Move-Item scripts/debug/debug_match_coverage.py scripts/archive/
-Move-Item scripts/debug/debug_snapshot_coverage.py scripts/archive/
-Move-Item scripts/debug/debug_unmatched_runner_pairs.py scripts/archive/
-Move-Item scripts/debug/debug_check_ltp_matches.py scripts/archive/
-
-Write-Host "✅ All deprecated scripts moved to scripts/archive/"
