@@ -20,8 +20,9 @@ def main():
     for f in files:
         try:
             df = pd.read_csv(f)
-            if "match_id" not in df.columns or "total_profit" not in df.columns:
-                log_warning(f"Skipping {f} — missing columns.")
+            required = {"match_id", "total_profit", "avg_ev", "num_bets"}
+            if not required.issubset(df.columns):
+                log_warning(f"⚠️ Skipping {f} — missing one of: {required}")
                 continue
 
             tournament = Path(f).stem.replace("_value_bets_by_match", "")
@@ -42,7 +43,7 @@ def main():
                 "roi": roi,
             })
         except Exception as e:
-            log_warning(f"Skipping {f}: {e}")
+            log_warning(f"⚠️ Skipping {f}: {e}")
 
     if not rows:
         raise ValueError("❌ No valid tournament summaries found.")
@@ -52,7 +53,7 @@ def main():
 
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     df_out.to_csv(args.output_csv, index=False)
-    log_success(f"Saved tournament-level summary to {args.output_csv}")
+    log_success(f"✅ Saved tournament-level summary to {args.output_csv}")
 
     print("\n📊 Top 5 by ROI:")
     print(df_out[["tournament", "roi", "profit", "total_bets"]].head(5))

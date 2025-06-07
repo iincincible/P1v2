@@ -4,6 +4,8 @@ import subprocess
 import time
 import os
 from pathlib import Path
+import pandas as pd
+
 from scripts.utils.paths import get_pipeline_paths, DEFAULT_MODEL_PATH
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 
@@ -52,6 +54,15 @@ def run_pipeline(tournament, skip_existing, dry_run):
         if not Path(path).exists():
             log_error(f"❌ Missing {key}: {path}")
             raise FileNotFoundError(f"{key} does not exist: {path}")
+
+    # ✅ Early match_id check
+    try:
+        raw_df = pd.read_csv(paths["raw_csv"], nrows=5)
+        if "match_id" not in raw_df.columns:
+            raise ValueError(f"❌ match_id missing from raw_csv: {paths['raw_csv']}")
+    except Exception as e:
+        log_error(f"❌ Failed early validation on raw_csv: {e}")
+        raise
 
     steps = [
         ("Match selection IDs", SELECTION_SCRIPT, [
@@ -109,7 +120,11 @@ def run_pipeline(tournament, skip_existing, dry_run):
             cmd_args.append("--dry_run")
 
     for step_name, script, cmd_args, output_path in steps:
-        run_step_if_needed(step_name, script, cmd_args, output_path, label, skip_existing)
+        try:
+            run_step_if_needed(step_name, script, cmd_args, output_path, label, skip_existing)
+        except Exception as e:
+            log_warning(f"⚠️ Step '{step_name}' failed for {label}: {e}")
+            break
 
 def main():
     parser = argparse.ArgumentParser()
@@ -147,7 +162,6 @@ def main():
         except subprocess.CalledProcessError as e:
             log_warning(f"⚠️ Failed to generate tournament leaderboard: {e}")
 
-        # Plot leaderboard
         leaderboard_png = "data/summary/tournament_leaderboard.png"
         try:
             subprocess.run([
@@ -161,7 +175,6 @@ def main():
         except subprocess.CalledProcessError as e:
             log_warning(f"⚠️ Failed to plot tournament leaderboard: {e}")
 
-        # Simulate combined bankroll
         combined_csv = "data/summary/combined_bankroll.csv"
         combined_png = "data/summary/combined_bankroll.png"
         try:
@@ -179,7 +192,6 @@ def main():
             log_success(f"💰 Combined bankroll simulation saved to {combined_csv}")
             log_success(f"📉 Bankroll trajectory plot saved to {combined_png}")
 
-            # Print key stats
             print("\n📋 Combined Portfolio Summary:")
             summary_lines = [line for line in result.stdout.splitlines() if "bankroll" in line.lower() or "drawdown" in line.lower()]
             print("\n".join(summary_lines))

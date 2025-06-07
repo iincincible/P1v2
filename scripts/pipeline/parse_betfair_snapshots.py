@@ -31,14 +31,21 @@ def main():
 
     parser_obj = SnapshotParser(mode=args.mode)
     filtered_files = [f for f in all_files if parser_obj.should_parse_file(f, start, end)]
-    log_info(f"Found {len(filtered_files)} .bz2 files in range")
+    log_info(f"🔍 Found {len(filtered_files)} .bz2 files in range")
 
     all_records = []
+    failed_files = []
+
     for file in tqdm(filtered_files, desc="Parsing files"):
-        all_records.extend(parser_obj.parse_file(file))
+        try:
+            log_info(f"📂 Parsing: {file}")
+            all_records.extend(parser_obj.parse_file(file))
+        except Exception as e:
+            log_warning(f"⚠️ Failed to parse {file}: {e}")
+            failed_files.append(str(file))
 
     if not all_records:
-        log_warning("No records extracted.")
+        log_warning("⚠️ No records extracted.")
         return
 
     df = pd.DataFrame(all_records)
@@ -51,7 +58,14 @@ def main():
 
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(args.output_csv, index=False)
-    log_success(f"Saved {len(df)} rows to {args.output_csv}")
+    log_success(f"✅ Saved {len(df)} rows to {args.output_csv}")
+
+    if failed_files:
+        log_warning(f"⚠️ Failed files: {len(failed_files)}")
+        for f in failed_files[:5]:
+            log_warning(f"   → {f}")
+        if len(failed_files) > 5:
+            log_warning(f"   ... and {len(failed_files) - 5} more")
 
 if __name__ == "__main__":
     main()

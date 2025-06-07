@@ -25,22 +25,34 @@ def main():
     assert_file_exists(args.input_csv, "input_csv")
     assert_file_exists(args.model_path, "model_path")
 
-    log_info(f"Loading input: {args.input_csv}")
+    log_info(f"📥 Loading input: {args.input_csv}")
     df = pd.read_csv(args.input_csv)
     df = normalize_columns(df)
 
-    log_info(f"Loading model: {args.model_path}")
+    log_info(f"📦 Loading model: {args.model_path}")
     model = joblib.load(args.model_path)
 
-    X = df[model.feature_names_in_]
+    required_features = list(model.feature_names_in_)
+    missing = [f for f in required_features if f not in df.columns]
+    if missing:
+        raise ValueError(f"❌ Missing model features in input: {missing}")
+
+    X = df[required_features]
     preds = model.predict_proba(X)
 
     df["pred_prob_player_1"] = preds[:, 1]
     df["pred_prob_player_2"] = 1 - df["pred_prob_player_1"]
 
-    # Retain match_id and other columns
+    # Fallback assignment for confidence_score
+    if "confidence_score" not in df.columns:
+        df["confidence_score"] = df["pred_prob_player_1"]
+        log_info("🔧 Set confidence_score = pred_prob_player_1")
+
+    log_info(f"✅ Generated predictions for {len(df)} rows")
+    log_info(f"📊 Mean pred_prob_player_1: {df['pred_prob_player_1'].mean():.4f}")
+
     df.to_csv(args.output_csv, index=False)
-    log_success(f"Saved predictions to {args.output_csv}")
+    log_success(f"✅ Saved predictions to {args.output_csv}")
 
 if __name__ == "__main__":
     main()

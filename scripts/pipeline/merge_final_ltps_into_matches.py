@@ -5,6 +5,7 @@ import os
 
 from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.selection import build_market_runner_map
+from scripts.utils.logger import log_info, log_warning, log_error, log_success
 
 def main():
     parser = argparse.ArgumentParser()
@@ -24,7 +25,11 @@ def main():
     df_matches = pd.read_csv(args.match_csv)
     df_snaps = pd.read_csv(args.snapshots_csv)
 
-    # Ensure consistent types
+    # Validate match_id
+    if "match_id" not in df_matches.columns:
+        log_error("❌ match_id missing in match_csv")
+        raise ValueError("match_id is required in match_csv for downstream tracking.")
+
     df_snaps["market_id"] = df_snaps["market_id"].astype(str)
     df_snaps["selection_id"] = df_snaps["selection_id"].astype(str)
 
@@ -60,11 +65,9 @@ def main():
     df_matches["odds_player_1"] = odds_1
     df_matches["odds_player_2"] = odds_2
 
-    print(f"✅ Matched {len(df_matches) - missing} LTP entries; unmatched {missing}")
-
-    # match_id is preserved if present
+    log_success(f"✅ Matched {len(df_matches) - missing} LTP entries; unmatched: {missing}")
     df_matches.to_csv(args.output_csv, index=False)
-    print(f"✅ Saved merged odds to {args.output_csv}")
+    log_success(f"✅ Saved merged odds to {args.output_csv}")
 
 if __name__ == "__main__":
     main()

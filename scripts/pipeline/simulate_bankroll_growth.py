@@ -9,6 +9,7 @@ from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.cli_utils import should_run, assert_file_exists
+from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -46,14 +47,14 @@ def main():
                         df["actual_winner"].str.strip().str.lower() ==
                         df["player_1"].str.strip().str.lower()
                     ).astype(int)
-                    print(f"🩹 Patched 'winner' from actual_winner in: {f}")
+                    log_info(f"🩹 Patched 'winner' from actual_winner in: {f}")
                 else:
                     raise ValueError("Cannot compute 'winner' — missing actual_winner or player_1")
 
             df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
             dfs.append(df)
         except Exception as e:
-            print(f"⚠️ Skipping {f}: {e}")
+            log_warning(f"⚠️ Skipping {f}: {e}")
 
     if not dfs:
         raise ValueError("❌ No valid input files after normalization and patching.")
@@ -70,9 +71,9 @@ def main():
     )
 
     sim_df.to_csv(args.output_csv, index=False)
-    print(f"\n📈 Simulated {len(sim_df)} bets")
-    print(f"💰 Final bankroll: {final_bankroll:.2f}")
-    print(f"📉 Max drawdown: {max_drawdown:.2f}")
+    log_success(f"✅ Simulated {len(sim_df)} bets")
+    log_success(f"💰 Final bankroll: {final_bankroll:.2f}")
+    log_success(f"📉 Max drawdown: {max_drawdown:.2f}")
 
     png_path = os.path.splitext(args.output_csv)[0] + ".png"
     generate_bankroll_plot(sim_df["bankroll"], output_path=png_path)

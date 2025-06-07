@@ -41,7 +41,6 @@ def main():
     if not should_run(args.bankroll_csv, args.overwrite, args.dry_run):
         return
 
-    # === Validate inputs ===
     assert_file_exists(args.test_csv, "test_csv")
     for path in args.train_csvs:
         assert_file_exists(path, "train_csv")
@@ -70,6 +69,17 @@ def main():
     df_test = df_test.dropna(subset=args.features + ["odds", "player_1"])
     df_test = add_ev_and_kelly(df_test)
 
+    # === Patch winner ===
+    if "winner" not in df_test.columns:
+        if "actual_winner" in df_test.columns and "player_1" in df_test.columns:
+            df_test["winner"] = (
+                df_test["actual_winner"].str.strip().str.lower() ==
+                df_test["player_1"].str.strip().str.lower()
+            ).astype(int)
+            log_info("🩹 Patched 'winner' column from actual_winner")
+        else:
+            log_warning("⚠️ 'winner' column missing and could not be derived")
+
     # === Train model ===
     model = LogisticRegression()
     X_train = df_train[args.features]
@@ -85,13 +95,12 @@ def main():
         log_success(f"Accuracy: {accuracy_score(y_true, df_test['predicted_prob'] > 0.5):.4f}")
         log_success(f"Log Loss: {log_loss(y_true, df_test['predicted_prob']):.5f}")
 
-    # === EV Filtering using shared logic ===
+    # === EV Filtering ===
     df_filtered = filter_value_bets(df_test, args.ev_threshold, args.max_odds, args.max_margin)
 
-    # === Stake assignment ===
     strategy_used = args.strategy
     if args.strategy == "kelly" and len(df_filtered) < 10:
-        log_warning(f"Only {len(df_filtered)} bets — switching to flat staking")
+        log_warning(f"⚠️ Only {len(df_filtered)} bets — switching to flat staking")
         strategy_used = "flat"
 
     df_filtered["stake"] = (
@@ -102,7 +111,7 @@ def main():
     df_filtered["kelly_stake"] = compute_kelly_stake(df_filtered["predicted_prob"], df_filtered["odds"])
 
     df_filtered.to_csv(args.value_bets_csv, index=False)
-    log_success(f"Saved {len(df_filtered)} value bets to {args.value_bets_csv}")
+    log_success(f"✅ Saved {len(df_filtered)} value bets to {args.value_bets_csv}")
 
     # === Simulate bankroll ===
     bankroll = 1000.0
@@ -120,8 +129,8 @@ def main():
         trajectory.append(bankroll)
 
     pd.DataFrame({"bankroll": trajectory}).to_csv(args.bankroll_csv, index=False)
-    log_success(f"Final bankroll: {bankroll:.2f}")
-    log_success(f"Max drawdown: {drawdown:.2f}")
+    log_success(f"💰 Final bankroll: {bankroll:.2f}")
+    log_success(f"📉 Max drawdown: {drawdown:.2f}")
 
 if __name__ == "__main__":
     main()

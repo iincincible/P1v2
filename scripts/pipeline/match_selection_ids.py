@@ -5,6 +5,7 @@ import os
 
 from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.selection import build_market_runner_map, match_player_to_selection_id
+from scripts.utils.logger import log_info, log_warning, log_error, log_success
 
 def main():
     parser = argparse.ArgumentParser()
@@ -24,7 +25,13 @@ def main():
     df = pd.read_csv(args.merged_csv)
     snapshots = pd.read_csv(args.snapshots_csv)
 
-    print(f"🔍 Matching selection_ids for {len(df)} matches...")
+    # === Validate match_id ===
+    if "match_id" not in df.columns:
+        log_error("❌ match_id missing in input — aborting.")
+        raise ValueError("match_id must be present in merged_csv for downstream tracking.")
+
+    log_info(f"🔍 Matching selection_ids for {len(df)} matches...")
+
     market_runner_map = build_market_runner_map(snapshots)
 
     tqdm.pandas()
@@ -37,12 +44,11 @@ def main():
 
     unmatched_1 = df["selection_id_1"].isna().sum()
     unmatched_2 = df["selection_id_2"].isna().sum()
-    print(f"⚠️ Unmatched selection_id_1: {unmatched_1}")
-    print(f"⚠️ Unmatched selection_id_2: {unmatched_2}")
+    log_warning(f"⚠️ Unmatched selection_id_1: {unmatched_1}")
+    log_warning(f"⚠️ Unmatched selection_id_2: {unmatched_2}")
 
-    # match_id is preserved if present in input
     df.to_csv(args.output_csv, index=False)
-    print(f"✅ Saved selection IDs to {args.output_csv}")
+    log_success(f"✅ Saved selection IDs to {args.output_csv}")
 
 if __name__ == "__main__":
     main()

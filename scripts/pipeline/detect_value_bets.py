@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 from scripts.utils.cli_utils import assert_file_exists, save_csv
 from scripts.utils.betting_math import compute_ev
+from scripts.utils.logger import log_info, log_warning
 
 def main():
     parser = argparse.ArgumentParser()
@@ -18,30 +19,51 @@ def main():
     assert_file_exists(args.input_csv, "predictions file")
 
     df = pd.read_csv(args.input_csv)
+
+    # === Normalize core columns ===
     if "expected_value" not in df.columns:
         df["expected_value"] = compute_ev(
             df["predicted_prob"], df["odds"], df.get("implied_prob", None)
         )
+        log_info("🔧 Computed expected_value from predicted_prob and odds")
 
-    base = df.copy()
+    if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
+        df["confidence_score"] = df["predicted_prob"]
+        log_info("🔧 Set confidence_score = predicted_prob")
 
-    # Apply filters
-    base = base[base["expected_value"] >= args.ev_threshold]
+    required = ["expected_value", "odds", "predicted_prob", "confidence_score"]
+    for col in required:
+        if col not in df.columns:
+            raise ValueError(f"❌ Required column missing: {col}")
+
+    # === Apply filters ===
+    df_filtered = df.copy()
+    df_filtered = df_filtered[df_filtered["expected_value"] >= args.ev_threshold]
+
     if args.confidence_threshold:
-        base = base[base["confidence_score"] >= args.confidence_threshold]
+        df_filtered = df_filtered[df_filtered["confidence_score"] >= args.confidence_threshold]
     if args.max_odds:
-        base = base[base["odds"] <= args.max_odds]
-    if args.max_margin:
-        base = base[base["odds_margin"] <= args.max_margin]
+        df_filtered = df_filtered[df_filtered["odds"] <= args.max_odds]
+    if args.max_margin and "odds_margin" in df_filtered.columns:
+        df_filtered = df_filtered[df_filtered["odds_margin"] <= args.max_margin]
 
-    if base.empty:
+    if df_filtered.empty:
         print("⚠️ No value bets after filtering.")
-    else:
-        # Assign winner label if actual_winner exists
-        if "actual_winner" in base.columns:
-            base["winner"] = (base["actual_winner"] == base["player_1"]).astype(int)
-        base.to_csv(args.output_csv, index=False)
-        print(f"✅ Saved {len(base)} value bets to {args.output_csv}")
+        return
+
+    # === Patch winner column ===
+    if "winner" not in df_filtered.columns:
+        if "actual_winner" in df_filtered.columns and "player_1" in df_filtered.columns:
+            df_filtered["winner"] = (
+                df_filtered["actual_winner"].str.strip().str.lower() ==
+                df_filtered["player_1"].str.strip().str.lower()
+            ).astype(int)
+            log_info("🩹 Patched missing 'winner' column from actual_winner vs player_1")
+        else:
+            log_warning("⚠️ Cannot assign winner column — missing actual_winner or player_1")
+
+    df_filtered.to_csv(args.output_csv, index=False)
+    print(f"✅ Saved {len(df_filtered)} value bets to {args.output_csv}")
 
 if __name__ == "__main__":
     main()
