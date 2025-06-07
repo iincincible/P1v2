@@ -1,0 +1,429 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,match_id,actual_winner,winner_name,loser_name,match_date,selection_id_1,selection_id_2
+1.225679372,Bergevi/Veldheer,Harrison/Paris,,,13c060dcf0,,,,,56987563,66728989
+1.225714181,Davila Gasser/Rallin,Boscardin Dias/Villanueva,,,0883c3f050,,,,,66746118,66746119
+1.225725159,Mikhail Kukushkin,Yu Hsiou Hsu,,,eaa6fc4f5a,,,,,2609424,10221825
+1.225729126,Hailey Baptiste,Clara Tauson,,,10fc82be75,,,,,12737427,18848679
+1.225730775,Robin Montgomery,Storm Hunter,,,52e654ae90,,,,,24143439,50836638
+1.22573262,Katie Volynets,Mirra Andreeva,,,937bfa1709,Katie Volynets,Katie Volynets,Mirra Andreeva,2024-03-06,13369546,49006396
+1.225732623,Caroline Wozniacki,Lin Zhu,,,962a403fbd,Caroline Wozniacki,Caroline Wozniacki,Lin Zhu,2024-03-06,2309522,8714569
+1.225732624,Katie Boulter,C Giorgi,,,25a9dcf0f1,,,,,8619018,55884230
+1.225732889,Petra Martic,Angelique Kerber,,,3043ea1118,Angelique Kerber,Angelique Kerber,Petra Martic,2024-03-06,2346703,2411840
+1.225733981,Sara Sorribes Tormo,Marie Bouzkova,,,cd591b8714,Marie Bouzkova,Marie Bouzkova,Sara Sorribes Tormo,2024-03-06,6356637,8442764
+1.225734109,Arantxa Rus,Tatjana Maria,,,342d8e3ad1,Tatjana Maria,Tatjana Maria,Arantxa Rus,2024-03-06,2451050,7299657
+1.225734365,Oceane Dodin,Elina Avanesyan,,,7ea19108c1,Oceane Dodin,Oceane Dodin,Elina Avanesyan,2024-03-06,7289631,14383103
+1.225734366,Clara Burel,Xiyu Wang,,,48ac84d1ac,Clara Burel,Clara Burel,Xiyu Wang,2024-03-06,10351066,11352357
+1.225734369,Magdalena Frech,Lucia Bronzetti,,,f96b940a5f,Lucia Bronzetti,Lucia Bronzetti,Magdalena Frech,2024-03-06,8444351,9631351
+1.225734634,Sloane Stephens,Mayar Sherif,,,7c0d98edc4,Sloane Stephens,Sloane Stephens,Mayar Sherif,2024-03-06,2923342,9028621
+1.225734647,Yue Yuan,Varvara Gracheva,,,0b836f559d,Yue Yuan,Yue Yuan,Varvara Gracheva,2024-03-06,9634353,10942984
+1.22573503,Caroline Dolehide,Cristina Bucsa,,,06344138fa,Caroline Dolehide,Caroline Dolehide,Cristina Bucsa,2024-03-06,9202281,9629258
+1.225735344,Peyton Stearns,Elisabetta Cocciaretto,,,5404f09d84,Peyton Stearns,Peyton Stearns,Elisabetta Cocciaretto,2024-03-06,13835088,18848114
+1.225735354,Viktoriya Tomova,Sofia Kenin,,,84de76dfe0,Viktoriya Tomova,Viktoriya Tomova,Sofia Kenin,2024-03-06,4597116,9149629
+1.225735618,Ana Bogdan,Diana Shnaider,,,eb06d1b4fd,Diana Shnaider,Diana Shnaider,Ana Bogdan,2024-03-06,3875013,41341015
+1.225735626,Martina Trevisan,Diane Parry,,,3110eac231,Diane Parry,Diane Parry,Martina Trevisan,2024-03-06,9345630,12737413
+1.225735627,Karolina Pliskova,Anna Blinkova,,,7297776ae0,Anna Blinkova,Anna Blinkova,Karolina Pliskova,2024-03-06,6199453,9635244
+1.225736336,Benjamin Lock,Gabriele Pennaforti,,,baebf36c09,,,,,8491683,42554129
+1.225736822,Kayla Day,Erika Andreeva,,,4a679a9bae,,,,,9634153,27187697
+1.225736826,Nadia Podoroska,Nuria Parrizas Diaz,,,4a26a49397,,,,,9042349,9364864
+1.225737079,Taylor Townsend,Clervie Ngounoue,,,c344bfc6e1,,,,,7066166,40673088
+1.225745384,Lucas Pouille,Harold Mayot,,,8cd62b8c1f,,,,,7031400,17806086
+1.225745486,Luca Nardi,David Goffin,,,8e3d9c86bc,,,,,19544753,19924835
+1.225745668,Jurij Rodionov,Nicolas Moreno de Alboran,,,4d0e55ada8,,,,,10555106,10636263
+1.225745677,Vit Kopriva,Constant Lestienne,,,5831766b2d,,,,,9543224,64641301
+1.225747188,Denis Kudla,Emilio Nava,,,8b96409067,,,,,4829260,12646384
+1.225749931,Lavagno/Weis,Carou/Carabelli,,,599d332768,,,,,54274855,66776447
+1.22575212,Zhizhen Zhang,Aleksandar Kovacevic,,,417f8cfe02,,,,,9628959,11439844
+1.225752205,Nuno Borges,Arthur Fils,,,d455f6ad61,,,,,9633043,38374961
+1.22575229,Denis Shapovalov,Botic Van de Zandschulp,,,3fe90e6ba0,,,,,42652249,42652255
+1.225757514,Thanasi Kokkinakis,Marcos Giron,,,23bf6b8418,,,,,8172416,8230256
+1.225757686,Roberto Carballes Baena,Flavio Cobolli,,,4e0b0cb91b,,,,,7185192,16570658
+1.225757771,Fabio Fognini,Bernabe Zapata Miralles,,,75edffab11,,,,,2319544,9630472
+1.2257587,Roman Safiullin,Daniel Evans,,,6e1c80805f,,,,,9125686,52326708
+1.225758785,Facundo Bagnis,Juncheng Shang,,,f4c270b62d,,,,,4520808,38901959
+1.225758793,Calvin Hemery,Corentin Denolly,,,e4162ee06c,,,,,7287667,9630402
+1.225763584,Hernan Casanova,Clement Tabur,,,f34c3cb7f4,,,,,9042437,10941747
+1.225764201,Matteo Arnaldi,Luca Van Assche,,,d96394d46d,,,,,21067270,27752969
+1.225764286,Tomas Machac,Stan Wawrinka,,,521f123431,,,,,16149495,19924832
+1.225764456,Dominik Koepfer,Alexander Shevchenko,,,bb48d8c751,,,,,9953145,15134244
+1.225772561,Dusan Lajovic,Emil Ruusuvuori,,,b7f1539df8,,,,,4688724,8979329
+1.225772646,Christopher Eubanks,Brandon Nakashima,,,5af03dc2d5,,,,,7445660,17806048
+1.225772816,Pedro Cachin,Yannick Hanfmann,,,9f055b0ace,,,,,8461316,8639275
+1.22577438,Rigele Te,Nikolay Vylegzhanin,,,0a2f56b0b8,,,,,8639790,12819799
+1.225775163,Leolia Jeanjean,Himeno Sakatsume,,,5bd9f52da5,,,,,9627959,11772856
+1.225780837,Radu Albot,Alexander Ritschard,,,49d9abf310,,,,,6603898,7444812
+1.225780841,Daniel Masur,Arthur Gea,,,ea7221aa4d,,,,,8659524,42554022
+1.225780845,Zizou Bergs,Henri Squire,,,f3e60bcdde,,,,,9634024,10460261
+1.225782421,Linda Klimovicova,Ekaterina Maklakova,,,83bf628f81,,,,,20832533,24040850
+1.225788964,Venus Williams,Nao Hibino,,,d73f0cb11a,Nao Hibino,Nao Hibino,Venus Williams,2024-03-06,2309518,7683152
+1.225788997,Danielle Collins,Erika Andreeva,,,ae9819fee8,Danielle Collins,Danielle Collins,Erika Andreeva,2024-03-06,9626845,27187697
+1.225789278,Marko Stakusic,Gabriel Evans,,,8567e84692,,,,,25154553,38710732
+1.225789642,Hsieh/Mertens,Paolini/Samsonova,,,40fda06683,,,,,39345701,64690000
+1.225790006,Cirstea/Vekic,Schuurs/Stefani,,,f152430655,,,,,13167037,64928033
+1.225790014,Kalinskaya/Kudermetova,Eikeri/Guo,,,bfadf11232,,,,,17179898,65888246
+1.225790028,Hozumi/Ninomiya,Garcia/Xu,,,91ada42276,,,,,9265289,66790975
+1.22579003,Kichenok/Ostapenko,Errani/Siegemund,,,7e920f4a2a,,,,,20015061,66790977
+1.225790042,Dabrowski/Routliffe,Bucsa/Panova,,,cc921693b2,,,,,59071231,59637450
+1.225790054,Kenin/Mattek-Sands,Gauff/Pegula,,,54d6db51ff,,,,,26252204,38604790
+1.225791756,Taylor Townsend,Magda Linette,,,a1905f0a59,Taylor Townsend,Taylor Townsend,Magda Linette,2024-03-06,7066166,7083215
+1.225791759,Rebeka Masarova,Emma Raducanu,,,26f393409a,Emma Raducanu,Emma Raducanu,Rebeka Masarova,2024-03-06,10372262,18849246
+1.225791967,Lesia Tsurenko,Liv Hovde,,,262832bb66,Lesia Tsurenko,Lesia Tsurenko,Liv Hovde,2024-03-06,5300861,39675265
+1.225792176,Bernarda Pera,Daria Saville,,,b920369689,Bernarda Pera,Bernarda Pera,Daria Saville,2024-03-06,8784983,42231870
+1.225792179,Hailey Baptiste,Robin Montgomery,,,683b8fa68f,Hailey Baptiste,Hailey Baptiste,Robin Montgomery,2024-03-06,12737427,24143439
+1.22579236,Sara Errani,Naomi Osaka,,,579431d129,Naomi Osaka,Naomi Osaka,Sara Errani,2024-03-06,2309567,64406703
+1.225792374,Shuai Zhang,Mai Hontama,,,8204d29d14,Mai Hontama,Mai Hontama,Shuai Zhang,2024-03-06,2386498,10350145
+1.225792712,Nuria Parrizas Diaz,Mccartney Kessler,,,bd30fc244d,Nuria Parrizas Diaz,Nuria Parrizas Diaz,Mccartney Kessler,2024-03-06,9364864,11942064
+1.225797161,Gabi Adrian Boitan,Juan Manuel Cerundolo,,,90c4ee881a,,,,,11600970,12686963
+1.225797169,Liam Draxl,Murkel Dellien,,,d61a3300f6,,,,,19446873,36157019
+1.225798677,Thiago Seyboth Wild,Jeffrey John Wolf,,,7ce7cb0f1e,,,,,9632015,11102174
+1.225798765,Lucas Pouille,Daniel Altmaier,,,c4f03562b0,,,,,7031400,9632088
+1.22579885,Jordan Thompson,Juncheng Shang,,,19d8a77ebf,,,,,19924841,38901959
+1.225798938,Jakub Mensik,Seongchan Hong,,,585dfcb7f5,,,,,39835947,57046549
+1.225799024,Denis Kudla,Constant Lestienne,,,34d509d5ec,,,,,4829260,64641301
+1.225806671,Aleksandar Vukic,Shintaro Mochizuki,,,2eafb5a866,,,,,8979695,20955040
+1.225807198,Patrick Kypson,Ethan Quinn,,,11d411ca3c,,,,,10555097,38310228
+1.225818437,Noah Rubin,Lukas Pokorny,,,f7b3eb227e,,,,,7593248,35845662
+1.225822205,Marco Trungelliti,Mohamed Safwat,,,0c971791ec,,,,,6498878,6948116
+1.225830332,Nadia Podoroska,Ashlyn Krueger,,,e59bffaaef,Nadia Podoroska,Nadia Podoroska,Ashlyn Krueger,2024-03-06,9042349,24143371
+1.225833982,Marie Bouzkova,Anastasia Potapova,,,a0c5896220,Anastasia Potapova,Anastasia Potapova,Marie Bouzkova,2024-03-06,8442764,10554735
+1.225834137,Beatriz Haddad Maia,Rebecca Sramkova,,,4ae63a2cdd,Beatriz Haddad Maia,Beatriz Haddad Maia,Rebecca Sramkova,2024-03-06,7083752,9151665
+1.225834232,Angelique Kerber,Jelena Ostapenko,,,f7b8d38fe5,Angelique Kerber,Angelique Kerber,Jelena Ostapenko,2024-03-06,2411840,8827537
+1.225834651,Tatjana Maria,Jasmine Paolini,,,727539eb6a,Jasmine Paolini,Jasmine Paolini,Tatjana Maria,2024-03-06,7299657,8944356
+1.225834854,Jan Choinski,Rudolf Molleker,,,c40b233d7b,,,,,8679715,10508984
+1.225835402,Jurij Rodionov,Fabian Marozsan,,,068f9cd191,,,,,10555106,11942150
+1.225835837,Lorenzo Giustino,Keegan Smith,,,ae813122f2,,,,,7534093,11928538
+1.22584026,Linda Noskova,C Giorgi,,,07179d29cc,,,,,22088831,55884230
+1.225841691,Mai Hontama,Marta Kostyuk,,,d96b524354,Marta Kostyuk,Marta Kostyuk,Mai Hontama,2024-03-06,10350145,11694656
+1.225843856,Ons Jabeur,Katie Volynets,,,a3efc21942,Katie Volynets,Katie Volynets,Ons Jabeur,2024-03-06,6161111,13369546
+1.225845882,Bernarda Pera,Marketa Vondrousova,,,9bee325bac,Marketa Vondrousova,Marketa Vondrousova,Bernarda Pera,2024-03-06,8784983,9433253
+1.2258461,Yulia Putintseva,Ekaterina Alexandrova,,,28b395e262,Yulia Putintseva,Yulia Putintseva,Ekaterina Alexandrova,2024-03-06,4259580,8681458
+1.225846789,Victoria Rodriguez,Hina Inoue,,,566a7c6005,,,,,7082844,18849142
+1.225846894,Panna Udvardy,Himeno Sakatsume,,,bb709e80a8,,,,,11174011,11772856
+1.225849872,Francisco Cerundolo,Alexander Shevchenko,,,8cf604df72,,,,,11204210,15134244
+1.225851184,Alexander Zverev,Christopher O Connell,,,9062effaf1,,,,,19924823,56374443
+1.22585127,Yannick Hanfmann,Tallon Griekspoor,,,f9cc0de3a1,,,,,8639275,9198585
+1.22585136,Pedro Sakamoto,Thiago Monteiro,,,28481a3d92,,,,,8304915,8326656
+1.22585579,Milos Raonic,Sumit Nagal,,,cabbddfcae,,,,,4105819,8173039
+1.225861935,Arias/Zeballos,Dellien/Dellien,,,8747a72eaf,,,,,17285300,43536673
+1.225862701,Auger-Aliassime/Korda,Glasspool/Rojer,,,ce957ff379,,,,,61976005,64471970
+1.225863171,Matteo Arnaldi,Carlos Alcaraz,,,f748561a11,,,,,21067270,25215583
+1.225863256,Nicolas Jarry,Fabian Marozsan,,,86788493a7,,,,,8260515,11942150
+1.225863343,Jiri Lehecka,Brandon Nakashima,,,091c748ad3,,,,,13203243,17806048
+1.22586343,Andy Murray,Andrey Rublev,,,974a3d6937,,,,,2256509,7797771
+1.225873941,Anhelina Kalinina,Lucia Bronzetti,,,94193dcb40,Lucia Bronzetti,Lucia Bronzetti,Anhelina Kalinina,2024-03-06,8907168,9631351
+1.225874771,Dayana Yastremska,Emma Raducanu,,,dfb17ada40,Emma Raducanu,Emma Raducanu,Dayana Yastremska,2024-03-06,9634670,18849246
+1.225875103,Danielle Collins,I Swiatek,,,50bd75aa80,Iga Swiatek,Iga Swiatek,Danielle Collins,2024-03-06,9626845,55228386
+1.225875231,Thanasi Kokkinakis,Jannik Sinner,,,b4d87cde51,,,,,8172416,10372253
+1.225875424,Daniel Cukierman,Damien Wenger,,,4bb24cf13a,,,,,9361738,10221867
+1.225875444,Stefan Kozlov,Kamil Majchrzak,,,022545128a,,,,,7415002,8698678
+1.225875454,Mikhail Kukushkin,Zizou Bergs,,,4181fd6f66,,,,,2609424,9634024
+1.225875466,Pierre-Hugues Herbert,Otto Virtanen,,,b99d27eab6,,,,,8266399,11694730
+1.225875474,Caroline Wozniacki,Donna Vekic,,,cd8c252b91,Caroline Wozniacki,Caroline Wozniacki,Donna Vekic,2024-03-06,2309522,6603944
+1.225875623,Hady Habib,Keegan Smith,,,54b1d0d490,,,,,10033630,11928538
+1.225875627,Clara Burel,Coco Gauff,,,5cab9ae456,Coco Gauff,Coco Gauff,Clara Burel,2024-03-06,10351066,27552403
+1.225878234,Nuria Parrizas Diaz,Anastasia Pavlyuchenkova,,,8ccd50c73b,Anastasia Pavlyuchenkova,Anastasia Pavlyuchenkova,Nuria Parrizas Diaz,2024-03-06,9364864,11057836
+1.225879834,Nao Hibino,Veronika Kudermetova,,,2caeb9b56e,Veronika Kudermetova,Veronika Kudermetova,Nao Hibino,2024-03-06,7683152,8279497
+1.2258818,Madison Keys,Hailey Baptiste,,,559245d171,Madison Keys,Madison Keys,Hailey Baptiste,2024-03-06,3800907,12737427
+1.225881802,Jessica Pegula,Anna Blinkova,,,5f62fdf68a,Anna Blinkova,Anna Blinkova,Jessica Pegula,2024-03-06,6215852,9635244
+1.225883449,Liudmila Samsonova,Naomi Osaka,,,6581b9204a,Naomi Osaka,Naomi Osaka,Liudmila Samsonova,2024-03-06,21067365,64406703
+1.225884642,Taylor Townsend,Anna Kalinskaya,,,c3457a93ed,Anna Kalinskaya,Anna Kalinskaya,Taylor Townsend,2024-03-06,7066166,8907174
+1.225884968,Elise Mertens,Xinyu Wang,,,86ada509a5,Elise Mertens,Elise Mertens,Xin Yu Wang,2024-03-06,9002334,13578400
+1.225886091,Leylah Fernandez,Diane Parry,,,bb39c7c179,Diane Parry,Diane Parry,Leylah Fernandez,2024-03-06,11987709,12737413
+1.225886737,Lesia Tsurenko,Emma Navarro,,,5e77d0ec3b,Emma Navarro,Emma Navarro,Lesia Tsurenko,2024-03-06,5300861,10410355
+1.225886914,Victoria Azarenka,Caroline Dolehide,,,f4e076a533,Caroline Dolehide,Caroline Dolehide,Victoria Azarenka,2024-03-06,2263640,9202281
+1.225887006,Oceane Dodin,Daria Kasatkina,,,de2d8356bc,Daria Kasatkina,Daria Kasatkina,Oceane Dodin,2024-03-06,7289631,7795290
+1.225887445,Himeno Sakatsume,Celine Naef,,,079f028b37,,,,,11772856,55928813
+1.225888051,Thai-Son Kwiatkowski,Andrew Fenty,,,9d9b7fc518,,,,,11204372,19894229
+1.225890287,Sloane Stephens,Sorana Cirstea ,,,7ff2ce165d,Sloane Stephens,Sloane Stephens,Sorana Cirstea,2024-03-06,2923342,51395204
+1.225890415,Lucas Pouille,Stefanos Tsitsipas,,,0bfd2e01a8,,,,,7031400,9193006
+1.225890535,Johnson/Paul,Koolhof/Mektic,,,3adfb6b27f,,,,,14508346,27502188
+1.225890539,Bolelli/Vavassori,Nys/Zielinski,,,6a3ac95aa8,,,,,38394420,43291463
+1.225892462,Constant Lestienne,Felix Auger Aliassime,,,a938c93ad6,,,,,7797931,9321841
+1.225893607,Dusan Lajovic,Frances Tiafoe,,,a374915be0,,,,,4688724,19924839
+1.22589415,Renzo Olivo,Juan Manuel Cerundolo,,,9b3a079496,,,,,4822931,12686963
+1.225894203,Lorenzo Sonego,Cameron Norrie,,,a2df00efc2,,,,,8826925,42669524
+1.22589526,Karen Khachanov,Thiago Seyboth Wild,,,01cfaf550e,,,,,7659623,9632015
+1.225895346,Alexander Bublik,Juncheng Shang,,,92ffa9d318,,,,,8907933,38901959
+1.225895757,Ben Shelton,Jakub Mensik,,,cda27accba,,,,,39460566,39835947
+1.225895843,Gael Monfils,Hubert Hurkacz,,,f7089db391,,,,,2257300,19924838
+1.225896114,Borna Coric,Jan-Lennard Struff,,,b95827f32f,,,,,7446579,8259098
+1.225896203,Novak Djokovic,Aleksandar Vukic,,,41d2d79ede,,,,,2249229,8979695
+1.225896331,Tommy Paul,Alex Michelsen,,,6bcee0867a,,,,,8859306,38374924
+1.225901312,Roman Safiullin,Sebastian Korda,,,a85f109b32,,,,,9125686,10902223
+1.225901572,Alejandro Fokina,Arthur Fils,,,9303cc4c71,,,,,36154334,38374961
+1.225910258,Milos Raonic,Holger Rune,,,2158efe319,,,,,4105819,39127965
+1.225910677,Marco Trungelliti,Kamil Majchrzak,,,6ccfc2e276,,,,,6498878,8698678
+1.225916117,Peyton Stearns,A Sabalenka,,,d76ef99e0f,Aryna Sabalenka,Aryna Sabalenka,Peyton Stearns,2024-03-06,13835088,64669276
+1.225920468,Angelique Kerber,Veronika Kudermetova,,,9daa60ee61,Angelique Kerber,Angelique Kerber,Veronika Kudermetova,2024-03-06,2411840,8279497
+1.225920812,Maria Sakkari,Diana Shnaider,,,4ce903c2ac,Maria Sakkari,Maria Sakkari,Diana Shnaider,2024-03-06,9002331,41341015
+1.225924126,Viktoriya Tomova,Caroline Garcia,,,28c426b7c1,Caroline Garcia,Caroline Garcia,Viktoriya Tomova,2024-03-06,4597116,5248977
+1.225928458,Caroline Wozniacki,Katie Volynets,,,1ee2c57e8f,Caroline Wozniacki,Caroline Wozniacki,Katie Volynets,2024-03-06,2309522,13369546
+1.225928798,Beatriz Haddad Maia,Anastasia Pavlyuchenkova,,,7d407b84ec,Anastasia Pavlyuchenkova,Anastasia Pavlyuchenkova,Beatriz Haddad Maia,2024-03-06,7083752,11057836
+1.225930524,Jana Fett,Celine Naef,,,b35656c829,,,,,9087351,55928813
+1.225930542,Hady Habib,Henrique Rocha,,,b566e80cfc,,,,,10033630,29822698
+1.225930635,Rudolf Molleker,Otto Virtanen,,,474010ca3f,,,,,10508984,11694730
+1.22593064,Daniel Masur,Zizou Bergs,,,4bd84a8860,,,,,8659524,9634024
+1.225930918,Anna Kalinskaya,Jasmine Paolini,,,bac691ea5c,Jasmine Paolini,Jasmine Paolini,Anna Kalinskaya,2024-03-06,8907174,8944356
+1.225931319,Alejandro Tabilo,Taylor Fritz,,,2f731c4c3b,,,,,9630879,10279360
+1.225931408,Grigor Dimitrov,Alexandre Muller,,,0dadbdcc56,,,,,3120169,9630445
+1.225931688,Doumbia/Reboul,Ram/Salisbury,,,a75a430cd7,,,,,12008511,22229228
+1.225931974,Linda Noskova,I Swiatek,,,1776c7605a,Iga Swiatek,Iga Swiatek,Linda Noskova,2024-03-06,22088831,55228386
+1.22593852,Madison Keys,Yulia Putintseva,,,b06d24aa0b,Yulia Putintseva,Yulia Putintseva,Madison Keys,2024-03-06,3800907,4259580
+1.225939994,Tallon Griekspoor,Alexander Zverev,,,af910cb984,,,,,9198585,19924823
+1.225941389,Jan-Lennard Struff,Jannik Sinner,,,aac0b0c740,,,,,8259098,10372253
+1.225941474,Thiago Seyboth Wild,Fabian Marozsan,,,11088d5e91,,,,,9632015,11942150
+1.2259482,Zhizhen Zhang,Luca Nardi,,,7bb75e2feb,,,,,9628959,19544753
+1.225948286,Lorenzo Musetti,Denis Shapovalov,,,af6d9e20a6,,,,,13834991,19924829
+1.225948376,Roberto Carballes Baena,Daniil Medvedev,,,2ec64dc202,,,,,7185192,19924831
+1.225948461,Casper Ruud,Lukas Klein,,,a8108112f3,,,,,9629711,9635456
+1.22594855,Francisco Cerundolo,Ben Shelton,,,abd8e4d3db,,,,,11204210,39460566
+1.225959608,Marco Trungelliti,Clement Tabur,,,6f6bc13a7a,,,,,6498878,10941747
+1.225968905,Renzo Olivo,Murkel Dellien,,,af34ee2812,,,,,4822931,36157019
+1.225969541,Daniel Masur,Otto Virtanen,,,23de025213,,,,,8659524,11694730
+1.225972406,Viktor Durasovic,Jaime Faria,,,125576e28d,,,,,9631478,39038450
+1.225973429,Lucia Bronzetti,Coco Gauff,,,822190fc6b,Coco Gauff,Coco Gauff,Lucia Bronzetti,2024-03-06,9631351,27552403
+1.225978028,Anna Blinkova,Diane Parry,,,86c186de98,Diane Parry,Diane Parry,Anna Blinkova,2024-03-06,9635244,12737413
+1.225979942,Sloane Stephens,Daria Kasatkina,,,65e09525b9,Daria Kasatkina,Daria Kasatkina,Sloane Stephens,2024-03-06,2923342,7795290
+1.225981791,Schuurs/Stefani,Eikeri/Guo,,,b4e1e6b7af,,,,,64928033,65888246
+1.225981795,Elise Mertens,Naomi Osaka,,,1c0d22553f,Elise Mertens,Elise Mertens,Naomi Osaka,2024-03-06,9002334,64406703
+1.225984712,Kichenok/Ostapenko,Aoyama/Krunic,,,0846f4db75,,,,,20015061,24590913
+1.225986995,Emma Raducanu,A Sabalenka,,,f633996d82,Aryna Sabalenka,Aryna Sabalenka,Emma Raducanu,2024-03-06,18849246,64669276
+1.225987251,Elina Svitolina,Emma Navarro,,,3b1bc609f4,Emma Navarro,Emma Navarro,Elina Svitolina,2024-03-06,6324464,10410355
+1.225987384,Jessica Pieri,Linda Klimovicova,,,1798af75f6,,,,,9286490,20832533
+1.225988237,Caroline Dolehide,Yue Yuan,,,1fe29e0a1a,Yue Yuan,Yue Yuan,Caroline Dolehide,2024-03-06,9202281,9634353
+1.225988413,Adrian Mannarino,Grigor Dimitrov,,,bbbc8ec5da,,,,,3066621,3120169
+1.225989064,Taylor Fritz,Sebastian Baez,,,725b796ab9,,,,,10279360,11285506
+1.225991491,Mathys Erhard,Matthew Dellavedova,,,f45ebb3551,,,,,12819795,30449630
+1.225991512,Chun Hsin Tseng,Arthur Gea,,,9edb0b7316,,,,,12023021,42554022
+1.225992597,Carlos Taberner,Filip Krajinovic,,,5c86dbd84f,,,,,9631075,42652256
+1.225992602,Bogdan Bobrov,Jonas Forejtek,,,6e20c0bcf8,,,,,9632596,15926417
+1.22599283,Denis Yevseyev,Adrian Oetzbach,,,387b9e05af,,,,,8304957,8764616
+1.225992838,Altug Celikbilek,Max Wiskandt,,,4d34513df4,,,,,8842202,21256276
+1.225992842,Filip Peliwo,Michael Agwi,,,12d616e827,,,,,7366916,46068376
+1.225992952,Sebastian Korda,Daniil Medvedev,,,e4bb1b25f1,,,,,10902223,19924831
+1.225993127,Maja Chwalinska,Victoria Bervid,,,cd9be83dea,,,,,10578548,49977882
+1.225993472,Juan Bautista Otegui,Pedro Boscardin Dias,,,8247dfe026,,,,,11313129,19063940
+1.22599349,Wilson Leite,Ignacio Becerra Otarola,,,56201a3a8c,,,,,7444854,66951211
+1.225993705,Tommy Paul,Ugo Humbert,,,9043da9f36,,,,,8859306,9633253
+1.225993791,Lorenzo Musetti,Holger Rune,,,3089074211,,,,,13834991,39127965
+1.225993881,Casper Ruud,Arthur Fils,,,78e46fec52,,,,,9629711,38374961
+1.225994,Sebastian Fanselow,Yunchaokete Bu,,,2509a0031a,,,,,9623671,57197343
+1.225994008,Rudolf Molleker,Max Hans Rehberg,,,acc93aa851,,,,,10508984,21256253
+1.225994012,Sho Shimabukuro,Yuta Shimizu,,,1811fdb860,,,,,9258744,10500847
+1.22599402,Maks Kasnikowski,Alexander Blockx,,,6139d1ab10,,,,,35635702,46273968
+1.225994029,Marcelo Tomas Barrios Vera,Gustavo Heide,,,0359a37648,,,,,10608379,21809000
+1.225994037,Hugo Dellien,Gonzalo Bueno,,,b6bef0c4dd,,,,,8226987,21067278
+1.225994041,Liam Draxl,Philip Sekulic,,,70eabaefd9,,,,,19446873,30472553
+1.225994045,Alexander Weis,Ignacio Buse,,,9e5e7a4f20,,,,,9634691,25215601
+1.225994073,Juan Manuel Cerundolo,Joao Lucas Reis Da Silva,,,645c6d3636,,,,,12686963,26299005
+1.225994081,Andrea Collarini,Edoardo Lavagno,,,49e146b714,,,,,8284716,9632250
+1.225996088,Gael Monfils,Cameron Norrie,,,d5e77059af,,,,,2257300,42669524
+1.225996238,Sarp Agabigun,Clement Chidekh,,,235709e5d4,,,,,9378772,11718327
+1.226004117,Heather    Watson,Taylah Preston,,,bcdd171f82,,,,,4174997,28071385
+1.226004223,Mccartney Kessler,Darja Semenistaja,,,bee6af71fa,,,,,11942064,24040843
+1.226009588,Louisa Chirico,Kamilla Rakhimova,,,3dbe8dd5e3,,,,,7168233,11144238
+1.226009597,Kumkhum/Plipuech,Lohoff/Perrin,,,86c7e54345,,,,,14967658,61491811
+1.226009685,Oceane Dodin,Madison Sieg,,,dfd5d86446,,,,,7289631,18849051
+1.226009923,Renata Zarazua,Martina Trevisan,,,055bc19fc5,,,,,9042343,9345630
+1.226010082,Sara Errani,Yanina Wickmayer,,,0011079fca,,,,,2309567,2386943
+1.226010913,Dart/Watson,Bassols Ribera/Rus,,,00c5e99e70,,,,,23857646,66976906
+1.226010925,Aliaksandra Sasnovich,Kayla Day,,,4010d78142,,,,,7283310,9634153
+1.226010926,Arantxa Rus,Rebeka Masarova,,,fe48d1245d,,,,,2451050,10372262
+1.226011124,Emina Bektas,Maria Mateas,,,a5eff7d9bf,,,,,9627484,9635280
+1.226011378,Tamara Korpatsch,Greet Minnen,,,bfb6a5f1a3,,,,,9166525,10108736
+1.226014286,Jamie Loeb,Silvia Ambrosio,,,3d5bb2eb55,,,,,7593252,24623193
+1.226018048,Stephanie Wagner,Talia Gibson,,,3a26c940dc,,,,,9627258,24143426
+1.226018255,Jakub Paul,Vincent Marysko,,,37dabc97a4,,,,,14534224,58322812
+1.22602152,Antoine Escoffier,Marc-Andrea Huesler,,,d2a964e0ef,,,,,9454286,9631939
+1.226021524,Hady Habib,Mattia Bellucci,,,e28afb97bc,,,,,10033630,20357619
+1.226021528,Illya Marchenko,Ergi Kirkin,,,f8a6c56050,,,,,3691700,9633532
+1.226021538,Nino Serdarusic,Cezar   Cretu,,,c5e5fc1e53,,,,,7444795,64997415
+1.22602165,Manuel Guinard,Matyas Fuele,,,0747ee76f9,,,,,8427047,10563600
+1.226021662,Giovanni Fonio,Zsombor Piros,,,8071a86568,,,,,9712890,10410254
+1.226021666,Nerman Fatic,Pablo Llamas Ruiz,,,772ece2f5c,,,,,9624989,17980033
+1.226021676,Zdenek Kolar,Filip Misolic,,,2125942578,,,,,8575039,25989805
+1.226021694,Jozef Kovalik,Peter Fajta,,,9bb5a69b55,,,,,7287668,26593094
+1.226023041,Nadiia Kichenok,Erika Andreeva,,,8e9737651f,,,,,8595953,27187697
+1.226023174,Harry Wendelken,Michael Agwi,,,99f4c49afb,,,,,15388391,46068376
+1.226023178,Kenny De Schepper,Altug Celikbilek,,,844b7d357b,,,,,5617034,8842202
+1.226023186,Billy Harris,Nicola Kuhn,,,2cac2f5f2d,,,,,9632777,9634485
+1.22602373,Mai Hontama,Mccartney Kessler,,,b8e8a83485,,,,,10350145,11942064
+1.226024009,Andrea Pellegrino,Timofey Skatov,,,43fb56e6bb,,,,,8979352,14534269
+1.226024053,Marina Bassols Ribera,Taylah Preston,,,33bf1a9e66,,,,,10166446,28071385
+1.226027359,Gabi Adrian Boitan,Nicolas Zanellato,,,ca51612526,,,,,11600970,39675346
+1.226028619,Nao Hibino,Harriet Dart,,,aa1c25c84a,,,,,7683152,8595916
+1.226028965,Jasmine Paolini,Anastasia Potapova,,,c9df2b3ea9,Anastasia Potapova,Anastasia Potapova,Jasmine Paolini,2024-03-06,8944356,10554735
+1.226041119,Caroline Wozniacki,Angelique Kerber,,,b75600ea86,Caroline Wozniacki,Caroline Wozniacki,Angelique Kerber,2024-03-06,2309522,2411840
+1.226042727,Ram/Salisbury,Glasspool/Rojer,,,01b8f85239,,,,,22229228,64471970
+1.226042731,Lammons/Withrow,Musetti/Peers,,,4ab3156026,,,,,23892906,66985914
+1.226042739,Gille/Vliegen,Mahut/Roger-Vasselin,,,23845c0a27,,,,,11399963,64751426
+1.226042922,Fabian Marozsan,Carlos Alcaraz,,,3f68a02b2c,,,,,11942150,25215583
+1.226043042,Benjamin Hassan,Emilio Nava,,,2ba35f1df0,,,,,9631799,12646384
+1.22604305,Anastasia Pavlyuchenkova,Marta Kostyuk,,,51c127c194,Marta Kostyuk,Marta Kostyuk,Anastasia Pavlyuchenkova,2024-03-06,11057836,11694656
+1.226043453,Terence Atmane,Bor Artnak,,,54ca4f0f47,,,,,26402939,40249820
+1.226049963,Benoit Paire,Hamad Medjedovic,,,1f0d5cb981,,,,,3911345,25085114
+1.226049967,Stefanos Tsitsipas,Jiri Lehecka,,,6611dd6394,,,,,9193006,13203243
+1.226050052,Jannik Sinner,Ben Shelton,,,191a5d6cb7,,,,,10372253,39460566
+1.226050137,Alex De Minaur,Alexander Zverev,,,8d703c8f00,,,,,10109527,19924823
+1.226055522,Denis Kudla,Roman Safiullin,,,be008285f5,,,,,4829260,9125686
+1.226055526,Daniel Elahi Galan,Jurij Rodionov,,,e25fdcda6f,,,,,8860646,10555106
+1.226055534,Fabio Fognini,Michael Mmoh,,,4c6af9f566,,,,,2319544,8798905
+1.226055542,Christopher Eubanks,Thanasi Kokkinakis,,,e2653395ac,,,,,7445660,8172416
+1.22605555,Alexandre Muller,Nuno Borges,,,d0db68580b,,,,,9630445,9633043
+1.226072081,Yafan Wang,Mai Hontama,,,6721f2ec32,,,,,7695509,10350145
+1.226072083,Clara Tauson,Erika Andreeva,,,2eea5c6469,,,,,18848679,27187697
+1.226072337,Lin Zhu,Mccartney Kessler,,,63e47afb48,,,,,8714569,11942064
+1.226072429,Jaqueline Cristian,Olivia Gadecki,,,c4de7e5e8e,,,,,9627961,11861440
+1.226072593,Alize Cornet,Marina Bassols Ribera,,,4eb6ec250d,,,,,2263692,10166446
+1.226073907,Emina Bektas,Rebeka Masarova,,,5dc46deb77,,,,,9627484,10372262
+1.226074429,Renzo Olivo,Orlando Luz,,,7ee3d26e29,,,,,4822931,9420501
+1.226074438,Mariano Kestelboim,Gabi Adrian Boitan,,,3c2c4f26e0,,,,,9630793,11600970
+1.226074442,Adrian Andreev,Clement Chidekh,,,6d2c55727d,,,,,10460263,11718327
+1.226074449,Cem Ilkel,Michael Agwi,,,c84ce25eb7,,,,,8444055,46068376
+1.226074456,Kenny De Schepper,Alexander Ritschard,,,eb31588dee,,,,,5617034,7444812
+1.22607446,Kyle Edmund,Marko Topo,,,a365ea1b0e,,,,,5626817,63850864
+1.226074464,Remy Bertola,Jakub Paul,,,8f54114b0d,,,,,9634390,14534224
+1.226074476,Aliaksandra Sasnovich,Greet Minnen,,,75585f22cd,,,,,7283310,10108736
+1.226074692,Samuel Vincent Ruggeri,Lukas Neumayer,,,f2214d2767,,,,,25337482,35635716
+1.226074696,Gerald Melzer,Santiago Rodriguez Taverna,,,6c7ad2e788,,,,,4876705,46056201
+1.226074704,Dominic Thiem,Daniel Michalski,,,0c9d8c98cc,,,,,5720747,13426879
+1.226074726,Fuele/Madarasz,Eysseric/Pellegrino,,,3dd36985b9,,,,,53584271,67007753
+1.226074734,Kovalik/Zelenay,Droguet/Martineau,,,492f2833c2,,,,,39835871,67007759
+1.22607695,Yasutaka Uchiyama,Henri Squire,,,9bd52138c4,,,,,5858048,10460261
+1.226078048,Daria Kasatkina,Yue Yuan,,,8a1f3f06ba,Yue Yuan,Yue Yuan,Daria Kasatkina,2024-03-06,7795290,9634353
+1.226079333,Elise Mertens,Coco Gauff,,,7f8f373785,Coco Gauff,Coco Gauff,Elise Mertens,2024-03-06,9002334,27552403
+1.226079511,Gael Monfils,Casper Ruud,,,20710e7fd7,,,,,2257300,9629711
+1.22607967,Vit Kopriva,Emilio Nava,,,a382631f5f,,,,,9543224,12646384
+1.226079794,Harold Mayot,Mitchell Krueger,,,263b5f69b6,,,,,17806086,19924836
+1.226079838,Hsieh/Mertens,Schuurs/Stefani,,,5ee799871e,,,,,39345701,64928033
+1.226080964,Maria Sakkari,Diane Parry,,,75863f62e0,Maria Sakkari,Maria Sakkari,Diane Parry,2024-03-06,9002331,12737413
+1.226081093,Riya Bhatia,Sohyun Park,,,424761eebf,,,,,9378943,11772917
+1.226081095,Ankita Raina,Ya-Hsuan Lee,,,c868e43e6b,,,,,7921012,11204476
+1.226083719,Isabella Shinikova,Martyna Kubka,,,81f86f9b32,,,,,7283220,20240136
+1.22608372,Pemra Ozgen,Magali Kempen,,,fbe3dd928d,,,,,2420585,9630115
+1.226083893,Emma Navarro,A Sabalenka,,,f18f09132e,Emma Navarro,Emma Navarro,Aryna Sabalenka,2024-03-06,10410355,64669276
+1.226084021,Alana Smith,Solana Sierra,,,29e6a57efc,,,,,10348024,20954981
+1.22608532,Quentin Halys,Jeffrey John Wolf,,,96689306a7,,,,,7287690,11102174
+1.226086106,Tommy Paul,Luca Nardi,,,5b22d2f218,,,,,8859306,19544753
+1.226086191,Grigor Dimitrov,Daniil Medvedev,,,35d63beca0,,,,,3120169,19924831
+1.226086276,Taylor Fritz,Holger Rune,,,c98c208631,,,,,10279360,39127965
+1.226086367,Lammons/Withrow,Bolelli/Vavassori,,,e9da104cea,,,,,23892906,38394420
+1.226092021,Oceane Dodin,Martina Trevisan,,,5857a6b509,,,,,7289631,9345630
+1.226094662,Jaqueline Cristian,Diana Shnaider,,,ac61ef8458,,,,,9627961,41341015
+1.226095687,Nao Hibino,Erika Andreeva,,,472466bc09,,,,,7683152,27187697
+1.226096073,Alexander Blockx,Yunchaokete Bu,,,a521d22e22,,,,,46273968,57197343
+1.226096082,Alexander Ritschard,Jakub Paul,,,e2ce660576,,,,,7444812,14534224
+1.226096087,Nicola Kuhn,Clement Chidekh,,,844cc61a87,,,,,9634485,11718327
+1.226097749,Marina Bassols Ribera,Elisabetta Cocciaretto,,,e22b02dccb,,,,,10166446,18848114
+1.226097897,Zura Tkemaladze,Neil Oberleitner,,,36b19deb15,,,,,11665103,13534572
+1.226097942,Arthur Bouquier,Raphael Collignon,,,bc309a33ad,,,,,15842692,36157024
+1.226100322,Carole Monnet,Anastasiya Soboleva,,,369dc5f292,,,,,11204215,26122648
+1.22610081,Kopriva/Pospisil,Cash/Galloway,,,1fd20fbd74,,,,,25240159,58527868
+1.226100998,Sara Errani,Yafan Wang,,,92617d6833,,,,,2309567,7695509
+1.226101136,Sinja Kraus,Dominika Salkova,,,57ac39711b,,,,,12646409,27187721
+1.226101137,Antonia Ruzic,Lucie Havlickova,,,627fc3e327,,,,,24432018,27187712
+1.22610114,Ipek Oz,Aliona Falei,,,fde8071e9f,,,,,9633124,21746614
+1.226101345,Manuel Guinard,Zdenek Kolar,,,8f67e1fe01,,,,,8427047,8575039
+1.226101349,Jozef Kovalik,Titouan Droguet,,,d7e426771b,,,,,7287668,19931652
+1.226101362,Ajeet Rai,Thomas Nicholas Gadecki,,,c785c17445,,,,,16655852,40845893
+1.226101365,Zsombor Piros,Santiago Rodriguez Taverna,,,fc9804d4c1,,,,,10410254,46056201
+1.226101591,Anastasia Potapova,Marta Kostyuk,,,45e7970fe9,Marta Kostyuk,Marta Kostyuk,Anastasia Potapova,2024-03-06,10554735,11694656
+1.226101744,Dart/Watson,Errani/Mihalíková,,,e75e62f04d,,,,,23857646,66967419
+1.226111087,Alessandro Giannessi,Matteo Martineau,,,5c3ad69339,,,,,5829494,9712888
+1.226111389,Juan Manuel Cerundolo,Francesco Passaro,,,403ff54f72,,,,,12686963,13459272
+1.226112729,Muhammad/Shibahara,Hunter/Siniakova,,,c53bc40c04,,,,,43351838,51395753
+1.226114754,Orlando Luz,Juan Pablo Varillas,,,d9d295dea4,,,,,9420501,11772759
+1.226114763,Ane Mintegi Del Olmo,Lucija Ciric Bagaric,,,6787cf1e6f,,,,,19829832,60394758
+1.226114767,Alexis Gautier,Alexandre Aubriot,,,8474f39c97,,,,,9712859,19931620
+1.226114768,David Poljak,Stijn Pel,,,11e15827ef,,,,,8574184,26976831
+1.226114769,Caroline Wozniacki,I Swiatek,,,50e30bd695,Iga Swiatek,Iga Swiatek,Caroline Wozniacki,2024-03-06,2309522,55228386
+1.226114902,Justina Mikulskyte,Yasmine Mansouri,,,f84297866c,,,,,9028628,10192008
+1.226114903,Silvia Ambrosio,Gabriela Andrea Knutson,,,75cfa44b89,,,,,24623193,40249772
+1.22611492,Aleksandar Vukic,Vit Kopriva,,,2b4b647b00,,,,,8979695,9543224
+1.226114924,Adam Walton,Arthur Cazaux,,,57370166c6,,,,,10410236,24918582
+1.22611493,Yannick Hanfmann,Emilio Nava,,,ff4b321c75,,,,,8639275,12646384
+1.226114946,Denis Kudla,Daniel Elahi Galan,,,687f65aa68,,,,,4829260,8860646
+1.226114957,Alexander Zverev,Carlos Alcaraz,,,e536a52cac,,,,,19924823,25215583
+1.226129793,Greet Minnen,Rebeka Masarova,,,eb25ecd72c,,,,,10108736,10372262
+1.226131957,Jannik Sinner,Jiri Lehecka,,,aacb77a385,,,,,10372253,13203243
+1.226132182,Oceane Dodin,Diana Shnaider,,,c5d9159fb3,,,,,7289631,41341015
+1.226132945,Clement Chidekh,Michael Agwi,,,b6e27218dc,,,,,11718327,46068376
+1.226133169,Ergi Kirkin,Yuta Shimizu,,,3c2aee1f97,,,,,9633532,10500847
+1.226134764,Rudolf Molleker,Ricardas Berankis,,,627302b0bf,,,,,10508984,19924827
+1.22613724,Yafan Wang,Erika Andreeva,,,90adbd654b,,,,,7695509,27187697
+1.226137461,Danilina/Zhang,Hewitt/Mateas,,,88bbc61f34,,,,,66131411,66976904
+1.226137596,Cezar Cretu,Daniel Michalski,,,c3368dd2aa,,,,,11439603,13426879
+1.226137613,Shrivalli Bhamidipaty,Viktoria Morvayo,,,bf9bc53f33,,,,,18848273,67072302
+1.226137685,Arianna Zucchini,Viktoria Hruncakova,,,a06d1331b7,,,,,19544716,54739703
+1.226137686,Fajing Sun,Antoine Ghibaudo,,,2dd51ff4f2,,,,,8812610,41716022
+1.226137711,Mona Barthel,Fiona Ferro,,,eb10634542,,,,,5056975,8535268
+1.226138411,Kumkhum/Plipuech,Khromacheva/Niculescu,,,3df80c88b9,,,,,14967658,66966968
+1.226138456,Chidekh/Sanchez,Fanselow/Paul,,,9c15b8d207,,,,,48354411,67007672
+1.226144377,Hsieh/Mertens,Melichar-Martinez/Perez,,,8830e933c3,,,,,39345701,47177552
+1.226145214,Maria Sakkari,Emma Navarro,,,e3f3cd1e79,Maria Sakkari,Maria Sakkari,Emma Navarro,2024-03-06,9002331,10410355
+1.226151788,Xinyu Gao,Leyre Romero Gormaz,,,2dada5aac9,,,,,9419239,12154010
+1.226151789,Katy Dunne,Ipek Oz,,,7670872af5,,,,,7368513,9633124
+1.226151796,Maxime Janvier,Maxence Beauge,,,a5a82cb366,,,,,8257852,10418848
+1.226151798,Lucas Poullain,David Poljak,,,d332b00699,,,,,8284524,8574184
+1.226151821,Juan Pablo Varillas,Francesco Passaro,,,17be38bb4b,,,,,11772759,13459272
+1.226152016,Tommy Paul,Casper Ruud,,,6d594de62e,,,,,8859306,9629711
+1.226154466,Luca Van Assche,Constant Lestienne,,,d832464b36,,,,,27752969,64641301
+1.226154478,Fabio Fognini,Aleksandar Vukic,,,bcc8dc2260,,,,,2319544,8979695
+1.226154486,Matteo Berrettini,Arthur Cazaux,,,afe50fb808,,,,,8962036,24918582
+1.226159758,Yue Yuan,Coco Gauff,,,0ed353a202,Coco Gauff,Coco Gauff,Yue Yuan,2024-03-06,9634353,27552403
+1.22616111,Daniil Medvedev,Holger Rune,,,f20e9aa91b,,,,,19924831,39127965
+1.226163857,Zachary Svajda,Terence Atmane,,,66754955b2,,,,,20832494,26402939
+1.226172472,Zsombor Piros,Titouan Droguet,,,6a748b1e01,,,,,10410254,19931652
+1.226173213,Alexander Ritschard,Alexander Blockx,,,2d173a54e0,,,,,7444812,46273968
+1.226176484,Greet Minnen,Elisabetta Cocciaretto,,,4b7e6b5a27,,,,,10108736,18848114
+1.226179197,Yafan Wang,Diana Shnaider,,,f4591caa48,,,,,7695509,41341015
+1.2261807,Yuta Shimizu,Mattia Bellucci,,,f38261cd7d,,,,,10500847,20357619
+1.226180704,Henri Squire,Rudolf Molleker,,,1776a856c2,,,,,10460261,10508984
+1.226180709,Robin Anderson,Magali Kempen,,,424a3915d6,,,,,8947134,9630115
+1.226180935,Mona Barthel,Ipek Oz,,,71619d3d51,,,,,5056975,9633124
+1.226180936,Antonia Ruzic,Dominika Salkova,,,1312cb6288,,,,,24432018,27187721
+1.22618238,Camilo Ugo Carabelli,Liam Draxl,,,51333a3188,,,,,9635538,19446873
+1.226182397,Cristina Dinu,Nuria Brancaccio,,,82b4e7fe6b,,,,,7216240,10410388
+1.226182412,Zdenek Kolar,Franco Agamenone,,,0d30484ab4,,,,,8575039,8979622
+1.226188159,Rasheeda Mcadoo,Maria Sara Popa,,,95f49582e5,,,,,10116434,36390307
+1.226188258,Maria Sakkari,Coco Gauff,,,1ee643e1c4,Maria Sakkari,Maria Sakkari,Coco Gauff,2024-03-06,9002331,27552403
+1.226189569,Maxime Janvier,Alexis Gautier,,,6fcd4f31c0,,,,,8257852,9712859
+1.226191859,Thanasi Kokkinakis,Nuno Borges,,,8e8ec138bb,,,,,8172416,9633043
+1.226191863,Facundo Bagnis,Hugo Dellien,,,c37f2bfbe4,,,,,4520808,8226987
+1.226205461,Tommy Paul,Daniil Medvedev,,,39fb318db2,,,,,8859306,19924831
+1.22620555,Jannik Sinner,Carlos Alcaraz,,,3c932af3f4,,,,,10372253,25215583
+1.226208867,Robin Anderson,Katrina Scott,,,c8badcc8d4,,,,,8947134,21067354
+1.226208902,Linda Klimovicova,Viktoria Hruncakova,,,b70feca03f,,,,,20832533,54739703
+1.226209545,Henri Squire,Alexander Blockx,,,fbf0c4896c,,,,,10460261,46273968
+1.226209549,Yuta Shimizu,Clement Chidekh,,,0555af7102,,,,,10500847,11718327
+1.226209753,Franco Agamenone,Titouan Droguet,,,e621833346,,,,,8979622,19931652
+1.226209761,Elisabetta Cocciaretto,Diana Shnaider,,,c288e5dc23,,,,,18848114,41341015
+1.226209913,Alexis Gautier,Nikolay Vylegzhanin,,,b651d27093,,,,,9712859,12819799
+1.226209914,Alexey Vatutin,Fajing Sun,,,f3b1e6248a,,,,,7797764,8812610
+1.226214982,Luke Saville,James McCabe,,,62a79a767b,,,,,6965426,37862534
+1.226238638,Maria Sakkari,I Swiatek,,,ed50d31e6b,Iga Swiatek,Iga Swiatek,Maria Sakkari,2024-03-06,9002331,55228386
+1.226238834,Nuno Borges,Luca Van Assche,,,cc30fa5d82,,,,,9633043,27752969
+1.22623884,Matteo Berrettini,Terence Atmane,,,07d75e1209,,,,,8962036,26402939
+1.226238846,Facundo Bagnis,Gustavo Heide,,,81cbdef81a,,,,,4520808,21809000
+1.226265841,Facundo Bagnis,Juan Pablo Varillas,,,cfb85da853,,,,,4520808,11772759
+1.226266727,Stefan Popovic,Petr Brunclik,,,e02b0a1a23,,,,,26309976,45377287
+1.226266753,Johan Nikles,Matthew Dellavedova,,,ebff8b4e3c,,,,,9629446,30449630
+1.226266757,Mirza Basic,Sergi Perez Contri,,,51ee315a7e,,,,,5499167,9198612
+1.226266776,Camila Osorio,Mccartney Kessler,,,8f3711671f,,,,,11024005,11942064
+1.226266846,Harriet Dart,Ena Koike,,,559096a449,,,,,8595916,39207393
+1.226266853,Su-Wei Hsieh,Greet Minnen,,,58dab6f74f,,,,,8244521,10108736
+1.226266867,Bernarda Pera,Sayaka Ishii,,,24823a70cf,,,,,8784983,48534143
+1.226266977,Victoria Jimenez Kasint,Maria Lourdes Carle,,,c3ae6d8118,,,,,35532640,40136010
+1.226267001,Kayla Day,Emiliana Arango,,,f83a870185,,,,,9634153,10350216
+1.226267109,Anna Bondar,Anna Karolina Schmiedlova,,,e1e2aab8f5,,,,,9304685,40900202
+1.226267138,Tamara Zidansek,Clara Tauson,,,57553e71ad,,,,,9631543,18848679
+1.226267241,Claire Liu,Kamilla Rakhimova,,,3019ffca41,,,,,9633041,11144238
+1.226267252,Heather    Watson,Oceane Dodin,,,1924deae7b,,,,,4174997,7289631
+1.226267271,Aleksandra Krunic,Aliaksandra Sasnovich,,,5ffb371885,,,,,5300820,7283310
+1.226267384,Nao Hibino,Jule Niemeier,,,d575cbc095,,,,,7683152,11173943
+1.226267404,Rebecca Sramkova,Rebeka Masarova,,,9ffdf2ad2b,,,,,9151665,10372262
+1.22626763,Tamara Korpatsch,Mai Hontama,,,4d4b336099,,,,,9166525,10350145
+1.226267639,Yanina Wickmayer,Alycia Parks,,,b2cb87a52f,,,,,2386943,11233227
+1.226267721,Taylor Townsend,Laura Pigossi,,,24bab985a6,,,,,7066166,7083093
+1.226272177,Matteo Berrettini,Aleksandar Vukic,,,9f6f5910ae,,,,,8962036,8979695
+1.22627569,Kaichi Uchida,Martin A V Del Puerto,,,ce42219a00,,,,,8957119,67194452
+1.226279223,Daniil Medvedev,Carlos Alcaraz,,,bb0da2b5b3,,,,,19924831,25215583
+1.226286976,Gerardo Delgado,R Jauregui Sainz De Rozas,,,71a4c9d575,,,,,67204260,67204338

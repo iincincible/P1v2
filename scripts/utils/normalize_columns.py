@@ -1,36 +1,57 @@
+# scripts/utils/normalize_columns.py
+
 import pandas as pd
 
+RENAME_COLS = {
+    "prob_1": "implied_prob_1",
+    "prob_2": "implied_prob_2",
+    "margin": "odds_margin",
+    "prob_diff": "implied_diff",
+    "odds1": "odds_player_1",
+    "odds2": "odds_player_2",
+}
+
+REQUIRED_COLS = [
+    "market_id",
+    "player_1",
+    "player_2",
+    "odds_player_1",
+    "odds_player_2",
+    "match_id",
+    "actual_winner",
+    "winner_name",
+    "loser_name",
+    "match_date",
+    "selection_id_1",
+    "selection_id_2",
+]
+
+
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Standardize column names for simulation and value bet filtering.
-    Ensures presence of: predicted_prob, expected_value, odds.
-    Also patches implied_prob_diff if needed.
-    """
-    renamed = df.copy()
+    renamed = df.rename(columns=RENAME_COLS)
 
-    rename_map = {
-        "ev": "expected_value",
-        "prob": "predicted_prob",
-        "pred_prob": "predicted_prob",
-        "pred_prob_player_1": "predicted_prob",
-        "odds_player_1": "odds",
-        "odds_player_2": "odds_2",
-        "implied_prob_1": "implied_prob",
-        "confidence_score": "confidence",
-    }
+    # Inject 'odds' and 'odds_2' if missing (for symmetric odds support)
+    if "odds" not in renamed.columns and "odds_player_2" in renamed.columns:
+        renamed["odds"] = renamed["odds_player_2"]
+    if "odds_2" not in renamed.columns and "odds_player_1" in renamed.columns:
+        renamed["odds_2"] = renamed["odds_player_1"]
 
-    # Only rename if target doesn't already exist
-    for old, new in rename_map.items():
-        if old in renamed.columns and new not in renamed.columns:
-            renamed[new] = renamed[old]
+    # Inject 'implied_prob' and 'implied_prob_2' if missing (fallback to odds)
+    if "implied_prob" not in renamed.columns and "odds" in renamed.columns:
+        renamed["implied_prob"] = 1 / renamed["odds"]
+    if "implied_prob_2" not in renamed.columns and "odds_player_2" in renamed.columns:
+        renamed["implied_prob_2"] = 1 / renamed["odds_player_2"]
 
-    # Patch implied_prob_diff if missing
-    if "implied_prob_diff" not in renamed.columns:
-        if "implied_prob_1" in renamed.columns and "implied_prob_2" in renamed.columns:
-            renamed["implied_prob_diff"] = renamed["implied_prob_1"] - renamed["implied_prob_2"]
+    # Inject 'implied_prob_1' if model expects it
+    if "implied_prob_1" not in renamed.columns and "implied_prob_2" in renamed.columns:
+        renamed["implied_prob_1"] = 1 - renamed["implied_prob_2"]
 
-    required = ["expected_value", "odds", "predicted_prob"]
-    missing = [col for col in required if col not in renamed.columns]
+    # Inject 'implied_diff' if model expects it
+    if "implied_diff" not in renamed.columns and "implied_prob_1" in renamed.columns and "implied_prob_2" in renamed.columns:
+        renamed["implied_diff"] = renamed["implied_prob_1"] - renamed["implied_prob_2"]
+
+    # Check for required fields
+    missing = [col for col in REQUIRED_COLS if col not in renamed.columns]
     if missing:
         raise ValueError(f"❌ Missing required columns: {missing}. Available: {list(renamed.columns)}")
 

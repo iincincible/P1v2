@@ -1,8 +1,9 @@
 import argparse
 import pandas as pd
-from scripts.utils.cli_utils import assert_file_exists, save_csv
-from scripts.utils.betting_math import compute_ev
-from scripts.utils.logger import log_info, log_warning
+
+from scripts.utils.ev import compute_ev
+from scripts.utils.helpers import log_info, log_warning, assert_file_exists
+from scripts.utils.normalize_columns import normalize_columns
 
 def main():
     parser = argparse.ArgumentParser()
@@ -16,11 +17,15 @@ def main():
     parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
+    if args.dry_run:
+        print(f"🧪 Dry run: would write to {args.output_csv}")
+        return
+
     assert_file_exists(args.input_csv, "predictions file")
 
     df = pd.read_csv(args.input_csv)
+    df = normalize_columns(df)
 
-    # === Normalize core columns ===
     if "expected_value" not in df.columns:
         df["expected_value"] = compute_ev(
             df["predicted_prob"], df["odds"], df.get("implied_prob", None)
@@ -36,7 +41,6 @@ def main():
         if col not in df.columns:
             raise ValueError(f"❌ Required column missing: {col}")
 
-    # === Apply filters ===
     df_filtered = df.copy()
     df_filtered = df_filtered[df_filtered["expected_value"] >= args.ev_threshold]
 
@@ -51,14 +55,13 @@ def main():
         print("⚠️ No value bets after filtering.")
         return
 
-    # === Patch winner column ===
     if "winner" not in df_filtered.columns:
         if "actual_winner" in df_filtered.columns and "player_1" in df_filtered.columns:
             df_filtered["winner"] = (
                 df_filtered["actual_winner"].str.strip().str.lower() ==
                 df_filtered["player_1"].str.strip().str.lower()
             ).astype(int)
-            log_info("🩹 Patched missing 'winner' column from actual_winner vs player_1")
+            log_info("😹 Patched missing 'winner' column from actual_winner vs player_1")
         else:
             log_warning("⚠️ Cannot assign winner column — missing actual_winner or player_1")
 

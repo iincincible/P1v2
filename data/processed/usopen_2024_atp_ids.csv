@@ -1,0 +1,664 @@
+market_id,player_1,player_2,odds_player_1,odds_player_2,match_id,actual_winner,winner_name,loser_name,match_date,selection_id_1,selection_id_2
+1.232144381,Alexandre Muller,Adam Walton,1.51,200.0,01dff03ffb,Alexandre Muller,Alexandre Muller,Adam Walton,2024-08-26,9630445,10410236
+1.232144385,Arantxa Rus,Ana Bogdan,1.01,16.0,e80b8d7cf3,,,,,2451050,3875013
+1.232144477,Pablo Carreno Busta,Arthur Cazaux,1.62,2.56,a012e24ae6,Arthur Cazaux,Arthur Cazaux,Pablo Carreno Busta,2024-08-26,5479878,24918582
+1.232144616,Viktoriya Tomova,Ekaterina Alexandrova,3.4,1.04,61a9544179,,,,,4597116,8681458
+1.232145108,Lorenzo Sonego,Tommy Paul,130.0,1.22,58f61402d7,Tommy Paul,Tommy Paul,Lorenzo Sonego,2024-08-26,8826925,8859306
+1.232145203,Amanda Anisimova,Qinwen Zheng,200.0,1.55,6abb5fdc4d,,,,,11636088,18848380
+1.232145502,Caroline Dolehide,Danielle Collins,1.01,8.6,4b61303fe0,,,,,9202281,9626845
+1.232145671,Sara Sorribes Tormo,Alexa Noel,1.17,7.4,7d5514e2cb,,,,,6356637,13132687
+1.23214607,Nadia Podoroska,Diana Shnaider,7.6,1.15,d5fc086f2c,,,,,9042349,41341015
+1.232146149,Caroline Garcia,Renata Zarazua,50.0,1.02,38f192defd,,,,,5248977,9042343
+1.232146336,Andrey Rublev,Thiago Seyboth Wild,1.1,11.0,e3395eef67,Andrey Rublev,Andrey Rublev,Thiago Seyboth Wild,2024-08-26,7797771,9632015
+1.232146435,Sara Errani,Cristina Bucsa,1.08,4.7,a718b5a150,,,,,2309567,9629258
+1.232146895,Sofia Kenin,Emma Raducanu,1.01,34.0,0faf16715a,,,,,9149629,18849246
+1.23214731,Tomas Martin Etcheverry,Giovanni Mpetshi Perric,1.01,2.46,2f6d82a019,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Giovanni Mpetshi Perricard,2024-08-26,9631399,19544747
+1.232147396,Tamara Korpatsch,Moyuka Uchijima,21.0,1.01,0d0a31ffef,,,,,9166525,13074045
+1.232147655,Brandon Nakashima,Holger Rune,1.02,1.63,b19a738473,Brandon Nakashima,Brandon Nakashima,Holger Rune,2024-08-26,17806048,39127965
+1.232147666,Roberto Bautista Agut,Luca Nardi,1.05,4.5,0ea65589ad,Roberto Bautista Agut,Roberto Bautista Agut,Luca Nardi,2024-08-26,4290403,19544753
+1.232147944,Bernarda Pera,Anna Bondar,34.0,1.02,4adb655835,,,,,8784983,9304685
+1.232148363,Sebastian Baez,Luciano Darderi,1.01,17.5,44220b33da,Sebastian Baez,Sebastian Baez,Luciano Darderi,2024-08-26,11285506,26309941
+1.232148568,Alexander Bublik,Juncheng Shang,2.38,1.71,0dc1380515,Juncheng Shang,Juncheng Shang,Alexander Bublik,2024-08-26,8907933,38901959
+1.232148786,Yue Yuan,Erika Andreeva,1.79,1.36,a24c022d60,,,,,9634353,27187697
+1.232149082,Reilly Opelka,Lorenzo Musetti,990.0,1.42,debf3cdc7f,Lorenzo Musetti,Lorenzo Musetti,Reilly Opelka,2024-08-26,8859316,13834991
+1.232149173,Marcos Giron,Alex De Minaur,140.0,1.28,f8c796ffcf,Alex De Minaur,Alex De Minaur,Marcos Giron,2024-08-26,8230256,10109527
+1.232149419,Karolina Muchova,Katie Volynets,1.02,4.0,762efcfced,,,,,9632758,13369546
+1.232149614,Magda Linette,Iva Jovic,1.21,5.8,7fe448000d,,,,,7083215,41768059
+1.232149846,Yulia Putintseva,Linda Noskova,1.01,17.5,2e79769255,,,,,4259580,22088831
+1.232150107,Alejandro Davidovich Fokina,Rinky Hijikata,21.0,1.04,3ab9b88930,Rinky Hijikata,Rinky Hijikata,Alejandro Davidovich Fokina,2024-08-26,9953368,12343905
+1.232150494,Zachary Svajda,Matteo Arnaldi,3.6,1.39,1f6a40dd5a,Matteo Arnaldi,Matteo Arnaldi,Zachary Svajda,2024-08-26,20832494,21067270
+1.232150513,Viktorija Golubic,Paula Badosa,15.0,1.07,5efc42f0df,,,,,7283232,7412588
+1.232150977,Lesia Tsurenko,Peyton Stearns,5.1,1.01,75ce120994,,,,,5300861,13835088
+1.232151052,Petra Martic,Jessica Bouzas Maneiro,2.46,1.62,6a768c3dbd,,,,,2346703,18848405
+1.232151178,Sebastian Ofner,Francisco Cerundolo,3.6,1.41,e3e5d700c1,Francisco Cerundolo,Francisco Cerundolo,Sebastian Ofner,2024-08-26,9631178,11204210
+1.232151633,Jannik Sinner,Mackenzie McDonald,1.04,27.0,60445ec335,Jannik Sinner,Jannik Sinner,Mackenzie Mcdonald,2024-08-26,10372253,10691901
+1.232151854,Dominic Thiem,Ben Shelton,13.5,1.08,9376037704,Ben Shelton,Ben Shelton,Dominic Thiem,2024-08-26,5720747,39460566
+1.232152197,Chloe Paquet,Harriet Dart,2.86,1.53,7794a26867,,,,,7216239,8595916
+1.232152219,Clara Tauson,Anna Karolina Schmiedlova,1.7,50.0,d61ef71223,,,,,18848679,40900202
+1.23215247,Christopher Eubanks,Arthur Rinderknech,4.0,1.33,f15b01471f,Arthur Rinderknech,Arthur Rinderknech,Christopher Eubanks,2024-08-26,7445660,9953233
+1.232152517,Lauren Davis,Anna Kalinskaya,9.2,1.13,489d6925ee,,,,,4176991,8907174
+1.232152973,Madison Keys,K Siniakova,1.47,3.1,ef5264f293,,,,,3800907,61042216
+1.232153233,Sloane Stephens,Clara Burel,13.5,1.01,832dee4be3,,,,,2923342,10351066
+1.232153388,Anastasia Potapova,Leylah Fernandez,1.12,4.5,e15ca89fd4,,,,,10554735,11987709
+1.232153462,Daria Kasatkina,Jaqueline Cristian,1.04,26.0,f0e23803cf,,,,,7795290,9627961
+1.232153666,Yafan Wang,Maria Sakkari,4.0,200.0,42911b4f45,,,,,7695509,9002331
+1.23215369,Daniel  Evans,Karen Khachanov,4.8,1.26,9aa44904db,Daniel Evans,Daniel Evans,Karen Khachanov,2024-08-26,3103121,7659623
+1.232153987,Botic Van de Zandschulp,Denis Shapovalov,4.0,1.33,5111acdbcc,Botic Van De Zandschulp,Botic Van De Zandschulp,Denis Shapovalov,2024-08-26,11204614,19924829
+1.232154031,Taylor Townsend,Martina Trevisan,1.2,17.5,761a3bebdf,,,,,7066166,9345630
+1.23215434,Francisco Comesana,Dominic Stricker,1.02,50.0,f29e33bdfa,Francisco Comesana,Francisco Comesana,Dominic Stricker,2024-08-26,14833278,40400880
+1.232154539,Varvara Gracheva,Coco Gauff,13.5,1.08,f7be1a4aaf,,,,,10942984,19249131
+1.232154721,Xiyu Wang,Diane Parry,6.0,1.2,836dcc774f,,,,,11352357,12737413
+1.232154903,James Duckworth,Flavio Cobolli,3.85,1.06,799bc04bfd,Flavio Cobolli,Flavio Cobolli,James Duckworth,2024-08-26,6064287,16570658
+1.232154963,Marta Kostyuk,Mccartney Kessler,1.46,3.15,296cf47b48,,,,,11694656,11942064
+1.232155175,Elina Svitolina,Maria Carle,1.01,60.0,f6e230d488,,,,,6324464,9630728
+1.232155421,Laslo Djere,Jan-Lennard Struff,4.6,1.29,84151dc0d6,Laslo Djere,Laslo Djere,Jan Lennard Struff,2024-08-26,7692106,8259098
+1.232155756,Jelena Ostapenko,Naomi Osaka,2.48,1.62,811046a795,,,,,8827537,64406703
+1.232155789,Thanasi Kokkinakis,Stefanos Tsitsipas,1.03,50.0,65b0b19e6b,Thanasi Kokkinakis,Thanasi Kokkinakis,Stefanos Tsitsipas,2024-08-26,8172416,9193006
+1.232156019,Dominik Koepfer,Alexander Shevchenko,17.0,1.07,2915b6d72e,Alexander Shevchenko,Alexander Shevchenko,Dominik Koepfer,2024-08-26,9953145,15134244
+1.232156109,Fabio Fognini,Tomas Machac,4.3,1.3,e5cc7a6ed4,Tomas Machac,Tomas Machac,Fabio Fognini,2024-08-26,2319544,16149495
+1.232156312,Beatriz Haddad Maia,Elina Avanesyan,1.02,34.0,afbc3598a3,,,,,7083752,14383103
+1.232156564,Anastasia Pavlyuchenkova,Taylah Preston,1.13,8.6,40930d00ab,,,,,11057836,28071385
+1.232156611,Aleksandar Vukic,Max Purcell,1.83,2.3,0c7ea89436,Max Purcell,Max Purcell,Aleksandar Vukic,2024-08-26,8979695,10460213
+1.232156654,Marton Fucsovics,Jiri Lehecka,2.84,1.58,f99d153bfb,Jiri Lehecka,Jiri Lehecka,Marton Fucsovics,2024-08-26,4827766,13203243
+1.232157067,Lucia Bronzetti,Lulu Sun,2.52,250.0,b015776a1b,,,,,9631351,17311444
+1.232157105,Magdalena Frech,Greet Minnen,55.0,1.15,0739150e7d,,,,,8444351,10108736
+1.232157353,Nicolas Jarry,Christopher O'Connell,1.51,2.78,1d47a4a7c2,Christopher Oconnell,Christopher Oconnell,Nicolas Jarry,2024-08-26,8260515,8942164
+1.2321577,Anna Blinkova,Emma Navarro,8.2,1.12,53be99e17f,,,,,9635244,10410355
+1.232158223,Zizou Bergs,Pavel Kotov,1.01,50.0,1cfde6721d,Zizou Bergs,Zizou Bergs,Pavel Kotov,2024-08-26,9634024,10166537
+1.232158609,Federico Coria,Nuno Borges,9.2,1.15,fc3cb86772,Nuno Borges,Nuno Borges,Federico Coria,2024-08-26,8326752,9633043
+1.232158654,Maria Camila Osorio Serrano,Mirra Andreeva,7.4,1.03,6ebd308045,,,,,23677835,71652894
+1.232158857,Qiang Wang,Liudmila Samsonova,14.5,1.01,0e4a474e3f,,,,,6145777,72035517
+1.232159071,Oceane Dodin,Anhelina Kalinina,6.8,1.21,ae690caef2,,,,,7289631,8907168
+1.232159109,Karolina Pliskova,Mayar Sherif,1.12,6.4,5df147b986,,,,,6199453,9028621
+1.232159336,Jakub Mensik,Felix Auger-Aliassime,1.03,1.3,0167db3928,Jakub Mensik,Jakub Mensik,Felix Auger Aliassime,2024-08-26,39835947,71712371
+1.232159539,Zhizhen Zhang,Jack Draper,3.85,1.35,68d90280cb,Jack Draper,Jack Draper,Zhizhen Zhang,2024-08-26,9628959,15313804
+1.232159699,Shuai Zhang,Ashlyn Krueger,8.6,1.11,df99b0399e,,,,,2386498,24143371
+1.232159886,Dayana Yastremska,Jule Niemeier,4.4,1.28,f345dad041,,,,,9634670,11173943
+1.232160054,Arthur Fils,Learner Tien,1.28,3.9,835c4c94da,Arthur Fils,Arthur Fils,Learner Tien,2024-08-26,38374961,42082091
+1.23216828,Caroline Wozniacki,Nao Hibino,1.2,5.6,526ec0fae5,,,,,2309522,7683152
+1.232168285,Laura Siegemund,Maya Joint,8.6,1.13,1edcc41896,,,,,4829328,38310223
+1.232168462,Aliaksandra Sasnovich,Katie Boulter,1000.0,1.6,201fb1fd66,,,,,7283310,8619018
+1.232168477,Priscilla Hon,A Sabalenka,40.0,1.02,889018a59e,,,,,8196370,64669276
+1.2321689,Destanee Aiava,Elena Rybakina,18.0,1.06,46d9b4c4b8,,,,,9634855,10349398
+1.23216891,Tatjana Maria,Solana Sierra,1.03,34.0,dd40be34d1,,,,,7299657,20954981
+1.232168911,Ann Li,Ajla Tomljanovic,2.2,1.76,341b0ef6a6,,,,,11313157,63264473
+1.232169269,Victoria Azarenka,Yulia Starodubtseva,1.2,5.1,dc91175dd8,,,,,2263640,51615560
+1.232169275,Julia Grabher,Elena-Gabriela Ruse,14.5,1.07,43be171e6e,,,,,8681454,11439772
+1.232169276,Marie Bouzkova,Eva Lys,1.51,9.2,185e22d698,,,,,8442764,10943021
+1.232169645,Donna Vekic,Kimberly Birrell,1.22,5.6,a95d9bd48c,,,,,6603944,8183109
+1.232169646,Ena Shibahara,Daria Saville,1.01,100.0,e239a68334,,,,,9632959,42231870
+1.23216994,Kamilla Rakhimova,I Swiatek,34.0,1.03,c55c844403,,,,,11144238,55228386
+1.232171807,Fabian Marozsan,Hamad Medjedovic,1.84,2.2,c96c78495e,Fabian Marozsan,Fabian Marozsan,Hamad Medjedovic,2024-08-26,11942150,25085114
+1.232171816,Jaume Munar,Gabriel Diallo,1.95,2.02,16a0432556,Gabriel Diallo,Gabriel Diallo,Jaume Munar,2024-08-26,9350385,24966308
+1.232171852,Grigor Dimitrov,Kyrian Jacquet,1.07,1000.0,ece7f3fa40,Grigor Dimitrov,Grigor Dimitrov,Kyrian Jacquet,2024-08-26,3120169,17980099
+1.232172094,Gael Monfils,Diego Schwartzman,1.22,5.5,f82eaf07ca,Gael Monfils,Gael Monfils,Diego Schwartzman,2024-08-26,2257300,8736474
+1.23217232,Eliot Spizzirri,Alex Michelsen,4.7,1.24,2025b5516d,Alex Michelsen,Alex Michelsen,Eliot Spizzirri,2024-08-26,19446884,38374924
+1.232172485,Timofey Skatov,Hubert Hurkacz,7.8,1.15,085a0e13a9,Hubert Hurkacz,Hubert Hurkacz,Timofey Skatov,2024-08-26,14534269,19924838
+1.23217263,Pedro Martinez,Maks Kasnikowski,1.89,2.1,022ba7afa9,Pedro Martinez,Pedro Martinez,Maks Kasnikowski,2024-08-26,13181195,35635702
+1.232173402,Quentin Halys,Otto Virtanen,500.0,2.2,a006125922,Otto Virtanen,Otto Virtanen,Quentin Halys,2024-08-26,7287690,11694730
+1.23217378,Stan Wawrinka,Mattia Bellucci,3.15,1.49,84a64e9c25,Mattia Bellucci,Mattia Bellucci,Stan Wawrinka,2024-08-26,19924832,20357619
+1.232174042,Jan Choinski,Roberto Carballes Baena,2.86,1.01,bd7f248f4d,Roberto Carballes Baena,Roberto Carballes Baena,Jan Choinski,2024-08-26,8679715,42313578
+1.232206676,Veronika Kudermetova,Elise Mertens,34.0,1.66,2b82d9d856,,,,,8279497,9002334
+1.232222191,Nouza/Rikl,Oradini/Travaglia,1.16,7.2,fd27c96a97,,,,,65823152,73038308
+1.232228936,Domingues/Ferreira Silv,Cruz/Rocha,25.0,1.3,84165c318f,,,,,13255367,73040568
+1.232239023,Saisai Zheng,Jessika Ponchet,7.4,1.15,0c78d7639c,,,,,5829453,9628769
+1.232242514,Kei Nishikori,Samuel Vincent Ruggeri,1.35,3.9,379335bd26,,,,,19924834,25337482
+1.232242527,Benjamin Hassan,Gabriel Debru,7.6,1.15,639fe9a1a8,,,,,9631799,38599010
+1.232242534,Francesco Passaro,Filip Jeff Planinsek,1.27,5.3,08b7b65cae,,,,,13459272,25458372
+1.232242608,Benoit Paire,Remy Bertola,3.45,1.41,f72c620e6a,,,,,3911345,9634390
+1.232242722,Alex Molcan,Gustavo Heide,2.74,1.48,c6d0f0ea5b,,,,,8960879,21809000
+1.232242842,Marco Cecchinato,Ignacio Buse,2.7,1.54,55cfe7a0b9,,,,,6374165,25215601
+1.232251167,Makoto Ochi,Kris Van Wyk,990.0,1.93,2fe6c7fb4a,,,,,8978439,65619140
+1.232251508,Yusuke Takahashi,Alafia Ayeni,1.67,100.0,3ef3c028e9,,,,,8873516,13181138
+1.232256102,Evgeny Donskoy,Lukas Pokorny,34.0,1.01,08c8c97db7,,,,,19924824,35845662
+1.232257419,Norbert Gombos,Ye Cong Mo,1.66,2.24,2b91fbf0e9,,,,,8173023,11510021
+1.232257421,Alexey Vatutin,Valerio Aboian,1.57,2.76,0bc8a9609e,,,,,7797764,26309906
+1.232257422,Alexander Weis,Max Hans Rehberg,4.7,1.79,4c5184f067,,,,,9634691,21256253
+1.232261311,Daniel Cukierman,Oleksii Krutykh,1.01,100.0,fe9a7169b3,,,,,9361738,19064021
+1.232263914,Pichler/Rodionov,Bertrand/Sanchez,1.49,990.0,751d6028b1,,,,,71599623,73076581
+1.232265488,Mate Valkusz,Pedro Araujo,1.01,2.72,3cf847311f,,,,,9953339,19728204
+1.232268967,Luka Mikrut,Matheus Pucinelli De Al,10.5,1.1,adaa2aabe5,,,,,38890589,71597975
+1.23226901,Vitaliy Sachko,Carlos Lopez Montagud,1.21,5.0,7a9f6097de,,,,,9433864,13601161
+1.232270145,Joao Domingues,Gerard Campana Lee,12.0,1.1,5771d01952,,,,,7234519,43997367
+1.232271745,Franco Agamenone,Carlos Taberner,3.5,1.02,3a2f8d809f,,,,,8979622,9631075
+1.232272308,Enrico Dalla Valle,Hady Habib,1.02,1.92,94f77e6c26,,,,,8998802,10033630
+1.232272413,Sebastian Fanselow,Lukas Neumayer,4.4,1.29,9335812070,,,,,9623671,35635716
+1.232272424,Oriol Roca Batalla,Jonas Forejtek,3.15,1.27,dbd4cd5aa8,,,,,7216519,15926417
+1.232273152,Maria/Schmiedlova,Shibahara/Sutjiadi,9.8,1.13,bb0b08b459,,,,,73092436,73092437
+1.232273175,Fils/Mpetshi Perricard,Arevalo/Pavic,4.8,1.26,21a674c1f0,,,,,41082272,64409292
+1.232273198,Cobolli/Stricker,Kwon/Shapovalov,1.99,2.02,7db5191a6e,,,,,73092439,73092440
+1.232273212,Eysseric/Martin,King/Nakashima,1.08,6.0,361b0c23c9,,,,,7304747,42787263
+1.232273236,Gonzalez/Molteni,Jarry/Rodriguez,1.5,3.2,2f805830b1,,,,,8462579,73092447
+1.232273247,Ram/Salisbury,Diaz Acosta/Etcheverry,1.1,9.8,2a17e44282,,,,,22229228,64737860
+1.232273283,Kenin/Mattek-Sands,Babos/Kichenok,1.38,3.7,b5803b9063,,,,,26252204,61491687
+1.232273294,Arends/Haase,Bopanna/Ebden,4.0,1.33,cacd49a756,,,,,13567599,51596955
+1.232273306,Purcell/Thompson,Giron/Van De Zandschulp,1.22,5.6,3dff879e26,,,,,38366904,57698324
+1.232273307,Mannarino/Rinderknech,Monteiro/Navone,50.0,1.02,766e7dac3d,,,,,59869860,73092461
+1.232273318,Murray/Peers,Goransson/Verbeek,3.95,1.33,c175f0e49a,,,,,7191922,22245524
+1.23227332,Rakhimova/Sasnovich,Avanesyan/Piter,1.56,2.42,8cb4848511,,,,,57698738,73092450
+1.232273331,Daniell/Reyes-Varela,Andreozzi/Balaji,6.6,1.18,d2afe4af26,,,,,67035042,73092456
+1.232273342,Rus/Stojanovic,Olmos/Panova,3.2,1.39,6dcdc09a99,,,,,20679159,55177455
+1.232273398,Skupski/Venus,Gaston/Jacq,1.17,6.6,182ca2f641,,,,,8553758,73092471
+1.232273402,Krawietz/Puetz,Escobar/Nedovyesov,1.43,3.25,ac65682b96,,,,,13567746,56983677
+1.232276122,Ramkumar Ramanathan,Sascha Gueymard Wayenbu,13.0,1.02,fbc1e8bf62,,,,,8173038,27997073
+1.232276173,Ricardas Berankis,Adria Barrera,1.66,100.0,75688c089c,,,,,19924827,40400858
+1.232276208,Alberto Barroso Campos,Nathan Trouve,1.01,4.2,6dc2d13227,,,,,9634521,40738097
+1.232276231,Laurent Lokoli,Michael Geerts,1.01,34.0,99a3de86f8,,,,,8257788,8874195
+1.232276321,Daniel Vallejo,Inaki Montes-De La Torr,17.5,1.08,7aa74daa4a,,,,,69955776,73093162
+1.232276536,Arthur Reymond,Hazem Naw,7.4,1.16,683ec5c20f,,,,,9631766,20027828
+1.232278765,Charles Broom,August Holmgren,1.03,1.68,0ef86ee1aa,,,,,10109487,10372237
+1.232278816,Jurij Rodionov,Matteo Gigante,50.0,1.69,1f42ad5f81,,,,,10555106,26309954
+1.232278859,Liam Broady,Pierre-Hugues Herbert,50.0,1.01,6bc8baabdf,,,,,5626816,8266399
+1.232278902,Jiri Vesely,Yannick Hanfmann,3.1,1.48,13d3dba4d3,,,,,7032143,8639275
+1.232279652,Blake Mott,Yan Bai,3.0,1.5,3fb7f53d0c,,,,,8194200,72887005
+1.232279695,Fajing Sun,Kaichi Uchida,1.67,2.44,9a9a49e5a4,,,,,8812610,8957119
+1.232279738,Egor Gerasimov,Sheng Tang,11.0,1.09,21a7238d9d,,,,,7797772,11048300
+1.232279867,Yu Hsiou Hsu,Jie Cui,15.0,1.07,b9fcb2f507,,,,,10221825,10896490
+1.232279953,Philip Henning,Mark Lajal,6.8,1.18,8a46e58d7e,,,,,12177951,40594116
+1.232280039,Tristan Lamasine,Dalibor Svrcina,2.9,1.52,06d767ca03,,,,,8428332,13714711
+1.232280194,Rai/Reynolds,Ho/Nam,2.66,1.6,b4c6827910,,,,,51520989,68064021
+1.232280206,Alcantara/Isaro,Noguchi/Watanabe,1.19,2.12,f736c02989,,,,,73094723,73094724
+1.232280222,Kalovelonis/Ursu,Uchida/Yuzuki,4.0,1.13,b23ca07059,,,,,73094741,73094742
+1.232280226,Matsui/Uesugi,Bai/Dong,1.27,4.5,b80b9168ac,,,,,22338050,73094750
+1.232291479,Berta Bonardi,Ana Candiotto,2.34,1.74,7526ebf583,,,,,9627630,47032272
+1.232292932,Marc Polmans,Yusuke Takahashi,2.42,1.65,d54e759a6a,,,,,8194278,8873516
+1.232292933,Egor Agafonov,Coleman Wong,6.0,1.2,8598436d7e,,,,,23709004,64730813
+1.232293022,Beibit Zhukayev,Lukas Pokorny,1.08,13.5,021b61fe64,,,,,11905629,35845662
+1.23230668,Kyle Edmund,Jules Marie,1.71,2.26,5bc44cb355,,,,,5626817,7287701
+1.232306723,Khumoyun Sultanov,Sascha Gueymard Wayenbu,1.4,3.5,54d7110e11,,,,,13369459,27997073
+1.232310971,Alberto Barroso Campos,Hazem Naw,6.0,1.12,418b5332c2,,,,,9634521,20027828
+1.232311409,Jozef Kovalik,Nikoloz Basilashvili,34.0,1.03,e11660df15,,,,,7287668,8257807
+1.232311413,Genaro Alberto Olivieri,Max Hans Rehberg,1.06,20.0,9a9999a961,,,,,9634468,21256253
+1.232311421,Vitaliy Sachko,Federico Bondioli,1.28,1.02,eaf72f6fa4,,,,,9433864,46068390
+1.232311484,Filip Cristian Jianu,Svyatoslav Gulin,1.12,3.05,148f894e25,,,,,11694722,42554047
+1.232311518,Raul Brancaccio,Matheus Pucinelli De Al,2.28,1.67,981eb04711,,,,,10109524,71597975
+1.232311623,Federico Arnaboldi,Valerio Aboian,1.43,1.02,2c3303e5a6,,,,,11439862,26309906
+1.232312502,Moez Echargui,Gerard Campana Lee,1.1,15.5,1cb015640c,,,,,10033628,43997367
+1.232312597,Buvaysar Gadamauri,Santiago Rodriguez Tave,2.04,1.13,26403cc9a7,,,,,13835005,45377348
+1.232312709,Mate Valkusz,Marvin Moeller,1.02,50.0,5e2e12165d,,,,,9953339,11422706
+1.23231995,Yafan Wang,Diane Parry,1.72,28.0,d350ebfa90,,,,,7695509,12737413
+1.232320691,Qinwen Zheng,Erika Andreeva,1.21,5.7,e64903a964,,,,,18848380,27187697
+1.232320935,Ugo Humbert,Francisco Comesana,110.0,1.01,04f541f0e6,Francisco Comesana,Francisco Comesana,Ugo Humbert,2024-08-26,9633253,14833278
+1.232321247,Roberto Bautista Agut,Ben Shelton,200.0,1.19,016d518c7a,Ben Shelton,Ben Shelton,Roberto Bautista Agut,2024-08-26,4290403,39460566
+1.232322185,Donna Vekic,Greet Minnen,1.34,3.85,3df3147730,,,,,6603944,10108736
+1.232322447,Juncheng Shang,Roberto Carballes Baena,1.4,3.5,0dbcc5595a,Juncheng Shang,Juncheng Shang,Roberto Carballes Baena,2024-08-26,38901959,42313578
+1.232322748,Elina Svitolina,Anhelina Kalinina,1.25,110.0,d6d986ffc6,,,,,6324464,8907168
+1.232322884,Matteo Berrettini,Taylor Fritz,2.66,1.6,3b734c9a7b,Taylor Fritz,Taylor Fritz,Matteo Berrettini,2024-08-26,8962036,10279360
+1.232323515,Daria Kasatkina,Peyton Stearns,26.0,2.0,b10827e41e,,,,,7795290,13835088
+1.232323678,Jule Niemeier,Moyuka Uchijima,1.79,2.28,1220723cd1,,,,,11173943,13074045
+1.232323776,Taylor Townsend,Paula Badosa,34.0,1.01,9b9d7ac7c9,,,,,7066166,7412588
+1.232323906,Jiri Lehecka,Mitchell Krueger,1.25,15.0,733e5642a4,Jiri Lehecka,Jiri Lehecka,Mitchell Krueger,2024-08-26,13203243,19924836
+1.232324074,Madison Keys,Maya Joint,1.18,6.4,9db6ce29d3,,,,,3800907,38310223
+1.232324414,Alexei Popyrin,Pedro Martinez,1.22,5.3,9acb90d20d,Alexei Popyrin,Alexei Popyrin,Pedro Martinez,2024-08-26,10706479,13181195
+1.232324634,Tomas Martin Etcheverry,Francisco Cerundolo,1.01,85.0,bb238ab061,Tomas Martin Etcheverry,Tomas Martin Etcheverry,Francisco Cerundolo,2024-08-26,9631399,11204210
+1.232324869,Melichar/Dodig,Kichenok/Nys,2.0,2.0,846c19ccf4,,,,,40761358,73137000
+1.232324887,Gael Monfils,Casper Ruud,55.0,1.59,a66ff2cd2c,Casper Ruud,Casper Ruud,Gael Monfils,2024-08-26,2257300,9629711
+1.232325113,Miomir Kecmanovic,Lorenzo Musetti,100.0,1.44,077153a563,Lorenzo Musetti,Lorenzo Musetti,Miomir Kecmanovic,2024-08-26,9657480,13834991
+1.232325253,Alexandre Muller,Alexander Zverev,17.0,1.06,625897921b,Alexander Zverev,Alexander Zverev,Alexandre Muller,2024-08-26,9630445,19924823
+1.232325521,Elise Mertens,Ajla Tomljanovic,1.02,3.5,408cf52798,,,,,9002334,63264473
+1.232325735,Arantxa Rus,Emma Navarro,7.8,1.15,656227112c,,,,,2451050,10410355
+1.232326162,Harriet Dart,Marta Kostyuk,160.0,1.28,f7af07049f,,,,,8595916,11694656
+1.232328137,Barbora Krejcikova,Elena-Gabriela Ruse,21.0,1.05,ff65e99b24,,,,,8784972,11439772
+1.232328243,Andrey Rublev,Arthur Rinderknech,1.15,200.0,de310c252e,Andrey Rublev,Andrey Rublev,Arthur Rinderknech,2024-08-26,7797771,9953233
+1.232328548,Victoria Azarenka,Clara Burel,1.32,4.2,bfb95b8b93,,,,,2263640,10351066
+1.232329219,Brandon Nakashima,Arthur Cazaux,1.3,4.2,65458db94b,Brandon Nakashima,Brandon Nakashima,Arthur Cazaux,2024-08-26,17806048,24918582
+1.232329447,Tallon Griekspoor,Sebastian Baez,1.6,2.6,02fdb8042b,Tallon Griekspoor,Tallon Griekspoor,Sebastian Baez,2024-08-26,9198585,11285506
+1.232329448,Alexander Shevchenko,Frances Tiafoe,65.0,1.01,4e3edf425f,Frances Tiafoe,Frances Tiafoe,Alexander Shevchenko,2024-08-26,15134244,19924839
+1.232329723,Ekaterina Alexandrova,Iva Jovic,1.09,15.0,df931c5a82,,,,,8681458,41768059
+1.232330629,Lucia Bronzetti,Aryna Sabalenka,26.0,1.04,a98f2b82cb,,,,,9631351,64669276
+1.232331326,Gloria Ceschi,Jana Kolodynska,4.1,1.33,248097572f,,,,,12535110,19353124
+1.232331331,Miriana Tona,Jazmin Ortenzi,3.55,1.39,797cb61957,,,,,7412580,13268689
+1.232331332,Maria Toma,Nauhany Vitoria Leme Da Silva,1.51,2.16,26bba6f4e2,,,,,9657565,67278217
+1.232331337,Stephanie Wagner,Daniela Vismane,1.45,3.25,44355abbaa,,,,,9627258,9635299
+1.232333067,Jie Cui,Rio Noguchi,12.0,1.1,7900d5fa3d,,,,,10896490,11102176
+1.232338176,Norbert Gombos,Coleman Wong,2.6,17.5,e5cd909cd1,,,,,8173023,64730813
+1.232340503,Stefano Travaglia,Federico Bondioli,1.01,6.4,3f6d0bddb9,,,,,8477117,46068390
+1.232341094,Alex Molcan,Remy Bertola,1.55,2.84,c050e456bf,,,,,8960879,9634390
+1.232341365,Gianluca Mager,Dino Prizmic,2.64,1.54,c4b11225d0,,,,,8284482,38914770
+1.232344588,Marin Cilic,Alberto Barroso Campos,1.45,100.0,599c2ed4d5,,,,,2263681,9634521
+1.232344787,Damir Dzumhur,Inaki Montes-De La Torr,100.0,1.01,21c753b20e,,,,,7414058,73093162
+1.23234479,Khumoyun Sultanov,Robin Bertrand,1.02,36.0,d97c10aee3,,,,,13369459,27997038
+1.232344857,Laurent Lokoli,Alexander Blockx,2.12,1.82,b9d26e833f,,,,,8257788,46273968
+1.23234488,Ricardas Berankis,Hazem Naw,1.01,50.0,fac285f81a,,,,,19924827,20027828
+1.232345671,Fajing Sun,Sheng Tang,1.14,7.8,4856b41581,,,,,8812610,11048300
+1.232347203,Pel/Stevens,Pichler/Rodionov,50.0,1.01,7557d55903,,,,,46208821,71599623
+1.232347275,Yasutaka Uchiyama,Vadym Ursu,1.39,3.5,e3716d4aa2,,,,,5858048,8490625
+1.232348259,Ignacio Buse,Filip Misolic,1.66,3.6,931b900662,,,,,25215601,25989805
+1.232348374,Filip Cristian Jianu,Gabriel Debru,1000.0,1.59,c8dee16857,,,,,11694722,38599010
+1.232348438,Daniel Masur,Henrique Rocha,1.03,34.0,10513ceded,,,,,8659524,29822698
+1.23234857,Andrew Paulson,Valerio Aboian,1.8,2.08,b877cd7b90,,,,,21809032,26309906
+1.232348633,Nikolas Sanchez Izquier,Hynek Barton,1.96,2.04,d11cede653,,,,,14833271,45377299
+1.232348678,Hubert Hurkacz,Jordan Thompson,34.0,2.76,c725496a4d,Jordan Thompson,Jordan Thompson,Hubert Hurkacz,2024-08-26,19924838,19924841
+1.232348881,Sara Errani,Caroline Dolehide,1.07,15.0,60ec9c8cd9,,,,,2309567,9202281
+1.232350544,Enrico Dalla Valle,Jaime Faria,1.24,5.1,16857102f8,,,,,8998802,39038450
+1.2323517,Ena Shibahara,Iga  Swiatek,65.0,1.01,116383f001,,,,,9632959,55228386
+1.232351789,Anastasia Pavlyuchenkova,Elisabetta Cocciaretto,1.6,2.76,6f1fcf8c80,,,,,11057836,18848114
+1.232354831,Tristan Schoolkate,Jakub Mensik,100.0,1.01,b981ae702d,Jakub Mensik,Jakub Mensik,Tristan Schoolkate,2024-08-26,26323542,39835947
+1.232355783,Karolina Muchova,Naomi Osaka,1.01,16.0,3c20b4be22,,,,,9632758,64406703
+1.232355872,Caroline Wozniacki,Renata Zarazua,1.21,34.0,ff902b51ef,,,,,2309522,9042343
+1.232355876,Ashlyn Krueger,Mirra Andreeva,1.01,26.0,27b48a432a,,,,,24143371,71652894
+1.23235633,Adrian Mannarino,David Goffin,3.4,1.42,61a8e1ab1b,David Goffin,David Goffin,Adrian Mannarino,2024-08-26,3066621,19924835
+1.232356638,Lukas Neumayer,Santiago Rodriguez Tave,100.0,1.01,5928481b1d,,,,,35635716,45377348
+1.232356879,Katie Boulter,Jessica Bouzas Maneiro,100.0,1.01,6a88e8100e,,,,,8619018,18848405
+1.232356884,Roman Safiullin,Matteo Arnaldi,110.0,1.91,71576b3090,Matteo Arnaldi,Matteo Arnaldi,Roman Safiullin,2024-08-26,9125686,21067270
+1.232356982,Thanasi Kokkinakis,Nuno Borges,1.79,2.3,2a955527c5,Nuno Borges,Nuno Borges,Thanasi Kokkinakis,2024-08-26,8172416,9633043
+1.232357018,Facundo Diaz Acosta,Jack Draper,990.0,1.1,fcaaa5dde5,Jack Draper,Jack Draper,Facundo Diaz Acosta,2024-08-26,14833204,15313804
+1.232357707,Jannik Sinner,Alex Michelsen,1.05,21.0,1fc6c2e789,Jannik Sinner,Jannik Sinner,Alex Michelsen,2024-08-26,10372253,38374924
+1.232358266,Clara Tauson,Diana Shnaider,4.3,1.33,c1666626c0,,,,,18848679,41341015
+1.232358502,Daniel  Evans,Mariano Navone,1.94,100.0,4acc940265,Daniel Evans,Daniel Evans,Mariano Navone,2024-08-26,3103121,21809027
+1.232358872,Varvara Lepchenko,Anastasia Potapova,5.1,1.24,af587b265c,,,,,2263576,10554735
+1.232363079,Yulia Putintseva,Xinyu Wang,1.6,2.74,91e5c3eda2,,,,,4259580,13578400
+1.232363081,Marie Bouzkova,Liudmila Samsonova,2.44,1.7,afd32a115c,,,,,8442764,72035517
+1.232363084,Sara Sorribes Tormo,Beatriz Haddad Maia,110.0,1.34,cd63f360a1,,,,,6356637,7083752
+1.232365374,Fabian Marozsan,Daniil Medvedev,100.0,1.11,f6d5262a74,Daniil Medvedev,Daniil Medvedev,Fabian Marozsan,2024-08-26,11942150,19924831
+1.232365914,Gabriel Diallo,Arthur Fils,3.5,1.39,c4b930edfc,Gabriel Diallo,Gabriel Diallo,Arthur Fils,2024-08-26,24966308,38374961
+1.232366236,Botic Van de Zandschulp,Carlos Alcaraz,1.02,50.0,f3ad7798bd,Botic Van De Zandschulp,Botic Van De Zandschulp,Carlos Alcaraz,2024-08-26,11204614,25215583
+1.232366376,Christopher O'Connell,Mattia Bellucci,1.01,130.0,417ceb6851,Christopher Oconnell,Christopher Oconnell,Mattia Bellucci,2024-08-26,8942164,20357619
+1.232366683,Karolina Pliskova,Jasmine Paolini,4.1,1.32,94ef9e494d,,,,,6199453,8944356
+1.232366919,Zizou Bergs,Flavio Cobolli,40.0,1.01,4b127b7ef8,Flavio Cobolli,Flavio Cobolli,Zizou Bergs,2024-08-26,9634024,16570658
+1.232367422,Rio Noguchi,Mark Lajal,3.3,1.43,0c8c111a3b,,,,,11102176,40594116
+1.232367637,Lamasine/Svrcina,Haliak/Pokorny,1.75,2.32,39179cb202,,,,,73094753,73179021
+1.232369499,Tess Sugnaux,Madison Sieg,4.0,1.34,e4febf6bf9,,,,,9150764,18849051
+1.232370828,Audrey Albie,Hanne Vandewinkel,3.85,1.35,c0556ddcca,,,,,8948984,63207779
+1.232370832,Justina Mikulskyte,Laura Boehner,1.08,12.0,f450dd1841,,,,,9028628,13320535
+1.232370834,Eliessa Vanlangendonck,Vivian Wolff,4.3,1.26,d008efd685,,,,,9634329,10116441
+1.232371575,Tommy Paul,Max Purcell,1.13,9.2,c712c89f8e,Tommy Paul,Tommy Paul,Max Purcell,2024-08-26,8859306,10460213
+1.232373389,Hsu/Sun,Donskoy/Karlovskiy,1.07,3.5,68b516bef9,,,,,73094730,73094736
+1.232386056,Yannick Hanfmann,Jerome Kym,50.0,1.02,27a8663790,,,,,8639275,22733757
+1.23238627,Daniel Cukierman,Adrian Andreev,4.4,1.02,c1de190a7f,,,,,9361738,10460263
+1.232386566,Marc-Andrea Huesler,Alexander Blockx,1.06,13.5,7717727eaa,,,,,9631939,46273968
+1.232386708,Nikoloz Basilashvili,Kei Nishikori,4.0,1.38,7f9b7c2670,,,,,8257807,19924834
+1.23239226,Paula Badosa,Elena-Gabriela Ruse,1.01,100.0,31fa8c6b7f,,,,,7412588,11439772
+1.232392509,Madison Keys,Elise Mertens,26.0,3.0,6f65bbb78d,,,,,3800907,9002334
+1.232392793,Cash/Galloway,Boyer/Nava,34.0,1.01,b870d75271,,,,,58527868,73092452
+1.232392796,Grigor Dimitrov,Tallon Griekspoor,1.24,6.0,51a5a130fe,Grigor Dimitrov,Grigor Dimitrov,Tallon Griekspoor,2024-08-26,3120169,9198585
+1.232393658,Skupski/Venus,Andreozzi/Balaji,1.48,3.05,da22bf45fa,,,,,8553758,73092456
+1.23239397,Tomas Martin Etcheverry,Alexander Zverev,13.5,1.1,3f8eaf5632,Alexander Zverev,Alexander Zverev,Tomas Martin Etcheverry,2024-08-26,9631399,19924823
+1.232394261,Schuurs/Stefani,Boulter/Kalinskaya,1.11,10.0,beebe348d7,,,,,64928033,73092457
+1.232394268,Jule Niemeier,Qinwen Zheng,8.0,1.14,b479e69b9a,,,,,11173943,18848380
+1.232394363,Haddad Maia/Siegemund,Montgomery/Ngounoue,1.22,5.6,2cc9fa52a3,,,,,53445706,59869833
+1.232397189,Andrey Rublev,Jiri Lehecka,1.38,190.0,5c683e48d2,Andrey Rublev,Andrey Rublev,Jiri Lehecka,2024-08-26,7797771,13203243
+1.232398335,Frances Tiafoe,Ben Shelton,1.01,100.0,f6ef399124,Frances Tiafoe,Frances Tiafoe,Ben Shelton,2024-08-26,19924839,39460566
+1.232401727,Emma Navarro,Marta Kostyuk,1.01,100.0,d5426b8a9f,,,,,10410355,11694656
+1.232402272,Bouzkova/Sorribes Tormo,Rakhimova/Sasnovich,1.55,2.8,d72ad9ac21,,,,,38378435,57698738
+1.232402438,Victoria Azarenka,Yafan Wang,34.0,4.2,444859b0ce,,,,,2263640,7695509
+1.232403959,Donna Vekic,Peyton Stearns,1.72,2.38,4a31be6a4a,,,,,6603944,13835088
+1.232404054,Lorenzo Musetti,Brandon Nakashima,2.42,1.72,25bc2984c6,Brandon Nakashima,Brandon Nakashima,Lorenzo Musetti,2024-08-26,13834991,17806048
+1.232404055,Elina Svitolina,Coco Gauff,55.0,1.02,0c9e522ec6,,,,,6324464,19249131
+1.232407204,Jenny Duerst,Sada Nahimana,2.56,1.64,e14ae4cf45,,,,,10348313,10554743
+1.232407332,Leonie Kung,Alexis Blokhina,1.95,2.04,757214f9b9,,,,,9657547,22733739
+1.232407781,Taylor Fritz,Francisco Comesana,1.05,18.0,391956632c,Taylor Fritz,Taylor Fritz,Francisco Comesana,2024-08-26,10279360,14833278
+1.232408492,Novak Djokovic,Alexei Popyrin,55.0,6.8,9e09a8a375,Alexei Popyrin,Alexei Popyrin,Novak Djokovic,2024-08-26,2249229,10706479
+1.232408632,Casper Ruud,Juncheng Shang,1.43,500.0,b4241c5529,Casper Ruud,Casper Ruud,Juncheng Shang,2024-08-26,9629711,38901959
+1.232409252,Ekaterina Alexandrova,Aryna Sabalenka,34.0,1.03,a64f1c62a8,,,,,8681458,64669276
+1.232420416,Sofia Rocchetti,Giorgia Pedone,3.9,1.35,0ad966945a,,,,,22021985,36038809
+1.232424087,Kyoka Okamura,Xinxin Yao,2.54,1.65,f6968b72a9,,,,,8887170,60872296
+1.232426015,Arnaboldi/Arnaboldi,Oradini/Travaglia,1.95,2.04,5d9fd04a1f,,,,,25742539,73038308
+1.232426133,Charles Broom,Matteo Gigante,50.0,1.02,6035b88650,,,,,10109487,26309954
+1.232426176,Abdullah Shelbayh,Inaki Montes-De La Torr,1.8,2.24,3dc80004ed,,,,,53128067,73093162
+1.232427458,Kei Nishikori,Gabriel Debru,1.39,3.5,ea4b18cc7b,,,,,19924834,38599010
+1.232429673,Daniel Masur,Nikolas Sanchez Izquier,25.0,1.05,dd50d18a2c,,,,,8659524,14833271
+1.232434377,Arnaboldi/Arnaboldi,Cornea/Molchanov,6.8,1.17,86b76f7887,,,,,25742539,73038304
+1.232434381,Alex Molcan,Zsombor Piros,1.02,50.0,0d21c39a7b,,,,,8960879,10410254
+1.232434421,Stefano Travaglia,Genaro Alberto Olivieri,1.89,2.32,2deef24293,,,,,8477117,9634468
+1.232435146,Agamenone/Rodriguez Tav,Cukierman/Matuszewski,26.0,1.02,810bfbc5a0,,,,,72520673,73040593
+1.232435608,Eysseric/Martin,Lammons/Withrow,5.0,1.25,f14680b055,,,,,7304747,23892906
+1.232435916,Enzo Couacaud,Matteo Gigante,2.84,1.56,da4fa7502c,,,,,8174333,26309954
+1.232436022,Enrico Dalla Valle,Santiago Rodriguez Tave,50.0,1.04,80432ce54e,,,,,8998802,45377348
+1.232436065,Corley/Corley,Chan/Kudermetova,26.0,1.03,cb475d82b8,,,,,59347047,67739878
+1.232436069,Yulia Putintseva,Jasmine Paolini,90.0,1.01,b88415d515,,,,,4259580,8944356
+1.232436166,Jordan Thompson,Matteo Arnaldi,1.07,15.0,c87eda6938,Jordan Thompson,Jordan Thompson,Matteo Arnaldi,2024-08-26,19924841,21067270
+1.232436857,Christopher O'Connell,Jannik Sinner,27.0,1.03,36b962a3f2,Jannik Sinner,Jannik Sinner,Christopher Oconnell,2024-08-26,8942164,10372253
+1.23243729,Arneodo/Arribage,Banthia/Whiting,1.15,7.8,e45ddbcc11,,,,,73040566,73040573
+1.232437297,Sara Errani,Diana Shnaider,8.6,1.11,95f00e1f6e,,,,,2309567,41341015
+1.232438473,Carlos Taberner,Dino Prizmic,1.05,2.26,6f305abae0,,,,,9631075,38914770
+1.232440211,Marc-Andrea Huesler,Duje Ajdukovic,26.0,1.02,dc51365f62,,,,,9631939,12819814
+1.232441215,Ashlyn Krueger,Liudmila Samsonova,2.32,1.64,4b1a26ab1f,,,,,24143371,72035517
+1.232441216,Jessica Pegula,Jessica Bouzas Maneiro,1.12,9.2,e7bb90b56a,,,,,6215852,18848405
+1.232441398,Borges/Cabral,Nys/Zielinski,2.88,1.43,921ef008a4,,,,,26959399,43291463
+1.232443982,Goransson/Verbeek,Bolelli/Vavassori,3.35,1.42,7a241045f2,,,,,22245524,38394420
+1.232444998,Tomas Machac,David Goffin,1.69,2.46,027595bf86,Tomas Machac,Tomas Machac,David Goffin,2024-08-26,16149495,19924835
+1.232445966,Tommy Paul,Gabriel Diallo,1.13,8.0,4a4c07f26b,Tommy Paul,Tommy Paul,Gabriel Diallo,2024-08-26,8859306,24966308
+1.232447559,Daniel  Evans,Alex De Minaur,990.0,1.18,f536aacbd9,Alex De Minaur,Alex De Minaur,Daniel Evans,2024-08-26,3103121,10109527
+1.232448547,Nuno Borges,Jakub Mensik,1.69,990.0,bbba37deb1,Nuno Borges,Nuno Borges,Jakub Mensik,2024-08-26,9633043,39835947
+1.232448758,Caterina Gran/Kovacevic,Parks/Withrow,1.7,2.42,ee14576150,,,,,73136988,73136993
+1.232449019,Karolina Muchova,Anastasia Potapova,1.37,3.7,cd94e73a48,,,,,9632758,10554735
+1.232450105,Flavio Cobolli,Daniil Medvedev,8.4,1.14,0f982d63f8,Daniil Medvedev,Daniil Medvedev,Flavio Cobolli,2024-08-26,16570658,19924831
+1.232451676,Sada Nahimana,Madison Sieg,1.82,1.74,1ce17597c0,,,,,10554743,18849051
+1.232451716,Justina Mikulskyte,Cristina Diaz Adrover,1.73,2.42,1f7e115f08,,,,,9028628,63173978
+1.232452679,Botic Van de Zandschulp,Jack Draper,4.4,1.28,5ec001cd6b,Jack Draper,Jack Draper,Botic Van De Zandschulp,2024-08-26,11204614,15313804
+1.232456927,Norbert Gombos,Mark Lajal,34.0,1.01,4923a81710,,,,,8173023,40594116
+1.232459825,Alcantara/Isaro,Uchida/Yuzuki,30.0,1.04,116cec168c,,,,,73094723,73094742
+1.232471726,Jerome Kym,Matteo Gigante,36.0,1.02,c987337cd5,,,,,22733757,26309954
+1.232472082,Stefano Travaglia,Gabriel Debru,34.0,1.04,850c795b0d,,,,,8477117,38599010
+1.232473171,Arneodo/Arribage,Cukierman/Matuszewski,1.53,2.84,3019d1da66,,,,,73040566,73040593
+1.232473907,Pichler/Rodionov,Chandrasekar/Vega,1.99,2.02,de0a163cd0,,,,,71599623,73076586
+1.232473915,Paula Badosa,Yafan Wang,1.23,5.2,5c4aecf827,,,,,7412588,7695509
+1.23247432,Chan/Kudermetova,Dart/Parry,1.01,2.66,b4bba62410,,,,,67739878,70282155
+1.232474324,Donna Vekic,Qinwen Zheng,50.0,1.02,8edf494515,,,,,6603944,18848380
+1.232474327,Emma Navarro,Coco Gauff,1.08,11.0,3b860bca98,,,,,10410355,19249131
+1.232474607,Gonzalez/Molteni,Bopanna/Ebden,1.01,100.0,e8dd7115d4,,,,,8462579,51596955
+1.232475326,Grigor Dimitrov,Andrey Rublev,1.01,85.0,7828ddaa8b,Grigor Dimitrov,Grigor Dimitrov,Andrey Rublev,2024-08-26,3120169,7797771
+1.232477407,Sutjiadi/Bopanna,Siniakova/Peers,1.29,3.25,8954d2e08a,,,,,59916883,73136997
+1.232478416,Casper Ruud,Taylor Fritz,870.0,1.4,e49b9c422b,Taylor Fritz,Taylor Fritz,Casper Ruud,2024-08-26,9629711,10279360
+1.23247964,Alexei Popyrin,Frances Tiafoe,100.0,1.01,806b3cb8c6,Frances Tiafoe,Frances Tiafoe,Alexei Popyrin,2024-08-26,10706479,19924839
+1.232481446,Elise Mertens,A Sabalenka,1000.0,1.13,7d231274fd,,,,,9002334,73219778
+1.232481684,Brandon Nakashima,Alexander Zverev,220.0,1.29,8a85ea5975,Alexander Zverev,Alexander Zverev,Brandon Nakashima,2024-08-26,17806048,19924823
+1.232482896,Yasutaka Uchiyama,Mark Lajal,1.01,100.0,c06ec07859,,,,,5858048,40594116
+1.232486508,Norbert Gombos,Philip Henning,1.02,50.0,913fe19d61,,,,,8173023,12177951
+1.232486524,Kaichi Uchida,Ajeet Rai,26.0,1.01,fee2b6a780,,,,,8957119,16655852
+1.232486612,Fajing Sun,Yusuke Takahashi,1.63,2.6,2088125fac,,,,,8812610,8873516
+1.232486719,Kiranpal Pannu,Evgeny Donskoy,1.19,6.2,842346f752,,,,,19785814,19924824
+1.232486734,Tristan Lamasine,Lukas Pokorny,6.2,1.19,48cd749c78,,,,,8428332,35845662
+1.23248683,Vadym Ursu,Omni Kumar,1.88,1.01,d14213bf65,,,,,8490625,21256229
+1.232488101,Nicolas Mejia,Dalibor Svrcina,2.46,1.68,659a60c48e,,,,,10902197,13714711
+1.232488151,Rigele Te,Yosuke Watanuki,3.25,1.03,8a27bd8df9,,,,,8639790,19924830
+1.232488158,Ryan Peniston,Yi Zhou,1.33,4.0,78a60915c6,,,,,9629249,52394201
+1.232488267,Marc Polmans,Bu Yunchaokete,5.0,1.25,1b22a2aff8,,,,,8194278,13268612
+1.232488479,Terence Atmane,Mark Lajal,2.08,1.94,def4dbd2ec,,,,,26402939,40594116
+1.232498669,Camilla Rosatello,Audrey Albie,1.01,1.8,a890f1d47c,,,,,7795600,8948984
+1.23249875,Leonie Kung,Amina Anshba,13.5,1.01,7f52b64b58,,,,,9657547,9952748
+1.232500198,Marsel Ilhan,Saba Purtseladze,34.0,1.01,6963da60fc,,,,,4147957,19931639
+1.232500271,Kimmer Coppejans,Maxim Zhukov,4.2,1.31,ea59f7aea9,,,,,7364095,41342855
+1.232500387,Mats Hermans,Ilya Snitari,7.6,1.16,f860d3db2e,,,,,9953296,38218646
+1.232500529,Aleksandre Bakshi,Denys Klok,1.11,4.7,8277fbd854,,,,,9632808,10192021
+1.232500879,Denis Yevseyev,Gijs Brouwer,3.95,1.32,c067a262f7,,,,,8304957,9629296
+1.23250096,Elias Ymer,Cezar Cretu,1.42,3.1,bf473a29c6,,,,,7414305,71091985
+1.232500978,Hamad Medjedovic,Rodrigo Pacheco Mendez,1.34,4.1,38c4efa828,,,,,25085114,38618554
+1.232501082,Mikhail Kukushkin,Michael Geerts,36.0,1.04,03dc708d1a,,,,,2609424,8874195
+1.232501098,Tuncay Duran,Matej Dodig,11.0,1.08,7f5c9c0748,,,,,42698159,53865379
+1.232501173,Koray Kirci,Elmer Moeller,8.2,1.14,7db5552a3d,,,,,9634879,51204152
+1.232502904,Jan Choinski,Vit Kopriva,1.01,1.7,fb0d6179a1,,,,,8679715,9543224
+1.232502923,Neil Oberleitner,Jakub Nicod,2.16,1.23,b2410354ba,,,,,13534572,39842175
+1.232502984,Dennis Novak,Daniel Masur,34.0,1.03,98e97b4f0c,,,,,7335936,8659524
+1.232502989,Filip Cristian Jianu,Luka Mikrut,100.0,1.01,f186c1fde2,,,,,11694722,38890589
+1.232503026,Michael Vrbensky,Andrew Paulson,6.2,1.2,6be73a1098,,,,,12085631,21809032
+1.232503114,Robert Strombachs,Jan Kobierski,1.18,7.6,433a74f9de,,,,,14833220,45198760
+1.232503148,Rudolf Molleker,Matheus Pucinelli De Al,1.89,2.12,82feaa9f91,,,,,10508984,71597975
+1.232503265,Lorenzo Giustino,Oliver Crawford,21.0,1.05,175575300f,,,,,7534093,10896520
+1.232503343,Matthias Ujvary,Pyotr Nesterov,5.2,1.24,00fba84bd2,,,,,47032312,65710662
+1.23250351,Max Houkes,Jerome Kym,21.0,1.01,9cad57fd0f,,,,,19064042,22733757
+1.232503632,Gerald Melzer,Max Hans Rehberg,2.46,1.68,4c82343c36,,,,,4876705,21256253
+1.232503748,Viktor Durasovic,Yanaki Milev,2.08,1.91,1776c97e85,,,,,9631478,26593114
+1.23250398,Blaz Rola,Anton Matusevich,1.36,3.55,3217b0e588,,,,,8174357,15388388
+1.23250405,Steven Diez,Enzo Wallart,26.0,1.04,cb33365a72,,,,,4903593,9629256
+1.23250428,Constantin Bittoun Kouz,Damien Salvestre,1.64,2.36,54a4cfee2f,,,,,9633557,12819791
+1.232505417,Jasmine Paolini,Karolina Muchova,2.54,1.65,43468d6a13,,,,,8944356,9632758
+1.232505506,Granollers/Zeballos,Bhambri/Olivetti,1.45,3.25,1e2de958e6,,,,,25327214,67814982
+1.232507513,Ignacio Buse,Gabriel Debru,26.0,1.04,c53d32a2f3,,,,,25215601,38599010
+1.232508487,Andrea Guerrieri,Pierluigi Basile,1.05,25.0,9ac7909244,,,,,10460255,70580338
+1.232508558,Johan Nikles,Vladyslav Orlov,2.14,1.92,33d329aae5,,,,,9629446,9631561
+1.232508565,Mircea-Alexandru Jecan,Kilian Feldbausch,5.9,1.14,f4da989345,,,,,8813356,39132613
+1.23250871,Gianmarco Ferrari,Filippo Romano,1.37,3.7,c285340a38,,,,,19931659,42554228
+1.232508833,Julian Ocleppo,Moez Echargui,50.0,1.49,16c63b90b7,,,,,9630560,10033628
+1.232509007,Liam Broady,Jaime Faria,1.72,1.03,444c8efde7,,,,,5626816,39038450
+1.232509062,Alastair Gray,Titouan Droguet,3.7,1.37,f810b30df1,,,,,11260413,19931652
+1.232509079,Matteo Martineau,Antoine Cornut Chauvinc,21.0,1.05,b57538aaef,,,,,9712888,60870469
+1.232509195,Richard Gasquet,Antoine Bellier,1.41,3.45,2e9d3abf17,,,,,2249399,8941910
+1.232509307,Marin Cilic,Ugo Blanchet,1.14,8.0,c0b4e0b1ce,,,,,2263681,10033649
+1.232510016,Juan Pablo Varillas,Gianluca Cadenasso,1.32,3.8,c82cceee84,,,,,11772759,48579597
+1.232510077,Martin Klizan,Gianluca Mager,1.07,15.0,9e48275d15,,,,,2496035,8284482
+1.232510149,Alexander Weis,Gonzalo Bueno,8.6,1.13,7f5032f8ef,,,,,9634691,21067278
+1.232510193,Stefano Napolitano,Giovanni Fonio,8.6,1.09,393b3de2cb,,,,,8257870,9712890
+1.232510254,Benjamin Hassan,Francesco Maestrelli,1.67,8.0,46038de1c3,,,,,9631799,21652017
+1.232510453,Chloe Paquet,Polina Kudermetova,1.84,2.18,cf6c5a5ac7,,,,,7216239,20136621
+1.232510733,Jil Teichmann,Elsa Jacquemot,1.01,34.0,6fbff25593,,,,,9247812,18848406
+1.23251074,Laura Pigossi,Simona Waltert,1.02,50.0,7a9223780e,,,,,7083093,10874403
+1.232511387,Katarina Zavatska,Darja Semenistaja,8.0,1.14,9aadb74b44,,,,,9635149,24040843
+1.232511581,Victoria Jimenez Kasint,Maria Lourdes Carle,1.1,11.0,b74da51111,,,,,35532640,40136010
+1.232511791,Veronika Erjavec,Ella Seidel,1.01,100.0,46170ade88,,,,,15134048,44932193
+1.232512173,Duje Ajdukovic,Matteo Gigante,1.75,2.32,63e1f27e61,,,,,12819814,26309954
+1.232512216,Jessica Pegula,Diana Shnaider,1.55,430.0,75660816d9,,,,,6215852,41341015
+1.232513033,Jack Draper,Tomas Machac,1.48,310.0,dedb9f5e98,Jack Draper,Jack Draper,Tomas Machac,2024-08-26,15313804,16149495
+1.23251342,Ram/Salisbury,Lammons/Withrow,30.0,1.01,63e09e369e,,,,,22229228,23892906
+1.23251347,Arevalo/Pavic,Dodig/Pavlasek,1.04,26.0,bccb8b5af6,,,,,64409292,72850691
+1.232513712,Kichenok/Ostapenko,Haddad Maia/Siegemund,1.23,5.3,9076210ab3,,,,,20015061,53445706
+1.232514047,Krawietz/Puetz,Bolelli/Vavassori,1.02,50.0,83f9ef06a3,,,,,13567746,38394420
+1.232514641,Mladenovic/Zhang,Andreeva/Pavlyuchenkova,1.06,17.5,c28a03b383,,,,,54330423,72583346
+1.232514647,Tommy Paul,Jannik Sinner,990.0,1.14,fa2ea68409,Jannik Sinner,Jannik Sinner,Tommy Paul,2024-08-26,8859306,10372253
+1.232514966,Sachia Vickery,Fanny Stollar,1.51,2.9,d017249482,,,,,6596286,9342701
+1.232515084,Valeriya Strakhova,Sandra Alonso Abril,1.89,2.12,3ade65715a,,,,,8490642,54084495
+1.232515138,Eudice Wong Chong,Taylah Preston,2.34,1.75,1bc7065b00,,,,,21027732,28071385
+1.232516001,Olivia Gadecki,Julia Riera,1.01,100.0,25a4c502f5,,,,,11861440,13268651
+1.232516022,Julia Garcia Ruiz,Anna Karolina Schmiedlova,9.4,1.11,cf9f95a795,,,,,24432041,40900202
+1.232516139,Tatjana Maria,Kayla Day,1.01,100.0,da5c70db02,,,,,7299657,9634153
+1.232516507,Valeria Savinykh,Martina Trevisan,50.0,1.03,d3f6e0beb9,,,,,5499363,9345630
+1.232517265,Iga Swiatek,Liudmila Samsonova,1.13,8.6,0016ba17cf,,,,,12085633,72035517
+1.232517415,Aleksandra Krunic,Marina Stakusic,1.15,7.6,6d0c2ac89e,,,,,5300820,24918570
+1.232517531,Elizabeth Mandlik,Maya Joint,2.96,1.45,b163876719,,,,,11546652,38310223
+1.232520011,Sinja Kraus,Lola Radivojevic,1.99,1.9,23014c9648,,,,,12646409,39490080
+1.232520797,Alex De Minaur,Jordan Thompson,1.01,55.0,d4a13d6633,Alex De Minaur,Alex De Minaur,Jordan Thompson,2024-08-26,10109527,19924841
+1.232522018,Nuno Borges,Daniil Medvedev,1000.0,1.12,7f1eb71384,Daniil Medvedev,Daniil Medvedev,Nuno Borges,2024-08-26,9633043,19924831
+1.232522259,Caroline Wozniacki,Beatriz Haddad Maia,12.0,1.09,597a2820f2,,,,,2309522,7083752
+1.2325232,Blake Mott,Evgeny Donskoy,1.22,5.5,d149c40786,,,,,8194200,19924824
+1.232523876,Louisa Chirico,Petra Marcinko,17.5,1.02,5149f98e03,,,,,7168233,45072112
+1.232524771,Lukas Pokorny,Kris Van Wyk,27.0,1.03,ae64e0f7f1,,,,,35845662,65619140
+1.232524772,Kyle Edmund,Nikolay Vylegzhanin,1.01,100.0,d29cd86a68,,,,,5626817,12819799
+1.232525035,Ryan Nijboer,Tiago Pereira,6.0,1.21,b5498567bd,,,,,15842638,43659135
+1.232525375,Federico Coria,Sebastian Fanselow,1.23,5.7,71822059b7,,,,,8326752,9623671
+1.232525376,David Jorda Sanchis,Gerard Campana Lee,2.38,1.78,322a4fac07,,,,,10902137,43997367
+1.23252544,Calvin Hemery,Alberto Barroso Campos,1.29,4.0,516f41eda7,,,,,7287667,9634521
+1.232525448,Alexander Ritschard,Pedro Cachin,1.02,60.0,4a38204961,,,,,7444812,8461316
+1.232525509,Vilius Gaubas,Santiago Rodriguez Tave,1.62,2.62,bfc1a61cdb,,,,,25215633,45377348
+1.232525631,Albert Ramos-Vinolas,Geoffrey Blancaneaux,1.01,2.34,f11f602b8d,,,,,8621877,9196749
+1.232525746,Gastao Elias,Inaki Montes-De La Torr,1.02,2.06,3bb7e8c424,,,,,2923174,73093162
+1.232527195,Melzer/Neumayer,Rola/Safwat,1.96,2.08,a4c932cfde,,,,,73346215,73346216
+1.232527203,Bybel/Crawford,Duncan/Mackinlay,1.55,2.84,06104e21ac,,,,,48371891,73346221
+1.232527207,Kopp/Ujvary,Molleker/Vatutin,1.05,21.0,fbdd04a615,,,,,60125976,73346225
+1.232529832,Nino Serdarusic,Blaz Rola,17.5,1.53,b92d3b2965,,,,,7444795,8174357
+1.232529833,Alafia Ayeni,Maxim Zhukov,1.5,3.0,71edf1be3d,,,,,13181138,41342855
+1.232530177,Pichler/Rodionov,Bittoun Kouzmin/Virgili,1.02,50.0,a59764d53d,,,,,71599623,73346763
+1.232532675,Alex Marti Pujolras,Alejo Sanchez Quilez,12.0,1.09,f3b80088ad,,,,,14833251,49471322
+1.23253279,Cervantes H/Roca Batall,Marrero San/Montes-de l,1.8,2.24,2c30fe5d54,,,,,73040580,73346980
+1.232533814,Moez Echargui,Marcello Serafini,1.06,16.0,a645269a53,,,,,10033628,39132625
+1.232533817,Ajeet Rai,Omni Kumar,1.06,17.5,985c61645e,,,,,16655852,21256229
+1.232538104,Aleksandre Bakshi,Egor Agafonov,990.0,2.2,dee09a0c46,,,,,9632808,23709004
+1.232538355,Norbert Gombos,Federico Agustin Gomez,2.0,1.94,3c88b9e6ca,,,,,8173023,9632665
+1.232539921,Benjamin Lock,Max Wiskandt,2.0,1.99,ffbc6a07d0,,,,,8491683,21256276
+1.232542114,Guy Den Ouden,Gabriele Pennaforti,1.56,2.78,9e4783fa24,,,,,36157022,42554129
+1.232545055,Alexey Vatutin,Marko Topo,2.32,1.73,3a2c9fa583,,,,,7797764,63850864
+1.232545056,Andrea Guerrieri,Andrea Picchione,3.0,1.51,118e46f96c,,,,,10460255,18317879
+1.232546372,Maxime Chazal,Tiago Pereira,1.28,4.7,909dd92780,,,,,7066935,43659135
+1.232546548,Raul Brancaccio,Pol Martin Tiffon,2.3,1.72,3477b21c36,,,,,10109524,13601179
+1.23254707,Johan Nikles,Matthew Dellavedova,34.0,1.02,9b657a5766,,,,,9629446,10555069
+1.232548012,Ana Konjuh,Kimberly Birrell,100.0,1.01,efcf910184,,,,,8173632,8183109
+1.232548019,Sachia Vickery,Lucrezia Stefanini,1.91,1.02,28f19a818d,,,,,6596286,9633869
+1.232548928,Granollers/Zeballos,Purcell/Thompson,1.56,2.86,d700d53493,,,,,25327214,38366904
+1.232548936,Paula Badosa,Emma Navarro,10.0,1.01,a038aa0a7c,,,,,7412588,10410355
+1.232549025,Gonzalez/Molteni,Krawietz/Puetz,2.6,1.55,ad2cf9d270,,,,,8462579,13567746
+1.232549077,Taylor Fritz,Alexander Zverev,1.01,100.0,f95f4f06d7,Taylor Fritz,Taylor Fritz,Alexander Zverev,2024-08-26,10279360,19924823
+1.232549301,Hsieh/Zielinski,Errani/Vavassori,1.73,2.36,70e400650e,,,,,65093688,72009178
+1.23255211,Grigor Dimitrov,Frances Tiafoe,240.0,1.01,c1a777459d,Frances Tiafoe,Frances Tiafoe,Grigor Dimitrov,2024-08-26,3120169,19924839
+1.232554595,Qinwen Zheng,A Sabalenka,1000.0,1.32,e961501d95,,,,,18848380,73219778
+1.232559356,Federico Agustin Gomez,Rio Noguchi,1.1,1.9,7b9e4a3936,,,,,9632665,11102176
+1.232559477,Cristian Garin,Kris Van Wyk,1.24,5.2,506a403a6c,,,,,23814703,65619140
+1.232559541,Beibit Zhukayev,Ajeet Rai,1.03,34.0,d226c18d54,,,,,11905629,16655852
+1.232559614,Tung-Lin Wu,Seongchan Hong,1.33,1.81,ecb13b1f60,,,,,8699708,57046549
+1.232566462,Camilla Rosatello,Kathinka Von Deichmann,1.04,26.0,cad74cf68e,,,,,7795600,10623016
+1.232575106,Rosatello/Zimmermann,Lechemia/Monnet,1.72,2.36,d92e8f5a61,,,,,71414448,73379585
+1.232583978,Maxim Zhukov,Martin Landaluce,7.8,1.15,fb0e5d1d6d,,,,,41342855,49038329
+1.232584076,Saba Purtseladze,Martin Damm Jr,3.45,1.41,57ddc43f5a,,,,,19931639,64754562
+1.232585995,Zsombor Piros,Marko Topo,9.0,1.12,79fecb5b2b,,,,,10410254,63850864
+1.232586962,Veronika Erjavec,Petra Marcinko,1.65,2.86,daaaf86b89,,,,,15134048,45072112
+1.23258709,Thiago Seyboth Wild,Andrea Picchione,34.0,1.06,b7009fbaa5,,,,,9632015,18317879
+1.232587195,Kilian Feldbausch,Federico Bondioli,1.14,8.2,16d8277254,,,,,39132613,46068390
+1.23258721,Matthew Dellavedova,Kei Nishikori,50.0,1.01,d4369b090a,,,,,10555069,19924834
+1.2325873,Genaro Alberto Olivieri,Adrian Andreev,26.0,1.57,6528e57a86,,,,,9634468,10460263
+1.232589761,Raul Brancaccio,Alejo Sanchez Quilez,1.34,3.9,87ee34d953,,,,,10109524,49471322
+1.232589777,Daniel Altmaier,Guy Den Ouden,1.05,21.0,2a16135f31,,,,,9632088,36157022
+1.232589929,Franco Agamenone,Daniel Merida,2.56,1.64,d7654e6433,,,,,8979622,44982571
+1.232590828,Dabrowski/Routliffe,Chan/Kudermetova,1.64,2.52,390aab9983,,,,,59071231,67739878
+1.232590853,Laura Pigossi,Irinia-Camelia Begu,6.8,1.16,8b8eff3174,,,,,7083093,18309994
+1.232591336,Jenny Duerst,Tara Wurth,8.6,1.13,3630df9c60,,,,,10348313,27836610
+1.232591338,Carole Monnet,Kristina Dmitruk,1.09,12.0,af79840a89,,,,,11204215,18848952
+1.232591522,Amina Anshba,Anouk Koevermans,17.5,1.06,0edef5137f,,,,,9952748,20586474
+1.232592936,Murray Sharan/Silva,Joint/Preston,12.5,1.09,326cf7fb23,,,,,70525996,73396615
+1.232592996,Max Hans Rehberg,Pyotr Nesterov,1.4,3.5,0a74f2eee4,,,,,21256253,65710662
+1.232593222,Lammons/Withrow,Koolhof/Mektic,1.36,3.75,729398bd9b,,,,,23892906,27502188
+1.232593252,Carol Zhao,Haruka Kaji,2.4,1.66,1481d14c3c,,,,,7550871,8887201
+1.23259416,Kichenok/Ostapenko,Danilina/Khromacheva,1.01,2.68,467d15b3bd,,,,,20015061,69344881
+1.23259453,Beatriz Haddad Maia,Karolina Muchova,100.0,1.01,03271c8271,,,,,7083752,9632758
+1.232598047,Jessica Pegula,Iga Swiatek,1.09,12.5,1060ac27fc,,,,,6215852,12085633
+1.23259805,Alex De Minaur,Jack Draper,590.0,2.24,33b4d6940e,Jack Draper,Jack Draper,Alex De Minaur,2024-08-26,10109527,15313804
+1.232599876,Jannik Sinner,Daniil Medvedev,1.41,140.0,67bdcae650,Jannik Sinner,Jannik Sinner,Daniil Medvedev,2024-08-26,10372253,19924831
+1.232601107,Fernanda Labrana,Sofia Rocchetti,3.35,1.42,219e7e84d1,,,,,9635005,22021985
+1.232601112,Tena Lukas,Gina Feistel,1.88,2.14,47114b026c,,,,,7795591,59031089
+1.232601752,Gijs Brouwer,Ilia Simakin,34.0,1.02,305a60b35d,,,,,9629296,35635728
+1.232601846,Sho Shimabukuro,Terence Atmane,1.03,50.0,935e6c405a,,,,,9258744,26402939
+1.232601897,Ryan Peniston,Coleman Wong,2.92,1.58,6a4777e352,,,,,9629249,64730813
+1.232601942,Martina Capurro Taborda,Gloria Ceschi,1.3,4.3,55c429e425,,,,,9630893,12535110
+1.232603812,Titouan Droguet,Hazem Naw,1.06,15.5,e35323b910,,,,,19931652,20027828
+1.232604077,Elias Ymer,Hamad Medjedovic,300.0,1.01,dd1b06e1e1,,,,,7414305,25085114
+1.23260412,Dalibor Svrcina,Seongchan Hong,1.03,34.0,657b8321c3,,,,,13714711,57046549
+1.232604142,Calvin Hemery,Pedro Sakamoto,1.5,3.0,a85b123e81,,,,,7287667,8304915
+1.232604604,Vitaliy Sachko,Andrew Paulson,55.0,1.04,8e38a1d8cb,,,,,9433864,21809032
+1.232604647,Jan Choinski,Marvin Moeller,1.04,15.5,26e67382f9,,,,,8679715,11422706
+1.232604841,Shuo Feng,Han Shi,6.0,1.2,25da2339f0,,,,,10896926,25989742
+1.232605023,Kathinka Von Deichmann,Valentina Ryser,1.06,15.0,ab29f4dad7,,,,,10623016,12988800
+1.232605765,Damir Dzumhur,Dino Prizmic,1.92,50.0,e9ebac75e0,,,,,7414058,38914770
+1.232606278,Francesco Passaro,Gonzalo Bueno,1.35,3.85,4209390316,,,,,13459272,21067278
+1.232606321,Saba Purtseladze,Martin Landaluce,3.95,1.01,068696612c,,,,,19931639,49038329
+1.232608746,Yu Hsiou Hsu,Yosuke Watanuki,1.01,100.0,8e7b88d6e1,,,,,10221825,19924830
+1.232610065,Constant Lestienne,Jurij Rodionov,1.83,1.06,9470f41cbc,,,,,7797931,10555106
+1.232610191,Marcelo Tomas Barrios V,Beibit Zhukayev,3.3,1.17,105789d196,,,,,9633137,11905629
+1.232610527,Lucas Poullain,Adria Barrera,1.32,1.7,774b57ee41,,,,,8284524,40400858
+1.232610843,Oriol Roca Batalla,Maxime Janvier,1.05,21.0,97e0d93b6b,,,,,7216519,8257852
+1.232611566,Mona Barthel,Darja Semenistaja,6.2,1.21,7776184b68,,,,,5056975,24040843
+1.232612942,Thiago Monteiro,Benjamin Hassan,1.4,3.5,796ad94410,,,,,8326656,9631799
+1.232613063,Duje Ajdukovic,Matej Dodig,12.0,3.9,69b4dfe48a,,,,,12819814,53865379
+1.232615454,Marco Trungelliti,Laurent Lokoli,1.79,1.05,494c87fa7d,,,,,6498878,8257788
+1.232615857,Mananchaya Sawangkaew,Tatiana Prozorova,2.02,1.98,054271fd17,,,,,12337529,56153980
+1.232617122,Benjamin Lock,Jack Pinnington Jones,5.0,1.25,79f1e81fac,,,,,8491683,38599044
+1.23261762,Max Hans Rehberg,Luka Mikrut,1.45,3.2,7efcb97ead,,,,,21256253,38890589
+1.232618477,Marin Cilic,Kyle Edmund,1.54,2.84,c3408ca03a,,,,,2263681,5626817
+1.232618928,Dan Added,Henrique Rocha,3.1,1.01,d179f05555,,,,,10303627,29822698
+1.232618971,Jesper De Jong,Egor Agafonov,1.02,50.0,60af82d12b,,,,,13426866,23709004
+1.23262012,Anouk Koevermans,Tara Wurth,50.0,1.01,3261c6d760,,,,,20586474,27836610
+1.232620248,Jaume Munar,Kilian Feldbausch,1.01,50.0,e554262e41,,,,,9350385,39132613
+1.232623242,Benjamin Bonzi,Adria Barrera,15.0,1.08,f071033886,,,,,9632014,40400858
+1.232623246,Giovanni Fonio,Adrian Andreev,1.32,4.1,03cdd09ad7,,,,,9712890,10460263
+1.23262376,Albert Ramos-Vinolas,Enrico Dalla Valle,1.69,2.44,aa00e33262,,,,,8621877,8998802
+1.232623823,Daniel Elahi Galan,Ignacio Buse,1.73,2.36,5192945cde,,,,,8860646,25215601
+1.232623925,Rebecca Marino,Astra Sharma,1.11,3.1,c853197a1c,,,,,3444552,9628460
+1.232623928,Emiliana Arango,Elizabeth Mandlik,2.44,17.5,9bfc1ae726,,,,,10350216,11546652
+1.232624689,Mladenovic/Zhang,Siniakova/Townsend,1.04,21.0,df766d7c73,,,,,54330423,69119727
+1.232626163,Martin Klizan,Mili Poljicak,2.22,1.81,12a9b8328b,,,,,2496035,35635729
+1.232626335,Juan Pablo Varillas,Kei Nishikori,2.3,1.72,0917b18754,,,,,11772759,19924834
+1.232626875,Dejana Radanovic,Alexia Iulia Marginean,1.11,10.0,3654c394fa,,,,,9630247,38914746
+1.232627238,Raul Brancaccio,Santiago Rodriguez Tave,2.0,2.0,b5be7d737d,,,,,10109524,45377348
+1.232627281,Federico Coria,David Jorda Sanchis,1.31,4.2,e36763b4fd,,,,,8326752,10902137
+1.232627416,Kamilla Rakhimova,Taylah Preston,1.44,3.15,9c1245e5d8,,,,,11144238,28071385
+1.232627671,Aleksandra Krunic,Martina Trevisan,50.0,2.02,a8af4048c8,,,,,5300820,9345630
+1.232627829,Lucrezia Stefanini,Olivia Gadecki,3.1,1.46,04ec07f6b3,,,,,9633869,11861440
+1.232627957,Gastao Elias,Roberto Carballes Baena,5.5,1.21,2c68880fcd,,,,,2923174,42313578
+1.232628007,Kichenok/Ostapenko,Chan/Kudermetova,1.61,2.62,02146799b4,,,,,20015061,67739878
+1.232628011,Kimberly Birrell,Anna Karolina Schmiedlova,2.06,1.03,711bf0e7f4,,,,,8183109,40900202
+1.232628204,Lammons/Withrow,Purcell/Thompson,34.0,1.04,907980aa0c,,,,,23892906,38366904
+1.232629164,Townsend/Young,Errani/Vavassori,2.44,1.62,76bba4f295,,,,,8801037,72009178
+1.232629168,Emma Navarro,Aryna Sabalenka,1000.0,1.23,da12e5a704,,,,,10410355,73219778
+1.2326293,Kira Pavlova,Yeon Woo Ku,2.5,1.22,12da988a3e,,,,,35532662,48532121
+1.232630965,Krawietz/Puetz,Arevalo/Pavic,1.19,6.4,fbbd30ce09,,,,,13567746,64409292
+1.232632683,Taylor Fritz,Frances Tiafoe,1.02,110.0,6219acdf04,Taylor Fritz,Taylor Fritz,Frances Tiafoe,2024-08-26,10279360,19924839
+1.232636098,Sho Shimabukuro,Dalibor Svrcina,1.8,26.0,733527e49c,,,,,9258744,13714711
+1.232636607,Cagla Buyukakcay,Carlota Martinez Cirez,2.72,1.58,448f8afe7e,,,,,3051579,12177904
+1.232638584,Beibit Zhukayev,Coleman Wong,2.2,1.01,06edfa77ff,,,,,11905629,64730813
+1.232643024,Jurij Rodionov,Robin Bertrand,1.01,100.0,c1a0ed3d72,,,,,10555106,27997038
+1.232643071,Ivan Gakhov,Marko Topo,2.36,1.73,d0c9fb4426,,,,,9454905,63850864
+1.232644884,Shimabukuro/Watanuki,Rodriguez/Romios,2.52,1.66,f55c9b63aa,,,,,49845996,73336815
+1.232644996,Martin Landaluce,Elmer Moeller,1.06,17.5,10eecc4052,,,,,49038329,51204152
+1.232645178,Rudolf Molleker,Andrew Paulson,1.92,2.08,8786644088,,,,,10508984,21809032
+1.232645252,Richard Gasquet,Titouan Droguet,2.02,1.98,7d4946c583,,,,,2249399,19931652
+1.232647976,Miriam Bulgaru,Polina Kudermetova,34.0,1.01,6e50f902d1,,,,,9631832,20136621
+1.232648198,Jerome Kym,Lukas Neumayer,10.0,1.12,dab830d7f8,,,,,22733757,35635716
+1.23264904,Dayeon Back,Han Shi,1.01,3.05,f017ccfe20,,,,,13320547,25989742
+1.232649136,Thiago Monteiro,Francesco Passaro,2.52,1.62,372c09c729,,,,,8326656,13459272
+1.232651383,Karol/Sachko,Bybel/Crawford,1.25,5.0,f268781b39,,,,,47776434,48371891
+1.232655733,Pichler/Rodionov,Escoffier/Sanchez,1.71,2.4,7ccb282c78,,,,,71599623,73346775
+1.232655902,Arianna Zucchini,Maria Jose Portillo Ramirez,100.0,1.01,197deec09d,,,,,19544716,65229424
+1.232656457,Alexander Ritschard,David Jorda Sanchis,1.32,4.1,0c3dda04e0,,,,,7444812,10902137
+1.232657952,Carle/Waltert,Lechemia/Monnet,1.04,50.0,64a07e406f,,,,,73379550,73379585
+1.232657958,Sada Nahimana,Raluca Georgiana Serban,3.1,1.47,6f5f0fc904,,,,,10554743,10576406
+1.232658347,Jil Teichmann,Nuria Parrizas Diaz,12.0,1.09,d2f7dc72ad,,,,,9247812,9364864
+1.23265976,Emina Bektas,Anna Karolina Schmiedlova,2.26,1.72,89e4d0628d,,,,,9627484,40900202
+1.232660149,Stefano Travaglia,Mili Poljicak,1.02,50.0,80e0eeb6f2,,,,,8477117,35635729
+1.232660427,Tatjana Maria,Olivia Gadecki,2.14,1.93,a1a644be51,,,,,7299657,11861440
+1.23266079,Kichenok/Ostapenko,Mladenovic/Zhang,1.03,13.0,13e1a58fb9,,,,,20015061,54330423
+1.232660794,Rebecca Marino,Emiliana Arango,1.4,3.5,4900bb4979,,,,,3444552,10350216
+1.232661913,Jessica Pegula,Karolina Muchova,1.72,42.0,06262b78d2,,,,,6215852,9632758
+1.232664101,Jannik Sinner,Jack Draper,1.15,990.0,406b7daa4b,Jannik Sinner,Jannik Sinner,Jack Draper,2024-08-26,10372253,15313804
+1.232664418,Cagla Buyukakcay,Kaitlin Quevedo,2.62,1.61,4b8e4ea5fe,,,,,3051579,42553821
+1.232670317,Yu Hsiou Hsu,Kris Van Wyk,1.22,100.0,b18c1a1389,,,,,10221825,65619140
+1.232674023,Ho/Nam,Rodriguez/Romios,2.12,1.9,3510cd28a0,,,,,68064021,73336815
+1.232676757,Norbert Gombos,Alibek Kachmazov,1.53,2.62,858d7659c4,,,,,8173023,20357631
+1.232679382,Ivan Gakhov,Jakub Nicod,2.4,1.72,868dd2b222,,,,,9454905,39842175
+1.232681759,Pichler/Rodionov,Guinard/Martineau,8.6,1.4,2ae16bb30c,,,,,71599623,73346784
+1.232681785,Agafonov/Simakin,Bakshi/Erel,3.65,1.37,8f3307d7e8,,,,,69617709,73346648
+1.232683502,Marin Cilic,Adria Barrera,8.6,1.13,60767dd971,,,,,2263681,40400858
+1.23268608,Chandraseka/Kaliyanda P,Faria/Rocha,100.0,1.01,d4683adc42,,,,,26861861,46043029
+1.232686897,Jan Choinski,Max Hans Rehberg,1.72,2.42,2dfd295081,,,,,8679715,21256253
+1.232688144,Tatjana Maria,Anna Karolina Schmiedlova,2.26,1.7,65cb12edde,,,,,7299657,40900202
+1.232688458,Kaitlin Quevedo,Carolina Kuhl,1.01,21.0,bb8ed58c82,,,,,42553821,63297032
+1.232688716,Jaume Munar,Kei Nishikori,1.01,130.0,6a64179be0,,,,,9350385,19924834
+1.232689227,Tara Wurth,Petra Marcinko,9.4,1.11,2fbe30d5ce,,,,,27836610,45072112
+1.232689703,Emiliana Arango,Kamilla Rakhimova,1000.0,1.36,ee736a192d,,,,,10350216,11144238
+1.232689898,Alexander Ritschard,Daniel Altmaier,12.0,1.08,202bf8a2ae,,,,,7444812,9632088
+1.232690006,Irinia-Camelia Begu,Polina Kudermetova,1.36,4.0,103e059ea3,,,,,18309994,20136621
+1.232693177,Krawietz/Puetz,Purcell/Thompson,34.0,1.03,42f7015ec6,,,,,13567746,38366904
+1.232696763,Jessica Pegula,Aryna Sabalenka,100.0,1.01,e654d7a1ef,,,,,6215852,73219778
+1.23269875,Sho Shimabukuro,Coleman Wong,1.01,50.0,d59a337495,,,,,9258744,64730813
+1.232702892,Jurij Rodionov,Henrique Rocha,1.04,21.0,2426d188f0,,,,,10555106,29822698
+1.232703531,Darja Semenistaja,Anca Todoni,1.04,26.0,1a15f70f2b,,,,,24040843,36781580
+1.232704023,Damir Dzumhur,Jesper De Jong,1.45,2.1,eb20ec2321,,,,,7414058,13426866
+1.232709162,Rudolf Molleker,Lukas Neumayer,2.14,1.4,df9e428241,,,,,10508984,35635716
+1.232711111,Richard Gasquet,Adria Barrera,1.39,3.2,513d0efe87,,,,,2249399,40400858
+1.232711723,Elsa Jacquemot,Chahd Tourkhani,1.01,50.0,ffd4ff6eb7,,,,,18848406,64523495
+1.232711727,Sophie Chang,Oksana Selekhmeteva,1.02,22.0,7ec855f9bc,,,,,9348383,21651917
+1.232712042,Camilla Rosatello,Maria Timofeeva,5.1,1.03,ecfeaeddd7,,,,,7795600,20136628
+1.232713081,Gleason/Gamarra Martins,Carle/Waltert,1.1,1.91,5f86efeb94,,,,,72353541,73379550
+1.232714835,Nuria Parrizas Diaz,Petra Marcinko,16.5,1.07,fa66fd2985,,,,,9364864,45072112
+1.232718011,Tatjana Maria,Kamilla Rakhimova,32.0,1.05,0666919b64,,,,,7299657,11144238
+1.232718513,Iva Primorac,Lia Karatancheva,1.86,2.16,8ae75476f3,,,,,9342393,18848033
+1.232718606,Tena Lukas,Nuria Brancaccio,2.24,2.4,1df4432776,,,,,7795591,10410388
+1.232718699,Justina Mikulskyte,Sara Cakarevic,1.17,6.6,bd169524bb,,,,,9028628,10116457
+1.232723586,Francesco Passaro,Ignacio Buse,2.0,2.0,66734bcf42,,,,,13459272,25215601
+1.23272427,Ena Shibahara,Emiliana Arango,1.78,2.22,9b90f894db,,,,,9632959,10350216
+1.232724273,Maria Kozyreva,Taylah Preston,4.8,1.01,5ddcc79803,,,,,10578525,28071385
+1.232724354,Kimberly Birrell,Victoria Hu,1.01,100.0,21b2419cdd,,,,,8183109,12737380
+1.232724371,Aleksandra Krunic,Kayla Day,2.04,160.0,66fba54a3b,,,,,5300820,9634153
+1.232724481,Ana Konjuh,Maya Joint,3.45,1.02,fb8134ebfe,,,,,8173632,38310223
+1.23272459,Julia Riera,Samantha Murray Sharan,15.5,1.04,3f471bed99,,,,,13268651,27392226
+1.232724605,Valeria Savinykh,Lucrezia Stefanini,3.9,1.34,24ceb012d4,,,,,5499363,9633869
+1.232724698,Fanny Stollar,Alexandra Eala,1000.0,1.25,87667fa84d,,,,,9342701,35532661
+1.232729046,Taylor Fritz,Jannik Sinner,50.0,1.01,f0cb6cc5de,Jannik Sinner,Jannik Sinner,Taylor Fritz,2024-08-26,10279360,10372253
+1.232739843,Rishab Agarwal,Matthew Christopher Romios,2.2,1.73,018baae8ca,,,,,9629321,9634993
+1.232740029,Nick Chappell,Charles Chen,11.0,1.1,fdd5dc3a43,,,,,8258578,61152069
+1.232745173,Seita Watanabe,Pengyu Lu,21.0,1.01,dea5423bde,,,,,15854137,17600056
+1.232748424,Damir Dzumhur,Hamad Medjedovic,3.3,1.43,e5ecf7a19b,,,,,7414058,25085114
+1.232751804,Ksenia Laskutova,Mia Ristic,10.0,1.11,5d58abbf8d,,,,,10141707,40145803
+1.232751971,Amina Anshba,Alevtina Ibragimova,21.0,1.75,18818e4b17,,,,,9952748,63375196
+1.232758018,Irinia-Camelia Begu,Petra Marcinko,1.25,10.0,e2eb8635d3,,,,,18309994,45072112
+1.232759635,William Grant,Georgi Georgiev,1.5,1.02,c17ee5f28e,,,,,15842680,72613193
+1.23275974,Maxim Zhukov,Max Alcalà Gurri,50.0,1.03,078622fe8e,,,,,41342855,47353174
+1.232759897,Stijn Slump,Taha Baadi,1.02,17.5,c612e9cb47,,,,,12120054,12687726
+1.232760058,Dan Martin,Stefan Palosi,5.3,1.19,e7135bedfd,,,,,11556142,13835033
+1.232761069,Kenny De Schepper,Niklas Schell,1.43,3.75,027fde551b,,,,,5617034,10109515
+1.232761105,Arthur Bouquier,Axel Garcian,1.03,21.0,5dab0359b9,,,,,15842692,23709032
+1.232761211,Gregoire Jacq,Kai Wehnelt,2.16,1.87,733ba456e5,,,,,8427051,9630844
+1.232761252,Lucas Poullain,Leo Raquillet,1.11,6.0,5acb544315,,,,,8284524,42554213
+1.232761292,Steven Diez,Aleksandr Braynin,1.01,100.0,a89a81ade4,,,,,4903593,11285494
+1.232761408,Ben Jones,Lucas Bouquet,1.47,3.1,41a90f1d59,,,,,9632217,9634401
+1.232761479,Arthur Reymond,Louis Dussin,1.53,2.88,e20cfe459d,,,,,9631766,10303707
+1.232762337,Tena Lukas,Lia Karatancheva,1.7,2.16,4c5adb9ee4,,,,,7795591,18848033
+1.23276234,Olivia Gadecki,Maya Joint,2.06,1.95,245ea4696a,,,,,11861440,38310223
+1.232762383,Sophie Chang,Elsa Jacquemot,3.5,1.4,bb0415fc0f,,,,,9348383,18848406
+1.232764554,Aliona Falei,Yulia Starodubtseva,100.0,1.31,eb3d1c53fa,,,,,21746614,51615560
+1.232764693,Giovanni Oradini,Tim Handel,50.0,1.03,221ad629c9,,,,,9634158,25449720
+1.232764755,Lucas Gerch,Szymon Kielan,1.13,8.2,0bd14980ab,,,,,9628967,36157027
+1.232764789,Alexey Vatutin,Alafia Ayeni,1.01,100.0,69745edab4,,,,,7797764,13181138
+1.232764873,Maxime Chazal,Niels Visker,1.03,21.0,77c9cc7a1f,,,,,7066935,20586623
+1.232764909,Max Hans Rehberg,Diego Dedura-Palomero,1.8,2.24,d97392c658,,,,,21256253,58610366
+1.232765107,Andrew Paulson,Marko Topo,1.04,15.0,b6b81ec368,,,,,21809032,63850864
+1.232765712,Rebecca Marino,Aleksandra Krunic,12.0,1.09,5f53ea9eb2,,,,,3444552,5300820
+1.232765853,Ena Shibahara,Elizabeth Mandlik,1.74,2.36,50003201f1,,,,,9632959,11546652
+1.232771059,Maria Timofeeva,Alina Korneeva,1.06,5.0,4d4ba1e79f,,,,,20136628,59478282
+1.232772977,Kimberly Birrell,Taylah Preston,1.01,100.0,d992d49511,,,,,8183109,28071385
