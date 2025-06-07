@@ -1,8 +1,8 @@
 import pandas as pd
 import argparse
-from pathlib import Path
-from scripts.utils.betting_math import compute_ev, compute_kelly_stake
+from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.cli_utils import should_run
+from scripts.utils.normalize_columns import normalize_columns
 
 def main():
     parser = argparse.ArgumentParser()
@@ -17,7 +17,7 @@ def main():
 
     df = pd.read_csv(args.input_csv)
 
-    # Rename consistent odds columns
+    # Rename and standardize columns
     df["odds_player_1"] = df["ltp_player_1"]
     df["odds_player_2"] = df["ltp_player_2"]
 
@@ -25,12 +25,12 @@ def main():
     df["implied_prob_1"] = 1 / df["odds_player_1"]
     df["implied_prob_2"] = 1 / df["odds_player_2"]
     df["odds_margin"] = df["implied_prob_1"] + df["implied_prob_2"] - 1
-    df["implied_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
+    df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
 
-    # Optional: compute EV using predicted_prob if already present
+    # Normalize + optionally compute EV/Kelly if predicted_prob exists
+    df = normalize_columns(df)
     if "predicted_prob" in df.columns:
-        df["expected_value"] = compute_ev(df["predicted_prob"], df["odds_player_1"])
-        df["kelly_stake"] = compute_kelly_stake(df["predicted_prob"], df["odds_player_1"])
+        df = add_ev_and_kelly(df)
 
     df.to_csv(args.output_csv, index=False)
     print(f"✅ Saved odds features to {args.output_csv}")

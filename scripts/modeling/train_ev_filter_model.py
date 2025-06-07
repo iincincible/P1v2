@@ -6,33 +6,28 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
+from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.betting_math import add_ev_and_kelly
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--input_files", nargs='+', required=True)
 parser.add_argument("--output_model", required=True)
 parser.add_argument("--min_ev", type=float, default=0.2)
 args = parser.parse_args()
 
-def normalize_columns(df):
-    if "predicted_prob" not in df.columns and "pred_prob_player_1" in df.columns:
-        df["predicted_prob"] = df["pred_prob_player_1"]
-    if "odds" not in df.columns and "odds_player_1" in df.columns:
-        df["odds"] = df["odds_player_1"]
-    if "ev" not in df.columns and "expected_value" in df.columns:
-        df["ev"] = df["expected_value"]
-    return df
-
 rows = []
 for file in args.input_files:
     try:
         df = pd.read_csv(file)
         df = normalize_columns(df)
-        if "predicted_prob" not in df.columns or "odds" not in df.columns:
-            raise ValueError("Missing required probability or odds columns.")
-        df["ev"] = (df["predicted_prob"] * df["odds"]) - 1
-        df = df[df["ev"] >= args.min_ev]
+        df = add_ev_and_kelly(df)
+
+        df = df[df["expected_value"] >= args.min_ev]
+
         if "winner" not in df.columns:
             print(f"⚠️ No 'winner' column in {file}, using synthetic label (ev > 0 as win proxy).")
-            df["winner"] = (df["ev"] > 0).astype(int)
+            df["winner"] = (df["expected_value"] > 0).astype(int)
+
         rows.append(df)
     except Exception as e:
         print(f"❌ Failed to load {file}: {e}")
@@ -43,7 +38,7 @@ if not rows:
 df = pd.concat(rows, ignore_index=True)
 print(f"✅ Loaded {len(df)} rows with EV ≥ {args.min_ev}")
 
-features = ["predicted_prob", "odds", "ev"]
+features = ["predicted_prob", "odds", "expected_value"]
 X = df[features]
 y = df["winner"].astype(int)
 
