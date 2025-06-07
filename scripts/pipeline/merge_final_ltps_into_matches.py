@@ -1,22 +1,24 @@
 import argparse
 import pandas as pd
 from tqdm import tqdm
-import os
+from pathlib import Path
 
-from scripts.utils.cli_utils import should_run, assert_file_exists
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 from scripts.utils.selection import build_market_runner_map
 from scripts.utils.logger import log_info, log_warning, log_error, log_success
 
+
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--match_csv", required=True)
-    parser.add_argument("--snapshots_csv", required=True)
-    parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    parser = argparse.ArgumentParser(description="Merge final LTP odds into match rows.")
+    parser.add_argument("--match_csv", required=True, help="Path to match-level input CSV")
+    parser.add_argument("--snapshots_csv", required=True, help="Path to parsed Betfair snapshots")
+    parser.add_argument("--output_csv", required=True, help="Path to save merged output")
+    add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+    output_path = Path(args.output_csv)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     assert_file_exists(args.match_csv, "match_csv")
@@ -25,7 +27,6 @@ def main():
     df_matches = pd.read_csv(args.match_csv)
     df_snaps = pd.read_csv(args.snapshots_csv)
 
-    # Validate match_id
     if "match_id" not in df_matches.columns:
         log_error("❌ match_id missing in match_csv")
         raise ValueError("match_id is required in match_csv for downstream tracking.")
@@ -66,8 +67,11 @@ def main():
     df_matches["odds_player_2"] = odds_2
 
     log_success(f"✅ Matched {len(df_matches) - missing} LTP entries; unmatched: {missing}")
-    df_matches.to_csv(args.output_csv, index=False)
-    log_success(f"✅ Saved merged odds to {args.output_csv}")
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df_matches.to_csv(output_path, index=False)
+    log_success(f"✅ Saved merged odds to {output_path}")
+
 
 if __name__ == "__main__":
     main()

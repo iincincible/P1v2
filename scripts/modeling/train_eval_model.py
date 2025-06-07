@@ -1,8 +1,8 @@
 import argparse
 import pandas as pd
+from pathlib import Path
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, log_loss
-from pathlib import Path
 from tqdm import tqdm
 
 from scripts.utils.betting_math import compute_kelly_stake, add_ev_and_kelly
@@ -18,6 +18,7 @@ from scripts.utils.constants import (
 )
 from scripts.utils.filters import filter_value_bets
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
+
 
 def main():
     parser = argparse.ArgumentParser(description="Train and evaluate win prob model. Simulate bankroll as well.")
@@ -36,16 +37,18 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.value_bets_csv, args.overwrite, args.dry_run):
+    value_bets_path = Path(args.value_bets_csv)
+    bankroll_path = Path(args.bankroll_csv)
+
+    if not should_run(value_bets_path, args.overwrite, args.dry_run):
         return
-    if not should_run(args.bankroll_csv, args.overwrite, args.dry_run):
+    if not should_run(bankroll_path, args.overwrite, args.dry_run):
         return
 
     assert_file_exists(args.test_csv, "test_csv")
     for path in args.train_csvs:
         assert_file_exists(path, "train_csv")
 
-    # === Load training data ===
     train_dfs = []
     for path in args.train_csvs:
         try:
@@ -63,28 +66,26 @@ def main():
     df_train = pd.concat(train_dfs, ignore_index=True)
     log_info(f"✅ Loaded {len(df_train)} training rows")
 
-    # === Load test data ===
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
     df_test = add_ev_and_kelly(df_test)
     df_test = patch_winner_column(df_test)
 
-    # === Train model ===
     model = LogisticRegression()
     X_train = df_train[args.features]
     y_train = df_train["label"]
     model.fit(X_train, y_train)
 
-    # === Predict ===
     X_test = df_test[args.features]
     df_test["predicted_prob"] = model.predict_proba(X_test)[:, 1]
 
     if "actual_winner" in df_test.columns:
         y_true = (df_test["actual_winner"] == df_test["player_1"]).astype(int)
-        log_success(f"Accuracy: {accuracy_score(y_true, df_test['predicted_prob'] > 0.5):.4f}")
-        log_success(f"Log Loss: {log_loss(y_true, df_test['predicted_prob']):.5f}")
+        acc = accuracy_score(y_true, df_test["predicted_prob"] > 0.5)
+        loss = log_loss(y_true, df_test["predicted_prob"])
+        log_success(f"🎯 Accuracy: {acc:.4f}")
+        log_success(f"🧮 Log Loss: {loss:.5f}")
 
-    # === EV Filtering ===
     df_filtered = filter_value_bets(df_test, args.ev_threshold, args.max_odds, args.max_margin)
 
     strategy_used = args.strategy
@@ -92,16 +93,15 @@ def main():
         log_warning(f"⚠️ Only {len(df_filtered)} bets — switching to flat staking")
         strategy_used = "flat"
 
-    df_filtered["stake"] = (
-        args.fixed_stake if strategy_used == "flat"
-        else df_filtered["kelly_stake"]
-    )
     df_filtered["kelly_stake"] = compute_kelly_stake(df_filtered["predicted_prob"], df_filtered["odds"])
+    df_filtered["stake"] = (
+        args.fixed_stake if strategy_used == "flat" else df_filtered["kelly_stake"]
+    )
 
-    df_filtered.to_csv(args.value_bets_csv, index=False)
-    log_success(f"✅ Saved {len(df_filtered)} value bets to {args.value_bets_csv}")
+    value_bets_path.parent.mkdir(parents=True, exist_ok=True)
+    df_filtered.to_csv(value_bets_path, index=False)
+    log_success(f"✅ Saved {len(df_filtered)} value bets to {value_bets_path}")
 
-    # === Simulate bankroll ===
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
         df_filtered,
         strategy=strategy_used,
@@ -110,12 +110,15 @@ def main():
         odds_cap=100.0,
         cap_fraction=0.05
     )
-    sim_df.to_csv(args.bankroll_csv, index=False)
+
+    bankroll_path.parent.mkdir(parents=True, exist_ok=True)
+    sim_df.to_csv(bankroll_path, index=False)
     log_success(f"💰 Final bankroll: {final_bankroll:.2f}")
     log_success(f"📉 Max drawdown: {max_drawdown:.2f}")
 
-    png_path = os.path.splitext(args.bankroll_csv)[0] + ".png"
+    png_path = bankroll_path.with_suffix(".png")
     generate_bankroll_plot(sim_df["bankroll"], output_path=png_path)
+
 
 if __name__ == "__main__":
     main()

@@ -1,16 +1,23 @@
 import argparse
 import pandas as pd
-import glob
 from pathlib import Path
+import glob
 
 from scripts.utils.logger import log_info, log_success, log_warning
+from scripts.utils.cli_utils import add_common_flags, should_run
+
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input_glob", required=True, help="Glob for *_value_bets_by_match.csv")
+    parser = argparse.ArgumentParser(description="Summarize value bets by tournament.")
+    parser.add_argument("--input_glob", required=True, help="Glob pattern for *_value_bets_by_match.csv")
     parser.add_argument("--output_csv", required=True, help="Output CSV for tournament summary")
-    parser.add_argument("--overwrite", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
+
+    output_path = Path(args.output_csv)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
+        return
 
     files = glob.glob(args.input_glob)
     if not files:
@@ -51,12 +58,13 @@ def main():
     df_out = pd.DataFrame(rows)
     df_out = df_out.sort_values(by="roi", ascending=False)
 
-    Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
-    df_out.to_csv(args.output_csv, index=False)
-    log_success(f"✅ Saved tournament-level summary to {args.output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df_out.to_csv(output_path, index=False)
+    log_success(f"✅ Saved tournament-level summary to {output_path}")
 
-    print("\n📊 Top 5 by ROI:")
-    print(df_out[["tournament", "roi", "profit", "total_bets"]].head(5))
+    log_info("\n📊 Top 5 by ROI:")
+    log_info(df_out[["tournament", "roi", "profit", "total_bets"]].head(5).to_string(index=False))
+
 
 if __name__ == "__main__":
     main()

@@ -1,12 +1,12 @@
 import argparse
 import pandas as pd
-import os
 import glob
 from pathlib import Path
 
 from scripts.utils.cli_utils import assert_file_exists, add_common_flags, should_run
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.logger import log_info, log_success, log_warning
+
 
 def main():
     parser = argparse.ArgumentParser(description="Summarize value bets by match.")
@@ -16,11 +16,13 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
+    output_path = Path(args.output_csv)
+
     files = glob.glob(args.value_bets_glob)
     if not files:
         raise ValueError("❌ No value bet files found.")
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     all_bets = []
@@ -50,7 +52,6 @@ def main():
 
     df = pd.concat(all_bets, ignore_index=True)
 
-    # === Group by match ===
     grouped = df.groupby("match_id").agg(
         num_bets=("expected_value", "count"),
         avg_ev=("expected_value", "mean"),
@@ -65,12 +66,13 @@ def main():
 
     if args.top_n > 0:
         preview = summary.sort_values(by="total_profit", ascending=False).head(args.top_n)
-        print("\n📊 Top Matches by Profit:")
-        print(preview[["match_id", "player_1", "player_2", "num_bets", "avg_ev", "total_profit"]])
+        log_info("\n📊 Top Matches by Profit:")
+        log_info(preview[["match_id", "player_1", "player_2", "num_bets", "avg_ev", "total_profit"]].to_string(index=False))
 
-    Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
-    summary.to_csv(args.output_csv, index=False)
-    log_success(f"✅ Saved match-level summary to {args.output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    summary.to_csv(output_path, index=False)
+    log_success(f"✅ Saved match-level summary to {output_path}")
+
 
 if __name__ == "__main__":
     main()

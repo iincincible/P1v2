@@ -3,7 +3,6 @@ import subprocess
 from pathlib import Path
 import sys
 import time
-import os
 
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
 from scripts.utils.cli_utils import assert_file_exists, add_common_flags
@@ -14,6 +13,7 @@ CONFIG_FILE = "configs/tournaments_2024.yaml"
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 SNAPSHOT_SCRIPT = "scripts/pipeline/parse_betfair_snapshots.py"
 BETFAIR_DATA_DIR = "data/BASIC"
+
 
 def parse_snapshots_if_needed(conf, overwrite=False, dry_run=False) -> str:
     label = conf["label"]
@@ -44,7 +44,7 @@ def parse_snapshots_if_needed(conf, overwrite=False, dry_run=False) -> str:
 
     try:
         t0 = time.perf_counter()
-        subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
+        subprocess.run(cmd, check=True, env={**dict(**os.environ), "PYTHONPATH": "."})
         t1 = time.perf_counter()
         log_success(f"✅ Parsed snapshots to {snapshot_csv} in {t1 - t0:.2f} seconds")
     except subprocess.CalledProcessError as e:
@@ -56,11 +56,9 @@ def parse_snapshots_if_needed(conf, overwrite=False, dry_run=False) -> str:
 
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser(description="Build raw matches for all tournaments in YAML config.")
-    parser.add_argument("--config", default=CONFIG_FILE)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--config", default=CONFIG_FILE, help="Path to tournaments YAML config")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
@@ -72,7 +70,6 @@ def main():
         try:
             snapshot_csv = parse_snapshots_if_needed(conf, overwrite=args.overwrite, dry_run=args.dry_run)
 
-            # Validate required files
             assert_file_exists(snapshot_csv, "snapshots_csv")
             if conf.get("sackmann_csv") and not conf.get("snapshot_only", False):
                 assert_file_exists(conf["sackmann_csv"], "sackmann_csv")
@@ -113,6 +110,7 @@ def main():
             log_success(f"✅ Finished: {label} in {t1 - t0:.2f} seconds")
         except Exception as e:
             log_error(f"⚠️ Skipping {label} due to error: {e}")
+
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,7 @@ from scripts.utils.filters import filter_value_bets
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 
+
 def main():
     parser = argparse.ArgumentParser(description="Train EV filter model (RandomForest).")
     parser.add_argument("--input_files", nargs="+", required=True, help="CSV files with prediction features")
@@ -20,7 +21,9 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.output_model, args.overwrite, args.dry_run):
+    output_path = Path(args.output_model)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     rows = []
@@ -57,11 +60,13 @@ def main():
     model.fit(X_train, y_train)
 
     log_info("📉 Classification report (holdout set):")
-    print(classification_report(y_test, model.predict(X_test)))
+    report = classification_report(y_test, model.predict(X_test), digits=3)
+    log_info("\n" + report)
 
-    Path(args.output_model).parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump(model, args.output_model)
-    log_success(f"✅ Saved EV filter model to {args.output_model}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(model, output_path)
+    log_success(f"✅ Saved EV filter model to {output_path}")
+
 
 if __name__ == "__main__":
     main()

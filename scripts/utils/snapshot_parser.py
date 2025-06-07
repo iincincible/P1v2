@@ -3,6 +3,8 @@ import json
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
+from scripts.utils.logger import log_error
+
 
 class SnapshotParser:
     def __init__(self, mode="full"):
@@ -26,7 +28,7 @@ class SnapshotParser:
             else:
                 return self._parse_full(file_path)
         except Exception as e:
-            print(f"❌ Failed: {file_path} — {e}")
+            log_error(f"❌ Failed: {file_path} — {e}")
             return []
 
     def _read_lines(self, file_path):

@@ -3,11 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import glob
-import os
 import sys
+from pathlib import Path
 
-# Allow utils import
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
@@ -22,6 +21,7 @@ from scripts.utils.constants import (
 )
 from scripts.utils.filters import filter_value_bets
 
+
 def main():
     parser = argparse.ArgumentParser(description="Simulate portfolio bankroll across value bet CSVs.")
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for value bet CSVs")
@@ -35,7 +35,9 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+    output_path = Path(args.output_csv)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     files = glob.glob(args.value_bets_glob)
@@ -57,7 +59,7 @@ def main():
                 continue
 
             df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
-            df["source_file"] = os.path.basename(file)
+            df["source_file"] = Path(file).name
             all_bets.append(df)
         except Exception as e:
             log_warning(f"⚠️ Skipping {file}: {e}")
@@ -79,14 +81,16 @@ def main():
         cap_fraction=0.05
     )
 
-    sim_df.to_csv(args.output_csv, index=False)
-    log_success(f"✅ Saved simulation to {args.output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    sim_df.to_csv(output_path, index=False)
+    log_success(f"✅ Saved simulation to {output_path}")
     log_info(f"💰 Final bankroll: {final_bankroll:.2f}")
     log_info(f"📉 Max drawdown: {max_drawdown:.2f}")
 
     if args.plot or args.save_plots:
-        png_path = os.path.splitext(args.output_csv)[0] + ".png"
+        png_path = output_path.with_suffix(".png")
         generate_bankroll_plot(sim_df["bankroll"], output_path=png_path if args.save_plots else None)
+
 
 if __name__ == "__main__":
     main()

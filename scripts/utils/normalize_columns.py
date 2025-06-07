@@ -1,6 +1,5 @@
-# scripts/utils/normalize_columns.py
-
 import pandas as pd
+from scripts.utils.logger import log_error
 
 RENAME_COLS = {
     "prob_1": "implied_prob_1",
@@ -32,20 +31,18 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
         renamed["implied_prob_2"] = 1 / renamed["odds_player_2"]
     if "implied_prob_1" not in renamed.columns and "implied_prob_2" in renamed.columns:
         renamed["implied_prob_1"] = 1 - renamed["implied_prob_2"]
-    if "implied_diff" not in renamed.columns and "implied_prob_1" in renamed.columns and "implied_prob_2" in renamed.columns:
+    if "implied_diff" not in renamed.columns and {"implied_prob_1", "implied_prob_2"}.issubset(renamed.columns):
         renamed["implied_diff"] = renamed["implied_prob_1"] - renamed["implied_prob_2"]
 
     missing = [col for col in REQUIRED_COLS if col not in renamed.columns]
     if missing:
-        raise ValueError(f"❌ Missing required columns: {missing}. Available: {list(renamed.columns)}")
+        log_error(f"❌ Missing required columns: {missing}. Available: {list(renamed.columns)}")
+        raise ValueError(f"Missing required columns: {missing}")
 
     return renamed
 
 
 def patch_winner_column(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Adds or fixes the 'winner' column based on actual_winner vs player_1.
-    """
     if "winner" not in df.columns:
         if "actual_winner" in df.columns and "player_1" in df.columns:
             df["winner"] = (

@@ -1,13 +1,13 @@
 import argparse
-import os
 import pandas as pd
 from pathlib import Path
-from tqdm import tqdm
 from datetime import datetime
+from tqdm import tqdm
 
 from scripts.utils.snapshot_parser import SnapshotParser
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import should_run, add_common_flags
+
 
 def main():
     parser = argparse.ArgumentParser(description="Parse Betfair snapshots into a flat CSV.")
@@ -19,7 +19,9 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+    output_path = Path(args.output_csv)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     start = datetime.strptime(args.start_date, "%Y-%m-%d")
@@ -63,9 +65,9 @@ def main():
 
     df["market_time"] = pd.to_datetime(df["market_time"], errors="coerce")
 
-    Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(args.output_csv, index=False)
-    log_success(f"✅ Saved {len(df)} rows to {args.output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    log_success(f"✅ Saved {len(df)} rows to {output_path}")
 
     if failed_files:
         log_warning(f"⚠️ Failed files: {len(failed_files)}")
@@ -73,6 +75,7 @@ def main():
             log_warning(f"   → {f}")
         if len(failed_files) > 5:
             log_warning(f"   ... and {len(failed_files) - 5} more")
+
 
 if __name__ == "__main__":
     main()

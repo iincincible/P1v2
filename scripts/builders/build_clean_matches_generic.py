@@ -1,17 +1,17 @@
 import argparse
 import pandas as pd
-import os
 from pathlib import Path
 import sys
 import hashlib
 
 # Add root to import path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from scripts.builders.core import build_matches_from_snapshots
 from scripts.utils.logger import log_info, log_success, log_error
 from scripts.utils.paths import get_snapshot_csv_path
-from scripts.utils.cli_utils import assert_file_exists, should_run
+from scripts.utils.cli_utils import assert_file_exists, should_run, add_common_flags
+
 
 def generate_match_id(row):
     """
@@ -20,8 +20,9 @@ def generate_match_id(row):
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
 
+
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Build matches from Betfair snapshots and optional results.")
     parser.add_argument("--tour", required=True)
     parser.add_argument("--tournament", required=True)
     parser.add_argument("--year", required=True)
@@ -32,11 +33,12 @@ def main():
     parser.add_argument("--snapshot_only", action="store_true")
     parser.add_argument("--fuzzy_match", action="store_true")
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+    output_path = Path(args.output_csv)
+
+    if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     label = f"{args.tournament}_{args.year}_{args.tour}"
@@ -63,14 +65,15 @@ def main():
             fuzzy_match=args.fuzzy_match,
         )
 
-        # Add match_id
         df_matches["match_id"] = df_matches.apply(generate_match_id, axis=1)
 
-        df_matches.to_csv(args.output_csv, index=False)
-        log_success(f"✅ Saved {len(df_matches)} matches to {args.output_csv}")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        df_matches.to_csv(output_path, index=False)
+        log_success(f"✅ Saved {len(df_matches)} matches to {output_path}")
     except Exception as e:
         log_error(f"❌ Failed to build matches for {label}")
         log_error(str(e))
+
 
 if __name__ == "__main__":
     main()
