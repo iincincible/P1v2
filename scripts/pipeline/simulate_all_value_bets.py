@@ -68,6 +68,10 @@ def main():
         raise ValueError("❌ No value bet files could be normalized or passed validation.")
 
     df = pd.concat(all_bets, ignore_index=True)
+
+    # ⚠️ NEW: Cap extreme EVs
+    df = df[df["expected_value"] <= 2.0]
+
     log_info(f"Loaded {len(df)} total bets from {len(files)} files")
 
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
