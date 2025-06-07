@@ -7,17 +7,16 @@ from datetime import datetime
 
 from scripts.utils.snapshot_parser import SnapshotParser
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, add_common_flags
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input_dir", required=True)
-    parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--start_date", required=True)
-    parser.add_argument("--end_date", required=True)
-    parser.add_argument("--mode", choices=["full", "ltp_only", "metadata"], default="full")
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    parser = argparse.ArgumentParser(description="Parse Betfair snapshots into a flat CSV.")
+    parser.add_argument("--input_dir", required=True, help="Directory of .bz2 snapshot files")
+    parser.add_argument("--output_csv", required=True, help="Where to save the parsed CSV")
+    parser.add_argument("--start_date", required=True, help="YYYY-MM-DD")
+    parser.add_argument("--end_date", required=True, help="YYYY-MM-DD")
+    parser.add_argument("--mode", choices=["full", "ltp_only", "metadata"], default="full", help="Parsing mode")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
@@ -29,9 +28,17 @@ def main():
     root = Path(args.input_dir)
     all_files = list(root.rglob("*.bz2"))
 
+    if not all_files:
+        log_warning(f"⚠️ No .bz2 files found under {args.input_dir}")
+        return
+
     parser_obj = SnapshotParser(mode=args.mode)
     filtered_files = [f for f in all_files if parser_obj.should_parse_file(f, start, end)]
     log_info(f"🔍 Found {len(filtered_files)} .bz2 files in range")
+
+    if not filtered_files:
+        log_warning("⚠️ No snapshot files matched the date range")
+        return
 
     all_records = []
     failed_files = []
@@ -45,7 +52,7 @@ def main():
             failed_files.append(str(file))
 
     if not all_records:
-        log_warning("⚠️ No records extracted.")
+        log_warning("⚠️ No records extracted from any snapshot.")
         return
 
     df = pd.DataFrame(all_records)

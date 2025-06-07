@@ -41,3 +41,12 @@ def assert_file_exists(path: str, label: str = ""):
     """
     if not Path(path).exists():
         raise FileNotFoundError(f"❌ Required file missing: {label or path}")
+
+def add_common_flags(parser):
+    """
+    Adds --overwrite and --dry_run flags to the given ArgumentParser instance.
+    Returns the same parser for chaining.
+    """
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite output if it exists")
+    parser.add_argument("--dry_run", action="store_true", help="Show actions without writing files")
+    return parser

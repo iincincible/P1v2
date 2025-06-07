@@ -4,22 +4,24 @@ import os
 import glob
 from pathlib import Path
 
-from scripts.utils.cli_utils import assert_file_exists
-from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.cli_utils import assert_file_exists, add_common_flags, should_run
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.logger import log_info, log_success, log_warning
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Summarize value bets by match.")
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for *_value_bets.csv files")
     parser.add_argument("--output_csv", required=True, help="Path to save grouped match summary")
-    parser.add_argument("--top_n", type=int, default=10, help="Print top-N matches by profit")
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--top_n", type=int, default=10, help="Print top-N matches by profit (0 to disable)")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     files = glob.glob(args.value_bets_glob)
     if not files:
         raise ValueError("❌ No value bet files found.")
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     all_bets = []
     for file in files:
@@ -27,21 +29,11 @@ def main():
             assert_file_exists(file, "value_bets_csv")
             df = pd.read_csv(file)
             df = normalize_columns(df)
+            df = patch_winner_column(df)
 
             if "match_id" not in df.columns:
                 log_warning(f"⚠️ Skipping {file} — missing 'match_id'")
                 continue
-
-            if "winner" not in df.columns:
-                if "actual_winner" in df.columns and "player_1" in df.columns:
-                    df["winner"] = (
-                        df["actual_winner"].str.strip().str.lower() ==
-                        df["player_1"].str.strip().str.lower()
-                    ).astype(int)
-                    log_info(f"🩹 Patched 'winner' from actual_winner in {file}")
-                else:
-                    log_warning(f"⚠️ Skipping {file} — cannot derive 'winner'")
-                    continue
 
             if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
                 df["confidence_score"] = df["predicted_prob"]
@@ -58,6 +50,7 @@ def main():
 
     df = pd.concat(all_bets, ignore_index=True)
 
+    # === Group by match ===
     grouped = df.groupby("match_id").agg(
         num_bets=("expected_value", "count"),
         avg_ev=("expected_value", "mean"),

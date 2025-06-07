@@ -7,8 +7,8 @@ from tqdm import tqdm
 
 from scripts.utils.betting_math import compute_kelly_stake, add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.cli_utils import should_run, assert_file_exists
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -17,13 +17,14 @@ from scripts.utils.constants import (
     DEFAULT_FIXED_STAKE
 )
 from scripts.utils.filters import filter_value_bets
+from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Train and evaluate win prob model. Simulate bankroll as well.")
     parser.add_argument("--train_csvs", nargs="+", required=True, help="Training feature files")
     parser.add_argument("--test_csv", required=True, help="Testing feature file")
-    parser.add_argument("--value_bets_csv", required=True)
-    parser.add_argument("--bankroll_csv", required=True)
+    parser.add_argument("--value_bets_csv", required=True, help="Output filtered bets CSV")
+    parser.add_argument("--bankroll_csv", required=True, help="Output bankroll trajectory CSV")
     parser.add_argument("--features", nargs="+", default=[
         "implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"
     ])
@@ -32,8 +33,7 @@ def main():
     parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
     parser.add_argument("--strategy", choices=["kelly", "flat"], default=DEFAULT_STRATEGY)
     parser.add_argument("--fixed_stake", type=float, default=DEFAULT_FIXED_STAKE)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     if not should_run(args.value_bets_csv, args.overwrite, args.dry_run):
@@ -55,30 +55,19 @@ def main():
             df["label"] = (df["actual_winner"] == df["player_1"]).astype(int)
             train_dfs.append(df)
         except Exception as e:
-            log_warning(f"Skipping {path} — {e}")
+            log_warning(f"⚠️ Skipping {path} — {e}")
 
     if not train_dfs:
         raise ValueError("❌ No valid training files.")
 
     df_train = pd.concat(train_dfs, ignore_index=True)
-    log_info(f"Loaded {len(df_train)} training rows")
+    log_info(f"✅ Loaded {len(df_train)} training rows")
 
     # === Load test data ===
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
-    df_test = df_test.dropna(subset=args.features + ["odds", "player_1"])
     df_test = add_ev_and_kelly(df_test)
-
-    # === Patch winner ===
-    if "winner" not in df_test.columns:
-        if "actual_winner" in df_test.columns and "player_1" in df_test.columns:
-            df_test["winner"] = (
-                df_test["actual_winner"].str.strip().str.lower() ==
-                df_test["player_1"].str.strip().str.lower()
-            ).astype(int)
-            log_info("🩹 Patched 'winner' column from actual_winner")
-        else:
-            log_warning("⚠️ 'winner' column missing and could not be derived")
+    df_test = patch_winner_column(df_test)
 
     # === Train model ===
     model = LogisticRegression()
@@ -107,30 +96,26 @@ def main():
         args.fixed_stake if strategy_used == "flat"
         else df_filtered["kelly_stake"]
     )
-
     df_filtered["kelly_stake"] = compute_kelly_stake(df_filtered["predicted_prob"], df_filtered["odds"])
 
     df_filtered.to_csv(args.value_bets_csv, index=False)
     log_success(f"✅ Saved {len(df_filtered)} value bets to {args.value_bets_csv}")
 
     # === Simulate bankroll ===
-    bankroll = 1000.0
-    peak = bankroll
-    drawdown = 0.0
-    trajectory = []
+    sim_df, final_bankroll, max_drawdown = simulate_bankroll(
+        df_filtered,
+        strategy=strategy_used,
+        initial_bankroll=1000.0,
+        ev_threshold=0.0,
+        odds_cap=100.0,
+        cap_fraction=0.05
+    )
+    sim_df.to_csv(args.bankroll_csv, index=False)
+    log_success(f"💰 Final bankroll: {final_bankroll:.2f}")
+    log_success(f"📉 Max drawdown: {max_drawdown:.2f}")
 
-    for _, row in tqdm(df_filtered.iterrows(), total=len(df_filtered), desc="Simulating bankroll"):
-        stake = args.fixed_stake if strategy_used == "flat" else row["kelly_stake"]
-        won = row.get("actual_winner", "").strip().lower() == row.get("player_1", "").strip().lower()
-        payout = stake * (row["odds"] - 1) if won else -stake
-        bankroll += payout
-        peak = max(peak, bankroll)
-        drawdown = max(drawdown, peak - bankroll)
-        trajectory.append(bankroll)
-
-    pd.DataFrame({"bankroll": trajectory}).to_csv(args.bankroll_csv, index=False)
-    log_success(f"💰 Final bankroll: {bankroll:.2f}")
-    log_success(f"📉 Max drawdown: {drawdown:.2f}")
+    png_path = os.path.splitext(args.bankroll_csv)[0] + ".png"
+    generate_bankroll_plot(sim_df["bankroll"], output_path=png_path)
 
 if __name__ == "__main__":
     main()

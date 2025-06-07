@@ -3,22 +3,21 @@ import pandas as pd
 
 from scripts.utils.ev import compute_ev
 from scripts.utils.helpers import log_info, log_warning, assert_file_exists
-from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.cli_utils import add_common_flags, should_run
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Filter predictions to find +EV value bets.")
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
     parser.add_argument("--ev_threshold", type=float, default=0.2)
     parser.add_argument("--confidence_threshold", type=float, default=0.4)
     parser.add_argument("--max_odds", type=float, default=None)
     parser.add_argument("--max_margin", type=float, default=None)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
-    if args.dry_run:
-        print(f"🧪 Dry run: would write to {args.output_csv}")
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
 
     assert_file_exists(args.input_csv, "predictions file")
@@ -55,15 +54,7 @@ def main():
         print("⚠️ No value bets after filtering.")
         return
 
-    if "winner" not in df_filtered.columns:
-        if "actual_winner" in df_filtered.columns and "player_1" in df_filtered.columns:
-            df_filtered["winner"] = (
-                df_filtered["actual_winner"].str.strip().str.lower() ==
-                df_filtered["player_1"].str.strip().str.lower()
-            ).astype(int)
-            log_info("😹 Patched missing 'winner' column from actual_winner vs player_1")
-        else:
-            log_warning("⚠️ Cannot assign winner column — missing actual_winner or player_1")
+    df_filtered = patch_winner_column(df_filtered)
 
     df_filtered.to_csv(args.output_csv, index=False)
     print(f"✅ Saved {len(df_filtered)} value bets to {args.output_csv}")

@@ -1,16 +1,16 @@
 import argparse
 import yaml
 import subprocess
-import time
 import os
 from pathlib import Path
 import pandas as pd
 
 from scripts.utils.paths import get_pipeline_paths, DEFAULT_MODEL_PATH
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.cli_utils import add_common_flags
+from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
 
-PYTHON = str(Path(".venv/Scripts/python.exe").resolve()) if Path(".venv/Scripts/python.exe").exists() else "python"
-
+# Step script paths
 SELECTION_SCRIPT = "scripts/pipeline/match_selection_ids.py"
 MERGE_SCRIPT = "scripts/pipeline/merge_final_ltps_into_matches.py"
 FEATURE_SCRIPT = "scripts/pipeline/build_odds_features.py"
@@ -22,112 +22,112 @@ LEADERBOARD_SCRIPT = "scripts/analysis/summarize_value_bets_by_tournament.py"
 LEADERBOARD_PLOT_SCRIPT = "scripts/analysis/plot_tournament_leaderboard.py"
 COMBINED_SIM_SCRIPT = "scripts/pipeline/simulate_all_value_bets.py"
 
-def run(cmd, label=None):
+PYTHON = str(Path(".venv/Scripts/python.exe").resolve()) if Path(".venv/Scripts/python.exe").exists() else "python"
+
+
+def run_subprocess(cmd: list[str], label: str = None):
     try:
         subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
     except subprocess.CalledProcessError as e:
         step = cmd[-2] if len(cmd) >= 2 else str(cmd)
-        log_error(f"Pipeline failed{f' for {label}' if label else ''} during step: {step}")
+        log_error(f"❌ Pipeline failed{f' for {label}' if label else ''} during step: {step}")
         raise
 
-def run_step_if_needed(step_name, script, args_list, output_path, label, skip_existing):
-    log_info(f"🔧 Step: {step_name}")
-    if not skip_existing or not Path(output_path).exists():
-        run([PYTHON, script] + args_list, label)
-    else:
-        log_info(f"⏭️ Skipping {output_path} (already exists)")
 
-def run_pipeline(tournament, skip_existing, dry_run):
-    label = tournament["label"]
-    paths = get_pipeline_paths(label)
-    model_path = tournament.get("model_path", DEFAULT_MODEL_PATH)
+class PipelineRunner:
+    def __init__(self, tournament: dict, skip_existing: bool, dry_run: bool):
+        self.tournament = tournament
+        self.label = tournament["label"]
+        self.model_path = tournament.get("model_path", DEFAULT_MODEL_PATH)
+        self.paths = get_pipeline_paths(self.label)
+        self.skip_existing = skip_existing
+        self.dry_run = dry_run
 
-    log_info(f"📦 Starting pipeline for: {label}")
+    def validate_inputs(self):
+        required = {
+            "snapshots_csv": self.tournament["snapshots_csv"],
+            "raw_csv": self.paths["raw_csv"],
+            "model_path": self.model_path
+        }
+        for key, path in required.items():
+            if not Path(path).exists():
+                raise FileNotFoundError(f"❌ Missing {key}: {path}")
 
-    required_inputs = {
-        "snapshots_csv": tournament["snapshots_csv"],
-        "raw_csv": paths["raw_csv"],
-        "model_path": model_path,
-    }
-
-    for key, path in required_inputs.items():
-        if not Path(path).exists():
-            log_error(f"❌ Missing {key}: {path}")
-            raise FileNotFoundError(f"{key} does not exist: {path}")
-
-    # ✅ Early match_id check
-    try:
-        raw_df = pd.read_csv(paths["raw_csv"], nrows=5)
-        if "match_id" not in raw_df.columns:
-            raise ValueError(f"❌ match_id missing from raw_csv: {paths['raw_csv']}")
-    except Exception as e:
-        log_error(f"❌ Failed early validation on raw_csv: {e}")
-        raise
-
-    steps = [
-        ("Match selection IDs", SELECTION_SCRIPT, [
-            "--merged_csv", str(paths["raw_csv"]),
-            "--snapshots_csv", tournament["snapshots_csv"],
-            "--output_csv", str(paths["ids_csv"]),
-            "--overwrite"
-        ], paths["ids_csv"]),
-
-        ("Merge final LTPs", MERGE_SCRIPT, [
-            "--match_csv", str(paths["ids_csv"]),
-            "--snapshots_csv", tournament["snapshots_csv"],
-            "--output_csv", str(paths["odds_csv"]),
-            "--overwrite"
-        ], paths["odds_csv"]),
-
-        ("Build odds features", FEATURE_SCRIPT, [
-            "--input_csv", str(paths["odds_csv"]),
-            "--output_csv", str(paths["features_csv"]),
-            "--overwrite"
-        ], paths["features_csv"]),
-
-        ("Predict win probabilities", PREDICT_SCRIPT, [
-            "--input_csv", str(paths["features_csv"]),
-            "--model_path", model_path,
-            "--output_csv", str(paths["predictions_csv"]),
-            "--overwrite"
-        ], paths["predictions_csv"]),
-
-        ("Detect value bets", VALUE_SCRIPT, [
-            "--input_csv", str(paths["predictions_csv"]),
-            "--output_csv", str(paths["value_csv"]),
-            "--overwrite"
-        ], paths["value_csv"]),
-
-        ("Simulate bankroll", SIM_SCRIPT, [
-            "--input_csvs", str(paths["value_csv"]),
-            "--output_csv", str(paths["bankroll_csv"]),
-            "--strategy", "kelly",
-            "--ev_threshold", "0.2",
-            "--odds_cap", "6.0",
-            "--plot",
-            "--overwrite"
-        ], paths["bankroll_csv"]),
-
-        ("Summarize by match", SUMMARY_SCRIPT, [
-            "--value_bets_glob", str(paths["value_csv"]),
-            "--output_csv", str(Path("data/summary") / f"{label}_value_bets_by_match.csv"),
-            "--overwrite"
-        ], str(Path("data/summary") / f"{label}_value_bets_by_match.csv")),
-    ]
-
-    if dry_run:
-        for _, _, cmd_args, _ in steps:
-            cmd_args.append("--dry_run")
-
-    for step_name, script, cmd_args, output_path in steps:
         try:
-            run_step_if_needed(step_name, script, cmd_args, output_path, label, skip_existing)
+            df = pd.read_csv(self.paths["raw_csv"], nrows=5)
+            if "match_id" not in df.columns:
+                raise ValueError(f"❌ match_id missing in {self.paths['raw_csv']}")
         except Exception as e:
-            log_warning(f"⚠️ Step '{step_name}' failed for {label}: {e}")
-            break
+            raise RuntimeError(f"❌ Failed to validate raw_csv: {e}")
+
+    def run_step(self, name, script_path, args_list, output_path):
+        log_info(f"🔧 Step: {name}")
+        if self.skip_existing and Path(output_path).exists():
+            log_info(f"⏭️ Skipping {output_path} (already exists)")
+            return
+        if self.dry_run:
+            log_info(f"🧪 Dry run: would run {script_path}")
+            return
+        run_subprocess([PYTHON, script_path] + args_list, label=self.label)
+
+    def run_all_steps(self):
+        self.validate_inputs()
+        t = self.tournament
+        p = self.paths
+
+        self.run_step("Match selection IDs", SELECTION_SCRIPT, [
+            "--merged_csv", str(p["raw_csv"]),
+            "--snapshots_csv", t["snapshots_csv"],
+            "--output_csv", str(p["ids_csv"]),
+            "--overwrite"
+        ], p["ids_csv"])
+
+        self.run_step("Merge final LTPs", MERGE_SCRIPT, [
+            "--match_csv", str(p["ids_csv"]),
+            "--snapshots_csv", t["snapshots_csv"],
+            "--output_csv", str(p["odds_csv"]),
+            "--overwrite"
+        ], p["odds_csv"])
+
+        self.run_step("Build odds features", FEATURE_SCRIPT, [
+            "--input_csv", str(p["odds_csv"]),
+            "--output_csv", str(p["features_csv"]),
+            "--overwrite"
+        ], p["features_csv"])
+
+        self.run_step("Predict win probabilities", PREDICT_SCRIPT, [
+            "--input_csv", str(p["features_csv"]),
+            "--model_path", self.model_path,
+            "--output_csv", str(p["predictions_csv"]),
+            "--overwrite"
+        ], p["predictions_csv"])
+
+        self.run_step("Detect value bets", VALUE_SCRIPT, [
+            "--input_csv", str(p["predictions_csv"]),
+            "--output_csv", str(p["value_csv"]),
+            "--ev_threshold", str(DEFAULT_EV_THRESHOLD),
+            "--overwrite"
+        ], p["value_csv"])
+
+        self.run_step("Simulate bankroll", SIM_SCRIPT, [
+            "--input_csvs", str(p["value_csv"]),
+            "--output_csv", str(p["bankroll_csv"]),
+            "--strategy", "kelly",
+            "--ev_threshold", str(DEFAULT_EV_THRESHOLD),
+            "--odds_cap", str(DEFAULT_MAX_ODDS),
+            "--overwrite"
+        ], p["bankroll_csv"])
+
+        summary_path = Path("data/summary") / f"{self.label}_value_bets_by_match.csv"
+        self.run_step("Summarize by match", SUMMARY_SCRIPT, [
+            "--value_bets_glob", str(p["value_csv"]),
+            "--output_csv", str(summary_path),
+            "--overwrite"
+        ], summary_path)
+
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Run full tournament pipeline from config.")
     parser.add_argument("--config", required=True)
     parser.add_argument("--skip_existing", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
@@ -138,66 +138,52 @@ def main():
         config = yaml.safe_load(f)
 
     defaults = config.get("defaults", {})
+    tournaments = config.get("tournaments", [])
 
-    for tournament in config["tournaments"]:
-        tournament = {**defaults, **tournament}
+    for t in tournaments:
+        t = {**defaults, **t}
         try:
-            run_pipeline(tournament, args.skip_existing, args.dry_run)
-        except Exception:
-            log_error(f"🛑 Aborting further processing due to error in {tournament['label']}")
+            runner = PipelineRunner(t, args.skip_existing, args.dry_run)
+            runner.run_all_steps()
+        except Exception as e:
+            log_error(f"🛑 Aborting {t['label']} — {e}")
             break
 
     if args.generate_leaderboard:
-        input_glob = "data/summary/*_value_bets_by_match.csv"
-        output_csv = "data/summary/tournament_leaderboard.csv"
-        log_info("🏁 Generating tournament-level leaderboard...")
-        try:
-            subprocess.run([
-                PYTHON, LEADERBOARD_SCRIPT,
-                "--input_glob", input_glob,
-                "--output_csv", output_csv,
-                "--overwrite"
-            ], check=True)
-            log_success(f"📊 Tournament leaderboard saved to {output_csv}")
-        except subprocess.CalledProcessError as e:
-            log_warning(f"⚠️ Failed to generate tournament leaderboard: {e}")
-
+        leaderboard_csv = "data/summary/tournament_leaderboard.csv"
         leaderboard_png = "data/summary/tournament_leaderboard.png"
+
         try:
-            subprocess.run([
+            run_subprocess([
+                PYTHON, LEADERBOARD_SCRIPT,
+                "--input_glob", "data/summary/*_value_bets_by_match.csv",
+                "--output_csv", leaderboard_csv,
+                "--overwrite"
+            ])
+            run_subprocess([
                 PYTHON, LEADERBOARD_PLOT_SCRIPT,
-                "--input_csv", output_csv,
+                "--input_csv", leaderboard_csv,
                 "--output_png", leaderboard_png,
                 "--sort_by", "roi",
                 "--top_n", "25"
-            ], check=True)
-            log_success(f"📈 Tournament leaderboard plot saved to {leaderboard_png}")
-        except subprocess.CalledProcessError as e:
-            log_warning(f"⚠️ Failed to plot tournament leaderboard: {e}")
+            ])
+            log_success(f"📈 Tournament leaderboard saved to {leaderboard_png}")
+        except Exception as e:
+            log_warning(f"⚠️ Failed leaderboard generation: {e}")
 
-        combined_csv = "data/summary/combined_bankroll.csv"
-        combined_png = "data/summary/combined_bankroll.png"
         try:
-            result = subprocess.run([
+            run_subprocess([
                 PYTHON, COMBINED_SIM_SCRIPT,
                 "--value_bets_glob", "data/processed/*_value_bets.csv",
-                "--output_csv", combined_csv,
+                "--output_csv", "data/summary/combined_bankroll.csv",
                 "--strategy", "kelly",
-                "--ev_threshold", "0.2",
-                "--odds_cap", "6.0",
+                "--ev_threshold", str(DEFAULT_EV_THRESHOLD),
+                "--odds_cap", str(DEFAULT_MAX_ODDS),
                 "--save_plots",
                 "--overwrite"
-            ], capture_output=True, text=True, check=True)
-
-            log_success(f"💰 Combined bankroll simulation saved to {combined_csv}")
-            log_success(f"📉 Bankroll trajectory plot saved to {combined_png}")
-
-            print("\n📋 Combined Portfolio Summary:")
-            summary_lines = [line for line in result.stdout.splitlines() if "bankroll" in line.lower() or "drawdown" in line.lower()]
-            print("\n".join(summary_lines))
-
-        except subprocess.CalledProcessError as e:
-            log_warning(f"⚠️ Failed to simulate combined bankroll: {e.stderr or e}")
+            ])
+        except Exception as e:
+            log_warning(f"⚠️ Failed combined bankroll simulation: {e}")
 
 if __name__ == "__main__":
     main()

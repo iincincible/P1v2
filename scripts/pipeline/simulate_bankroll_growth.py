@@ -3,30 +3,24 @@ import pandas as pd
 import os
 import sys
 
-# Patch import path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.cli_utils import should_run, assert_file_exists
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.constants import (
-    DEFAULT_EV_THRESHOLD,
-    DEFAULT_MAX_ODDS,
-    DEFAULT_STRATEGY
-)
+from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS, DEFAULT_STRATEGY
 from scripts.utils.filters import filter_value_bets
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Simulate bankroll growth from one or more value bet files.")
     parser.add_argument("--input_csvs", required=True, help="Comma-separated list of CSV files")
     parser.add_argument("--output_csv", required=True)
     parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
     parser.add_argument("--odds_cap", type=float, default=DEFAULT_MAX_ODDS)
     parser.add_argument("--strategy", choices=["flat", "kelly"], default=DEFAULT_STRATEGY)
     parser.add_argument("--plot", action="store_true")
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
@@ -39,18 +33,8 @@ def main():
             assert_file_exists(f, "value_bets_csv")
             df = pd.read_csv(f)
             df = normalize_columns(df)
+            df = patch_winner_column(df)
             df = add_ev_and_kelly(df)
-
-            if "winner" not in df.columns:
-                if "actual_winner" in df.columns and "player_1" in df.columns:
-                    df["winner"] = (
-                        df["actual_winner"].str.strip().str.lower() ==
-                        df["player_1"].str.strip().str.lower()
-                    ).astype(int)
-                    log_info(f"🩹 Patched 'winner' from actual_winner in: {f}")
-                else:
-                    raise ValueError("Cannot compute 'winner' — missing actual_winner or player_1")
-
             df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
             dfs.append(df)
         except Exception as e:

@@ -8,11 +8,12 @@ import sys
 
 # Allow utils import
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from scripts.utils.normalize_columns import normalize_columns
+
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.cli_utils import should_run, assert_file_exists
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -22,17 +23,16 @@ from scripts.utils.constants import (
 from scripts.utils.filters import filter_value_bets
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Simulate portfolio bankroll across value bet CSVs.")
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for value bet CSVs")
-    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--output_csv", required=True, help="Path to save simulation results")
     parser.add_argument("--strategy", choices=["flat", "kelly"], default=DEFAULT_STRATEGY)
     parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
     parser.add_argument("--odds_cap", type=float, default=DEFAULT_MAX_ODDS)
     parser.add_argument("--initial_bankroll", type=float, default=DEFAULT_INITIAL_BANKROLL)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--save_plots", action="store_true")
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
@@ -48,35 +48,22 @@ def main():
             assert_file_exists(file, "value_bets_csv")
             df = pd.read_csv(file)
             df = normalize_columns(df)
+            df = patch_winner_column(df)
             df = add_ev_and_kelly(df)
 
-            # Patch winner if needed
-            if "winner" not in df.columns:
-                if "actual_winner" in df.columns and "player_1" in df.columns:
-                    df["winner"] = (
-                        df["actual_winner"].str.strip().str.lower() ==
-                        df["player_1"].str.strip().str.lower()
-                    ).astype(int)
-                    log_info(f"🩹 Patched 'winner' from actual_winner in: {file}")
-                else:
-                    log_warning(f"⚠️ Skipping {file} — missing 'winner' and cannot derive")
-                    continue
-
-            required_cols = {"expected_value", "odds", "predicted_prob", "winner"}
-            if not required_cols.issubset(df.columns):
+            required = {"expected_value", "odds", "predicted_prob", "winner"}
+            if not required.issubset(df.columns):
                 log_warning(f"⚠️ Skipping {file} — missing required columns after normalization.")
                 continue
 
-            # Apply EV and odds cap filter
             df = filter_value_bets(df, args.ev_threshold, args.odds_cap, max_margin=1.0)
             df["source_file"] = os.path.basename(file)
             all_bets.append(df)
         except Exception as e:
-            log_warning(f"⚠️ Skipping {file} — normalization failed: {e}")
-            continue
+            log_warning(f"⚠️ Skipping {file}: {e}")
 
     if not all_bets:
-        raise ValueError("❌ No value bet files could be normalized or passed validation.")
+        raise ValueError("❌ No valid value bet files could be normalized or passed validation.")
 
     df = pd.concat(all_bets, ignore_index=True)
     df = df[df["expected_value"] <= 2.0]
