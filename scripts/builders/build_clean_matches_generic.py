@@ -10,7 +10,7 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 from scripts.builders.core import build_matches_from_snapshots
 from scripts.utils.logger import log_info, log_success, log_error
 from scripts.utils.paths import get_snapshot_csv_path
-from scripts.utils.cli_utils import assert_file_exists, should_run, add_common_flags
+from scripts.utils.cli_utils import assert_file_exists, should_run, add_common_flags, assert_columns_exist
 
 
 def generate_match_id(row):
@@ -65,11 +65,20 @@ def main():
             fuzzy_match=args.fuzzy_match,
         )
 
-        df_matches["match_id"] = df_matches.apply(generate_match_id, axis=1)
+        # === Integrity checks ===
+        required = ["market_id", "player_1", "player_2"]
+        assert_columns_exist(df_matches, required, context="match build")
 
+        df_matches["match_id"] = df_matches.apply(generate_match_id, axis=1)
+        if df_matches["match_id"].duplicated().any():
+            dupes = df_matches[df_matches["match_id"].duplicated(keep=False)]
+            raise ValueError(f"❌ Duplicate match_ids found:\n{dupes[['match_id', 'player_1', 'player_2']].head()}")
+
+        log_info(f"📏 Built {len(df_matches)} matches")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         df_matches.to_csv(output_path, index=False)
         log_success(f"✅ Saved {len(df_matches)} matches to {output_path}")
+
     except Exception as e:
         log_error(f"❌ Failed to build matches for {label}")
         log_error(str(e))

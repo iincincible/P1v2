@@ -1,16 +1,17 @@
 import argparse
 import pandas as pd
+import numpy as np
 from pathlib import Path
 
 from scripts.utils.ev import compute_ev
 from scripts.utils.logger import log_info, log_warning, log_success
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
+from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, assert_columns_exist
 from scripts.utils.filters import filter_value_bets
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
 
 
-def main():
+def main(args=None):
     parser = argparse.ArgumentParser(description="Filter predictions to find +EV value bets.")
     parser.add_argument("--input_csv", required=True, help="Path to predictions CSV")
     parser.add_argument("--output_csv", required=True, help="Path to save filtered value bets")
@@ -19,33 +20,44 @@ def main():
     parser.add_argument("--max_odds", type=float, default=6.0)
     parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
     add_common_flags(parser)
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     output_path = Path(args.output_csv)
-
     if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     assert_file_exists(args.input_csv, "predictions file")
-
     df = pd.read_csv(args.input_csv)
+    log_info(f"📥 Loaded {len(df)} rows from {args.input_csv}")
+
     df = normalize_columns(df)
 
+    # Compute EV if missing
     if "expected_value" not in df.columns:
         df["expected_value"] = compute_ev(
             df["predicted_prob"], df["odds"], df.get("implied_prob", None)
         )
         log_info("🔧 Computed expected_value from predicted_prob and odds")
 
+    # Assign fallback confidence
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
         log_info("🔧 Set confidence_score = predicted_prob")
 
+    # === Column integrity check ===
     required = ["expected_value", "odds", "predicted_prob", "confidence_score"]
-    for col in required:
-        if col not in df.columns:
-            raise ValueError(f"❌ Required column missing: {col}")
+    assert_columns_exist(df, required, context="value bet filter")
 
+    # Drop invalid rows
+    numeric_cols = ["expected_value", "odds", "predicted_prob", "confidence_score"]
+    before = len(df)
+    df = df.replace([np.inf, -np.inf], np.nan).dropna(subset=numeric_cols)
+    after = len(df)
+    dropped = before - after
+    if dropped > 0:
+        log_warning(f"⚠️ Dropped {dropped} rows with NaN or inf in required columns")
+
+    # === Filter logic ===
     df_filtered = df[
         (df["expected_value"] >= args.ev_threshold) &
         (df["confidence_score"] >= args.confidence_threshold) &

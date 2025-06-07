@@ -1,10 +1,12 @@
 import argparse
 import pandas as pd
 import joblib
+import json
 from pathlib import Path
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
+from datetime import datetime
 
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.betting_math import add_ev_and_kelly
@@ -60,12 +62,31 @@ def main():
     model.fit(X_train, y_train)
 
     log_info("📉 Classification report (holdout set):")
-    report = classification_report(y_test, model.predict(X_test), digits=3)
-    log_info("\n" + report)
+    report = classification_report(y_test, model.predict(X_test), digits=3, output_dict=True)
+    log_info("\n" + classification_report(y_test, model.predict(X_test), digits=3))
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, output_path)
     log_success(f"✅ Saved EV filter model to {output_path}")
+
+    # === Metadata logging ===
+    metadata = {
+        "timestamp": datetime.now().isoformat(),
+        "model_type": "RandomForestClassifier",
+        "n_estimators": 100,
+        "features": features,
+        "train_rows": len(df),
+        "ev_threshold": args.min_ev,
+        "input_files": args.input_files,
+        "accuracy": report.get("accuracy"),
+        "precision": report.get("1", {}).get("precision"),
+        "recall": report.get("1", {}).get("recall"),
+        "f1_score": report.get("1", {}).get("f1-score"),
+    }
+    meta_path = output_path.with_suffix(".json")
+    with open(meta_path, "w") as f:
+        json.dump(metadata, f, indent=2)
+    log_success(f"📄 Saved metadata to {meta_path}")
 
 
 if __name__ == "__main__":

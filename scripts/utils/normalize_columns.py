@@ -43,6 +43,24 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def patch_winner_column(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Adds a binary 'winner' column to the DataFrame if it's missing.
+
+    The logic assumes:
+      - 'player_1' is the predicted player
+      - 'actual_winner' contains the true winner name
+
+    The column is computed as:
+        winner = int(actual_winner.lower().strip() == player_1.lower().strip())
+
+    If 'winner' already exists, the function leaves it unchanged.
+
+    Parameters:
+        df (pd.DataFrame): A DataFrame containing at least 'player_1' and 'actual_winner' columns
+
+    Returns:
+        pd.DataFrame: The original DataFrame with a 'winner' column added if needed
+    """
     if "winner" not in df.columns:
         if "actual_winner" in df.columns and "player_1" in df.columns:
             df["winner"] = (

@@ -9,13 +9,13 @@ from scripts.utils.cli_utils import add_common_flags, should_run
 from scripts.utils.logger import log_info, log_success, log_warning
 
 
-def main():
+def main(args=None):
     parser = argparse.ArgumentParser(description="Predict win probabilities using a trained model.")
     parser.add_argument("--input_csv", required=True, help="Input CSV with features")
     parser.add_argument("--model_path", required=True, help="Path to trained model")
     parser.add_argument("--output_csv", required=True, help="Path to save predictions")
     add_common_flags(parser)
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return

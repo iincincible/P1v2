@@ -6,9 +6,9 @@ from sklearn.metrics import accuracy_score, log_loss
 from tqdm import tqdm
 
 from scripts.utils.betting_math import compute_kelly_stake, add_ev_and_kelly
-from scripts.utils.logger import log_info, log_success, log_warning
+from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
-from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags, assert_columns_exist
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -54,8 +54,13 @@ def main():
         try:
             df = pd.read_csv(path)
             df = normalize_columns(df)
+            before = len(df)
             df = df.dropna(subset=args.features + ["actual_winner", "player_1"])
+            dropped = before - len(df)
+            if dropped > 0:
+                log_warning(f"⚠️ Dropped {dropped} rows with missing training data from {path}")
             df["label"] = (df["actual_winner"] == df["player_1"]).astype(int)
+            assert_columns_exist(df, args.features + ["label"], context="training")
             train_dfs.append(df)
         except Exception as e:
             log_warning(f"⚠️ Skipping {path} — {e}")
@@ -68,8 +73,16 @@ def main():
 
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
+    before_test = len(df_test)
+    df_test = df_test.dropna(subset=args.features)
+    dropped_test = before_test - len(df_test)
+    if dropped_test > 0:
+        log_warning(f"⚠️ Dropped {dropped_test} test rows due to missing features")
+
     df_test = add_ev_and_kelly(df_test)
     df_test = patch_winner_column(df_test)
+
+    assert_columns_exist(df_test, args.features + ["predicted_prob", "odds", "expected_value"], context="test set")
 
     model = LogisticRegression()
     X_train = df_train[args.features]

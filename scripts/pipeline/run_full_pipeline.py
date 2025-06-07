@@ -7,7 +7,7 @@ import pandas as pd
 
 from scripts.utils.paths import get_pipeline_paths, DEFAULT_MODEL_PATH
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
-from scripts.utils.cli_utils import add_common_flags
+from scripts.utils.cli_utils import add_common_flags, merge_with_defaults
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
 
 # Step script paths
@@ -25,7 +25,11 @@ COMBINED_SIM_SCRIPT = "scripts/pipeline/simulate_all_value_bets.py"
 PYTHON = str(Path(".venv/Scripts/python.exe").resolve()) if Path(".venv/Scripts/python.exe").exists() else "python"
 
 
-def run_subprocess(cmd: list[str], label: str = None):
+def run_subprocess(cmd: list[str], label: str = None, dry_run: bool = False):
+    cmd_str = " ".join(str(x) for x in cmd)
+    if dry_run:
+        log_info(f"🧪 Dry run: would run command → {cmd_str}")
+        return
     try:
         subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
     except subprocess.CalledProcessError as e:
@@ -66,7 +70,7 @@ class PipelineRunner:
             log_info(f"⏭️ Skipping {output_path} (already exists)")
             return
         if self.dry_run:
-            log_info(f"🧪 Dry run: would run {script_path}")
+            log_info(f"🧪 Would run: {script_path} → {output_path}")
             return
         run_subprocess([PYTHON, script_path] + args_list, label=self.label)
 
@@ -132,6 +136,7 @@ def main():
     parser.add_argument("--skip_existing", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--generate_leaderboard", action="store_true")
+    add_common_flags(parser)
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
@@ -141,49 +146,44 @@ def main():
     tournaments = config.get("tournaments", [])
 
     for t in tournaments:
-        t = {**defaults, **t}
         try:
-            runner = PipelineRunner(t, args.skip_existing, args.dry_run)
+            merged = merge_with_defaults(t, defaults)
+            runner = PipelineRunner(merged, args.skip_existing, args.dry_run)
             runner.run_all_steps()
         except Exception as e:
-            log_error(f"🛑 Aborting {t['label']} — {e}")
+            log_error(f"🛑 Aborting {t.get('label', 'unknown')} — {e}")
             break
 
     if args.generate_leaderboard:
         leaderboard_csv = "data/summary/tournament_leaderboard.csv"
         leaderboard_png = "data/summary/tournament_leaderboard.png"
 
-        try:
-            run_subprocess([
-                PYTHON, LEADERBOARD_SCRIPT,
-                "--input_glob", "data/summary/*_value_bets_by_match.csv",
-                "--output_csv", leaderboard_csv,
-                "--overwrite"
-            ])
-            run_subprocess([
-                PYTHON, LEADERBOARD_PLOT_SCRIPT,
-                "--input_csv", leaderboard_csv,
-                "--output_png", leaderboard_png,
-                "--sort_by", "roi",
-                "--top_n", "25"
-            ])
-            log_success(f"📈 Tournament leaderboard saved to {leaderboard_png}")
-        except Exception as e:
-            log_warning(f"⚠️ Failed leaderboard generation: {e}")
+        run_subprocess([
+            PYTHON, LEADERBOARD_SCRIPT,
+            "--input_glob", "data/summary/*_value_bets_by_match.csv",
+            "--output_csv", leaderboard_csv,
+            "--overwrite"
+        ], dry_run=args.dry_run)
 
-        try:
-            run_subprocess([
-                PYTHON, COMBINED_SIM_SCRIPT,
-                "--value_bets_glob", "data/processed/*_value_bets.csv",
-                "--output_csv", "data/summary/combined_bankroll.csv",
-                "--strategy", "kelly",
-                "--ev_threshold", str(DEFAULT_EV_THRESHOLD),
-                "--odds_cap", str(DEFAULT_MAX_ODDS),
-                "--save_plots",
-                "--overwrite"
-            ])
-        except Exception as e:
-            log_warning(f"⚠️ Failed combined bankroll simulation: {e}")
+        run_subprocess([
+            PYTHON, LEADERBOARD_PLOT_SCRIPT,
+            "--input_csv", leaderboard_csv,
+            "--output_png", leaderboard_png,
+            "--sort_by", "roi",
+            "--top_n", "25"
+        ], dry_run=args.dry_run)
+
+        run_subprocess([
+            PYTHON, COMBINED_SIM_SCRIPT,
+            "--value_bets_glob", "data/processed/*_value_bets.csv",
+            "--output_csv", "data/summary/combined_bankroll.csv",
+            "--strategy", "kelly",
+            "--ev_threshold", str(DEFAULT_EV_THRESHOLD),
+            "--odds_cap", str(DEFAULT_MAX_ODDS),
+            "--save_plots",
+            "--overwrite"
+        ], dry_run=args.dry_run)
+
 
 if __name__ == "__main__":
     main()

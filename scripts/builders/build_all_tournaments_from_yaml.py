@@ -3,9 +3,10 @@ import subprocess
 from pathlib import Path
 import sys
 import time
+import os
 
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
-from scripts.utils.cli_utils import assert_file_exists, add_common_flags
+from scripts.utils.cli_utils import assert_file_exists, add_common_flags, merge_with_defaults
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 
 PYTHON = sys.executable
@@ -28,7 +29,7 @@ def parse_snapshots_if_needed(conf, overwrite=False, dry_run=False) -> str:
         return snapshot_csv
 
     if dry_run:
-        log_info(f"🧪 Dry run: would generate snapshots for {label}")
+        log_info(f"🧪 Dry run: would generate snapshots for {label} → {snapshot_csv}")
         return snapshot_csv
 
     log_info(f"📦 Generating snapshots for: {label}")
@@ -62,24 +63,32 @@ def main():
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
-        configs = yaml.safe_load(f)
+        config = yaml.safe_load(f)
 
-    for conf in configs["tournaments"]:
+    defaults = config.get("defaults", {})
+    tournaments = config.get("tournaments", [])
+
+    for t in tournaments:
+        conf = merge_with_defaults(t, defaults)
         label = conf["label"]
         log_info(f"\n🏗️ Building: {label}")
         try:
             snapshot_csv = parse_snapshots_if_needed(conf, overwrite=args.overwrite, dry_run=args.dry_run)
+
+            output_path = get_pipeline_paths(label)["raw_csv"]
+            if output_path.exists() and not args.overwrite:
+                log_info(f"⏭️ Output already exists: {output_path}")
+                continue
+
+            if args.dry_run:
+                log_info(f"🧪 Dry run: would run {BUILDER_SCRIPT} for {label} → {output_path}")
+                continue
 
             assert_file_exists(snapshot_csv, "snapshots_csv")
             if conf.get("sackmann_csv") and not conf.get("snapshot_only", False):
                 assert_file_exists(conf["sackmann_csv"], "sackmann_csv")
             if "alias_csv" in conf:
                 assert_file_exists(conf["alias_csv"], "alias_csv")
-
-            output_path = get_pipeline_paths(label)["raw_csv"]
-            if Path(output_path).exists() and not args.overwrite:
-                log_info(f"⏭️ Output already exists: {output_path}")
-                continue
 
             cmd = [
                 PYTHON, BUILDER_SCRIPT,
@@ -99,10 +108,6 @@ def main():
                 cmd.append("--fuzzy_match")
             if "alias_csv" in conf:
                 cmd += ["--alias_csv", conf["alias_csv"]]
-
-            if args.dry_run:
-                log_info(f"🧪 Dry run: would run {BUILDER_SCRIPT} for {label}")
-                continue
 
             t0 = time.perf_counter()
             subprocess.run(cmd, check=True)

@@ -41,3 +41,16 @@ def add_common_flags(parser):
     parser.add_argument("--overwrite", action="store_true", help="Overwrite output if it exists")
     parser.add_argument("--dry_run", action="store_true", help="Show actions without writing files")
     return parser
+
+def merge_with_defaults(item: dict, defaults: dict) -> dict:
+    """
+    Recursively merges a single config dict with a defaults dict.
+    Values in `item` override those in `defaults`.
+    """
+    merged = defaults.copy()
+    for k, v in item.items():
+        if isinstance(v, dict) and isinstance(defaults.get(k), dict):
+            merged[k] = merge_with_defaults(v, defaults[k])
+        else:
+            merged[k] = v
+    return merged
