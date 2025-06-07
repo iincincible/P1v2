@@ -6,17 +6,23 @@ import joblib
 
 # Patch sys.path so we can import from scripts.utils.*
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.cli_utils import should_run
+from scripts.utils.constants import (
+    DEFAULT_EV_THRESHOLD,
+    DEFAULT_MAX_ODDS,
+    DEFAULT_MAX_MARGIN
+)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--ev_threshold", type=float, default=0.0)
-    parser.add_argument("--max_odds", type=float, default=1000.0)
-    parser.add_argument("--max_margin", type=float, default=1.0)
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
     parser.add_argument("--filter_model", type=str, default=None)
     parser.add_argument("--min_confidence", type=float, default=0.0)
     parser.add_argument("--overwrite", action="store_true")

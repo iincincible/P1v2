@@ -9,6 +9,13 @@ from scripts.utils.betting_math import compute_ev, compute_kelly_stake, add_ev_a
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.cli_utils import should_run
+from scripts.utils.constants import (
+    DEFAULT_EV_THRESHOLD,
+    DEFAULT_MAX_ODDS,
+    DEFAULT_MAX_MARGIN,
+    DEFAULT_STRATEGY,
+    DEFAULT_FIXED_STAKE
+)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -19,11 +26,11 @@ def main():
     parser.add_argument("--features", nargs="+", default=[
         "implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"
     ])
-    parser.add_argument("--ev_threshold", type=float, default=0.2)
-    parser.add_argument("--max_odds", type=float, default=6.0)
-    parser.add_argument("--max_margin", type=float, default=0.05)
-    parser.add_argument("--strategy", choices=["kelly", "flat"], default="kelly")
-    parser.add_argument("--fixed_stake", type=float, default=10.0)
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
+    parser.add_argument("--strategy", choices=["kelly", "flat"], default=DEFAULT_STRATEGY)
+    parser.add_argument("--fixed_stake", type=float, default=DEFAULT_FIXED_STAKE)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()

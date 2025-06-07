@@ -13,15 +13,21 @@ from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import should_run
+from scripts.utils.constants import (
+    DEFAULT_EV_THRESHOLD,
+    DEFAULT_MAX_ODDS,
+    DEFAULT_INITIAL_BANKROLL,
+    DEFAULT_STRATEGY
+)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for value bet CSVs")
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--strategy", choices=["flat", "kelly"], default="kelly")
-    parser.add_argument("--ev_threshold", type=float, default=0.2)
-    parser.add_argument("--odds_cap", type=float, default=6.0)
-    parser.add_argument("--initial_bankroll", type=float, default=1000.0)
+    parser.add_argument("--strategy", choices=["flat", "kelly"], default=DEFAULT_STRATEGY)
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument("--odds_cap", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--initial_bankroll", type=float, default=DEFAULT_INITIAL_BANKROLL)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--save_plots", action="store_true")
     parser.add_argument("--overwrite", action="store_true")

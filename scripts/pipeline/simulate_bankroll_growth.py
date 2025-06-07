@@ -9,14 +9,19 @@ from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.cli_utils import should_run
+from scripts.utils.constants import (
+    DEFAULT_EV_THRESHOLD,
+    DEFAULT_MAX_ODDS,
+    DEFAULT_STRATEGY
+)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csvs", required=True, help="Comma-separated list of CSV files")
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--ev_threshold", type=float, default=0.01)
-    parser.add_argument("--odds_cap", type=float, default=10.0)
-    parser.add_argument("--strategy", choices=["flat", "kelly"], default="flat")
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument("--odds_cap", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--strategy", choices=["flat", "kelly"], default=DEFAULT_STRATEGY)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
