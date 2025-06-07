@@ -61,6 +61,8 @@ def main():
     df_matches["odds_player_2"] = odds_2
 
     print(f"✅ Matched {len(df_matches) - missing} LTP entries; unmatched {missing}")
+
+    # match_id is preserved if present
     df_matches.to_csv(args.output_csv, index=False)
     print(f"✅ Saved merged odds to {args.output_csv}")
 

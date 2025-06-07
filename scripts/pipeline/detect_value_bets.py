@@ -1,65 +1,45 @@
 import argparse
-import os
-import sys
 import pandas as pd
-import joblib
-
-# Patch sys.path for local imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.cli_utils import should_run, assert_file_exists
-from scripts.utils.constants import (
-    DEFAULT_EV_THRESHOLD,
-    DEFAULT_MAX_ODDS,
-    DEFAULT_MAX_MARGIN
-)
-from scripts.utils.filters import filter_value_bets
+from scripts.utils.cli_utils import assert_file_exists, save_csv
+from scripts.utils.betting_math import compute_ev
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
-    parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
-    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
-    parser.add_argument("--filter_model", type=str, default=None)
-    parser.add_argument("--min_confidence", type=float, default=0.0)
+    parser.add_argument("--ev_threshold", type=float, default=0.2)
+    parser.add_argument("--confidence_threshold", type=float, default=0.4)
+    parser.add_argument("--max_odds", type=float, default=None)
+    parser.add_argument("--max_margin", type=float, default=None)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
-    if not should_run(args.output_csv, args.overwrite, args.dry_run):
-        return
+    assert_file_exists(args.input_csv, "predictions file")
 
-    assert_file_exists(args.input_csv, "input_csv")
     df = pd.read_csv(args.input_csv)
-    df = normalize_columns(df)
-    df = add_ev_and_kelly(df)
+    if "expected_value" not in df.columns:
+        df["expected_value"] = compute_ev(
+            df["predicted_prob"], df["odds"], df.get("implied_prob", None)
+        )
 
-    print(f"📊 Starting with {len(df)} rows")
+    base = df.copy()
 
-    base = filter_value_bets(df, args.ev_threshold, args.max_odds, args.max_margin)
-    print(f"✅ {len(base)} rows pass EV ≥ {args.ev_threshold}")
-    print(f"✅ {len(base)} rows pass odds ≤ {args.max_odds}")
-    print(f"✅ {len(base)} rows pass margin ≤ {args.max_margin}")
-
-    if args.filter_model:
-        assert_file_exists(args.filter_model, "filter_model")
-        print(f"🔍 Applying confidence filter: {args.filter_model}")
-        model = joblib.load(args.filter_model)
-        features = model.feature_names_in_.tolist()
-        probs = model.predict_proba(base[features])
-        base["confidence_score"] = probs[:, 1]
-        base = base[base["confidence_score"] >= args.min_confidence]
-        print(f"✅ {len(base)} rows pass confidence ≥ {args.min_confidence} (of {len(probs)})")
-    else:
-        base["confidence_score"] = 1.0
+    # Apply filters
+    base = base[base["expected_value"] >= args.ev_threshold]
+    if args.confidence_threshold:
+        base = base[base["confidence_score"] >= args.confidence_threshold]
+    if args.max_odds:
+        base = base[base["odds"] <= args.max_odds]
+    if args.max_margin:
+        base = base[base["odds_margin"] <= args.max_margin]
 
     if base.empty:
         print("⚠️ No value bets after filtering.")
     else:
+        # Assign winner label if actual_winner exists
+        if "actual_winner" in base.columns:
+            base["winner"] = (base["actual_winner"] == base["player_1"]).astype(int)
         base.to_csv(args.output_csv, index=False)
         print(f"✅ Saved {len(base)} value bets to {args.output_csv}")
 

@@ -33,3 +33,11 @@ def assert_columns_exist(df: pd.DataFrame, required: list[str], context: str = "
     missing = [col for col in required if col not in df.columns]
     if missing:
         raise ValueError(f"❌ Missing columns {missing} in {context or 'dataframe'}")
+
+def assert_file_exists(path: str, label: str = ""):
+    """
+    Raises FileNotFoundError if the file at the given path does not exist.
+    Optionally provide a label for clearer error reporting.
+    """
+    if not Path(path).exists():
+        raise FileNotFoundError(f"❌ Required file missing: {label or path}")

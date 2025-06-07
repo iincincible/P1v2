@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from pathlib import Path
 import sys
+import hashlib
 
 # Add root to import path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -11,6 +12,13 @@ from scripts.builders.core import build_matches_from_snapshots
 from scripts.utils.logger import log_info, log_success, log_error
 from scripts.utils.paths import get_snapshot_csv_path
 from scripts.utils.cli_utils import assert_file_exists, should_run
+
+def generate_match_id(row):
+    """
+    Deterministically hashes match row fields into a match_id.
+    """
+    key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
+    return hashlib.md5(key.encode()).hexdigest()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -54,6 +62,10 @@ def main():
             snapshot_only=args.snapshot_only,
             fuzzy_match=args.fuzzy_match,
         )
+
+        # Add match_id
+        df_matches["match_id"] = df_matches.apply(generate_match_id, axis=1)
+
         df_matches.to_csv(args.output_csv, index=False)
         log_success(f"✅ Saved {len(df_matches)} matches to {args.output_csv}")
     except Exception as e:

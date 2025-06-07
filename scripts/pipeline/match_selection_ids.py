@@ -40,6 +40,7 @@ def main():
     print(f"⚠️ Unmatched selection_id_1: {unmatched_1}")
     print(f"⚠️ Unmatched selection_id_2: {unmatched_2}")
 
+    # match_id is preserved if present in input
     df.to_csv(args.output_csv, index=False)
     print(f"✅ Saved selection IDs to {args.output_csv}")
 

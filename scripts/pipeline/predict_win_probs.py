@@ -38,6 +38,7 @@ def main():
     df["pred_prob_player_1"] = preds[:, 1]
     df["pred_prob_player_2"] = 1 - df["pred_prob_player_1"]
 
+    # Retain match_id and other columns
     df.to_csv(args.output_csv, index=False)
     log_success(f"Saved predictions to {args.output_csv}")
 

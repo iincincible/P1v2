@@ -15,6 +15,10 @@ FEATURE_SCRIPT = "scripts/pipeline/build_odds_features.py"
 PREDICT_SCRIPT = "scripts/pipeline/predict_win_probs.py"
 VALUE_SCRIPT = "scripts/pipeline/detect_value_bets.py"
 SIM_SCRIPT = "scripts/pipeline/simulate_bankroll_growth.py"
+SUMMARY_SCRIPT = "scripts/analysis/summarize_value_bets_by_match.py"
+LEADERBOARD_SCRIPT = "scripts/analysis/summarize_value_bets_by_tournament.py"
+LEADERBOARD_PLOT_SCRIPT = "scripts/analysis/plot_tournament_leaderboard.py"
+COMBINED_SIM_SCRIPT = "scripts/pipeline/simulate_all_value_bets.py"
 
 def run(cmd, label=None):
     try:
@@ -38,7 +42,6 @@ def run_pipeline(tournament, skip_existing, dry_run):
 
     log_info(f"📦 Starting pipeline for: {label}")
 
-    # === Validate required input files ===
     required_inputs = {
         "snapshots_csv": tournament["snapshots_csv"],
         "raw_csv": paths["raw_csv"],
@@ -93,6 +96,12 @@ def run_pipeline(tournament, skip_existing, dry_run):
             "--plot",
             "--overwrite"
         ], paths["bankroll_csv"]),
+
+        ("Summarize by match", SUMMARY_SCRIPT, [
+            "--value_bets_glob", str(paths["value_csv"]),
+            "--output_csv", str(Path("data/summary") / f"{label}_value_bets_by_match.csv"),
+            "--overwrite"
+        ], str(Path("data/summary") / f"{label}_value_bets_by_match.csv")),
     ]
 
     if dry_run:
@@ -107,6 +116,7 @@ def main():
     parser.add_argument("--config", required=True)
     parser.add_argument("--skip_existing", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--generate_leaderboard", action="store_true")
     args = parser.parse_args()
 
     with open(args.config, "r") as f:
@@ -121,6 +131,61 @@ def main():
         except Exception:
             log_error(f"🛑 Aborting further processing due to error in {tournament['label']}")
             break
+
+    if args.generate_leaderboard:
+        input_glob = "data/summary/*_value_bets_by_match.csv"
+        output_csv = "data/summary/tournament_leaderboard.csv"
+        log_info("🏁 Generating tournament-level leaderboard...")
+        try:
+            subprocess.run([
+                PYTHON, LEADERBOARD_SCRIPT,
+                "--input_glob", input_glob,
+                "--output_csv", output_csv,
+                "--overwrite"
+            ], check=True)
+            log_success(f"📊 Tournament leaderboard saved to {output_csv}")
+        except subprocess.CalledProcessError as e:
+            log_warning(f"⚠️ Failed to generate tournament leaderboard: {e}")
+
+        # Plot leaderboard
+        leaderboard_png = "data/summary/tournament_leaderboard.png"
+        try:
+            subprocess.run([
+                PYTHON, LEADERBOARD_PLOT_SCRIPT,
+                "--input_csv", output_csv,
+                "--output_png", leaderboard_png,
+                "--sort_by", "roi",
+                "--top_n", "25"
+            ], check=True)
+            log_success(f"📈 Tournament leaderboard plot saved to {leaderboard_png}")
+        except subprocess.CalledProcessError as e:
+            log_warning(f"⚠️ Failed to plot tournament leaderboard: {e}")
+
+        # Simulate combined bankroll
+        combined_csv = "data/summary/combined_bankroll.csv"
+        combined_png = "data/summary/combined_bankroll.png"
+        try:
+            result = subprocess.run([
+                PYTHON, COMBINED_SIM_SCRIPT,
+                "--value_bets_glob", "data/processed/*_value_bets.csv",
+                "--output_csv", combined_csv,
+                "--strategy", "kelly",
+                "--ev_threshold", "0.2",
+                "--odds_cap", "6.0",
+                "--save_plots",
+                "--overwrite"
+            ], capture_output=True, text=True, check=True)
+
+            log_success(f"💰 Combined bankroll simulation saved to {combined_csv}")
+            log_success(f"📉 Bankroll trajectory plot saved to {combined_png}")
+
+            # Print key stats
+            print("\n📋 Combined Portfolio Summary:")
+            summary_lines = [line for line in result.stdout.splitlines() if "bankroll" in line.lower() or "drawdown" in line.lower()]
+            print("\n".join(summary_lines))
+
+        except subprocess.CalledProcessError as e:
+            log_warning(f"⚠️ Failed to simulate combined bankroll: {e.stderr or e}")
 
 if __name__ == "__main__":
     main()

@@ -55,7 +55,7 @@ def simulate_bankroll(
         max_drawdown = max(max_drawdown, drawdown)
 
         history.append({
-            "match": row.get("match_id", ""),
+            "match_id": row.get("match_id", ""),
             "stake": stake,
             "odds": odds,
             "won": bool(won),
