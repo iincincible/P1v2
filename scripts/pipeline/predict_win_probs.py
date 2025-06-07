@@ -7,7 +7,7 @@ import sys
 # Patch import path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.logger import log_info, log_success, log_error
 
 def main():
@@ -22,12 +22,8 @@ def main():
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
 
-    if not os.path.exists(args.input_csv):
-        log_error(f"Input file not found: {args.input_csv}")
-        return
-    if not os.path.exists(args.model_path):
-        log_error(f"Model file not found: {args.model_path}")
-        return
+    assert_file_exists(args.input_csv, "input_csv")
+    assert_file_exists(args.model_path, "model_path")
 
     log_info(f"Loading input: {args.input_csv}")
     df = pd.read_csv(args.input_csv)

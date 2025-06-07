@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -33,9 +33,7 @@ def main():
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
 
-    if not os.path.exists(args.input_csv):
-        raise FileNotFoundError(f"❌ Input file not found: {args.input_csv}")
-
+    assert_file_exists(args.input_csv, "input_csv")
     df = pd.read_csv(args.input_csv)
     df = normalize_columns(df)
     df = add_ev_and_kelly(df)
@@ -47,7 +45,8 @@ def main():
     print(f"✅ {len(base)} rows pass odds ≤ {args.max_odds}")
     print(f"✅ {len(base)} rows pass margin ≤ {args.max_margin}")
 
-    if args.filter_model and os.path.exists(args.filter_model):
+    if args.filter_model:
+        assert_file_exists(args.filter_model, "filter_model")
         print(f"🔍 Applying confidence filter: {args.filter_model}")
         model = joblib.load(args.filter_model)
         features = model.feature_names_in_.tolist()

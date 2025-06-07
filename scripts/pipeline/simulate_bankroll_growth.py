@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -35,6 +35,7 @@ def main():
     dfs = []
     for f in files:
         try:
+            assert_file_exists(f, "value_bets_csv")
             df = pd.read_csv(f)
             df = normalize_columns(df)
             df = add_ev_and_kelly(df)

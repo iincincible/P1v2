@@ -12,7 +12,7 @@ from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -40,11 +40,12 @@ def main():
 
     files = glob.glob(args.value_bets_glob)
     if not files:
-        raise ValueError("❌ No valid value bet files found.")
+        raise ValueError("❌ No value bet files found.")
 
     all_bets = []
     for file in files:
         try:
+            assert_file_exists(file, "value_bets_csv")
             df = pd.read_csv(file)
             df = normalize_columns(df)
             df = add_ev_and_kelly(df)
@@ -77,8 +78,6 @@ def main():
         raise ValueError("❌ No value bet files could be normalized or passed validation.")
 
     df = pd.concat(all_bets, ignore_index=True)
-
-    # Cap extreme EVs to avoid runaway variance
     df = df[df["expected_value"] <= 2.0]
 
     log_info(f"Loaded {len(df)} total bets from {len(files)} files")

@@ -7,6 +7,7 @@ from datetime import datetime
 
 from scripts.utils.snapshot_parser import SnapshotParser
 from scripts.utils.logger import log_info, log_success, log_warning
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
@@ -15,7 +16,12 @@ def main():
     parser.add_argument("--start_date", required=True)
     parser.add_argument("--end_date", required=True)
     parser.add_argument("--mode", choices=["full", "ltp_only", "metadata"], default="full")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     start = datetime.strptime(args.start_date, "%Y-%m-%d")
     end = datetime.strptime(args.end_date, "%Y-%m-%d")

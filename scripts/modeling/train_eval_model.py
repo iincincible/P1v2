@@ -8,7 +8,7 @@ from tqdm import tqdm
 from scripts.utils.betting_math import compute_kelly_stake, add_ev_and_kelly
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_ODDS,
@@ -41,6 +41,11 @@ def main():
     if not should_run(args.bankroll_csv, args.overwrite, args.dry_run):
         return
 
+    # === Validate inputs ===
+    assert_file_exists(args.test_csv, "test_csv")
+    for path in args.train_csvs:
+        assert_file_exists(path, "train_csv")
+
     # === Load training data ===
     train_dfs = []
     for path in args.train_csvs:
@@ -59,7 +64,7 @@ def main():
     df_train = pd.concat(train_dfs, ignore_index=True)
     log_info(f"Loaded {len(df_train)} training rows")
 
-    # === Load and prepare test data ===
+    # === Load test data ===
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
     df_test = df_test.dropna(subset=args.features + ["odds", "player_1"])

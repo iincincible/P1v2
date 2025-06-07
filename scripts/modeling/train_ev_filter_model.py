@@ -10,16 +10,23 @@ from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.filters import filter_value_bets
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.cli_utils import should_run, assert_file_exists
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--input_files", nargs='+', required=True)
 parser.add_argument("--output_model", required=True)
 parser.add_argument("--min_ev", type=float, default=0.2)
+parser.add_argument("--overwrite", action="store_true")
+parser.add_argument("--dry_run", action="store_true")
 args = parser.parse_args()
+
+if not should_run(args.output_model, args.overwrite, args.dry_run):
+    exit()
 
 rows = []
 for file in args.input_files:
     try:
+        assert_file_exists(file, "input_csv")
         df = pd.read_csv(file)
         df = normalize_columns(df)
         df = add_ev_and_kelly(df)

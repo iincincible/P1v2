@@ -3,7 +3,7 @@ import pandas as pd
 from tqdm import tqdm
 import os
 
-from scripts.utils.cli_utils import should_run
+from scripts.utils.cli_utils import should_run, assert_file_exists
 from scripts.utils.selection import build_market_runner_map
 
 def main():
@@ -17,6 +17,9 @@ def main():
 
     if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
+
+    assert_file_exists(args.match_csv, "match_csv")
+    assert_file_exists(args.snapshots_csv, "snapshots_csv")
 
     df_matches = pd.read_csv(args.match_csv)
     df_snaps = pd.read_csv(args.snapshots_csv)

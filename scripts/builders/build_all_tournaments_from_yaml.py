@@ -6,6 +6,8 @@ import time
 import os
 
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
+from scripts.utils.cli_utils import assert_file_exists
+from scripts.utils.logger import log_info, log_success, log_warning, log_error
 
 PYTHON = sys.executable
 CONFIG_FILE = "configs/tournaments_2024.yaml"
@@ -21,10 +23,10 @@ def parse_snapshots_if_missing(conf):
     end = conf.get("end_date", "2023-12-31")
 
     if Path(snapshot_csv).exists():
-        print(f"🟢 Snapshots already exist: {snapshot_csv}")
+        log_info(f"🟢 Snapshots already exist: {snapshot_csv}")
         return
 
-    print(f"📦 Generating snapshots for: {label}")
+    log_info(f"📦 Generating snapshots for: {label}")
     cmd = [
         PYTHON, SNAPSHOT_SCRIPT,
         "--input_dir", BETFAIR_DATA_DIR,
@@ -38,11 +40,11 @@ def parse_snapshots_if_missing(conf):
         t0 = time.perf_counter()
         subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
         t1 = time.perf_counter()
-        print(f"✅ Parsed snapshots to {snapshot_csv} in {t1 - t0:.2f} seconds")
+        log_success(f"✅ Parsed snapshots to {snapshot_csv} in {t1 - t0:.2f} seconds")
     except subprocess.CalledProcessError as e:
-        print(f"❌ Snapshot parsing failed for {label}")
-        print(f"    Command: {' '.join(cmd)}")
-        print(f"    Error: {e}")
+        log_error(f"❌ Snapshot parsing failed for {label}")
+        log_error(f"    Command: {' '.join(cmd)}")
+        log_error(f"    Error: {e}")
         raise
 
 # === Main Tournament Loop ===
@@ -51,13 +53,20 @@ with open(CONFIG_FILE, "r") as f:
 
 for conf in configs["tournaments"]:
     label = conf["label"]
-    print(f"\n🏗️ Building: {label}")
+    log_info(f"\n🏗️ Building: {label}")
     try:
         parse_snapshots_if_missing(conf)
 
+        # Validate required files
+        assert_file_exists(conf["snapshots_csv"], "snapshots_csv")
+        if conf.get("sackmann_csv") and not conf.get("snapshot_only", False):
+            assert_file_exists(conf["sackmann_csv"], "sackmann_csv")
+        if "alias_csv" in conf:
+            assert_file_exists(conf["alias_csv"], "alias_csv")
+
         output_path = get_pipeline_paths(label)["raw_csv"]
         if Path(output_path).exists():
-            print(f"⏭️ Output already exists: {output_path}")
+            log_info(f"⏭️ Output already exists: {output_path}")
             continue
 
         cmd = [
@@ -81,7 +90,7 @@ for conf in configs["tournaments"]:
         t0 = time.perf_counter()
         subprocess.run(cmd, check=True)
         t1 = time.perf_counter()
-        print(f"✅ Finished: {label} in {t1 - t0:.2f} seconds")
+        log_success(f"✅ Finished: {label} in {t1 - t0:.2f} seconds")
     except Exception as e:
-        print(f"⚠️ Skipping {label} due to error.")
-        print(f"   {e}")
+        log_error(f"⚠️ Skipping {label} due to error.")
+        log_error(f"   {e}")
