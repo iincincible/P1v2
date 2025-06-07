@@ -10,7 +10,9 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
-from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.betting_math import add_ev_and_kelly
+from scripts.utils.logger import log_info, log_success, log_warning
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
@@ -22,7 +24,12 @@ def main():
     parser.add_argument("--initial_bankroll", type=float, default=1000.0)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--save_plots", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     files = glob.glob(args.value_bets_glob)
     if not files:
@@ -33,6 +40,7 @@ def main():
         try:
             df = pd.read_csv(file)
             df = normalize_columns(df)
+            df = add_ev_and_kelly(df)
         except Exception as e:
             log_warning(f"Skipping {file} — normalization failed: {e}")
             continue

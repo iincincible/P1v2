@@ -1,26 +1,31 @@
-import sys
-sys.path.append(r"C:\Users\lucap\Projects\P1v2\.venv\Lib\site-packages")  # 🩹 Hack to force joblib import
-
 import argparse
 import pandas as pd
 import joblib
+import os
+import sys
+
+# Patch import path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--model_path", required=True)
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
-    df = pd.read_csv(args.input_csv)
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
-    # 🛠 Patch missing implied_prob_diff if needed
-    if "implied_prob_diff" not in df.columns and "implied_prob_1" in df.columns and "implied_prob_2" in df.columns:
-        df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
+    df = pd.read_csv(args.input_csv)
+    df = normalize_columns(df)
 
     model = joblib.load(args.model_path)
-
-    X = df[["implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"]]
+    X = df[model.feature_names_in_]
     preds = model.predict_proba(X)
 
     df["pred_prob_player_1"] = preds[:, 1]

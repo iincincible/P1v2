@@ -7,6 +7,8 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
+from scripts.utils.betting_math import add_ev_and_kelly
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
@@ -16,10 +18,11 @@ def main():
     parser.add_argument("--odds_cap", type=float, default=10.0)
     parser.add_argument("--strategy", choices=["flat", "kelly"], default="flat")
     parser.add_argument("--plot", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
-    if os.path.exists(args.output_csv):
-        print(f"⏭️ Output already exists: {args.output_csv}")
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
         return
 
     files = args.input_csvs.split(",")
@@ -28,6 +31,7 @@ def main():
         try:
             df = pd.read_csv(f)
             df = normalize_columns(df)
+            df = add_ev_and_kelly(df)
 
             if "winner" not in df.columns:
                 if "actual_winner" in df.columns and "player_1" in df.columns:

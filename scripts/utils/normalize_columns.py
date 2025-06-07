@@ -4,6 +4,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     Standardize column names for simulation and value bet filtering.
     Ensures presence of: predicted_prob, expected_value, odds.
+    Also patches implied_prob_diff if needed.
     """
     renamed = df.copy()
 
@@ -22,6 +23,11 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     for old, new in rename_map.items():
         if old in renamed.columns and new not in renamed.columns:
             renamed[new] = renamed[old]
+
+    # Patch implied_prob_diff if missing
+    if "implied_prob_diff" not in renamed.columns:
+        if "implied_prob_1" in renamed.columns and "implied_prob_2" in renamed.columns:
+            renamed["implied_prob_diff"] = renamed["implied_prob_1"] - renamed["implied_prob_2"]
 
     # Final check
     required = ["expected_value", "odds", "predicted_prob"]

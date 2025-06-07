@@ -4,9 +4,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, log_loss
 from pathlib import Path
 from tqdm import tqdm
-from scripts.utils.betting_math import compute_ev, compute_kelly_stake
-from scripts.utils.logger import log_info, log_success, log_warning, log_error
+
+from scripts.utils.betting_math import compute_ev, compute_kelly_stake, add_ev_and_kelly
+from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
@@ -23,11 +25,13 @@ def main():
     parser.add_argument("--strategy", choices=["kelly", "flat"], default="kelly")
     parser.add_argument("--fixed_stake", type=float, default=10.0)
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
 
-    # Skip if output exists
-    if not args.overwrite and Path(args.value_bets_csv).exists():
-        log_info(f"Skipping: {args.value_bets_csv} already exists. Use --overwrite to force.")
+    # Check both outputs before proceeding
+    if not should_run(args.value_bets_csv, args.overwrite, args.dry_run):
+        return
+    if not should_run(args.bankroll_csv, args.overwrite, args.dry_run):
         return
 
     # === Load training data ===
@@ -52,6 +56,7 @@ def main():
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
     df_test = df_test.dropna(subset=args.features + ["odds", "player_1"])
+    df_test = add_ev_and_kelly(df_test)
 
     # === Train model ===
     model = LogisticRegression()
@@ -69,7 +74,6 @@ def main():
         log_success(f"Log Loss: {log_loss(y_true, df_test['predicted_prob']):.5f}")
 
     # === EV Filtering ===
-    df_test["expected_value"] = compute_ev(df_test["predicted_prob"], df_test["odds"])
     df_filtered = df_test[
         (df_test["expected_value"] >= args.ev_threshold) &
         (df_test["odds"] <= args.max_odds) &
@@ -84,11 +88,11 @@ def main():
 
     df_filtered["stake"] = (
         args.fixed_stake if strategy_used == "flat"
-        else compute_kelly_stake(df_filtered["predicted_prob"], df_filtered["odds"])
+        else df_filtered["kelly_stake"]
     )
+
     df_filtered["kelly_stake"] = compute_kelly_stake(df_filtered["predicted_prob"], df_filtered["odds"])
 
-    Path(args.value_bets_csv).parent.mkdir(parents=True, exist_ok=True)
     df_filtered.to_csv(args.value_bets_csv, index=False)
     log_success(f"Saved {len(df_filtered)} value bets to {args.value_bets_csv}")
 

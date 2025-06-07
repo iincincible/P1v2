@@ -2,12 +2,18 @@ import pandas as pd
 import argparse
 from pathlib import Path
 from scripts.utils.betting_math import compute_ev, compute_kelly_stake
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     df = pd.read_csv(args.input_csv)
 

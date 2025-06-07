@@ -3,13 +3,21 @@ import pandas as pd
 from difflib import get_close_matches
 from collections import defaultdict
 from tqdm import tqdm
+import os
+
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--merged_csv", required=True)
     parser.add_argument("--snapshots_csv", required=True)
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     df = pd.read_csv(args.merged_csv)
     snapshots = pd.read_csv(args.snapshots_csv)

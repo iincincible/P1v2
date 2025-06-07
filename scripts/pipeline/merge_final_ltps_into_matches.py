@@ -1,13 +1,21 @@
 import argparse
 import pandas as pd
 from tqdm import tqdm
+import os
+
+from scripts.utils.cli_utils import should_run
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--match_csv", required=True)
     parser.add_argument("--snapshots_csv", required=True)
     parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
+
+    if not should_run(args.output_csv, args.overwrite, args.dry_run):
+        return
 
     df_matches = pd.read_csv(args.match_csv)
     df_snaps = pd.read_csv(args.snapshots_csv)
