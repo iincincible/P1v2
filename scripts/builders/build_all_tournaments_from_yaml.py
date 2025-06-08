@@ -21,6 +21,12 @@ BETFAIR_DATA_DIR = "data/BASIC"
 
 def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str:
     label = conf["label"]
+
+    # ✅ Use provided snapshots_csv if available
+    if "snapshots_csv" in conf and Path(conf["snapshots_csv"]).exists() and not overwrite:
+        log_info(f"📄 Using pre-parsed snapshots: {conf['snapshots_csv']}")
+        return conf["snapshots_csv"]
+
     snapshot_csv = conf.get("snapshots_csv") or get_snapshot_csv_path(label)
     conf["snapshots_csv"] = snapshot_csv
 
@@ -48,7 +54,13 @@ def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str
 
     try:
         t0 = time.perf_counter()
-        subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
+        subprocess.run(
+            cmd,
+            check=True,
+            env={**os.environ, "PYTHONPATH": "."},
+            stdout=sys.stdout,
+            stderr=sys.stderr
+        )
         t1 = time.perf_counter()
         log_success(f"✅ Parsed snapshots to {snapshot_csv} in {t1 - t0:.2f} seconds")
     except subprocess.CalledProcessError:
@@ -112,7 +124,13 @@ def main():
                 continue
 
             t0 = time.perf_counter()
-            subprocess.run(cmd, check=True, env={**os.environ, "PYTHONPATH": "."})
+            subprocess.run(
+                cmd,
+                check=True,
+                env={**os.environ, "PYTHONPATH": "."},
+                stdout=sys.stdout,
+                stderr=sys.stderr
+            )
             t1 = time.perf_counter()
             log_success(f"✅ Finished: {label} in {t1 - t0:.2f} seconds")
 

@@ -27,7 +27,7 @@ def main():
     parser.add_argument("--snapshots_csv", help="Path to parsed Betfair snapshots")
     parser.add_argument("--sackmann_csv", help="Optional match results file for outcome labels")
     parser.add_argument("--alias_csv", help="Optional alias map file")
-    parser.add_argument("--player_stats_csv", help="Optional stats feature CSV")
+    parser.add_argument("--player_stats_csv", help="Optional stats feature CSV")  # not used yet
     parser.add_argument("--snapshot_only", action="store_true")
     parser.add_argument("--fuzzy_match", action="store_true")
     parser.add_argument("--output_csv", required=True)
@@ -50,13 +50,9 @@ def main():
 
     try:
         df_matches = build_matches_from_snapshots(
-            tour=args.tour,
-            tournament=args.tournament,
-            year=int(args.year),
-            snapshots_csv=snapshots_csv,
+            snapshot_csv=snapshots_csv,
             sackmann_csv=args.sackmann_csv,
             alias_csv=args.alias_csv,
-            player_stats_csv=args.player_stats_csv,
             snapshot_only=args.snapshot_only,
             fuzzy_match=args.fuzzy_match,
         )

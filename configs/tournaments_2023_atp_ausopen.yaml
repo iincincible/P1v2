@@ -1,0 +1,15 @@
+defaults:
+  sackmann_csv: data/tennis_atp/atp_matches_2023.csv
+  snapshot_only: false
+  fuzzy_match: true
+  alias_csv: configs/player_aliases.csv
+  snapshots_csv: parsed/betfair_ausopen_2023_atp_snapshots.csv
+
+tournaments:
+  - tour: atp
+    tournament: australian_open
+    year: 2023
+    label: ausopen_2023_atp
+    snapshots_csv: parsed/betfair_ausopen_2023_atp_snapshots.csv
+
+

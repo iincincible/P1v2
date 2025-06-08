@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
+from tqdm import tqdm  # ✅ Progress bar added
 from scripts.utils.logger import log_error
 
 
@@ -130,3 +131,15 @@ class SnapshotParser:
                         "runner_2": r2
                     })
         return records
+
+    def parse_directory(self, input_dir: str, start: datetime, end: datetime) -> list[dict]:
+        """
+        Parses all snapshot files in a directory within the given date range, with progress bar.
+        """
+        input_path = Path(input_dir)
+        all_files = list(input_path.rglob("*.bz2"))
+        filtered = [f for f in all_files if self.should_parse_file(f, start, end)]
+        rows = []
+        for f in tqdm(filtered, desc="Parsing snapshots", unit="file"):
+            rows.extend(self.parse_file(f))
+        return rows

@@ -1,0 +1,13 @@
+defaults:
+  label: ausopen_2023_atp
+  overwrite: true
+  config: configs/tournaments_2023_atp_ausopen.yaml  # ← ✅ CORRECT TARGET
+
+stages:
+  - name: build
+  - name: ids
+  - name: merge
+  - name: features
+  - name: predict
+  - name: detect
+  - name: simulate

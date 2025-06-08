@@ -46,3 +46,12 @@ def assert_columns_exist(df: pd.DataFrame, cols: list[str], context: str = ""):
     missing = [col for col in cols if col not in df.columns]
     if missing:
         raise ValueError(f"❌ Missing columns in {context}: {missing}")
+
+def merge_with_defaults(config: dict, defaults: dict) -> dict:
+    """
+    Recursively merges a stage config with defaults.
+    Returns a new dictionary.
+    """
+    out = defaults.copy()
+    out.update(config)
+    return out
