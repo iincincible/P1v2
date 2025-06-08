@@ -3,9 +3,11 @@ import pandas as pd
 import glob
 from pathlib import Path
 
-from scripts.utils.cli_utils import assert_file_exists, add_common_flags, should_run
+from scripts.utils.cli_utils import (
+    assert_file_exists, add_common_flags, should_run, assert_columns_exist
+)
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
-from scripts.utils.logger import log_info, log_success, log_warning
+from scripts.utils.logger import log_info, log_success, log_warning, log_error
 
 
 def main():
@@ -17,11 +19,10 @@ def main():
     args = parser.parse_args()
 
     output_path = Path(args.output_csv)
-
     files = glob.glob(args.value_bets_glob)
-    if not files:
-        raise ValueError("❌ No value bet files found.")
 
+    if not files:
+        raise ValueError(f"❌ No value bet files found matching: {args.value_bets_glob}")
     if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
@@ -33,13 +34,11 @@ def main():
             df = normalize_columns(df)
             df = patch_winner_column(df)
 
-            if "match_id" not in df.columns:
-                log_warning(f"⚠️ Skipping {file} — missing 'match_id'")
-                continue
+            required_cols = ["match_id", "player_1", "player_2", "odds", "expected_value"]
+            assert_columns_exist(df, required_cols, context=file)
 
             if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
                 df["confidence_score"] = df["predicted_prob"]
-
             if "kelly_stake" not in df.columns:
                 df["kelly_stake"] = 1.0
 
@@ -48,7 +47,7 @@ def main():
             log_warning(f"⚠️ Skipping {file}: {e}")
 
     if not all_bets:
-        raise ValueError("❌ No valid value bet files found.")
+        raise ValueError("❌ No valid value bet files found after normalization and validation.")
 
     df = pd.concat(all_bets, ignore_index=True)
 
@@ -61,6 +60,7 @@ def main():
         total_profit=(lambda g: ((g["winner"] * (g["odds"] - 1)) - (~g["winner"].astype(bool)) * 1.0).sum())
     )
 
+    # Add player info
     firsts = df.drop_duplicates("match_id")[["match_id", "player_1", "player_2"]].set_index("match_id")
     summary = grouped.join(firsts, on="match_id").reset_index()
 

@@ -18,15 +18,17 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
+    input_dir = Path(args.input_dir)
     output_path = Path(args.output_csv)
 
     if not should_run(output_path, args.overwrite, args.dry_run):
         return
+    assert_file_exists(input_dir, "input_dir")
 
     start = datetime.strptime(args.start_date, "%Y-%m-%d")
     end = datetime.strptime(args.end_date, "%Y-%m-%d")
 
-    all_files = list(Path(args.input_dir).rglob("*.bz2"))
+    all_files = list(input_dir.rglob("*.bz2"))
     parser_obj = SnapshotParser(mode="metadata")
 
     filtered = [f for f in all_files if parser_obj.should_parse_file(f, start, end)]
