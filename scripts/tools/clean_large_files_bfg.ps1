@@ -1,17 +1,24 @@
-# PowerShell Script: clean_large_files_bfg.ps1
+# clean_large_files_bfg.ps1
 
-# Ensure you're in your project root before running
+# Exit on error
+$ErrorActionPreference = "Stop"
 
-# Step 1: Expire reflog and aggressively clean up history
+# Set variables
+$repoPath = "$PSScriptRoot\..\..\.."  # adjust to repo root from /scripts/tools
+$largeFilePath = "parsed/betfair_ausopen_2023_atp_snapshots.csv"
+$bfgJar = "$PSScriptRoot\bfg.jar"
+
+# Navigate to repo root
+Set-Location -Path $repoPath
+
+# Make backup just in case
+if (-not (Test-Path "$repoPath\repo-backup")) {
+    git clone --mirror . .\repo-backup
+}
+
+# Run BFG to remove the large file from history
+java -jar $bfgJar --delete-files $largeFilePath
+
+# Cleanup and finalize
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
-
-# Step 2: Run BFG to remove large French Open files by name pattern
-java -jar bfg.jar --delete-files '*frenchopen_2023*.csv'
-
-# Step 3: Expire again after BFG and clean up
-git reflog expire --expire=now --all
-git gc --prune=now --aggressive
-
-# Step 4: Force push the cleaned history
-git push --force

@@ -1,4 +1,6 @@
-# Ignore everything in data except processed outputs and plots
+# ─────────────────────────────────────────────────────
+# DATA FOLDER: Allow only processed outputs and plots
+# ─────────────────────────────────────────────────────
 data/*
 !data/processed/
 !data/processed/**/*.csv
@@ -14,24 +16,35 @@ data/**/*.tar
 data/**/*.bz2
 data/**/*.zip
 
-# Ignore very large files that exceed GitHub limits
+# Explicitly ignore very large or problematic files
 data/processed/*frenchopen_2023*.csv
+parsed/betfair_ausopen_2023_atp_snapshots.csv
 
-# Ignore modeling artifacts unless added later
+# ─────────────────────────────────────────────────────
+# MODELING: Ignore everything except README
+# ─────────────────────────────────────────────────────
 modeling/*
 !modeling/README.md
 
-# Ignore logs and temp files
+# ─────────────────────────────────────────────────────
+# Logs and temporary files
+# ─────────────────────────────────────────────────────
 *.tmp
 *.log
 
+# ─────────────────────────────────────────────────────
 # Python artifacts
+# ─────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *.egg-info/
 
-# Virtual environment
+# ─────────────────────────────────────────────────────
+# Virtual environments
+# ─────────────────────────────────────────────────────
 .venv/
 
-# VSCode (optional)
+# ─────────────────────────────────────────────────────
+# VSCode settings (optional)
+# ─────────────────────────────────────────────────────
 .vscode/
