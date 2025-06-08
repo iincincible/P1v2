@@ -1,24 +1,19 @@
 # clean_large_files_bfg.ps1
 
-# Exit on error
 $ErrorActionPreference = "Stop"
 
-# Set variables
-$repoPath = "$PSScriptRoot\..\..\.."  # adjust to repo root from /scripts/tools
-$largeFilePath = "parsed/betfair_ausopen_2023_atp_snapshots.csv"
-$bfgJar = "$PSScriptRoot\bfg.jar"
+# Go to repo root
+$repoRoot = "C:\Users\lucap\Projects\P1v2"
+Set-Location -Path $repoRoot
 
-# Navigate to repo root
-Set-Location -Path $repoPath
-
-# Make backup just in case
-if (-not (Test-Path "$repoPath\repo-backup")) {
+# Backup (optional, for safety)
+if (-not (Test-Path "$repoRoot\repo-backup")) {
     git clone --mirror . .\repo-backup
 }
 
-# Run BFG to remove the large file from history
-java -jar $bfgJar --delete-files $largeFilePath
+# Run BFG to delete the large file by filename only (not path)
+java -jar "$PSScriptRoot\bfg.jar" --delete-files betfair_ausopen_2023_atp_snapshots.csv
 
-# Cleanup and finalize
+# Cleanup
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
