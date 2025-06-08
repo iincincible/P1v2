@@ -4,19 +4,17 @@ from pathlib import Path
 import sys
 import hashlib
 
-# Add root to import path
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from scripts.builders.core import build_matches_from_snapshots
-from scripts.utils.logger import log_info, log_success, log_error
 from scripts.utils.paths import get_snapshot_csv_path
-from scripts.utils.cli_utils import assert_file_exists, should_run, add_common_flags, assert_columns_exist
+from scripts.utils.logger import log_info, log_success, log_error
+from scripts.utils.cli_utils import (
+    assert_file_exists, should_run, add_common_flags, assert_columns_exist
+)
 
 
-def generate_match_id(row):
-    """
-    Deterministically hashes match row fields into a match_id.
-    """
+def generate_match_id(row) -> str:
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
 
@@ -26,10 +24,10 @@ def main():
     parser.add_argument("--tour", required=True)
     parser.add_argument("--tournament", required=True)
     parser.add_argument("--year", required=True)
-    parser.add_argument("--snapshots_csv", required=False, help="Path to parsed Betfair snapshots")
-    parser.add_argument("--sackmann_csv", required=False, help="Optional match results file for outcome labels")
-    parser.add_argument("--alias_csv", required=False, help="Optional alias map file")
-    parser.add_argument("--player_stats_csv", required=False, help="Optional stats feature CSV")
+    parser.add_argument("--snapshots_csv", help="Path to parsed Betfair snapshots")
+    parser.add_argument("--sackmann_csv", help="Optional match results file for outcome labels")
+    parser.add_argument("--alias_csv", help="Optional alias map file")
+    parser.add_argument("--player_stats_csv", help="Optional stats feature CSV")
     parser.add_argument("--snapshot_only", action="store_true")
     parser.add_argument("--fuzzy_match", action="store_true")
     parser.add_argument("--output_csv", required=True)
@@ -37,14 +35,12 @@ def main():
     args = parser.parse_args()
 
     output_path = Path(args.output_csv)
-
     if not should_run(output_path, args.overwrite, args.dry_run):
         return
 
     label = f"{args.tournament}_{args.year}_{args.tour}"
     snapshots_csv = args.snapshots_csv or get_snapshot_csv_path(label)
     assert_file_exists(snapshots_csv, "snapshots_csv")
-
     if args.sackmann_csv and not args.snapshot_only:
         assert_file_exists(args.sackmann_csv, "sackmann_csv")
     if args.alias_csv:
@@ -65,7 +61,6 @@ def main():
             fuzzy_match=args.fuzzy_match,
         )
 
-        # === Integrity checks ===
         required = ["market_id", "player_1", "player_2"]
         assert_columns_exist(df_matches, required, context="match build")
 

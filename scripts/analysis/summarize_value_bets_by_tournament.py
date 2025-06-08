@@ -1,10 +1,10 @@
 import argparse
 import pandas as pd
-from pathlib import Path
 import glob
+from pathlib import Path
 
 from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.cli_utils import add_common_flags, should_run
+from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 
 
 def main():
@@ -15,21 +15,21 @@ def main():
     args = parser.parse_args()
 
     output_path = Path(args.output_csv)
+    files = glob.glob(args.input_glob)
 
+    if not files:
+        raise ValueError(f"❌ No match-level summary files found matching: {args.input_glob}")
     if not should_run(output_path, args.overwrite, args.dry_run):
         return
-
-    files = glob.glob(args.input_glob)
-    if not files:
-        raise ValueError("❌ No match-level summary files found.")
 
     rows = []
     for f in files:
         try:
+            assert_file_exists(f, "match_summary_csv")
             df = pd.read_csv(f)
-            required = {"match_id", "total_profit", "avg_ev", "num_bets"}
-            if not required.issubset(df.columns):
-                log_warning(f"⚠️ Skipping {f} — missing one of: {required}")
+            required_cols = {"match_id", "total_profit", "avg_ev", "num_bets"}
+            if not required_cols.issubset(df.columns):
+                log_warning(f"⚠️ Skipping {f} — missing one of: {required_cols}")
                 continue
 
             tournament = Path(f).stem.replace("_value_bets_by_match", "")
