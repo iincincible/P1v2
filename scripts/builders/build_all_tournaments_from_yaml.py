@@ -11,17 +11,15 @@ from scripts.utils.cli_utils import (
     assert_file_exists, add_common_flags, merge_with_defaults, should_run
 )
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.constants import DEFAULT_CONFIG_FILE
 
 PYTHON = sys.executable
-DEFAULT_CONFIG = "configs/tournaments_2024.yaml"
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 SNAPSHOT_SCRIPT = "scripts/pipeline/parse_betfair_snapshots.py"
 BETFAIR_DATA_DIR = "data/BASIC"
 
 def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str:
     label = conf["label"]
-
-    # ✅ Use provided snapshots_csv if available
     if "snapshots_csv" in conf and Path(conf["snapshots_csv"]).exists() and not overwrite:
         log_info(f"📄 Using pre-parsed snapshots: {conf['snapshots_csv']}")
         return conf["snapshots_csv"]
@@ -71,7 +69,7 @@ def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str
 
 def main():
     parser = argparse.ArgumentParser(description="Build raw matches for all tournaments in YAML config.")
-    parser.add_argument("--config", default=DEFAULT_CONFIG, help="Path to tournaments YAML config")
+    parser.add_argument("--config", default=DEFAULT_CONFIG_FILE, help="Path to tournaments YAML config")
     add_common_flags(parser)
     args = parser.parse_args()
 
