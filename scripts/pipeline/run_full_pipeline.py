@@ -8,9 +8,9 @@ import sys
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import add_common_flags, merge_with_defaults, should_run
 from scripts.utils.paths import get_pipeline_paths
+from scripts.utils.constants import DEFAULT_MODEL_PATH, DEFAULT_CONFIG_FILE
 
 PYTHON = sys.executable
-DEFAULT_CONFIG = "configs/pipeline_run.yaml"
 
 STAGE_SCRIPTS = {
     "build": "scripts/builders/build_all_tournaments_from_yaml.py",
@@ -25,7 +25,7 @@ STAGE_SCRIPTS = {
 def build_args(stage_name, label, paths, defaults):
     if stage_name == "build":
         return [
-            "--config", defaults.get("config", "configs/tournaments_2023.yaml"),
+            "--config", defaults.get("config", DEFAULT_CONFIG_FILE),
             "--overwrite"
         ]
     elif stage_name == "ids":
@@ -47,7 +47,7 @@ def build_args(stage_name, label, paths, defaults):
         ]
     elif stage_name == "predict":
         return [
-            "--model_file", "modeling/win_model.pkl",
+            "--model_file", DEFAULT_MODEL_PATH,
             "--input_csv", str(paths["features_csv"]),
             "--output_csv", str(paths["predictions_csv"]),
         ]
@@ -66,7 +66,7 @@ def build_args(stage_name, label, paths, defaults):
 
 def main():
     parser = argparse.ArgumentParser(description="Run full value betting pipeline.")
-    parser.add_argument("--config", default=DEFAULT_CONFIG, help="Path to pipeline YAML config")
+    parser.add_argument("--config", default=DEFAULT_CONFIG_FILE, help="Path to pipeline YAML config")
     parser.add_argument("--only", nargs="*", help="Optional list of stages to run (e.g., 'predict detect')")
     add_common_flags(parser)
     args = parser.parse_args()
