@@ -12,6 +12,7 @@ from scripts.utils.cli_utils import (
 )
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.constants import DEFAULT_CONFIG_FILE
+from scripts.utils.config_validation import validate_yaml, TOURNAMENTS_SCHEMA  # ← Added
 
 PYTHON = sys.executable
 BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
@@ -73,8 +74,8 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    with open(args.config, "r") as f:
-        config = yaml.safe_load(f)
+    # --- New: Validate YAML config before proceeding ---
+    config = validate_yaml(args.config, TOURNAMENTS_SCHEMA)
 
     defaults = config.get("defaults", {})
     tournaments = config.get("tournaments", [])
