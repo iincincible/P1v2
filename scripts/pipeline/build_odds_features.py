@@ -7,8 +7,8 @@ from scripts.utils.normalize_columns import normalize_columns
 from scripts.utils.logger import log_info, log_success
 from scripts.utils.cli_utils import should_run, add_common_flags, assert_file_exists
 
-
 def main():
+    """Build implied odds features and EV/Kelly fields using shared utilities."""
     parser = argparse.ArgumentParser(description="Build implied odds features and EV/Kelly fields.")
     parser.add_argument("--input_csv", required=True, help="Input CSV path")
     parser.add_argument("--output_csv", required=True, help="Path to save output with features")
@@ -52,7 +52,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
     log_success(f"✅ Saved odds features to {output_path}")
-
 
 if __name__ == "__main__":
     main()

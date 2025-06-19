@@ -8,9 +8,10 @@ from scripts.utils.cli_utils import (
 )
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
-
+from scripts.utils.betting_math import add_ev_and_kelly
 
 def main():
+    """Summarize value bets by match, grouped and aggregated."""
     parser = argparse.ArgumentParser(description="Summarize value bets by match.")
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for *_value_bets.csv files")
     parser.add_argument("--output_csv", required=True, help="Path to save grouped match summary")
@@ -32,6 +33,7 @@ def main():
             assert_file_exists(file, "value_bets_csv")
             df = pd.read_csv(file)
             df = normalize_columns(df)
+            df = add_ev_and_kelly(df)
             df = patch_winner_column(df)
 
             required_cols = ["match_id", "player_1", "player_2", "odds", "expected_value"]
@@ -60,7 +62,6 @@ def main():
         total_profit=(lambda g: ((g["winner"] * (g["odds"] - 1)) - (~g["winner"].astype(bool)) * 1.0).sum())
     )
 
-    # Add player info
     firsts = df.drop_duplicates("match_id")[["match_id", "player_1", "player_2"]].set_index("match_id")
     summary = grouped.join(firsts, on="match_id").reset_index()
 
@@ -72,7 +73,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     summary.to_csv(output_path, index=False)
     log_success(f"✅ Saved match-level summary to {output_path}")
-
 
 if __name__ == "__main__":
     main()

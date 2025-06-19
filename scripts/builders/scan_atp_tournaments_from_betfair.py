@@ -8,7 +8,6 @@ from scripts.utils.snapshot_parser import SnapshotParser
 from scripts.utils.logger import log_info, log_warning, log_success
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 
-
 def main():
     parser = argparse.ArgumentParser(description="Scan and extract candidate ATP tournament markets from Betfair snapshots.")
     parser.add_argument("--input_dir", required=True, help="Directory containing .bz2 snapshot files")
@@ -49,7 +48,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
     log_success(f"✅ Saved {len(df)} ATP candidate markets to {output_path}")
-
 
 if __name__ == "__main__":
     main()

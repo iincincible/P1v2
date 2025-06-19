@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-from scripts.utils.ev import compute_ev
+from scripts.utils.betting_math import compute_ev, add_ev_and_kelly
 from scripts.utils.logger import log_info, log_warning, log_success
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.cli_utils import (
@@ -11,8 +11,8 @@ from scripts.utils.cli_utils import (
 )
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
 
-
 def main():
+    """Filter predictions to find +EV value bets, using shared EV and winner logic."""
     parser = argparse.ArgumentParser(description="Filter predictions to find +EV value bets.")
     parser.add_argument("--input_csv", required=True, help="Predictions input CSV")
     parser.add_argument("--output_csv", required=True, help="Path to save filtered value bets")
@@ -31,10 +31,8 @@ def main():
     df = pd.read_csv(args.input_csv)
     log_info(f"📥 Loaded {len(df)} rows from {args.input_csv}")
     df = normalize_columns(df)
-
-    if "expected_value" not in df.columns:
-        df["expected_value"] = compute_ev(df["predicted_prob"], df["odds"], df.get("implied_prob"))
-        log_info("🔧 Computed expected_value")
+    df = add_ev_and_kelly(df)
+    df = patch_winner_column(df)
 
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
@@ -61,12 +59,9 @@ def main():
         log_warning("⚠️ No value bets found after filtering.")
         return
 
-    filtered = patch_winner_column(filtered)
-
     output_path.parent.mkdir(parents=True, exist_ok=True)
     filtered.to_csv(output_path, index=False)
     log_success(f"✅ Saved {len(filtered)} value bets to {output_path}")
-
 
 if __name__ == "__main__":
     main()

@@ -17,8 +17,10 @@ from scripts.utils.constants import (
     DEFAULT_FIXED_STAKE, DEFAULT_STRATEGY
 )
 
-
 def main():
+    """
+    Train and evaluate a win probability model, and simulate bankroll using consistent winner/EV logic.
+    """
     parser = argparse.ArgumentParser(description="Train and evaluate win probability model.")
     parser.add_argument("--train_csvs", nargs="+", required=True)
     parser.add_argument("--test_csv", required=True)
@@ -49,8 +51,10 @@ def main():
             assert_file_exists(path, "train_csv")
             df = pd.read_csv(path)
             df = normalize_columns(df)
-            df = df.dropna(subset=args.features + ["actual_winner", "player_1"])
-            df["label"] = (df["actual_winner"] == df["player_1"]).astype(int)
+            df = add_ev_and_kelly(df)
+            df = patch_winner_column(df)
+            df = df.dropna(subset=args.features + ["winner", "player_1"])
+            df["label"] = (df["winner"] == 1).astype(int)
             assert_columns_exist(df, args.features + ["label"], context="training")
             train_dfs.append(df)
         except Exception as e:
@@ -65,10 +69,9 @@ def main():
     assert_file_exists(args.test_csv, "test_csv")
     df_test = pd.read_csv(args.test_csv)
     df_test = normalize_columns(df_test)
-    df_test = df_test.dropna(subset=args.features)
-
     df_test = add_ev_and_kelly(df_test)
     df_test = patch_winner_column(df_test)
+    df_test = df_test.dropna(subset=args.features)
 
     assert_columns_exist(df_test, args.features + ["predicted_prob", "odds", "expected_value"], context="test set")
 
@@ -76,8 +79,8 @@ def main():
     model.fit(df_train[args.features], df_train["label"])
     df_test["predicted_prob"] = model.predict_proba(df_test[args.features])[:, 1]
 
-    if "actual_winner" in df_test.columns:
-        y_true = (df_test["actual_winner"] == df_test["player_1"]).astype(int)
+    if "winner" in df_test.columns:
+        y_true = (df_test["winner"] == 1).astype(int)
         acc = accuracy_score(y_true, df_test["predicted_prob"] > 0.5)
         loss = log_loss(y_true, df_test["predicted_prob"])
         log_success(f"🎯 Accuracy: {acc:.4f}")
@@ -112,7 +115,6 @@ def main():
 
     png_path = bankroll_path.with_suffix(".png")
     generate_bankroll_plot(sim_df["bankroll"], output_path=png_path)
-
 
 if __name__ == "__main__":
     main()

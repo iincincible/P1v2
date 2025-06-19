@@ -13,11 +13,9 @@ from scripts.utils.cli_utils import (
     assert_file_exists, should_run, add_common_flags, assert_columns_exist
 )
 
-
 def generate_match_id(row) -> str:
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
-
 
 def main():
     parser = argparse.ArgumentParser(description="Build matches from Betfair snapshots and optional results.")
@@ -73,7 +71,6 @@ def main():
     except Exception as e:
         log_error(f"❌ Failed to build matches for {label}")
         log_error(str(e))
-
 
 if __name__ == "__main__":
     main()

@@ -7,7 +7,6 @@ from scripts.utils.selection import build_market_runner_map, match_player_to_sel
 from scripts.utils.logger import log_info, log_warning, log_error, log_success
 from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 
-
 def main():
     parser = argparse.ArgumentParser(description="Match player names to Betfair selection IDs.")
     parser.add_argument("--merged_csv", required=True, help="Input match CSV with player names")
@@ -51,7 +50,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df_matches.to_csv(output_path, index=False)
     log_success(f"✅ Saved selection ID mappings to {output_path}")
-
 
 if __name__ == "__main__":
     main()

@@ -7,7 +7,6 @@ from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, assert_columns_exist
 from scripts.utils.normalize_columns import normalize_columns
 
-
 def main():
     parser = argparse.ArgumentParser(description="Use trained model to predict win probabilities.")
     parser.add_argument("--model_file", required=True, help="Trained sklearn model (joblib)")
@@ -37,7 +36,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
     log_success(f"✅ Saved predictions to {output_path}")
-
 
 if __name__ == "__main__":
     main()

@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 import glob
 from pathlib import Path
 
-from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import should_run, add_common_flags, assert_file_exists
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
-
+from scripts.utils.betting_math import add_ev_and_kelly
 
 def main():
+    """Analyze and plot EV distribution from value bet files."""
     parser = argparse.ArgumentParser(description="Analyze and plot EV distribution from value bet files.")
     parser.add_argument("--value_bets_glob", required=True, help="Glob pattern for *_value_bets.csv")
     parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
@@ -31,6 +32,8 @@ def main():
             assert_file_exists(file, "value_bets_csv")
             df = pd.read_csv(file)
             df = normalize_columns(df)
+            df = add_ev_and_kelly(df)
+            df = patch_winner_column(df)
             df = df[(df["expected_value"] >= args.ev_threshold) & (df["odds"] <= args.max_odds)]
             dfs.append(df)
         except Exception as e:
@@ -42,7 +45,6 @@ def main():
     all_bets = pd.concat(dfs, ignore_index=True)
     log_info(f"📊 Loaded {len(all_bets)} filtered value bets")
 
-    # Save filtered CSV if requested
     if args.output_csv:
         output_path = Path(args.output_csv)
         if should_run(output_path, args.overwrite, args.dry_run):
@@ -50,7 +52,6 @@ def main():
             all_bets.to_csv(output_path, index=False)
             log_success(f"✅ Saved filtered bets to {output_path}")
 
-    # Plotting
     if all_bets.empty:
         log_warning("⚠️ No data available for plotting.")
         return
@@ -73,7 +74,6 @@ def main():
 
     if args.plot:
         plt.show()
-
 
 if __name__ == "__main__":
     main()

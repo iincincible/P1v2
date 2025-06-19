@@ -6,8 +6,8 @@ from pathlib import Path
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 
-
 def main():
+    """Plot tournament leaderboard from summary CSV."""
     parser = argparse.ArgumentParser(description="Plot tournament leaderboard from summary CSV.")
     parser.add_argument("--input_csv", required=True, help="Path to tournament_leaderboard.csv")
     parser.add_argument("--output_png", default=None, help="Optional path to save PNG plot")
@@ -53,7 +53,6 @@ def main():
 
     if args.show:
         plt.show()
-
 
 if __name__ == "__main__":
     main()

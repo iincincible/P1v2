@@ -22,7 +22,6 @@ STAGE_SCRIPTS = {
     "simulate": "scripts/pipeline/simulate_bankroll_growth.py",
 }
 
-
 def build_args(stage_name, label, paths, defaults):
     if stage_name == "build":
         return [
@@ -64,7 +63,6 @@ def build_args(stage_name, label, paths, defaults):
         ]
     else:
         raise ValueError(f"❌ Unknown pipeline stage: {stage_name}")
-
 
 def main():
     parser = argparse.ArgumentParser(description="Run full value betting pipeline.")

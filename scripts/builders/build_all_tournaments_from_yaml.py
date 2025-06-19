@@ -18,7 +18,6 @@ BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
 SNAPSHOT_SCRIPT = "scripts/pipeline/parse_betfair_snapshots.py"
 BETFAIR_DATA_DIR = "data/BASIC"
 
-
 def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str:
     label = conf["label"]
 
@@ -69,7 +68,6 @@ def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str
         raise
 
     return snapshot_csv
-
 
 def main():
     parser = argparse.ArgumentParser(description="Build raw matches for all tournaments in YAML config.")
@@ -136,7 +134,6 @@ def main():
 
         except Exception as e:
             log_error(f"⚠️ Skipping {label} due to error: {e}")
-
 
 if __name__ == "__main__":
     main()
