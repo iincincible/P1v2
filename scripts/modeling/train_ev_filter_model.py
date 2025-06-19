@@ -14,8 +14,8 @@ from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD
 
-
 def main():
+    """Train RandomForest to filter value bets, ensuring consistent EV and winner columns."""
     parser = argparse.ArgumentParser(description="Train EV filter model (RandomForest).")
     parser.add_argument("--input_files", nargs="+", required=True, help="CSV files with prediction features")
     parser.add_argument("--output_model", required=True, help="Path to save the trained model")
@@ -78,7 +78,6 @@ def main():
     with open(meta_path, "w") as f:
         json.dump(metadata, f, indent=2)
     log_success(f"📄 Saved metadata to {meta_path}")
-
 
 if __name__ == "__main__":
     main()

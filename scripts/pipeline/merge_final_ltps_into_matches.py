@@ -5,7 +5,6 @@ from pathlib import Path
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import assert_file_exists, should_run, add_common_flags
 
-
 def main():
     parser = argparse.ArgumentParser(description="Merge final LTPs from snapshots into matches CSV.")
     parser.add_argument("--matches_csv", required=True, help="Path to clean matches CSV")
@@ -48,7 +47,6 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(output_path, index=False)
     log_success(f"✅ Saved matches with LTPs to {output_path}")
-
 
 if __name__ == "__main__":
     main()

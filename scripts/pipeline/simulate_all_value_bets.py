@@ -5,9 +5,11 @@ from pathlib import Path
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 from scripts.utils.constants import DEFAULT_FIXED_STAKE, DEFAULT_STRATEGY
-
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.betting_math import add_ev_and_kelly
 
 def main():
+    """Simulate bankroll using all value bets, ensuring consistent winner/EV columns."""
     parser = argparse.ArgumentParser(description="Simulate bankroll using all value bets from glob.")
     parser.add_argument("--value_bets_csv", required=True, help="Path to full value bets CSV")
     parser.add_argument("--output_csv", required=True, help="Path to save simulation result")
@@ -24,6 +26,10 @@ def main():
         return
 
     df = pd.read_csv(value_bets_path)
+    df = normalize_columns(df)
+    df = add_ev_and_kelly(df)
+    df = patch_winner_column(df)
+
     sim_df, final_bankroll, max_drawdown = simulate_bankroll(
         df,
         strategy=args.strategy,
@@ -40,7 +46,6 @@ def main():
 
     print(f"💰 Final bankroll: {final_bankroll:.2f}")
     print(f"📉 Max drawdown: {max_drawdown:.2f}")
-
 
 if __name__ == "__main__":
     main()

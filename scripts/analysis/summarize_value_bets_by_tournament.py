@@ -6,8 +6,8 @@ from pathlib import Path
 from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 
-
 def main():
+    """Summarize value bets by tournament."""
     parser = argparse.ArgumentParser(description="Summarize value bets by tournament.")
     parser.add_argument("--input_glob", required=True, help="Glob pattern for *_value_bets_by_match.csv")
     parser.add_argument("--output_csv", required=True, help="Output CSV for tournament summary")
@@ -64,7 +64,6 @@ def main():
 
     log_info("\n📊 Top 5 by ROI:")
     log_info(df_out[["tournament", "roi", "profit", "total_bets"]].head(5).to_string(index=False))
-
 
 if __name__ == "__main__":
     main()
