@@ -9,6 +9,7 @@ from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import add_common_flags, merge_with_defaults, should_run
 from scripts.utils.paths import get_pipeline_paths
 from scripts.utils.constants import DEFAULT_MODEL_PATH, DEFAULT_CONFIG_FILE
+from scripts.utils.config_validation import validate_yaml, PIPELINE_SCHEMA  # ← Add this import
 
 PYTHON = sys.executable
 
@@ -71,8 +72,8 @@ def main():
     add_common_flags(parser)
     args = parser.parse_args()
 
-    with open(args.config, "r", encoding="utf-8") as f:
-        raw_config = yaml.safe_load(f)
+    # --- New: Validate YAML config before proceeding ---
+    raw_config = validate_yaml(args.config, PIPELINE_SCHEMA)
 
     defaults = raw_config.get("defaults", {})
     stages = raw_config.get("stages", [])
