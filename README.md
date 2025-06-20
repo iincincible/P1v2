@@ -1,4 +1,4 @@
-# 🎾 Tennis Value Betting Model (P1v2)
+# 🎾 Tennis Value Betting Pipeline (P1v2)
 
 *A modern, modular, and fully tested pipeline for finding and simulating value bets in ATP and WTA tennis.*
 
@@ -16,98 +16,113 @@
 
 ---
 
-## 🔥 Project Status
-
-| Feature                               | Status         |
-| ------------------------------------- | -------------- |
-| ATP Grand Slam modeling               | ✅ Complete     |
-| Indian Wells & multi-tournament flows | ✅ Complete     |
-| Value bet detection                   | ✅ Complete     |
-| Full bankroll simulation framework    | ✅ Complete     |
-| YAML config validation & pipeline     | ✅ Complete     |
-| Test suite (pytest)                   | ✅ Complete     |
-| Miami and WTA support                 | 🟡 In Progress |
-| Player stats and Elo integration      | 🟡 Planned     |
-| One-command pipeline launcher         | ✅ Ready        |
-
----
-
 ## 📂 Project Structure
 
-| Folder              | Description                                                    |
-| ------------------- | -------------------------------------------------------------- |
-| `scripts/pipeline/` | Core pipeline: features, training, prediction, value bets, sim |
-| `scripts/builders/` | Tournament/build orchestration and snapshot merging            |
-| `scripts/debug/`    | Tools for expected value bins, LTP coverage, misalignments     |
-| `data/`             | Raw & processed match/csv data                                 |
-| `modeling/`         | Trained models, bankroll logs, value bet outputs               |
-| `parsed/`           | Snapshots, clean matches, intermediate files                   |
-| `tests/`            | Unit & integration tests for utilities and validation          |
-
----
-
-## 🛠️ Setup & Installation
-
-**On Windows (PowerShell):**
-
 ```
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-**On Mac/Linux:**
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+project_root/
+├── configs/                     # YAML configs for pipelines and tournaments
+├── src/scripts/analysis/        # Analysis scripts (EV plots, summaries)
+├── src/scripts/builders/        # Match-building and orchestration
+├── src/scripts/pipeline/        # Core pipeline stages (features, predict, detect, simulate)
+├── src/scripts/utils/           # Shared utilities (CLI, logging, config, normalization)
+├── tests/                       # Unit & integration tests
+├── data/                        # Raw and processed data files
+├── parsed/                      # Intermediate parsed outputs
+├── models/                      # Saved models and metadata
+├── README.md                    # This file
+└── requirements.txt             # Python dependencies
 ```
 
 ---
 
-## ▶️ Running the Pipeline
+## ▶️ Quickstart
 
-**To run the full, end-to-end pipeline:**
+1. **Configure a tournament**
+   Edit or add an entry in `configs/tournaments_YYYY.yaml` with appropriate fields (label, year, thresholds, file paths).
 
+2. **Run the full pipeline:**
+
+   ```bash
+   python src/scripts/pipeline/run_full_pipeline.py \
+     --config configs/pipeline_run.yaml
+   ```
+
+3. **Train a model:**
+
+   ```bash
+   python src/scripts/modeling/train_ev_filter_model.py \
+     --input_files data/your_train.csv \
+     --output_model models/ev_filter.joblib \
+     --min_ev 0.2
+   ```
+
+---
+
+## 🔄 Batch Pipeline Runs
+
+To process **all tournaments** listed in your tournaments YAML in one go, add `--batch`:
+
+```bash
+python src/scripts/pipeline/run_full_pipeline.py \
+  --config configs/pipeline_run.yaml \
+  --batch
 ```
-python scripts/pipeline/run_full_pipeline.py --config configs/pipeline_run.yaml
-```
 
-* Edit the YAML config files in `configs/` to choose tournaments, models, or output locations.
+Dry-run works here too:
 
-**To run individual stages:**
-
-```
-python scripts/pipeline/build_odds_features.py --help
-python scripts/pipeline/train_eval_model.py --help
-python scripts/pipeline/detect_value_bets.py --help
-python scripts/pipeline/simulate_bankroll_growth.py --help
+```bash
+python src/scripts/pipeline/run_full_pipeline.py \
+  --config configs/pipeline_run.yaml \
+  --batch \
+  --dry_run
 ```
 
 ---
 
-## 🧪 Running Tests
+## 📊 Model Reproducibility
 
-**After activating your virtual environment:**
+Each model training saves, alongside the `.joblib` model file, a metadata `.json` containing:
 
+* **Timestamp** & **git commit hash**
+* **Model type** and **feature list**
+* **EV threshold**, **training-row count**, and a **data preview**
+
+This ensures experiments can be reproduced exactly.
+
+---
+
+## 🧪 Dry-Run Mode
+
+All major scripts accept `--dry_run` and log planned actions **without** writing or overwriting files. Use for safe testing:
+
+```bash
+python src/scripts/analysis/analyze_ev_distribution.py \
+  --value_bets_glob "output/*_value_bets.csv" \
+  --dry_run
 ```
-pytest
+
+---
+
+## ✅ Tests
+
+We keep tests in the top-level `tests/` directory. To run:
+
+```bash
+pytest -v
 ```
 
-* All unit and integration tests live in the `tests/` directory.
-* Critical utilities are covered by tests; expand coverage as you build!
+Add new tests alongside each new utility or script stage.
 
 ---
 
 ## 📝 Contributing & Advanced Usage
 
-* Edit YAML config files in `configs/` for tournaments, defaults, or to enable new features.
-* See docstrings in each script for advanced options.
-* To contribute: open an issue or PR.
+* Scripts are **importable** via `main(args=None)` for unit tests or interactive use.
+* Run `python <script>.py --help` for detailed flags.
+* To contribute: open an issue or PR on GitHub.
 
 ---
 
-## 📞 Questions? Ideas?
+## 📞 Questions or Ideas?
 
-Open an issue or reach out—happy value betting!
+Feel free to open an issue or reach out—happy value betting!

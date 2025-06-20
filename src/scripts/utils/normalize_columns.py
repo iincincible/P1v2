@@ -29,6 +29,8 @@ def patch_winner_column(df: pd.DataFrame) -> pd.DataFrame:
     elif "expected_value" in df.columns:
         df["winner"] = (df["expected_value"] > 0).astype(int)
     else:
-        raise ValueError("❌ Cannot patch winner column — missing actual_winner or expected_value")
+        raise ValueError(
+            "❌ Cannot patch winner column — missing actual_winner or expected_value"
+        )
 
     return df

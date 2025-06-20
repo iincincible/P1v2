@@ -4,6 +4,7 @@ from tqdm import tqdm
 
 from scripts.utils.betting_math import compute_kelly_stake_capped
 
+
 def simulate_bankroll(
     df: pd.DataFrame,
     strategy: str = "kelly",
@@ -11,7 +12,7 @@ def simulate_bankroll(
     ev_threshold: float = 0.01,
     odds_cap: float = 100.0,
     cap_fraction: float = 0.05,
-    verbose: bool = True
+    verbose: bool = True,
 ) -> tuple[pd.DataFrame, float, float]:
     """
     Simulates betting bankroll over time using either flat or Kelly staking.
@@ -26,10 +27,11 @@ def simulate_bankroll(
     history = []
 
     filtered = df.copy()
-    filtered = filtered.dropna(subset=["predicted_prob", "odds", "expected_value", "winner"])
+    filtered = filtered.dropna(
+        subset=["predicted_prob", "odds", "expected_value", "winner"]
+    )
     filtered = filtered[
-        (filtered["expected_value"] >= ev_threshold) &
-        (filtered["odds"] <= odds_cap)
+        (filtered["expected_value"] >= ev_threshold) & (filtered["odds"] <= odds_cap)
     ]
 
     if verbose:
@@ -42,28 +44,37 @@ def simulate_bankroll(
         print(f"⚠️ Only {len(filtered)} bets — switching to flat staking for safety.")
         actual_strategy = "flat"
 
-    for _, row in tqdm(filtered.iterrows(), total=len(filtered), desc="Simulating bankroll"):
+    for _, row in tqdm(
+        filtered.iterrows(), total=len(filtered), desc="Simulating bankroll"
+    ):
         prob = row["predicted_prob"]
         odds = row["odds"]
         won = row["winner"]
 
-        stake = 1.0 if actual_strategy == "flat" else compute_kelly_stake_capped(prob, odds, bankroll, cap=cap_fraction)
+        stake = (
+            1.0
+            if actual_strategy == "flat"
+            else compute_kelly_stake_capped(prob, odds, bankroll, cap=cap_fraction)
+        )
         payout = stake * (odds if won else 0)
         bankroll += payout - stake
         peak = max(peak, bankroll)
         drawdown = peak - bankroll
         max_drawdown = max(max_drawdown, drawdown)
 
-        history.append({
-            "match_id": row.get("match_id", ""),
-            "stake": stake,
-            "odds": odds,
-            "won": bool(won),
-            "payout": payout,
-            "bankroll": bankroll
-        })
+        history.append(
+            {
+                "match_id": row.get("match_id", ""),
+                "stake": stake,
+                "odds": odds,
+                "won": bool(won),
+                "payout": payout,
+                "bankroll": bankroll,
+            }
+        )
 
     return pd.DataFrame(history), bankroll, max_drawdown
+
 
 def generate_bankroll_plot(bankroll_series: pd.Series, output_path: str = None):
     """

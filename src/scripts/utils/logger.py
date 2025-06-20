@@ -1,16 +1,21 @@
-from datetime import datetime
+import logging
 
-def _timestamp():
-    return f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]"
 
-def log_info(msg: str):
-    print(f"{_timestamp()} INFO  {msg}")
+def log_info(msg):
+    logging.info(msg)
 
-def log_success(msg: str):
-    print(f"{_timestamp()} OK ✅  {msg}")
 
-def log_warning(msg: str):
-    print(f"{_timestamp()} WARN ⚠️ {msg}")
+def log_success(msg):
+    logging.info(f"✅ {msg}")
 
-def log_error(msg: str):
-    print(f"{_timestamp()} ERR ❌  {msg}")
+
+def log_warning(msg):
+    logging.warning(f"⚠️ {msg}")
+
+
+def log_error(msg):
+    logging.error(f"❌ {msg}")
+
+
+def log_dryrun(msg):
+    logging.info(f"[DRY-RUN] {msg}")
