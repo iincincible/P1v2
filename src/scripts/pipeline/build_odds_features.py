@@ -2,27 +2,44 @@ import argparse
 import pandas as pd
 from pathlib import Path
 
+from scripts.utils.logger import log_info, log_success, log_error, log_dryrun
+from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.normalize_columns import normalize_columns
-from scripts.utils.logger import log_info, log_success
-from scripts.utils.cli_utils import should_run, add_common_flags, assert_file_exists
 
-def main():
-    """Build implied odds features and EV/Kelly fields using shared utilities."""
-    parser = argparse.ArgumentParser(description="Build implied odds features and EV/Kelly fields.")
+
+def main(args=None):
+    parser = argparse.ArgumentParser(
+        description="Build implied odds features and EV/Kelly fields."
+    )
     parser.add_argument("--input_csv", required=True, help="Input CSV path")
-    parser.add_argument("--output_csv", required=True, help="Path to save output with features")
+    parser.add_argument(
+        "--output_csv", required=True, help="Path to save output with features"
+    )
     add_common_flags(parser)
-    args = parser.parse_args()
+    _args = parser.parse_args(args)
 
-    assert_file_exists(args.input_csv, "input_csv")
-    output_path = Path(args.output_csv)
-    if not should_run(output_path, args.overwrite, args.dry_run):
+    # Dry-run
+    if _args.dry_run:
+        log_dryrun(
+            f"Would build odds features from {_args.input_csv} → {_args.output_csv}"
+        )
         return
 
-    df = pd.read_csv(args.input_csv)
+    input_path = Path(_args.input_csv)
+    output_path = Path(_args.output_csv)
+    assert_file_exists(input_path, "input_csv")
+    if not should_run(output_path, _args.overwrite, _args.dry_run):
+        return
 
-    # Flexible odds column mapping
+    try:
+        df = pd.read_csv(input_path)
+        log_info(f"📥 Loaded {len(df)} rows from {input_path}")
+    except Exception as e:
+        log_error(f"❌ Failed to read {input_path}: {e}")
+        return
+
+    # Flexible odds mapping
     if "odds_player_1" not in df.columns:
         if "ltp_player_1" in df.columns:
             df["odds_player_1"] = df["ltp_player_1"]
@@ -35,23 +52,38 @@ def main():
         df["odds_player_2"] = df["ltp_player_2"]
         log_info("🔧 Mapped ltp_player_2 → odds_player_2")
 
-    # Implied probabilities
+    # Compute implied probabilities & margins
     if "implied_prob_1" not in df.columns and "odds_player_1" in df.columns:
         df["implied_prob_1"] = 1 / df["odds_player_1"]
     if "implied_prob_2" not in df.columns and "odds_player_2" in df.columns:
         df["implied_prob_2"] = 1 / df["odds_player_2"]
-    if "odds_margin" not in df.columns and {"implied_prob_1", "implied_prob_2"}.issubset(df.columns):
+    if "odds_margin" not in df.columns and {
+        "implied_prob_1",
+        "implied_prob_2",
+    }.issubset(df.columns):
         df["odds_margin"] = df["implied_prob_1"] + df["implied_prob_2"] - 1
-    if "implied_prob_diff" not in df.columns and {"implied_prob_1", "implied_prob_2"}.issubset(df.columns):
+    if "implied_prob_diff" not in df.columns and {
+        "implied_prob_1",
+        "implied_prob_2",
+    }.issubset(df.columns):
         df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
 
+    # Normalize and add EV/Kelly
     df = normalize_columns(df)
     if "predicted_prob" in df.columns:
-        df = add_ev_and_kelly(df)
+        try:
+            df = add_ev_and_kelly(df)
+        except Exception as e:
+            log_error(f"❌ Failed to compute EV/Kelly: {e}")
+            return
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_path, index=False)
-    log_success(f"✅ Saved odds features to {output_path}")
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(output_path, index=False)
+        log_success(f"✅ Saved odds features to {output_path}")
+    except Exception as e:
+        log_error(f"❌ Failed to save odds features: {e}")
+
 
 if __name__ == "__main__":
     main()

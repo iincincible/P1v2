@@ -1,6 +1,7 @@
 from collections import defaultdict
 from difflib import get_close_matches
 
+
 def build_market_runner_map(snapshots_df):
     """
     Builds a map: market_id → {runner_name_clean → selection_id}
@@ -12,6 +13,7 @@ def build_market_runner_map(snapshots_df):
         selection_id = row["selection_id"]
         market_runner_map[market_id][runner_name] = selection_id
     return market_runner_map
+
 
 def match_player_to_selection_id(market_runner_map, market_id, player_name, cutoff=0.8):
     """

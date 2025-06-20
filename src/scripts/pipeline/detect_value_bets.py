@@ -3,65 +3,131 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-from scripts.utils.betting_math import compute_ev, add_ev_and_kelly
-from scripts.utils.logger import log_info, log_warning, log_success
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
-from scripts.utils.cli_utils import (
-    add_common_flags, should_run, assert_file_exists, assert_columns_exist
+from scripts.utils.logger import (
+    log_info,
+    log_warning,
+    log_success,
+    log_error,
+    log_dryrun,
 )
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    should_run,
+    assert_file_exists,
+    assert_columns_exist,
+)
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
 
-def main():
-    """Filter predictions to find +EV value bets, using shared EV and winner logic."""
-    parser = argparse.ArgumentParser(description="Filter predictions to find +EV value bets.")
-    parser.add_argument("--input_csv", required=True, help="Predictions input CSV")
-    parser.add_argument("--output_csv", required=True, help="Path to save filtered value bets")
-    parser.add_argument("--ev_threshold", type=float, default=0.2)
-    parser.add_argument("--confidence_threshold", type=float, default=0.4)
-    parser.add_argument("--max_odds", type=float, default=6.0)
-    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
-    add_common_flags(parser)
-    args = parser.parse_args()
 
-    assert_file_exists(args.input_csv, "predictions file")
-    output_path = Path(args.output_csv)
-    if not should_run(output_path, args.overwrite, args.dry_run):
+def main(args=None):
+    parser = argparse.ArgumentParser(
+        description="Filter predictions to find +EV value bets."
+    )
+    parser.add_argument("--input_csv", required=True, help="Predictions input CSV")
+    parser.add_argument(
+        "--output_csv", required=True, help="Path to save filtered value bets"
+    )
+    parser.add_argument(
+        "--ev_threshold", type=float, default=0.2, help="Minimum expected value"
+    )
+    parser.add_argument(
+        "--confidence_threshold",
+        type=float,
+        default=0.4,
+        help="Minimum confidence score",
+    )
+    parser.add_argument(
+        "--max_odds", type=float, default=6.0, help="Maximum allowed odds"
+    )
+    parser.add_argument(
+        "--max_margin",
+        type=float,
+        default=DEFAULT_MAX_MARGIN,
+        help="Maximum odds margin",
+    )
+    add_common_flags(parser)
+    _args = parser.parse_args(args)
+
+    # Dry-run: log and exit
+    if _args.dry_run:
+        log_dryrun(
+            f"Would load predictions from {_args.input_csv}, "
+            f"filter EV>={_args.ev_threshold}, "
+            f"conf>={_args.confidence_threshold}, "
+            f"odds<={_args.max_odds}, "
+            f"margin<={_args.max_margin}, "
+            f"then write to {_args.output_csv}"
+        )
         return
 
-    df = pd.read_csv(args.input_csv)
-    log_info(f"📥 Loaded {len(df)} rows from {args.input_csv}")
-    df = normalize_columns(df)
-    df = add_ev_and_kelly(df)
-    df = patch_winner_column(df)
+    input_path = Path(_args.input_csv)
+    assert_file_exists(input_path, "input_csv")
 
+    output_path = Path(_args.output_csv)
+    if not should_run(output_path, _args.overwrite, _args.dry_run):
+        return
+
+    # Load
+    try:
+        df = pd.read_csv(input_path)
+        log_info(f"📥 Loaded {len(df)} rows from {input_path}")
+    except Exception as e:
+        log_error(f"❌ Failed to read {input_path}: {e}")
+        return
+
+    # Normalize & compute EV
+    try:
+        df = normalize_columns(df)
+        df = add_ev_and_kelly(df)
+        df = patch_winner_column(df)
+    except Exception as e:
+        log_error(f"❌ Failed to normalize/add EV: {e}")
+        return
+
+    # Ensure confidence_score exists
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
         log_info("🔧 Set confidence_score = predicted_prob")
 
+    # Validate required columns
     required = ["expected_value", "odds", "predicted_prob", "confidence_score"]
-    assert_columns_exist(df, required, context="value bet filter")
+    try:
+        assert_columns_exist(df, required, context="value bet filter")
+    except Exception as e:
+        log_error(f"❌ Missing required columns: {e}")
+        return
 
+    # Drop inf / NaN
     before = len(df)
     df = df.replace([np.inf, -np.inf], np.nan).dropna(subset=required)
     dropped = before - len(df)
     if dropped > 0:
         log_warning(f"⚠️ Dropped {dropped} rows with NaN or inf in required columns")
 
-    filtered = df[
-        (df["expected_value"] >= args.ev_threshold) &
-        (df["confidence_score"] >= args.confidence_threshold) &
-        (df["odds"] <= args.max_odds)
-    ]
-    if "odds_margin" in filtered.columns:
-        filtered = filtered[filtered["odds_margin"] <= args.max_margin]
+    # Filter
+    filt = (
+        (df["expected_value"] >= _args.ev_threshold)
+        & (df["confidence_score"] >= _args.confidence_threshold)
+        & (df["odds"] <= _args.max_odds)
+    )
+    if "odds_margin" in df.columns:
+        filt &= df["odds_margin"] <= _args.max_margin
 
-    if filtered.empty:
+    df_filtered = df[filt]
+    if df_filtered.empty:
         log_warning("⚠️ No value bets found after filtering.")
         return
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    filtered.to_csv(output_path, index=False)
-    log_success(f"✅ Saved {len(filtered)} value bets to {output_path}")
+    # Save
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        df_filtered.to_csv(output_path, index=False)
+        log_success(f"✅ Saved {len(df_filtered)} value bets to {output_path}")
+    except Exception as e:
+        log_error(f"❌ Failed to save filtered bets: {e}")
+
 
 if __name__ == "__main__":
     main()

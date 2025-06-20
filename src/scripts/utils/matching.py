@@ -52,7 +52,7 @@ def match_snapshots_to_results(
     df_matches: pd.DataFrame,
     sackmann_csv: str,
     alias_map: dict = None,
-    fuzzy: bool = True
+    fuzzy: bool = True,
 ) -> pd.DataFrame:
     """
     Matches Betfair snapshot-based matches to Sackmann match results.
@@ -74,7 +74,10 @@ def match_snapshots_to_results(
             continue
 
         candidates = sack_df[
-            ((sack_df["winner_name"].isin([p1, p2])) & (sack_df["loser_name"].isin([p1, p2])))
+            (
+                (sack_df["winner_name"].isin([p1, p2]))
+                & (sack_df["loser_name"].isin([p1, p2]))
+            )
         ]
 
         if candidates.empty:
@@ -85,13 +88,15 @@ def match_snapshots_to_results(
         winner = best_match["winner_name"]
         player_1_won = int(winner == p1)
 
-        matched.append({
-            "winner_name": best_match["winner_name"],
-            "loser_name": best_match["loser_name"],
-            "round": best_match.get("round", ""),
-            "score": best_match.get("score", ""),
-            "player_1_won": player_1_won,
-        })
+        matched.append(
+            {
+                "winner_name": best_match["winner_name"],
+                "loser_name": best_match["loser_name"],
+                "round": best_match.get("round", ""),
+                "score": best_match.get("score", ""),
+                "player_1_won": player_1_won,
+            }
+        )
 
     df_extra = pd.DataFrame(matched)
     return pd.concat([df_matches.reset_index(drop=True), df_extra], axis=1)

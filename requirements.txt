@@ -31,3 +31,7 @@ threadpoolctl==3.6.0
 tqdm==4.67.1
 tzdata==2025.2
 urllib3==2.4.0
+
+# Development tooling
+black==23.7.0
+flake8==6.1.0

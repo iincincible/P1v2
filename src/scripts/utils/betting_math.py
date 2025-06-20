@@ -1,10 +1,12 @@
 import pandas as pd
 
+
 def compute_ev(prob: float, odds: float) -> float:
     """
     Expected value = (probability of win * payout) - 1
     """
     return (prob * odds) - 1
+
 
 def compute_kelly_stake(prob: pd.Series, odds: pd.Series) -> pd.Series:
     """
@@ -19,7 +21,10 @@ def compute_kelly_stake(prob: pd.Series, odds: pd.Series) -> pd.Series:
     edge = (b * prob - q) / b
     return edge.clip(lower=0)
 
-def add_ev_and_kelly(df: pd.DataFrame, prob_col="predicted_prob", odds_col="odds") -> pd.DataFrame:
+
+def add_ev_and_kelly(
+    df: pd.DataFrame, prob_col="predicted_prob", odds_col="odds"
+) -> pd.DataFrame:
     """
     Adds expected_value and kelly_stake columns to a DataFrame using the specified prob and odds columns.
     """
@@ -27,7 +32,10 @@ def add_ev_and_kelly(df: pd.DataFrame, prob_col="predicted_prob", odds_col="odds
     df["kelly_stake"] = compute_kelly_stake(df[prob_col], df[odds_col])
     return df
 
-def compute_kelly_stake_capped(prob: float, odds: float, bankroll: float = 1.0, cap: float = 0.05) -> float:
+
+def compute_kelly_stake_capped(
+    prob: float, odds: float, bankroll: float = 1.0, cap: float = 0.05
+) -> float:
     """
     Computes the Kelly stake (fraction of bankroll), capped at a maximum %.
     """
