@@ -27,15 +27,15 @@ TOURNAMENTS_SCHEMA = {
                 "tour": {"type": "string", "required": True},
                 "tournament": {"type": "string", "required": True},
                 "year": {"type": "integer", "required": True},
+                "snapshots_csv": {"type": "string", "required": False},  # <-- Added!
                 # Add other required keys here...
             },
         },
     },
 }
 
-
 def validate_yaml(yaml_path, schema):
-    with open(yaml_path, "r") as f:
+    with open(yaml_path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     v = Validator(schema)
     if not v.validate(data):

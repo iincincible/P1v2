@@ -20,19 +20,22 @@ from scripts.utils.config_utils import load_yaml_config, merge_with_defaults
 PYTHON = sys.executable
 
 STAGE_SCRIPTS = {
-    "build": "scripts/builders/build_all_tournaments_from_yaml.py",
-    "ids": "scripts/pipeline/match_selection_ids.py",
-    "merge": "scripts/pipeline/merge_final_ltps_into_matches.py",
-    "features": "scripts/pipeline/build_odds_features.py",
-    "predict": "scripts/pipeline/predict_win_probs.py",
-    "detect": "scripts/pipeline/detect_value_bets.py",
-    "simulate": "scripts/pipeline/simulate_bankroll_growth.py",
+    "build": "src/scripts/builders/build_all_tournaments_from_yaml.py",
+    "ids": "src/scripts/pipeline/match_selection_ids.py",
+    "merge": "src/scripts/pipeline/merge_final_ltps_into_matches.py",
+    "features": "src/scripts/pipeline/build_odds_features.py",
+    "predict": "src/scripts/pipeline/predict_win_probs.py",
+    "detect": "src/scripts/pipeline/detect_value_bets.py",
+    "simulate": "src/scripts/pipeline/simulate_bankroll_growth.py",
 }
-
 
 def build_args(stage_name, label, paths, defaults):
     if stage_name == "build":
-        return ["--config", defaults.get("config", DEFAULT_CONFIG_FILE), "--overwrite"]
+        args = ["--config", defaults.get("config", DEFAULT_CONFIG_FILE)]
+        # Only add --overwrite if explicitly requested
+        if defaults.get("overwrite", False):
+            args.append("--overwrite")
+        return args
     elif stage_name == "ids":
         return [
             "--merged_csv",
@@ -84,7 +87,6 @@ def build_args(stage_name, label, paths, defaults):
     else:
         raise ValueError(f"❌ Unknown pipeline stage: {stage_name}")
 
-
 def run_pipeline_for_label(label, tournament_conf, global_defaults, stages, args):
     paths = get_pipeline_paths(label)
     log_info(f"\n🏷️ Pipeline for label: {label}")
@@ -122,7 +124,6 @@ def run_pipeline_for_label(label, tournament_conf, global_defaults, stages, args
             log_error(f"❌ Stage '{name}' failed for {label}")
             log_error(str(e))
             break
-
 
 def main(args=None):
     parser = argparse.ArgumentParser(description="Run full value betting pipeline.")
@@ -180,7 +181,6 @@ def main(args=None):
             log_error("❌ No 'label' found in pipeline config defaults.")
             return
         run_pipeline_for_label(label, global_defaults, global_defaults, stages, _args)
-
 
 if __name__ == "__main__":
     main()

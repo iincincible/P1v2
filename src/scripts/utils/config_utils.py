@@ -1,11 +1,9 @@
 import yaml
 import copy
 
-
 def load_yaml_config(path):
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:  # <--- UTF-8 fix
         return yaml.safe_load(f)
-
 
 def merge_with_defaults(config, defaults):
     """Recursively merge config dict into defaults dict (deep copy)."""

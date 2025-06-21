@@ -68,4 +68,8 @@ def build_matches_from_snapshots(
             grouped, sackmann_csv, alias_map=alias_map, fuzzy=fuzzy_match
         )
 
+    # --- Added lines: always produce player_1/player_2 columns for downstream code ---
+    grouped["player_1"] = grouped["runner_1"]
+    grouped["player_2"] = grouped["runner_2"]
+
     return grouped
