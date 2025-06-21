@@ -71,6 +71,23 @@ def main(args=None):
     all_bets = pd.concat(dfs, ignore_index=True)
     log_info(f"📊 Loaded {len(all_bets)} filtered value bets")
 
+    # === Added Terminal Summary Printout ===
+    print("\n========== EV Distribution Analysis ==========")
+    print(f"Files analyzed: {files}")
+    print("Number of value bets:", len(all_bets))
+    print("\nEV (expected value) stats:")
+    print(all_bets['expected_value'].describe())
+    print("\nOdds stats:")
+    print(all_bets['odds'].describe())
+    print("\nTop 5 bets by EV:")
+    print(all_bets.sort_values('expected_value', ascending=False)[
+        ['player_1', 'player_2', 'odds', 'expected_value', 'winner']
+    ].head())
+    if 'winner' in all_bets.columns:
+        print("\nWin rate:", (all_bets['winner'] == 1).mean())
+    print("=============================================\n")
+    # === End Terminal Printout ===
+
     if _args.output_csv:
         output_path = Path(_args.output_csv)
         if should_run(output_path, _args.overwrite, _args.dry_run):

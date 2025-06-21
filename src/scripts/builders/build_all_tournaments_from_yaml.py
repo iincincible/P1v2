@@ -1,3 +1,5 @@
+print("=== RUNNING build_all_tournaments_from_yaml.py FROM:", __file__)
+
 import argparse
 import subprocess
 import sys
@@ -17,15 +19,22 @@ from scripts.utils.config_validation import validate_yaml, TOURNAMENTS_SCHEMA
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
 
 PYTHON = sys.executable
-BUILDER_SCRIPT = "scripts/builders/build_clean_matches_generic.py"
-SNAPSHOT_SCRIPT = "scripts/pipeline/parse_betfair_snapshots.py"
+BUILDER_SCRIPT = "src/scripts/builders/build_clean_matches_generic.py"
+SNAPSHOT_SCRIPT = "src/scripts/pipeline/parse_betfair_snapshots.py"
 BETFAIR_DATA_DIR = "data/BASIC"
 
 
 def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str:
+    print("=== ENTERED parse_snapshots_if_needed ===")
     label = conf["label"]
     snapshot_csv = conf.get("snapshots_csv") or get_snapshot_csv_path(label)
     conf["snapshots_csv"] = snapshot_csv
+
+    # --- DEBUG LOGGING (NOW SAFE) ---
+    print(f"RAW DEBUG: snapshot_csv = {snapshot_csv}")
+    print(f"RAW DEBUG: overwrite = {overwrite}")
+    print(f"RAW DEBUG: file exists = {Path(snapshot_csv).exists()}")
+    # ----------------------
 
     if Path(snapshot_csv).exists() and not overwrite:
         log_info(f"📄 Using existing snapshots: {snapshot_csv}")
@@ -52,8 +61,9 @@ def parse_snapshots_if_needed(conf: dict, overwrite: bool, dry_run: bool) -> str
         end,
         "--mode",
         "full",
-        "--overwrite",
     ]
+    if overwrite:
+        cmd.append("--overwrite")
     t0 = time.perf_counter()
     try:
         subprocess.run(

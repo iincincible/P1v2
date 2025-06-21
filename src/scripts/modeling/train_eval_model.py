@@ -58,6 +58,11 @@ def main(args=None):
         help="Feature columns for model",
     )
     parser.add_argument(
+        "--output_model",
+        default="modeling/win_model.pkl",
+        help="Where to save the trained win probability model"
+    )
+    parser.add_argument(
         "--ev_threshold",
         type=float,
         default=DEFAULT_EV_THRESHOLD,
@@ -137,10 +142,10 @@ def main(args=None):
         df_test = pd.read_csv(_args.test_csv)
         df_test = normalize_columns(df_test)
         df_test = patch_winner_column(df_test)
-        df_test = df_test.dropna(subset=_args.features)
+        df_test = df_test.dropna(subset=_args.features + ["odds"])
         assert_columns_exist(
             df_test,
-            _args.features + ["predicted_prob", "odds", "expected_value"],
+            _args.features + ["odds"],
             context="test set",
         )
         log_info(f"📥 Loaded {len(df_test)} test rows from {_args.test_csv}")
@@ -154,6 +159,9 @@ def main(args=None):
         model.fit(df_train[_args.features], df_train["label"])
         df_test["predicted_prob"] = model.predict_proba(df_test[_args.features])[:, 1]
         log_success("✅ Model trained and predictions made")
+        # Save the trained model
+        joblib.dump(model, _args.output_model)
+        log_success(f"💾 Trained model saved to {_args.output_model}")
         # Optional metrics
         if "winner" in df_test.columns:
             y_true = (df_test["winner"] == 1).astype(int)
@@ -162,6 +170,14 @@ def main(args=None):
             log_info(f"🎯 Accuracy: {acc:.4f}, LogLoss: {loss:.5f}")
     except Exception as e:
         log_error(f"❌ Training/prediction failed: {e}")
+        return
+
+    # Add EV and Kelly columns (if not present)
+    try:
+        from scripts.utils.betting_math import add_ev_and_kelly
+        df_test = add_ev_and_kelly(df_test, prob_col="predicted_prob", odds_col="odds")
+    except Exception as e:
+        log_error(f"❌ Could not add expected_value/Kelly: {e}")
         return
 
     # Filter value bets
