@@ -17,8 +17,9 @@ data/**/*.bz2
 data/**/*.zip
 
 # Explicitly ignore very large or problematic files
+# (you can drop these if you’d rather just use `parsed/*.csv`)
 data/processed/*frenchopen_2023*.csv
-parsed/betfair_ausopen_2023_atp_snapshots.csv
+parsed/*.csv
 
 # ─────────────────────────────────────────────────────
 # MODELING: Ignore everything except README
