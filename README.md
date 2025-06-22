@@ -4,6 +4,28 @@
 
 ---
 
+## 📄 Canonical Data Columns (Pipeline Contract)
+
+| Column             | Type      | Description                                                         |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `match_id`         | str       | Unique identifier for the match (usually market\_id + player names) |
+| `market_id`        | str       | Betfair market identifier                                           |
+| `player_1`         | str       | Standardized name of player 1 (for modeling)                        |
+| `player_2`         | str       | Standardized name of player 2                                       |
+| `odds`             | float     | Decimal odds for player 1                                           |
+| `predicted_prob`   | float     | Model-predicted probability player\_1 wins                          |
+| `expected_value`   | float     | Calculated EV (`predicted_prob * odds - 1`)                         |
+| `winner`           | int       | 1 if player\_1 won, 0 otherwise                                     |
+| `confidence_score` | float     | (optional) Model confidence in prediction                           |
+| `kelly_stake`      | float     | (optional) Fraction of bankroll, per Kelly formula                  |
+| `timestamp`        | int/float | (optional) Unix or Betfair time                                     |
+| ...                |           | (add more only with documentation here)                             |
+
+> **Note:** All scripts in the value betting pipeline are expected to emit, consume, and check for these columns.
+> Any new columns or changes to this contract should be reflected here and in code docstrings.
+
+---
+
 ## 🚀 Features
 
 * **Clean end-to-end workflow** for tennis value betting research and simulation

@@ -1,7 +1,7 @@
 defaults:
   label: ausopen_2023_atp
   overwrite: false
-  config: configs/tournaments_2023.yaml
+  config: configs/tournaments_2023_atp_ausopen.yaml
 
 stages:
   - name: build
