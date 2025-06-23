@@ -112,7 +112,12 @@ def test_full_pipeline_e2e(tmp_path):
 
     predictions_csv = tmp_path / "predictions.csv"
     pred_df = pd.read_csv(features_csv)
-    pred_df["predicted_prob"] = [0.75] * len(pred_df)  # << PATCHED LINE
+    pred_df["predicted_prob"] = [0.75] * len(pred_df)
+    pred_df["expected_value"] = pred_df["predicted_prob"] * pred_df["odds"] - 1
+    # Drop any accidental ground truth columns, in any format
+    for col in ["actual_winner", "winner_name"]:
+        if col in pred_df.columns:
+            pred_df = pred_df.drop(columns=[col])
     pred_df.to_csv(predictions_csv, index=False)
 
     value_csv = tmp_path / "value_bets.csv"
