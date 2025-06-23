@@ -1,4 +1,5 @@
 import pandas as pd
+import logging
 from typing import Optional
 from scripts.utils.matching import (
     apply_alias_map,
@@ -7,6 +8,9 @@ from scripts.utils.matching import (
     load_alias_map,
 )
 from scripts.utils.logger import log_info
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 def build_matches_from_snapshots(
     snapshot_csv: str,
@@ -17,19 +21,6 @@ def build_matches_from_snapshots(
 ) -> pd.DataFrame:
     """
     Builds a clean match dataset from Betfair snapshot data.
-
-    **Canonical output columns:**
-      - match_id (str): Unique identifier for the match (market_id + player names)
-      - market_id (str): Betfair market identifier
-      - player_1 (str): Standardized name of player 1 (consistent with modeling)
-      - player_2 (str): Standardized name of player 2
-      - (others: selection_id, ltp, timestamp, runner_name, etc.)
-
-    If `sackmann_csv` is provided, also attaches:
-      - winner (int): 1 if player_1 won, 0 otherwise
-      - actual_winner (str): Actual winner name from Sackmann dataset
-
-    Any downstream code can depend on these columns being present and named as above.
     """
     log_info(f"📄 Reading snapshots from: {snapshot_csv}")
     df = pd.read_csv(snapshot_csv)
@@ -84,4 +75,6 @@ def build_matches_from_snapshots(
     others = [c for c in grouped.columns if c not in canonical_order]
     grouped = grouped[canonical_order + others]
 
+    # Refactor: Enforce canonical columns if output is for pipeline
+    # Not enforced here, but enforced in build_matches_generic.py
     return grouped

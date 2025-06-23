@@ -1,9 +1,16 @@
 import argparse
 import joblib
 import pandas as pd
+import logging
 from pathlib import Path
 
-from scripts.utils.logger import log_info, log_success, log_error, log_dryrun
+from scripts.utils.logger import (
+    log_info,
+    log_success,
+    log_warning,   # <-- Make sure this is included!
+    log_error,
+    log_dryrun,
+)
 from scripts.utils.cli_utils import (
     add_common_flags,
     should_run,
@@ -11,7 +18,10 @@ from scripts.utils.cli_utils import (
     assert_columns_exist,
     output_file_guard,
 )
-from scripts.utils.normalize_columns import normalize_columns
+from scripts.utils.normalize_columns import normalize_columns, enforce_canonical_columns
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def predict_win_probs(
@@ -34,6 +44,13 @@ def predict_win_probs(
     assert_columns_exist(df, features, context="prediction")
 
     df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
+
+    # Refactor: Enforce canonical columns at output, if possible
+    try:
+        enforce_canonical_columns(df, context="predict win probs")
+    except Exception as e:
+        log_warning(f"Canonical column check failed: {e}")
+
     df.to_csv(output_csv, index=False)
     log_success(f"✅ Saved predictions to {output_csv}")
 

@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import glob
+import logging
 from pathlib import Path
 
 from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
@@ -15,6 +16,10 @@ from scripts.utils.logger import (
 )
 from scripts.utils.cli_utils import should_run, add_common_flags, assert_file_exists, output_file_guard
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
+from scripts.utils.normalize_columns import enforce_canonical_columns
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def analyze_ev_distribution(
@@ -72,6 +77,8 @@ def analyze_ev_distribution(
     print("=============================================\n")
 
     if output_csv:
+        # Refactor: enforce canonical columns before output
+        enforce_canonical_columns(all_bets, context="analyze_ev_distribution")
         all_bets.to_csv(output_csv, index=False)
         log_success(f"✅ Saved filtered bets to {output_csv}")
 

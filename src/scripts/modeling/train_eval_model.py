@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 import joblib
+import logging
 from pathlib import Path
 from datetime import datetime
 
@@ -21,7 +22,7 @@ from scripts.utils.cli_utils import (
     assert_columns_exist,
     output_file_guard,
 )
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
 from scripts.utils.filters import filter_value_bets
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.constants import (
@@ -31,6 +32,9 @@ from scripts.utils.constants import (
     DEFAULT_FIXED_STAKE,
     DEFAULT_STRATEGY,
 )
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="value_bets_csv")
 def train_eval_model(
@@ -124,6 +128,12 @@ def train_eval_model(
     except Exception as e:
         log_error(f"❌ Value bet filtering failed: {e}")
         return
+
+    # Refactor: enforce canonical columns before output
+    try:
+        enforce_canonical_columns(df_filtered, context="train_eval_model value bets")
+    except Exception as e:
+        log_warning(f"Canonical column check failed: {e}")
 
     # Write value bets CSV
     df_filtered.to_csv(value_bets_csv, index=False)

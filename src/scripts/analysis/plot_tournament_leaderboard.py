@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
+import logging
 from pathlib import Path
 
 from scripts.utils.logger import (
@@ -11,6 +12,9 @@ from scripts.utils.logger import (
     log_dryrun,
 )
 from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_png")
 def plot_tournament_leaderboard(

@@ -1,8 +1,13 @@
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
+from scripts.utils.normalize_columns import enforce_canonical_columns
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def build_odds_features(
@@ -25,6 +30,12 @@ def build_odds_features(
             log_info("🔧 Created 'odds' column from 'odds_player_2'")
         else:
             log_warning("No odds source found! 'odds' column missing in features.")
+
+    # Refactor: Enforce canonical columns at output
+    try:
+        enforce_canonical_columns(df, context="odds features")
+    except Exception as e:
+        log_warning(f"Canonical column check failed: {e}")
 
     df.to_csv(output_csv, index=False)
     log_success(f"✅ Saved odds features to {output_csv}")

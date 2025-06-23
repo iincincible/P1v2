@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
 from datetime import datetime
 from tqdm import tqdm
@@ -14,6 +15,8 @@ from scripts.utils.logger import (
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
 from scripts.utils.snapshot_parser import SnapshotParser
 
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -80,7 +83,6 @@ def main(args=None):
         log_success(f"✅ Saved {len(df)} ATP candidate markets to {output_path}")
     except Exception as e:
         log_error(f"❌ Failed to save metadata CSV: {e}")
-
 
 if __name__ == "__main__":
     main()

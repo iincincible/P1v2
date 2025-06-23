@@ -1,4 +1,5 @@
 import argparse
+import logging
 from pathlib import Path
 
 from scripts.utils.logger import log_info, log_success, log_warning, log_error, log_dryrun
@@ -6,6 +7,10 @@ from scripts.utils.cli_utils import add_common_flags, should_run, output_file_gu
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
 from scripts.utils.config_utils import load_tournament_configs
 from scripts.builders.build_clean_matches_generic import build_matches
+from scripts.utils.config_validation import config_validator, TOURNAMENTS_SCHEMA
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 def parse_snapshots_if_needed(conf, overwrite: bool, dry_run: bool) -> str:
     label = conf.label
@@ -25,6 +30,7 @@ def parse_snapshots_if_needed(conf, overwrite: bool, dry_run: bool) -> str:
     log_info(f"[SKIP:FAKE] Would parse raw Betfair data to generate {snapshot_csv}")
     return snapshot_csv
 
+@config_validator(TOURNAMENTS_SCHEMA, 'config')
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Build raw matches for all tournaments in YAML config."

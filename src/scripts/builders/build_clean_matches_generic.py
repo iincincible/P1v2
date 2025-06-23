@@ -1,17 +1,21 @@
-# src/scripts/builders/build_clean_matches_generic.py
-
 import argparse
 import sys
 import hashlib
+import logging
 from pathlib import Path
 from scripts.builders.core import build_matches_from_snapshots
 from scripts.utils.logger import log_info, log_success, log_error, log_dryrun
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
+from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, output_file_guard
+from scripts.utils.normalize_columns import enforce_canonical_columns
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 def generate_match_id(row) -> str:
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
 
+@output_file_guard(output_arg="output_csv")
 def build_matches(
     tour,
     tournament,
@@ -63,6 +67,13 @@ def build_matches(
             raise ValueError(f"Duplicate match_ids found:\n{dupes.head()}")
 
         log_info(f"📏 Built {len(df_matches)} matches")
+
+        # Refactor: enforce canonical columns if downstream scripts expect them
+        try:
+            enforce_canonical_columns(df_matches, context="build matches")
+        except Exception as e:
+            log_error(f"Canonical column check failed: {e}")
+
         output_path.parent.mkdir(parents=True, exist_ok=True)
         df_matches.to_csv(output_path, index=False)
         log_success(f"✅ Saved {len(df_matches)} matches to {output_path}")

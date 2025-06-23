@@ -1,4 +1,5 @@
 import argparse
+import logging
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -12,6 +13,7 @@ from scripts.utils.logger import (
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
 from scripts.utils.paths import get_pipeline_paths, DEFAULT_MODEL_PATH, DEFAULT_CONFIG_FILE
 from scripts.utils.config_utils import load_pipeline_config, load_tournament_configs, merge_with_defaults
+from scripts.utils.config_validation import config_validator, PIPELINE_SCHEMA
 
 # Import main functions for all stages
 from scripts.builders.build_all_tournaments_from_yaml import main as build_stage_main
@@ -21,6 +23,9 @@ from scripts.pipeline.build_odds_features import main as features_stage_main
 from scripts.pipeline.predict_win_probs import main as predict_stage_main
 from scripts.pipeline.detect_value_bets import main as detect_stage_main
 from scripts.pipeline.simulate_bankroll_growth import main as simulate_stage_main
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 STAGE_FUNCS = {
     "build": build_stage_main,
@@ -64,6 +69,7 @@ def run_pipeline_for_label(label, pipeline_conf, stages, cli_args):
             log_error(f"❌ Stage '{name}' failed for {label}: {e}")
             break
 
+@config_validator(PIPELINE_SCHEMA, 'config')
 def main(args=None):
     parser = argparse.ArgumentParser(description="Run full value betting pipeline.")
     parser.add_argument(

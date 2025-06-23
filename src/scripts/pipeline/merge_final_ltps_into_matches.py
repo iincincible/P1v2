@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
 
 from scripts.utils.logger import (
@@ -10,6 +11,10 @@ from scripts.utils.logger import (
     log_dryrun,
 )
 from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, output_file_guard
+from scripts.utils.normalize_columns import enforce_canonical_columns
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def merge_final_ltps_into_matches(
@@ -54,9 +59,9 @@ def merge_final_ltps_into_matches(
                 right_on=["market_id", "selection_id"],
                 how="left",
             )
-            .rename(columns={"ltp": "ltp_player_1"})
-            .drop(columns=["selection_id"])
         )
+        merged = merged.drop(columns=[c for c in ["selection_id"] if c in merged.columns])
+
         merged = (
             merged.merge(
                 final_ltp,
@@ -64,16 +69,23 @@ def merge_final_ltps_into_matches(
                 right_on=["market_id", "selection_id"],
                 how="left",
             )
-            .rename(columns={"ltp": "ltp_player_2"})
-            .drop(columns=["selection_id"])
         )
+        merged = merged.drop(columns=[c for c in ["selection_id"] if c in merged.columns])
+
+        # Fix column names for output contract
+        if "ltp_x" in merged.columns and "ltp_y" in merged.columns:
+            merged = merged.rename(columns={"ltp_x": "ltp_player_1", "ltp_y": "ltp_player_2"})
     except Exception as e:
         log_error(f"❌ Error merging LTPs: {e}")
         return
 
-    if merged["ltp_player_1"].isna().any() or merged["ltp_player_2"].isna().any():
-        log_warning("⚠️ Some LTP values are missing after merge")
+    # Optional: warn if missing values after merge
+    if "ltp_player_1" in merged.columns and merged["ltp_player_1"].isna().any():
+        log_warning("⚠️ Some ltp_player_1 values are missing after merge")
+    if "ltp_player_2" in merged.columns and merged["ltp_player_2"].isna().any():
+        log_warning("⚠️ Some ltp_player_2 values are missing after merge")
 
+    # No canonical column enforcement here as this is intermediate, but add if needed.
     merged.to_csv(output_csv, index=False)
     log_success(f"✅ Saved matches with LTPs to {output_csv}")
 

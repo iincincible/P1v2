@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 import glob
+import logging
 from pathlib import Path
 
 from scripts.utils.logger import (
@@ -11,6 +12,10 @@ from scripts.utils.logger import (
     log_dryrun,
 )
 from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
+from scripts.utils.normalize_columns import enforce_canonical_columns
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def summarize_value_bets_by_tournament(
@@ -64,6 +69,7 @@ def summarize_value_bets_by_tournament(
         raise ValueError("❌ No valid tournament summaries found.")
 
     df_out = pd.DataFrame(rows).sort_values(by="roi", ascending=False)
+    # Refactor: Enforce canonical columns if relevant (here, not strictly canonical, so skip)
     df_out.to_csv(output_csv, index=False)
     log_success(f"✅ Saved tournament-level summary to {output_csv}")
 

@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+import logging
 from tqdm import tqdm
 from pathlib import Path
 
@@ -15,6 +16,9 @@ from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
 )
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def match_selection_ids(
@@ -70,6 +74,8 @@ def match_selection_ids(
     if unmatched_1 or unmatched_2:
         log_warning(f"⚠️ Unmatched selection_id_1: {unmatched_1}")
         log_warning(f"⚠️ Unmatched selection_id_2: {unmatched_2}")
+
+    # No canonical contract for this stage, but if you want to enforce columns, do here.
 
     df_matches.to_csv(output_csv, index=False)
     log_success(f"✅ Saved selection ID mappings to {output_csv}")

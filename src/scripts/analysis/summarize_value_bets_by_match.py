@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 import glob
+import logging
 from pathlib import Path
 
 from scripts.utils.logger import (
@@ -16,8 +17,11 @@ from scripts.utils.cli_utils import (
     assert_file_exists,
     assert_columns_exist,
 )
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
 from scripts.utils.betting_math import add_ev_and_kelly
+
+# Refactor: Add logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def summarize_value_bets_by_match(
@@ -108,6 +112,12 @@ def summarize_value_bets_by_match(
                 ]
             ].to_string(index=False)
         )
+
+    # Refactor: Enforce canonical columns before output if appropriate
+    try:
+        enforce_canonical_columns(summary, context="summarize_value_bets_by_match")
+    except Exception as e:
+        log_warning(f"Canonical column check failed: {e}")
 
     summary.to_csv(output_csv, index=False)
     log_success(f"✅ Saved match-level summary to {output_csv}")

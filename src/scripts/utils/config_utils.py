@@ -20,3 +20,21 @@ def load_pipeline_config(yaml_path) -> PipelineConfig:
         config=d.get("defaults", {}).get("config", "configs/tournaments.yaml"),
         stages=d.get("stages", []),
     )
+
+def merge_with_defaults(config: dict, defaults: dict) -> dict:
+    """
+    Recursively merge `defaults` into `config`, returning a new dict.
+    (Used by tests/test_utils.py)
+    """
+    import copy
+    result = copy.deepcopy(defaults)
+    for k, v in config.items():
+        if (
+            isinstance(v, dict)
+            and k in result
+            and isinstance(result[k], dict)
+        ):
+            result[k] = merge_with_defaults(v, result[k])
+        else:
+            result[k] = v
+    return result

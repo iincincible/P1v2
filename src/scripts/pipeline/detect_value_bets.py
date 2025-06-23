@@ -1,10 +1,19 @@
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
 from scripts.utils.logger import log_info, log_success, log_warning, log_error
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
-from scripts.utils.normalize_columns import prepare_value_bets_df, assert_required_columns, CANONICAL_REQUIRED_COLUMNS, enforce_canonical_columns
+from scripts.utils.normalize_columns import (
+    prepare_value_bets_df,
+    assert_required_columns,
+    CANONICAL_REQUIRED_COLUMNS,
+    enforce_canonical_columns,
+)
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 @output_file_guard(output_arg="output_csv")
 def detect_value_bets(
@@ -42,6 +51,7 @@ def detect_value_bets(
         log_warning("⚠️ No value bets found after filtering.")
         return
 
+    # Refactor: Enforce canonical columns before output
     enforce_canonical_columns(df_filtered, context="value bets detector")
     df_filtered.to_csv(output_csv, index=False)
     log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")

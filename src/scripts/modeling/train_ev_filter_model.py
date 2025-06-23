@@ -2,10 +2,11 @@ import argparse
 import pandas as pd
 import joblib
 import json
+import logging
 from pathlib import Path
 from datetime import datetime
 import subprocess
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column
+from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.logger import (
     log_info,
@@ -16,6 +17,9 @@ from scripts.utils.logger import (
 )
 from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags, output_file_guard
 from scripts.utils.config_utils import merge_with_defaults
+
+# Refactor: Added logging config
+logging.basicConfig(level=logging.INFO)
 
 def get_git_commit():
     try:
