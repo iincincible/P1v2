@@ -10,8 +10,64 @@ from scripts.utils.logger import (
     log_error,
     log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
+from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
 
+@output_file_guard(output_arg="output_png")
+def plot_tournament_leaderboard(
+    input_csv,
+    output_png=None,
+    sort_by="roi",
+    top_n=20,
+    show=False,
+    overwrite=False,
+    dry_run=False,
+):
+    assert_file_exists(input_csv, "input_csv")
+
+    try:
+        df = pd.read_csv(input_csv)
+        log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
+    except Exception as e:
+        log_error(f"❌ Failed to read {input_csv}: {e}")
+        return
+
+    if sort_by not in df.columns:
+        log_error(f"❌ Missing column to sort by: {sort_by}")
+        return
+
+    df = df.dropna(subset=[sort_by])
+    df = df.sort_values(by=sort_by, ascending=False).head(top_n)
+
+    if df.empty:
+        log_warning("⚠️ No data to plot after filtering.")
+        return
+
+    plt.figure(figsize=(12, 6))
+    bars = plt.barh(df["tournament"], df[sort_by], edgecolor="black")
+    plt.xlabel(sort_by.upper())
+    plt.ylabel("Tournament")
+    plt.title(f"Top {top_n} Tournaments by {sort_by.upper()}")
+    plt.gca().invert_yaxis()
+    plt.grid(True, axis="x")
+
+    for bar in bars:
+        width = bar.get_width()
+        plt.text(
+            width,
+            bar.get_y() + bar.get_height() / 2,
+            f"{width:.2f}",
+            va="center",
+            ha="left",
+        )
+
+    plt.tight_layout()
+
+    if output_png:
+        plt.savefig(output_png)
+        log_success(f"🖼️ Saved leaderboard plot to {output_png}")
+
+    if show:
+        plt.show()
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -35,68 +91,15 @@ def main(args=None):
     parser.add_argument("--show", action="store_true", help="Show plot interactively")
     add_common_flags(parser)
     _args = parser.parse_args(args)
-
-    # Dry-run: log actions but do nothing
-    if _args.dry_run:
-        log_dryrun(
-            f"Would load leaderboard from {_args.input_csv}, "
-            f"sort by {_args.sort_by}, take top {_args.top_n}"
-        )
-        if _args.output_png:
-            log_dryrun(f"Would save plot to {_args.output_png}")
-        return
-
-    input_path = Path(_args.input_csv)
-    assert_file_exists(input_path, "input_csv")
-
-    try:
-        df = pd.read_csv(input_path)
-        log_info(f"📥 Loaded {len(df)} rows from {input_path}")
-    except Exception as e:
-        log_error(f"❌ Failed to read {input_path}: {e}")
-        return
-
-    if _args.sort_by not in df.columns:
-        log_error(f"❌ Missing column to sort by: {_args.sort_by}")
-        return
-
-    df = df.dropna(subset=[_args.sort_by])
-    df = df.sort_values(by=_args.sort_by, ascending=False).head(_args.top_n)
-
-    if df.empty:
-        log_warning("⚠️ No data to plot after filtering.")
-        return
-
-    plt.figure(figsize=(12, 6))
-    bars = plt.barh(df["tournament"], df[_args.sort_by], edgecolor="black")
-    plt.xlabel(_args.sort_by.upper())
-    plt.ylabel("Tournament")
-    plt.title(f"Top {_args.top_n} Tournaments by {_args.sort_by.upper()}")
-    plt.gca().invert_yaxis()
-    plt.grid(True, axis="x")
-
-    for bar in bars:
-        width = bar.get_width()
-        plt.text(
-            width,
-            bar.get_y() + bar.get_height() / 2,
-            f"{width:.2f}",
-            va="center",
-            ha="left",
-        )
-
-    plt.tight_layout()
-
-    if _args.output_png:
-        output_path = Path(_args.output_png)
-        if should_run(output_path, _args.overwrite, _args.dry_run):
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            plt.savefig(output_path)
-            log_success(f"🖼️ Saved leaderboard plot to {output_path}")
-
-    if _args.show:
-        plt.show()
-
+    plot_tournament_leaderboard(
+        input_csv=_args.input_csv,
+        output_png=_args.output_png,
+        sort_by=_args.sort_by,
+        top_n=_args.top_n,
+        show=_args.show,
+        overwrite=_args.overwrite,
+        dry_run=_args.dry_run,
+    )
 
 if __name__ == "__main__":
     main()

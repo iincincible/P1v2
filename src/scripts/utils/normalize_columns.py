@@ -57,3 +57,12 @@ def assert_required_columns(df: pd.DataFrame, required=CANONICAL_REQUIRED_COLUMN
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"❌ Missing columns in {context}: {missing}")
+
+def enforce_canonical_columns(df: pd.DataFrame, required=CANONICAL_REQUIRED_COLUMNS, context=""):
+    """
+    Enforces canonical columns after any DataFrame output. Raises ValueError if missing.
+    """
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise ValueError(f"❌ Missing required columns after output in {context}: {missing}")
+    return True

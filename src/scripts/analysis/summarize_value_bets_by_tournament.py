@@ -10,41 +10,20 @@ from scripts.utils.logger import (
     log_error,
     log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists
+from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
 
-
-def main(args=None):
-    parser = argparse.ArgumentParser(description="Summarize value bets by tournament.")
-    parser.add_argument(
-        "--input_glob",
-        required=True,
-        help="Glob pattern for *_value_bets_by_match.csv files",
-    )
-    parser.add_argument(
-        "--output_csv",
-        required=True,
-        help="Output CSV for tournament summary",
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
-
-    files = glob.glob(_args.input_glob)
+@output_file_guard(output_arg="output_csv")
+def summarize_value_bets_by_tournament(
+    input_glob,
+    output_csv,
+    overwrite=False,
+    dry_run=False,
+):
+    files = glob.glob(input_glob)
     if not files:
         raise ValueError(
-            f"❌ No match-level summary files found matching: {_args.input_glob}"
+            f"❌ No match-level summary files found matching: {input_glob}"
         )
-
-    # Dry-run: log and exit
-    if _args.dry_run:
-        log_dryrun(
-            f"Would process {len(files)} match-summary files matching '{_args.input_glob}' "
-            f"and write tournament summary to {_args.output_csv}"
-        )
-        return
-
-    output_path = Path(_args.output_csv)
-    if not should_run(output_path, _args.overwrite, _args.dry_run):
-        return
 
     rows = []
     for filepath in files:
@@ -85,19 +64,34 @@ def main(args=None):
         raise ValueError("❌ No valid tournament summaries found.")
 
     df_out = pd.DataFrame(rows).sort_values(by="roi", ascending=False)
-    try:
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        df_out.to_csv(output_path, index=False)
-        log_success(f"✅ Saved tournament-level summary to {output_path}")
-    except Exception as e:
-        log_error(f"❌ Failed to save summary to {output_path}: {e}")
-        return
+    df_out.to_csv(output_csv, index=False)
+    log_success(f"✅ Saved tournament-level summary to {output_csv}")
 
     # Log top 5
     log_info("\n📊 Top 5 by ROI:")
     top5 = df_out[["tournament", "roi", "profit", "total_bets"]].head(5)
     log_info(top5.to_string(index=False))
 
+def main(args=None):
+    parser = argparse.ArgumentParser(description="Summarize value bets by tournament.")
+    parser.add_argument(
+        "--input_glob",
+        required=True,
+        help="Glob pattern for *_value_bets_by_match.csv files",
+    )
+    parser.add_argument(
+        "--output_csv",
+        required=True,
+        help="Output CSV for tournament summary",
+    )
+    add_common_flags(parser)
+    _args = parser.parse_args(args)
+    summarize_value_bets_by_tournament(
+        input_glob=_args.input_glob,
+        output_csv=_args.output_csv,
+        overwrite=_args.overwrite,
+        dry_run=_args.dry_run,
+    )
 
 if __name__ == "__main__":
     main()

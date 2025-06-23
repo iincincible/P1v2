@@ -14,9 +14,8 @@ from scripts.utils.logger import (
     log_error,
     log_dryrun,
 )
-from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags
+from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags, output_file_guard
 from scripts.utils.config_utils import merge_with_defaults
-
 
 def get_git_commit():
     try:
@@ -25,40 +24,25 @@ def get_git_commit():
     except Exception:
         return None
 
-
-def main(args=None):
-    parser = argparse.ArgumentParser(
-        description="Train EV filter model (RandomForest)."
-    )
-    parser.add_argument(
-        "--input_files",
-        nargs="+",
-        required=True,
-        help="CSV files with prediction features",
-    )
-    parser.add_argument(
-        "--output_model", required=True, help="Path to save the trained model"
-    )
-    parser.add_argument(
-        "--min_ev", type=float, default=0.2, help="Minimum EV threshold for training"
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
-
-    output_path = Path(_args.output_model)
-    if not should_run(output_path, _args.overwrite, _args.dry_run):
-        log_dryrun(f"Would train model and save to {output_path}")
-        return
+@output_file_guard(output_arg="output_model")
+def train_ev_filter_model(
+    input_files,
+    output_model,
+    min_ev=0.2,
+    overwrite=False,
+    dry_run=False,
+):
+    output_path = Path(output_model)
 
     all_rows = []
-    for path in _args.input_files:
+    for path in input_files:
         try:
             assert_file_exists(path, "input_csv")
             df = pd.read_csv(path)
             df = normalize_columns(df)
             df = add_ev_and_kelly(df)
             df = patch_winner_column(df)
-            df = df[df["expected_value"] >= _args.min_ev]
+            df = df[df["expected_value"] >= min_ev]
             if "winner" not in df.columns:
                 log_warning(
                     f"⚠️ No 'winner' column in {path}, assigning synthetic labels."
@@ -73,7 +57,7 @@ def main(args=None):
         raise ValueError("❌ No valid input data found.")
 
     df = pd.concat(all_rows, ignore_index=True)
-    log_success(f"📊 Training on {len(df)} rows with EV ≥ {_args.min_ev}")
+    log_success(f"📊 Training on {len(df)} rows with EV ≥ {min_ev}")
 
     features = ["predicted_prob", "odds", "expected_value"]
     X = df[features]
@@ -101,9 +85,9 @@ def main(args=None):
         "timestamp": datetime.now().isoformat(),
         "model_type": "RandomForestClassifier",
         "features": features,
-        "ev_threshold": _args.min_ev,
+        "ev_threshold": min_ev,
         "train_rows": len(df),
-        "input_files": _args.input_files,
+        "input_files": input_files,
         "git_commit": get_git_commit(),
         "columns": list(df.columns),
         "train_preview": df.head(3).to_dict(orient="records"),
@@ -113,6 +97,31 @@ def main(args=None):
         json.dump(metadata, f, indent=2)
     log_success(f"📄 Saved metadata to {meta_path}")
 
+def main(args=None):
+    parser = argparse.ArgumentParser(
+        description="Train EV filter model (RandomForest)."
+    )
+    parser.add_argument(
+        "--input_files",
+        nargs="+",
+        required=True,
+        help="CSV files with prediction features",
+    )
+    parser.add_argument(
+        "--output_model", required=True, help="Path to save the trained model"
+    )
+    parser.add_argument(
+        "--min_ev", type=float, default=0.2, help="Minimum EV threshold for training"
+    )
+    add_common_flags(parser)
+    _args = parser.parse_args(args)
+    train_ev_filter_model(
+        input_files=_args.input_files,
+        output_model=_args.output_model,
+        min_ev=_args.min_ev,
+        overwrite=_args.overwrite,
+        dry_run=_args.dry_run,
+    )
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from scripts.utils.logger import log_info, log_success, log_warning, log_error, log_dryrun
-from scripts.utils.cli_utils import add_common_flags, should_run
+from scripts.utils.cli_utils import add_common_flags, should_run, output_file_guard
 from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
 from scripts.utils.config_utils import load_tournament_configs
 from scripts.builders.build_clean_matches_generic import build_matches

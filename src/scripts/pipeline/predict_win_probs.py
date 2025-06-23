@@ -9,9 +9,33 @@ from scripts.utils.cli_utils import (
     should_run,
     assert_file_exists,
     assert_columns_exist,
+    output_file_guard,
 )
 from scripts.utils.normalize_columns import normalize_columns
 
+@output_file_guard(output_arg="output_csv")
+def predict_win_probs(
+    model_file,
+    input_csv,
+    output_csv,
+    features,
+    overwrite=False,
+    dry_run=False,
+):
+    assert_file_exists(model_file, "model_file")
+    assert_file_exists(input_csv, "input_csv")
+
+    model = joblib.load(model_file)
+    log_info(f"📥 Loaded model from {model_file}")
+
+    df = pd.read_csv(input_csv)
+    log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
+    df = normalize_columns(df)
+    assert_columns_exist(df, features, context="prediction")
+
+    df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
+    df.to_csv(output_csv, index=False)
+    log_success(f"✅ Saved predictions to {output_csv}")
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -37,57 +61,14 @@ def main(args=None):
     )
     add_common_flags(parser)
     _args = parser.parse_args(args)
-
-    # Dry-run
-    if _args.dry_run:
-        log_dryrun(
-            f"Would load model {_args.model_file}, predict on {_args.input_csv} → {_args.output_csv}"
-        )
-        return
-
-    model_path = Path(_args.model_file)
-    input_path = Path(_args.input_csv)
-    output_path = Path(_args.output_csv)
-
-    assert_file_exists(model_path, "model_file")
-    assert_file_exists(input_path, "input_csv")
-    if not should_run(output_path, _args.overwrite, _args.dry_run):
-        return
-
-    try:
-        model = joblib.load(model_path)
-        log_info(f"📥 Loaded model from {model_path}")
-    except Exception as e:
-        log_error(f"❌ Failed to load model: {e}")
-        return
-
-    try:
-        df = pd.read_csv(input_path)
-        log_info(f"📥 Loaded {len(df)} rows from {input_path}")
-    except Exception as e:
-        log_error(f"❌ Failed to read input CSV: {e}")
-        return
-
-    df = normalize_columns(df)
-    try:
-        assert_columns_exist(df, _args.features, context="prediction")
-    except Exception as e:
-        log_error(f"❌ Missing features: {e}")
-        return
-
-    try:
-        df["predicted_prob"] = model.predict_proba(df[_args.features])[:, 1]
-    except Exception as e:
-        log_error(f"❌ Prediction failed: {e}")
-        return
-
-    try:
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        df.to_csv(output_path, index=False)
-        log_success(f"✅ Saved predictions to {output_path}")
-    except Exception as e:
-        log_error(f"❌ Failed to save predictions: {e}")
-
+    predict_win_probs(
+        model_file=_args.model_file,
+        input_csv=_args.input_csv,
+        output_csv=_args.output_csv,
+        features=_args.features,
+        overwrite=_args.overwrite,
+        dry_run=_args.dry_run,
+    )
 
 if __name__ == "__main__":
     main()

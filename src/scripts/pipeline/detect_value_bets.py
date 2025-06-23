@@ -1,23 +1,12 @@
-"""
-Pipeline Stage: detect_value_bets.py
-
-Inputs:
-  - CSV with at least columns: player_1, player_2, odds, predicted_prob, expected_value, winner
-
-Outputs:
-  - CSV with filtered value bets, containing columns:
-      player_1, player_2, odds, predicted_prob, expected_value, winner, confidence_score, kelly_stake
-"""
-
 import argparse
 import pandas as pd
 from pathlib import Path
-from scripts.utils.logger import log_info, log_success, log_warning, log_error, log_dryrun
-from scripts.utils.cli_utils import add_common_flags, dry_run_guard
-from scripts.utils.normalize_columns import prepare_value_bets_df, assert_required_columns, CANONICAL_REQUIRED_COLUMNS
+from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.cli_utils import add_common_flags, output_file_guard
+from scripts.utils.normalize_columns import prepare_value_bets_df, assert_required_columns, CANONICAL_REQUIRED_COLUMNS, enforce_canonical_columns
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
 
-@dry_run_guard(file_args=["output_csv"])
+@output_file_guard(output_arg="output_csv")
 def detect_value_bets(
     input_csv,
     output_csv,
@@ -28,18 +17,8 @@ def detect_value_bets(
     overwrite=False,
     dry_run=False,
 ):
-    """
-    Filters and outputs only value bets (+EV) from a predictions CSV.
-
-    Output columns:
-      - player_1, player_2, odds, predicted_prob, expected_value, winner, confidence_score, kelly_stake
-    """
-    try:
-        df = pd.read_csv(input_csv)
-        log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
-    except Exception as e:
-        log_error(f"❌ Failed to read {input_csv}: {e}")
-        return
+    df = pd.read_csv(input_csv)
+    log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
 
     df = prepare_value_bets_df(df)
     assert_required_columns(df, CANONICAL_REQUIRED_COLUMNS, context="value bet pipeline")
@@ -63,12 +42,10 @@ def detect_value_bets(
         log_warning("⚠️ No value bets found after filtering.")
         return
 
-    try:
-        Path(output_csv).parent.mkdir(parents=True, exist_ok=True)
-        df_filtered.to_csv(output_csv, index=False)
-        log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")
-    except Exception as e:
-        log_error(f"❌ Failed to save filtered bets: {e}")
+    enforce_canonical_columns(df_filtered, context="value bets detector")
+    df_filtered.to_csv(output_csv, index=False)
+    log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")
+    return df_filtered
 
 def main(args=None):
     parser = argparse.ArgumentParser(

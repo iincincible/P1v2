@@ -64,3 +64,27 @@ def dry_run_guard(file_args=(), subprocess_args=()):
             return fn(*args, **kwargs)
         return wrapper
     return decorator
+
+def output_file_guard(output_arg="output_csv"):
+    """
+    Decorator for main pipeline functions that write output files.
+    Handles overwrite, dry_run, and directory creation for one output file.
+    """
+    def decorator(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            output_path = kwargs.get(output_arg)
+            dry_run = kwargs.get("dry_run", False)
+            overwrite = kwargs.get("overwrite", False)
+            if output_path:
+                out_path = Path(output_path)
+                if out_path.exists() and not overwrite:
+                    print(f"[SKIP] {output_path} exists and --overwrite not set")
+                    return
+                if dry_run:
+                    print(f"[DRY-RUN] Would write: {output_path}")
+                    return
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+            return fn(*args, **kwargs)
+        return wrapper
+    return decorator
