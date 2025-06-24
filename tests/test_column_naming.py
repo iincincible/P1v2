@@ -3,10 +3,11 @@ Test that all pipeline steps produce canonical columns as documented in the data
 """
 
 import pandas as pd
+
 from scripts.utils.normalize_columns import (
-    normalize_columns,
     CANONICAL_REQUIRED_COLUMNS,
     assert_required_columns,
+    normalize_columns,
 )
 
 

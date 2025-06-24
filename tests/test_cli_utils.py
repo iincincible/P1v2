@@ -1,10 +1,11 @@
 import logging
+
 import pytest
 
 from scripts.utils.cli_utils import (
-    should_run,
-    assert_file_exists,
     assert_columns_exist,
+    assert_file_exists,
+    should_run,
 )
 
 

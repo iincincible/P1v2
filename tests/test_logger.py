@@ -1,11 +1,11 @@
 import logging
 
 from scripts.utils.logger import (
+    log_dryrun,
+    log_error,
     log_info,
     log_success,
     log_warning,
-    log_error,
-    log_dryrun,
 )
 
 

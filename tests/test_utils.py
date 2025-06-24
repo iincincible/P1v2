@@ -1,8 +1,8 @@
-import pytest
 import pandas as pd
+import pytest
 
-from scripts.utils.normalize_columns import patch_winner_column
 from scripts.utils.config_utils import merge_with_defaults
+from scripts.utils.normalize_columns import patch_winner_column
 
 
 def test_pytest_works():

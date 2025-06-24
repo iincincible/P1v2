@@ -1,12 +1,11 @@
 import pandas as pd
 
 from scripts.builders.core import build_matches_from_snapshots
-from scripts.pipeline.match_selection_ids import main as match_ids_main
-from scripts.pipeline.merge_final_ltps_into_matches import main as merge_odds_main
 from scripts.pipeline.build_odds_features import main as features_main
 from scripts.pipeline.detect_value_bets import detect_value_bets
+from scripts.pipeline.match_selection_ids import main as match_ids_main
+from scripts.pipeline.merge_final_ltps_into_matches import main as merge_odds_main
 from scripts.pipeline.simulate_bankroll_growth import main as simulate_main
-
 from scripts.utils.normalize_columns import (
     CANONICAL_REQUIRED_COLUMNS,
     assert_required_columns,
