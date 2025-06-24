@@ -11,5 +11,3 @@ tournaments:
     year: 2023
     label: ausopen_2023_atp
     snapshots_csv: parsed/betfair_ausopen_2023_atp_snapshots.csv
-
-

@@ -72,5 +72,5 @@ These include:
 
 ## ✅ Status
 
-Your repo is now clean, modular, and ready for scaling or automation.  
+Your repo is now clean, modular, and ready for scaling or automation.
 Add new tournaments by dropping new builders into `builders/`, and the pipeline will remain stable.

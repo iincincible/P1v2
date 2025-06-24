@@ -61,7 +61,7 @@ project_root/
 
 ## ▶️ Quickstart
 
-1. **Configure a tournament**  
+1. **Configure a tournament**
    Edit or add an entry in `configs/tournaments_YYYY.yaml` with appropriate fields (label, year, thresholds, file paths).
 
 2. **Run the full pipeline:**
@@ -141,4 +141,3 @@ Add new tests alongside each new utility or script stage.
 * To contribute: open an issue or PR on GitHub.
 
 ---
-
