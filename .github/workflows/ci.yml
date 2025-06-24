@@ -20,9 +20,10 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run all tests
-      run: pytest -v
+      run: PYTHONPATH=src pytest -v
 
     - name: Test coverage report
       run: |
         pip install pytest-cov
-        pytest --cov=src --cov-report=term-missing
+        PYTHONPATH=src pytest --cov=src --cov-report=term-missing
+
