@@ -7,7 +7,7 @@ from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,  # <-- Make sure this is included!
-    )
+)
 from scripts.utils.cli_utils import (
     add_common_flags,
     assert_file_exists,
