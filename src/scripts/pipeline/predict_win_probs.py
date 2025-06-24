@@ -2,18 +2,14 @@ import argparse
 import joblib
 import pandas as pd
 import logging
-from pathlib import Path
 
 from scripts.utils.logger import (
     log_info,
     log_success,
-    log_warning,   # <-- Make sure this is included!
-    log_error,
-    log_dryrun,
-)
+    log_warning,  # <-- Make sure this is included!
+    )
 from scripts.utils.cli_utils import (
     add_common_flags,
-    should_run,
     assert_file_exists,
     assert_columns_exist,
     output_file_guard,
@@ -22,6 +18,7 @@ from scripts.utils.normalize_columns import normalize_columns, enforce_canonical
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def predict_win_probs(
@@ -53,6 +50,7 @@ def predict_win_probs(
 
     df.to_csv(output_csv, index=False)
     log_success(f"✅ Saved predictions to {output_csv}")
+
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -86,6 +84,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

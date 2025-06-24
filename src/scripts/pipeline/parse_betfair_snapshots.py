@@ -1,15 +1,19 @@
 import argparse
 import logging
-from pathlib import Path
 from datetime import datetime
 import pandas as pd
 
-from scripts.utils.logger import log_info, log_success, log_error, log_dryrun
-from scripts.utils.cli_utils import add_common_flags, assert_file_exists, should_run, output_file_guard
+from scripts.utils.logger import log_success, log_error
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    assert_file_exists,
+    output_file_guard,
+)
 from scripts.utils.snapshot_parser import SnapshotParser
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def parse_betfair_snapshots(
@@ -46,6 +50,7 @@ def parse_betfair_snapshots(
     df.to_csv(output_csv, index=False)
     log_success(f"✅ Saved {len(df)} snapshot rows to {output_csv}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Parse Betfair snapshots to structured CSV."
@@ -72,6 +77,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

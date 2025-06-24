@@ -2,19 +2,22 @@ import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import logging
-from pathlib import Path
 
 from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
     log_error,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    output_file_guard,
+    assert_file_exists,
+)
 
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_png")
 def plot_tournament_leaderboard(
@@ -73,6 +76,7 @@ def plot_tournament_leaderboard(
     if show:
         plt.show()
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Plot tournament leaderboard from summary CSV."
@@ -104,6 +108,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

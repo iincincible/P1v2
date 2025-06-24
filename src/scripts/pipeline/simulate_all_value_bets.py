@@ -19,6 +19,7 @@ from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Simulate bankroll using all value bets from CSV."
@@ -124,6 +125,7 @@ def main(args=None):
         log_success(f"🖼️ Saved bankroll plot to {plot_path}")
     except Exception as e:
         log_warning(f"⚠️ Could not generate bankroll plot: {e}")
+
 
 if __name__ == "__main__":
     main()

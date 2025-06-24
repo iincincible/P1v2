@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional, List
 
+
 @dataclass
 class TournamentConfig:
     label: str
@@ -15,6 +16,7 @@ class TournamentConfig:
     start_date: Optional[str] = None
     end_date: Optional[str] = None
     player_stats_csv: Optional[str] = None
+
 
 @dataclass
 class PipelineConfig:

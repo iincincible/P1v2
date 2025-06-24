@@ -11,15 +11,18 @@ from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
-    log_error,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import should_run, add_common_flags, assert_file_exists, output_file_guard
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    assert_file_exists,
+    output_file_guard,
+)
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
 from scripts.utils.normalize_columns import enforce_canonical_columns
 
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def analyze_ev_distribution(
@@ -34,9 +37,7 @@ def analyze_ev_distribution(
 ):
     files = glob.glob(value_bets_glob)
     if not files:
-        raise ValueError(
-            f"❌ No value bet files found matching: {value_bets_glob}"
-        )
+        raise ValueError(f"❌ No value bet files found matching: {value_bets_glob}")
 
     dfs = []
     for file in files:
@@ -46,10 +47,7 @@ def analyze_ev_distribution(
             df = normalize_columns(df)
             df = add_ev_and_kelly(df)
             df = patch_winner_column(df)
-            df = df[
-                (df["expected_value"] >= ev_threshold)
-                & (df["odds"] <= max_odds)
-            ]
+            df = df[(df["expected_value"] >= ev_threshold) & (df["odds"] <= max_odds)]
             dfs.append(df)
         except Exception as e:
             log_warning(f"⚠️ Skipping {file}: {e}")
@@ -65,15 +63,17 @@ def analyze_ev_distribution(
     print(f"Files analyzed: {files}")
     print("Number of value bets:", len(all_bets))
     print("\nEV (expected value) stats:")
-    print(all_bets['expected_value'].describe())
+    print(all_bets["expected_value"].describe())
     print("\nOdds stats:")
-    print(all_bets['odds'].describe())
+    print(all_bets["odds"].describe())
     print("\nTop 5 bets by EV:")
-    print(all_bets.sort_values('expected_value', ascending=False)[
-        ['player_1', 'player_2', 'odds', 'expected_value', 'winner']
-    ].head())
-    if 'winner' in all_bets.columns:
-        print("\nWin rate:", (all_bets['winner'] == 1).mean())
+    print(
+        all_bets.sort_values("expected_value", ascending=False)[
+            ["player_1", "player_2", "odds", "expected_value", "winner"]
+        ].head()
+    )
+    if "winner" in all_bets.columns:
+        print("\nWin rate:", (all_bets["winner"] == 1).mean())
     print("=============================================\n")
 
     if output_csv:
@@ -95,7 +95,9 @@ def analyze_ev_distribution(
 
     if save_plot:
         if not output_csv:
-            raise ValueError("❌ --save_plot requires --output_csv to determine image path")
+            raise ValueError(
+                "❌ --save_plot requires --output_csv to determine image path"
+            )
         plot_path = Path(output_csv).with_name(
             Path(output_csv).stem + "_ev_distribution.png"
         )
@@ -105,6 +107,7 @@ def analyze_ev_distribution(
 
     if plot:
         plt.show()
+
 
 def main(args=None):
     parser = argparse.ArgumentParser(
@@ -136,6 +139,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

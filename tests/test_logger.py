@@ -1,5 +1,4 @@
 import logging
-import pytest
 
 from scripts.utils.logger import (
     log_info,

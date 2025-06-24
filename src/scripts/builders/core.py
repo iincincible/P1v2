@@ -12,6 +12,7 @@ from scripts.utils.logger import log_info
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
 
+
 def build_matches_from_snapshots(
     snapshot_csv: str,
     sackmann_csv: Optional[str] = None,
@@ -69,8 +70,15 @@ def build_matches_from_snapshots(
 
     # Order canonical columns first
     canonical_order = [
-        "player_1", "player_2", "match_id", "market_id", "market_time",
-        "selection_id", "ltp", "timestamp", "runner_name"
+        "player_1",
+        "player_2",
+        "match_id",
+        "market_id",
+        "market_time",
+        "selection_id",
+        "ltp",
+        "timestamp",
+        "runner_name",
     ]
     others = [c for c in grouped.columns if c not in canonical_order]
     grouped = grouped[canonical_order + others]

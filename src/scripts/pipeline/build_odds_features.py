@@ -1,13 +1,13 @@
 import argparse
 import pandas as pd
 import logging
-from pathlib import Path
-from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
 from scripts.utils.normalize_columns import enforce_canonical_columns
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def build_odds_features(
@@ -21,12 +21,12 @@ def build_odds_features(
 
     # =============== BEGIN YOUR CUSTOM FEATURE LOGIC ===============
     # Example: Always create 'odds' column if missing
-    if 'odds' not in df.columns:
-        if 'odds_player_1' in df.columns:
-            df['odds'] = df['odds_player_1']
+    if "odds" not in df.columns:
+        if "odds_player_1" in df.columns:
+            df["odds"] = df["odds_player_1"]
             log_info("🔧 Created 'odds' column from 'odds_player_1'")
-        elif 'odds_player_2' in df.columns:
-            df['odds'] = df['odds_player_2']
+        elif "odds_player_2" in df.columns:
+            df["odds"] = df["odds_player_2"]
             log_info("🔧 Created 'odds' column from 'odds_player_2'")
         else:
             log_warning("No odds source found! 'odds' column missing in features.")
@@ -40,8 +40,11 @@ def build_odds_features(
     df.to_csv(output_csv, index=False)
     log_success(f"✅ Saved odds features to {output_csv}")
 
+
 def main(args=None):
-    parser = argparse.ArgumentParser(description="Build odds features for match predictions.")
+    parser = argparse.ArgumentParser(
+        description="Build odds features for match predictions."
+    )
     parser.add_argument("--input_csv", type=str, required=True)
     parser.add_argument("--output_csv", type=str, required=True)
     add_common_flags(parser)
@@ -52,6 +55,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

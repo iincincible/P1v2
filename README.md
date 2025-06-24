@@ -1,3 +1,5 @@
+![CI](https://github.com/puntingpro/P1v2/actions/workflows/ci.yml/badge.svg)
+
 # 🎾 Tennis Value Betting Pipeline (P1v2)
 
 *A modern, modular, and fully tested pipeline for finding and simulating value bets in ATP and WTA tennis.*
@@ -8,14 +10,14 @@
 
 | Column             | Type      | Description                                                         |
 | ------------------ | --------- | ------------------------------------------------------------------- |
-| `match_id`         | str       | Unique identifier for the match (usually market\_id + player names) |
+| `match_id`         | str       | Unique identifier for the match (usually market_id + player names)   |
 | `market_id`        | str       | Betfair market identifier                                           |
 | `player_1`         | str       | Standardized name of player 1 (for modeling)                        |
 | `player_2`         | str       | Standardized name of player 2                                       |
 | `odds`             | float     | Decimal odds for player 1                                           |
-| `predicted_prob`   | float     | Model-predicted probability player\_1 wins                          |
+| `predicted_prob`   | float     | Model-predicted probability player_1 wins                           |
 | `expected_value`   | float     | Calculated EV (`predicted_prob * odds - 1`)                         |
-| `winner`           | int       | 1 if player\_1 won, 0 otherwise                                     |
+| `winner`           | int       | 1 if player_1 won, 0 otherwise                                      |
 | `confidence_score` | float     | (optional) Model confidence in prediction                           |
 | `kelly_stake`      | float     | (optional) Fraction of bankroll, per Kelly formula                  |
 | `timestamp`        | int/float | (optional) Unix or Betfair time                                     |
@@ -59,23 +61,19 @@ project_root/
 
 ## ▶️ Quickstart
 
-1. **Configure a tournament**
+1. **Configure a tournament**  
    Edit or add an entry in `configs/tournaments_YYYY.yaml` with appropriate fields (label, year, thresholds, file paths).
 
 2. **Run the full pipeline:**
 
    ```bash
-   python src/scripts/pipeline/run_full_pipeline.py \
-     --config configs/pipeline_run.yaml
+   python src/scripts/pipeline/run_full_pipeline.py      --config configs/pipeline_run.yaml
    ```
 
 3. **Train a model:**
 
    ```bash
-   python src/scripts/modeling/train_ev_filter_model.py \
-     --input_files data/your_train.csv \
-     --output_model models/ev_filter.joblib \
-     --min_ev 0.2
+   python src/scripts/modeling/train_ev_filter_model.py      --input_files data/your_train.csv      --output_model models/ev_filter.joblib      --min_ev 0.2
    ```
 
 ---
@@ -85,18 +83,13 @@ project_root/
 To process **all tournaments** listed in your tournaments YAML in one go, add `--batch`:
 
 ```bash
-python src/scripts/pipeline/run_full_pipeline.py \
-  --config configs/pipeline_run.yaml \
-  --batch
+python src/scripts/pipeline/run_full_pipeline.py   --config configs/pipeline_run.yaml   --batch
 ```
 
 Dry-run works here too:
 
 ```bash
-python src/scripts/pipeline/run_full_pipeline.py \
-  --config configs/pipeline_run.yaml \
-  --batch \
-  --dry_run
+python src/scripts/pipeline/run_full_pipeline.py   --config configs/pipeline_run.yaml   --batch   --dry_run
 ```
 
 ---
@@ -118,9 +111,7 @@ This ensures experiments can be reproduced exactly.
 All major scripts accept `--dry_run` and log planned actions **without** writing or overwriting files. Use for safe testing:
 
 ```bash
-python src/scripts/analysis/analyze_ev_distribution.py \
-  --value_bets_glob "output/*_value_bets.csv" \
-  --dry_run
+python src/scripts/analysis/analyze_ev_distribution.py   --value_bets_glob "output/*_value_bets.csv"   --dry_run
 ```
 
 ---
@@ -131,6 +122,12 @@ We keep tests in the top-level `tests/` directory. To run:
 
 ```bash
 pytest -v
+```
+
+**To see code coverage:**
+
+```bash
+pytest --cov=src --cov-report=term-missing
 ```
 
 Add new tests alongside each new utility or script stage.
@@ -145,6 +142,3 @@ Add new tests alongside each new utility or script stage.
 
 ---
 
-## 📞 Questions or Ideas?
-
-Feel free to open an issue or reach out—happy value betting!

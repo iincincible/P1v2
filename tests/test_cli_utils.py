@@ -1,7 +1,5 @@
-import os
 import logging
 import pytest
-from pathlib import Path
 
 from scripts.utils.cli_utils import (
     should_run,

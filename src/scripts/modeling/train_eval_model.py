@@ -3,7 +3,6 @@ import pandas as pd
 import joblib
 import logging
 from pathlib import Path
-from datetime import datetime
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, log_loss
@@ -13,16 +12,18 @@ from scripts.utils.logger import (
     log_success,
     log_warning,
     log_error,
-    log_dryrun,
 )
 from scripts.utils.cli_utils import (
     add_common_flags,
-    should_run,
     assert_file_exists,
     assert_columns_exist,
     output_file_guard,
 )
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
+from scripts.utils.normalize_columns import (
+    normalize_columns,
+    patch_winner_column,
+    enforce_canonical_columns,
+)
 from scripts.utils.filters import filter_value_bets
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 from scripts.utils.constants import (
@@ -35,6 +36,7 @@ from scripts.utils.constants import (
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="value_bets_csv")
 def train_eval_model(
@@ -114,6 +116,7 @@ def train_eval_model(
     # Add EV and Kelly columns (if not present)
     try:
         from scripts.utils.betting_math import add_ev_and_kelly
+
         df_test = add_ev_and_kelly(df_test, prob_col="predicted_prob", odds_col="odds")
     except Exception as e:
         log_error(f"❌ Could not add expected_value/Kelly: {e}")
@@ -121,9 +124,7 @@ def train_eval_model(
 
     # Filter value bets
     try:
-        df_filtered = filter_value_bets(
-            df_test, ev_threshold, max_odds, max_margin
-        )
+        df_filtered = filter_value_bets(df_test, ev_threshold, max_odds, max_margin)
         log_success(f"✅ Filtered {len(df_filtered)} value bets")
     except Exception as e:
         log_error(f"❌ Value bet filtering failed: {e}")
@@ -162,6 +163,7 @@ def train_eval_model(
     except Exception as e:
         log_error(f"❌ Simulation or saving failed: {e}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Train and evaluate win probability model, then simulate bankroll."
@@ -190,7 +192,7 @@ def main(args=None):
     parser.add_argument(
         "--output_model",
         default="modeling/win_model.pkl",
-        help="Where to save the trained win probability model"
+        help="Where to save the trained win probability model",
     )
     parser.add_argument(
         "--ev_threshold",
@@ -239,6 +241,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

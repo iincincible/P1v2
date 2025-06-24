@@ -8,14 +8,16 @@ from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
-    log_error,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, output_file_guard, assert_file_exists
-from scripts.utils.normalize_columns import enforce_canonical_columns
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    output_file_guard,
+    assert_file_exists,
+)
 
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def summarize_value_bets_by_tournament(
@@ -26,9 +28,7 @@ def summarize_value_bets_by_tournament(
 ):
     files = glob.glob(input_glob)
     if not files:
-        raise ValueError(
-            f"❌ No match-level summary files found matching: {input_glob}"
-        )
+        raise ValueError(f"❌ No match-level summary files found matching: {input_glob}")
 
     rows = []
     for filepath in files:
@@ -78,6 +78,7 @@ def summarize_value_bets_by_tournament(
     top5 = df_out[["tournament", "roi", "profit", "total_bets"]].head(5)
     log_info(top5.to_string(index=False))
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(description="Summarize value bets by tournament.")
     parser.add_argument(
@@ -98,6 +99,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

@@ -2,14 +2,11 @@ import argparse
 import pandas as pd
 import glob
 import logging
-from pathlib import Path
 
 from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
-    log_error,
-    log_dryrun,
 )
 from scripts.utils.cli_utils import (
     add_common_flags,
@@ -17,11 +14,16 @@ from scripts.utils.cli_utils import (
     assert_file_exists,
     assert_columns_exist,
 )
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
+from scripts.utils.normalize_columns import (
+    normalize_columns,
+    patch_winner_column,
+    enforce_canonical_columns,
+)
 from scripts.utils.betting_math import add_ev_and_kelly
 
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def summarize_value_bets_by_match(
@@ -33,9 +35,7 @@ def summarize_value_bets_by_match(
 ):
     files = glob.glob(value_bets_glob)
     if not files:
-        raise ValueError(
-            f"❌ No value bet files found matching: {value_bets_glob}"
-        )
+        raise ValueError(f"❌ No value bet files found matching: {value_bets_glob}")
 
     all_bets = []
     for filepath in files:
@@ -96,9 +96,7 @@ def summarize_value_bets_by_match(
     summary = grouped.join(firsts, on="match_id").reset_index()
 
     if top_n > 0:
-        preview = summary.sort_values(by="total_profit", ascending=False).head(
-            top_n
-        )
+        preview = summary.sort_values(by="total_profit", ascending=False).head(top_n)
         log_info("\n📊 Top Matches by Profit:")
         log_info(
             preview[
@@ -121,6 +119,7 @@ def summarize_value_bets_by_match(
 
     summary.to_csv(output_csv, index=False)
     log_success(f"✅ Saved match-level summary to {output_csv}")
+
 
 def main(args=None):
     parser = argparse.ArgumentParser(description="Summarize value bets by match.")
@@ -149,6 +148,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

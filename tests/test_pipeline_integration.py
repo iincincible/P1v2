@@ -1,23 +1,27 @@
-import pytest
 import pandas as pd
-from pathlib import Path
-import tempfile
-import shutil
 
 from scripts.pipeline.detect_value_bets import detect_value_bets
 
+
 def make_toy_input_csv(tmpdir, filename):
     # Create a toy CSV with the right columns
-    df = pd.DataFrame({
-        "player_1": ["Alice", "Bob", "Charlie"],
-        "player_2": ["Xena", "Yves", "Zane"],
-        "predicted_prob": [0.7, 0.5, 0.2],
-        "odds": [2.1, 1.9, 6.0],
-        "expected_value": [0.47, -0.05, 0.2],  # Only Alice and Charlie pass threshold 0.2
-    })
+    df = pd.DataFrame(
+        {
+            "player_1": ["Alice", "Bob", "Charlie"],
+            "player_2": ["Xena", "Yves", "Zane"],
+            "predicted_prob": [0.7, 0.5, 0.2],
+            "odds": [2.1, 1.9, 6.0],
+            "expected_value": [
+                0.47,
+                -0.05,
+                0.2,
+            ],  # Only Alice and Charlie pass threshold 0.2
+        }
+    )
     path = tmpdir / filename
     df.to_csv(path, index=False)
     return path
+
 
 def test_detect_value_bets_end_to_end(tmp_path):
     # Arrange
@@ -43,6 +47,7 @@ def test_detect_value_bets_end_to_end(tmp_path):
     assert set(df["player_1"]) == {"Alice", "Charlie"}
     assert all(df["expected_value"] >= 0.2)
 
+
 def test_detect_value_bets_dry_run(tmp_path):
     input_csv = make_toy_input_csv(tmp_path, "toy_predictions.csv")
     output_csv = tmp_path / "toy_value_bets.csv"
@@ -59,6 +64,7 @@ def test_detect_value_bets_dry_run(tmp_path):
         dry_run=True,
     )
     assert not output_csv.exists()
+
 
 def test_detect_value_bets_overwrite(tmp_path):
     input_csv = make_toy_input_csv(tmp_path, "toy_predictions.csv")
@@ -90,4 +96,3 @@ def test_detect_value_bets_overwrite(tmp_path):
     )
     mtime_after = output_csv.stat().st_mtime
     assert mtime_before == mtime_after  # File not touched if not overwrite
-

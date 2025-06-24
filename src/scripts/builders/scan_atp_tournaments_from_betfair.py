@@ -18,6 +18,7 @@ from scripts.utils.snapshot_parser import SnapshotParser
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Scan and extract candidate ATP tournament markets from Betfair snapshots."
@@ -83,6 +84,7 @@ def main(args=None):
         log_success(f"✅ Saved {len(df)} ATP candidate markets to {output_path}")
     except Exception as e:
         log_error(f"❌ Failed to save metadata CSV: {e}")
+
 
 if __name__ == "__main__":
     main()

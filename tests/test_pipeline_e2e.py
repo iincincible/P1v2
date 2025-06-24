@@ -1,54 +1,61 @@
-import pytest
 import pandas as pd
-from pathlib import Path
 
 from scripts.builders.core import build_matches_from_snapshots
 from scripts.pipeline.match_selection_ids import main as match_ids_main
 from scripts.pipeline.merge_final_ltps_into_matches import main as merge_odds_main
 from scripts.pipeline.build_odds_features import main as features_main
-from scripts.pipeline.predict_win_probs import main as predict_main
 from scripts.pipeline.detect_value_bets import detect_value_bets
 from scripts.pipeline.simulate_bankroll_growth import main as simulate_main
 
-from scripts.utils.normalize_columns import CANONICAL_REQUIRED_COLUMNS, assert_required_columns
+from scripts.utils.normalize_columns import (
+    CANONICAL_REQUIRED_COLUMNS,
+    assert_required_columns,
+)
+
 
 def make_toy_snapshot_csv(path):
-    df = pd.DataFrame([
-        {
-            "market_id": "m1",
-            "market_time": "2023-01-01 12:00:00",
-            "runner_1": "Alice",
-            "runner_2": "Bob",
-            "selection_id": 101,
-            "ltp": 2.2,
-            "timestamp": 12345678,
-            "runner_name": "Alice",
-            "odds_player_1": 2.2,
-        },
-        {
-            "market_id": "m1",
-            "market_time": "2023-01-01 12:00:00",
-            "runner_1": "Alice",
-            "runner_2": "Bob",
-            "selection_id": 202,
-            "ltp": 1.7,
-            "timestamp": 12345679,
-            "runner_name": "Bob",
-            "odds_player_2": 1.7,
-        },
-    ])
+    df = pd.DataFrame(
+        [
+            {
+                "market_id": "m1",
+                "market_time": "2023-01-01 12:00:00",
+                "runner_1": "Alice",
+                "runner_2": "Bob",
+                "selection_id": 101,
+                "ltp": 2.2,
+                "timestamp": 12345678,
+                "runner_name": "Alice",
+                "odds_player_1": 2.2,
+            },
+            {
+                "market_id": "m1",
+                "market_time": "2023-01-01 12:00:00",
+                "runner_1": "Alice",
+                "runner_2": "Bob",
+                "selection_id": 202,
+                "ltp": 1.7,
+                "timestamp": 12345679,
+                "runner_name": "Bob",
+                "odds_player_2": 1.7,
+            },
+        ]
+    )
     df.to_csv(path, index=False)
 
+
 def make_toy_sackmann_csv(path):
-    df = pd.DataFrame([
-        {
-            "winner_name": "Alice",
-            "loser_name": "Bob",
-            "score": "6-3 6-2",
-            "actual_winner": "Alice"
-        }
-    ])
+    df = pd.DataFrame(
+        [
+            {
+                "winner_name": "Alice",
+                "loser_name": "Bob",
+                "score": "6-3 6-2",
+                "actual_winner": "Alice",
+            }
+        ]
+    )
     df.to_csv(path, index=False)
+
 
 def test_full_pipeline_e2e(tmp_path):
     snapshot_csv = tmp_path / "snapshots.csv"
@@ -69,24 +76,35 @@ def test_full_pipeline_e2e(tmp_path):
         assert col in matches_df.columns
 
     ids_csv = tmp_path / "ids.csv"
-    match_ids_main([
-        "--merged_csv", str(matches_csv),
-        "--snapshots_csv", str(snapshot_csv),
-        "--output_csv", str(ids_csv),
-        "--overwrite",
-    ])
+    match_ids_main(
+        [
+            "--merged_csv",
+            str(matches_csv),
+            "--snapshots_csv",
+            str(snapshot_csv),
+            "--output_csv",
+            str(ids_csv),
+            "--overwrite",
+        ]
+    )
     assert ids_csv.exists()
 
     odds_csv = tmp_path / "odds.csv"
-    merge_odds_main([
-        "--matches_csv", str(ids_csv),
-        "--snapshots_csv", str(snapshot_csv),
-        "--output_csv", str(odds_csv),
-        "--overwrite",
-    ])
+    merge_odds_main(
+        [
+            "--matches_csv",
+            str(ids_csv),
+            "--snapshots_csv",
+            str(snapshot_csv),
+            "--output_csv",
+            str(odds_csv),
+            "--overwrite",
+        ]
+    )
     assert odds_csv.exists()
 
     odds_df = pd.read_csv(odds_csv)
+
     def extract_first_float(val):
         if isinstance(val, (float, int)):
             return val
@@ -94,20 +112,25 @@ def test_full_pipeline_e2e(tmp_path):
             try:
                 return float(val.strip("[]").split(",")[0])
             except Exception:
-                return float('nan')
+                return float("nan")
         try:
             return float(val)
         except Exception:
-            return float('nan')
+            return float("nan")
+
     odds_df["odds"] = odds_df["ltp_player_1"].apply(extract_first_float)
     odds_df.to_csv(odds_csv, index=False)
 
     features_csv = tmp_path / "features.csv"
-    features_main([
-        "--input_csv", str(odds_csv),
-        "--output_csv", str(features_csv),
-        "--overwrite",
-    ])
+    features_main(
+        [
+            "--input_csv",
+            str(odds_csv),
+            "--output_csv",
+            str(features_csv),
+            "--overwrite",
+        ]
+    )
     assert features_csv.exists()
 
     predictions_csv = tmp_path / "predictions.csv"
@@ -133,14 +156,20 @@ def test_full_pipeline_e2e(tmp_path):
     )
     assert value_csv.exists()
     value_df = pd.read_csv(value_csv)
-    assert_required_columns(value_df, CANONICAL_REQUIRED_COLUMNS, context="value bets e2e")
+    assert_required_columns(
+        value_df, CANONICAL_REQUIRED_COLUMNS, context="value bets e2e"
+    )
 
     bankroll_csv = tmp_path / "bankroll.csv"
-    simulate_main([
-        "--value_bets_csv", str(value_csv),
-        "--output_csv", str(bankroll_csv),
-        "--overwrite",
-    ])
+    simulate_main(
+        [
+            "--value_bets_csv",
+            str(value_csv),
+            "--output_csv",
+            str(bankroll_csv),
+            "--overwrite",
+        ]
+    )
     assert bankroll_csv.exists()
     bankroll_df = pd.read_csv(bankroll_csv)
     assert not bankroll_df.empty

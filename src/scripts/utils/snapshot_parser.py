@@ -1,6 +1,5 @@
 import bz2
 import json
-import pandas as pd
 from pathlib import Path
 from datetime import datetime
 from tqdm import tqdm  # ✅ Progress bar added

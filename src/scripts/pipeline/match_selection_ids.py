@@ -2,16 +2,18 @@ import argparse
 import pandas as pd
 import logging
 from tqdm import tqdm
-from pathlib import Path
 
 from scripts.utils.logger import (
     log_info,
     log_warning,
     log_error,
     log_success,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, output_file_guard
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    assert_file_exists,
+    output_file_guard,
+)
 from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
@@ -19,6 +21,7 @@ from scripts.utils.selection import (
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def match_selection_ids(
@@ -80,6 +83,7 @@ def match_selection_ids(
     df_matches.to_csv(output_csv, index=False)
     log_success(f"✅ Saved selection ID mappings to {output_csv}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Match player names to Betfair selection IDs."
@@ -108,6 +112,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

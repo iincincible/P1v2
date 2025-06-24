@@ -6,20 +6,26 @@ import logging
 from pathlib import Path
 from datetime import datetime
 import subprocess
-from scripts.utils.normalize_columns import normalize_columns, patch_winner_column, enforce_canonical_columns
+from scripts.utils.normalize_columns import (
+    normalize_columns,
+    patch_winner_column,
+)
 from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
     log_error,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import should_run, assert_file_exists, add_common_flags, output_file_guard
-from scripts.utils.config_utils import merge_with_defaults
+from scripts.utils.cli_utils import (
+    assert_file_exists,
+    add_common_flags,
+    output_file_guard,
+)
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 def get_git_commit():
     try:
@@ -27,6 +33,7 @@ def get_git_commit():
         return commit
     except Exception:
         return None
+
 
 @output_file_guard(output_arg="output_model")
 def train_ev_filter_model(
@@ -101,6 +108,7 @@ def train_ev_filter_model(
         json.dump(metadata, f, indent=2)
     log_success(f"📄 Saved metadata to {meta_path}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Train EV filter model (RandomForest)."
@@ -126,6 +134,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

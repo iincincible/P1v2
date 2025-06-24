@@ -1,19 +1,25 @@
 import argparse
-import sys
 import hashlib
 import logging
 from pathlib import Path
 from scripts.builders.core import build_matches_from_snapshots
 from scripts.utils.logger import log_info, log_success, log_error, log_dryrun
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, output_file_guard
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    should_run,
+    assert_file_exists,
+    output_file_guard,
+)
 from scripts.utils.normalize_columns import enforce_canonical_columns
 
 # Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
 
+
 def generate_match_id(row) -> str:
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
+
 
 @output_file_guard(output_arg="output_csv")
 def build_matches(
@@ -80,6 +86,7 @@ def build_matches(
     except Exception as e:
         log_error(f"❌ Failed to build matches: {e}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Build matches from Betfair snapshots and optional results."
@@ -110,6 +117,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

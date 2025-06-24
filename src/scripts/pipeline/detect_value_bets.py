@@ -1,8 +1,7 @@
 import argparse
 import pandas as pd
 import logging
-from pathlib import Path
-from scripts.utils.logger import log_info, log_success, log_warning, log_error
+from scripts.utils.logger import log_info, log_success, log_warning
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
 from scripts.utils.normalize_columns import (
     prepare_value_bets_df,
@@ -14,6 +13,7 @@ from scripts.utils.constants import DEFAULT_MAX_MARGIN
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def detect_value_bets(
@@ -30,7 +30,9 @@ def detect_value_bets(
     log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
 
     df = prepare_value_bets_df(df)
-    assert_required_columns(df, CANONICAL_REQUIRED_COLUMNS, context="value bet pipeline")
+    assert_required_columns(
+        df, CANONICAL_REQUIRED_COLUMNS, context="value bet pipeline"
+    )
 
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
@@ -57,16 +59,33 @@ def detect_value_bets(
     log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")
     return df_filtered
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Filter predictions to find +EV value bets."
     )
     parser.add_argument("--input_csv", required=True, help="Predictions input CSV")
-    parser.add_argument("--output_csv", required=True, help="Path to save filtered value bets")
-    parser.add_argument("--ev_threshold", type=float, default=0.2, help="Minimum expected value")
-    parser.add_argument("--confidence_threshold", type=float, default=0.4, help="Minimum confidence score")
-    parser.add_argument("--max_odds", type=float, default=6.0, help="Maximum allowed odds")
-    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN, help="Maximum odds margin")
+    parser.add_argument(
+        "--output_csv", required=True, help="Path to save filtered value bets"
+    )
+    parser.add_argument(
+        "--ev_threshold", type=float, default=0.2, help="Minimum expected value"
+    )
+    parser.add_argument(
+        "--confidence_threshold",
+        type=float,
+        default=0.4,
+        help="Minimum confidence score",
+    )
+    parser.add_argument(
+        "--max_odds", type=float, default=6.0, help="Maximum allowed odds"
+    )
+    parser.add_argument(
+        "--max_margin",
+        type=float,
+        default=DEFAULT_MAX_MARGIN,
+        help="Maximum odds margin",
+    )
     add_common_flags(parser)
     _args = parser.parse_args(args)
     detect_value_bets(
@@ -79,6 +98,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

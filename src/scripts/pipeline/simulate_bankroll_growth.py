@@ -7,14 +7,17 @@ from scripts.utils.logger import (
     log_info,
     log_success,
     log_warning,
-    log_error,
-    log_dryrun,
 )
-from scripts.utils.cli_utils import add_common_flags, should_run, assert_file_exists, output_file_guard
+from scripts.utils.cli_utils import (
+    add_common_flags,
+    assert_file_exists,
+    output_file_guard,
+)
 from scripts.utils.simulation import simulate_bankroll, generate_bankroll_plot
 
 # Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
+
 
 @output_file_guard(output_arg="output_csv")
 def simulate_bankroll_growth(
@@ -42,6 +45,7 @@ def simulate_bankroll_growth(
     except Exception as e:
         log_warning(f"⚠️ Could not generate bankroll plot: {e}")
 
+
 def main(args=None):
     parser = argparse.ArgumentParser(
         description="Simulate bankroll growth from value bets."
@@ -60,6 +64,7 @@ def main(args=None):
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )
+
 
 if __name__ == "__main__":
     main()

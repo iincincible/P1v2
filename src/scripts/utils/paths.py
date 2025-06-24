@@ -7,6 +7,7 @@ PROCESSED_DIR = Path("data/processed")
 PARSED_DIR = Path("parsed")
 SNAPSHOT_DIR = Path("parsed")
 
+
 def get_pipeline_paths(label: str) -> dict:
     base = PROCESSED_DIR
     return {
@@ -21,8 +22,10 @@ def get_pipeline_paths(label: str) -> dict:
         "summary_png": base / f"{label}_bankroll.png",
     }
 
+
 def get_snapshot_csv_path(label: str) -> str:
     return str(SNAPSHOT_DIR / f"betfair_{label}_snapshots.csv")
+
 
 def ensure_dir(path: str | Path):
     Path(path).parent.mkdir(parents=True, exist_ok=True)

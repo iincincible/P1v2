@@ -1,7 +1,7 @@
-import os
 from pathlib import Path
 import logging
 from functools import wraps
+
 
 def add_common_flags(parser):
     parser.add_argument(
@@ -12,6 +12,7 @@ def add_common_flags(parser):
         action="store_true",
         help="Only print what would be done, don't write",
     )
+
 
 def should_run(output_path, overwrite, dry_run):
     output_path = Path(output_path)
@@ -27,14 +28,17 @@ def should_run(output_path, overwrite, dry_run):
         return False
     return True
 
+
 def assert_file_exists(path, desc="file"):
     if not Path(path).exists():
         raise FileNotFoundError(f"❌ Missing required {desc}: {path}")
+
 
 def assert_columns_exist(df, cols, context=""):
     missing = [c for c in cols if c not in df.columns]
     if missing:
         raise ValueError(f"❌ Missing columns in {context}: {missing}")
+
 
 def dry_run_guard(file_args=(), subprocess_args=()):
     """
@@ -42,6 +46,7 @@ def dry_run_guard(file_args=(), subprocess_args=()):
     file_args: list of arg names that are file outputs.
     subprocess_args: list of arg names to log as subprocess calls in dry-run.
     """
+
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
@@ -62,14 +67,18 @@ def dry_run_guard(file_args=(), subprocess_args=()):
                     logging.info(f"[DRY-RUN] Would run subprocess: {kwargs.get(s)}")
                 return None
             return fn(*args, **kwargs)
+
         return wrapper
+
     return decorator
+
 
 def output_file_guard(output_arg="output_csv"):
     """
     Decorator for main pipeline functions that write output files.
     Handles overwrite, dry_run, and directory creation for one output file.
     """
+
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
@@ -86,5 +95,7 @@ def output_file_guard(output_arg="output_csv"):
                     return
                 out_path.parent.mkdir(parents=True, exist_ok=True)
             return fn(*args, **kwargs)
+
         return wrapper
+
     return decorator
