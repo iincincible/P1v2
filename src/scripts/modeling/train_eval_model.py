@@ -1,245 +1,173 @@
+# File: src/scripts/modeling/train_eval_model.py
+
 import argparse
+import json
 import logging
+from datetime import datetime
 from pathlib import Path
 
 import joblib
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, log_loss
+from sklearn.metrics import classification_report, roc_auc_score
+from sklearn.model_selection import GroupShuffleSplit
 
 from scripts.utils.cli_utils import (
     add_common_flags,
-    assert_columns_exist,
     assert_file_exists,
     output_file_guard,
 )
-from scripts.utils.constants import (
-    DEFAULT_EV_THRESHOLD,
-    DEFAULT_FIXED_STAKE,
-    DEFAULT_MAX_MARGIN,
-    DEFAULT_MAX_ODDS,
-    DEFAULT_STRATEGY,
-)
-from scripts.utils.filters import filter_value_bets
-from scripts.utils.logger import (
-    log_error,
-    log_info,
-    log_success,
-    log_warning,
-)
+from scripts.utils.logger import log_error, log_info, log_success
 from scripts.utils.normalize_columns import (
-    enforce_canonical_columns,
     normalize_columns,
     patch_winner_column,
+    enforce_canonical_columns,
 )
-from scripts.utils.simulation import generate_bankroll_plot, simulate_bankroll
 
-# Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
 
-@output_file_guard(output_arg="value_bets_csv")
+@output_file_guard(output_arg="output_model")
 def train_eval_model(
-    train_csvs,
-    test_csv,
-    value_bets_csv,
-    bankroll_csv,
-    features,
+    input_files,
     output_model,
-    ev_threshold=DEFAULT_EV_THRESHOLD,
-    max_odds=DEFAULT_MAX_ODDS,
-    max_margin=DEFAULT_MAX_MARGIN,
-    strategy=DEFAULT_STRATEGY,
-    fixed_stake=DEFAULT_FIXED_STAKE,
+    algorithm="rf",
+    test_size=0.25,
+    random_state=42,
     overwrite=False,
     dry_run=False,
 ):
-    # Load & prepare training data
-    train_frames = []
-    for path in train_csvs:
+    all_dfs = []
+    for path in input_files:
         try:
-            assert_file_exists(path, "train_csv")
+            assert_file_exists(path, "input_csv")
             df = pd.read_csv(path)
             df = normalize_columns(df)
             df = patch_winner_column(df)
-            df = df.dropna(subset=features + ["winner"])
-            df["label"] = (df["winner"] == 1).astype(int)
-            assert_columns_exist(df, features + ["label"], context=path)
-            train_frames.append(df)
-            log_info(f"✅ Loaded {len(df)} rows from {path}")
+            enforce_canonical_columns(df, context=path)
+            all_dfs.append(df)
+            log_info(f"✅ Loaded and validated {len(df)} rows from {path}")
         except Exception as e:
-            log_warning(f"⚠️ Skipping training file {path}: {e}")
+            log_error(f"❌ Skipping {path}: {e}")
 
-    if not train_frames:
-        log_error("❌ No valid training data found.")
-        return
+    if not all_dfs:
+        raise ValueError("❌ No valid data to train on after preprocessing.")
 
-    df_train = pd.concat(train_frames, ignore_index=True)
-    log_success(f"📊 Training on {len(df_train)} rows")
+    df = pd.concat(all_dfs, ignore_index=True)
+    log_success(f"📊 Combined dataset contains {len(df)} rows")
 
-    # Load & prepare test data
-    try:
-        assert_file_exists(test_csv, "test_csv")
-        df_test = pd.read_csv(test_csv)
-        df_test = normalize_columns(df_test)
-        df_test = patch_winner_column(df_test)
-        df_test = df_test.dropna(subset=features + ["odds"])
-        assert_columns_exist(
-            df_test,
-            features + ["odds"],
-            context="test set",
+    # Infer feature columns: numeric columns excluding label and group identifiers
+    excluded = {"winner", "match_id"}
+    feature_cols = [
+        c
+        for c in df.columns
+        if c not in excluded and pd.api.types.is_numeric_dtype(df[c])
+    ]
+    if not feature_cols:
+        raise ValueError("❌ No numeric feature columns found after preprocessing.")
+    log_info(f"🛠 Using features: {feature_cols}")
+
+    X = df[feature_cols]
+    y = df["winner"]
+    if "match_id" not in df.columns:
+        raise ValueError(
+            "❌ 'match_id' column is required for grouped train/test split."
         )
-        log_info(f"📥 Loaded {len(df_test)} test rows from {test_csv}")
-    except Exception as e:
-        log_error(f"❌ Failed to prepare test data: {e}")
-        return
+    groups = df["match_id"]
 
-    # Train & predict
-    try:
-        model = LogisticRegression(max_iter=1000)
-        model.fit(df_train[features], df_train["label"])
-        df_test["predicted_prob"] = model.predict_proba(df_test[features])[:, 1]
-        log_success("✅ Model trained and predictions made")
-        # Save the trained model
-        joblib.dump(model, output_model)
-        log_success(f"💾 Trained model saved to {output_model}")
-        # Optional metrics
-        if "winner" in df_test.columns:
-            y_true = (df_test["winner"] == 1).astype(int)
-            acc = accuracy_score(y_true, df_test["predicted_prob"] > 0.5)
-            loss = log_loss(y_true, df_test["predicted_prob"])
-            log_info(f"🎯 Accuracy: {acc:.4f}, LogLoss: {loss:.5f}")
-    except Exception as e:
-        log_error(f"❌ Training/prediction failed: {e}")
-        return
+    # Group-aware train/test split to prevent leakage
+    gss = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=random_state)
+    train_idx, test_idx = next(gss.split(X, y, groups))
+    X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
+    y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
+    log_success(f"🔀 Split into {len(train_idx)} train and {len(test_idx)} test rows")
 
-    # Add EV and Kelly columns (if not present)
-    try:
-        from scripts.utils.betting_math import add_ev_and_kelly
+    # Choose and train model
+    if algorithm.lower() in {"rf", "random_forest"}:
+        model = RandomForestClassifier(n_estimators=100, random_state=random_state)
+    elif algorithm.lower() in {"lr", "logistic_regression"}:
+        model = LogisticRegression(max_iter=1000, random_state=random_state)
+    else:
+        raise ValueError(f"❌ Unsupported algorithm: {algorithm}")
+    log_info(f"🚀 Training {algorithm} model")
+    model.fit(X_train, y_train)
 
-        df_test = add_ev_and_kelly(df_test, prob_col="predicted_prob", odds_col="odds")
-    except Exception as e:
-        log_error(f"❌ Could not add expected_value/Kelly: {e}")
-        return
+    # Evaluate
+    preds = model.predict(X_test)
+    proba = (
+        model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
+    )
+    report = classification_report(y_test, preds, digits=4)
+    log_info("📈 Classification Report:\n" + report)
+    if proba is not None:
+        auc = roc_auc_score(y_test, proba)
+        log_info(f"🔍 ROC AUC: {auc:.4f}")
 
-    # Filter value bets
-    try:
-        df_filtered = filter_value_bets(df_test, ev_threshold, max_odds, max_margin)
-        log_success(f"✅ Filtered {len(df_filtered)} value bets")
-    except Exception as e:
-        log_error(f"❌ Value bet filtering failed: {e}")
-        return
+    # Save model
+    out_path = Path(output_model)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(model, out_path)
+    log_success(f"✅ Saved trained model to {output_model}")
 
-    # Refactor: enforce canonical columns before output
-    try:
-        enforce_canonical_columns(df_filtered, context="train_eval_model value bets")
-    except Exception as e:
-        log_warning(f"Canonical column check failed: {e}")
-
-    # Write value bets CSV
-    df_filtered.to_csv(value_bets_csv, index=False)
-    log_success(f"📝 Saved value bets to {value_bets_csv}")
-
-    # Simulate bankroll
-    try:
-        sim_df, final_bankroll, max_drawdown = simulate_bankroll(
-            df_filtered,
-            strategy=strategy,
-            initial_bankroll=1000.0,
-            ev_threshold=0.0,
-            odds_cap=100.0,
-            cap_fraction=0.05,
-        )
-        log_info(f"💰 Final bankroll: {final_bankroll:.2f}")
-        log_info(f"📉 Max drawdown: {max_drawdown:.2f}")
-        # Save bankroll CSV
-        Path(bankroll_csv).parent.mkdir(parents=True, exist_ok=True)
-        sim_df.to_csv(bankroll_csv, index=False)
-        log_success(f"✅ Saved bankroll simulation to {bankroll_csv}")
-        # Plot
-        plot_path = Path(bankroll_csv).with_suffix(".png")
-        generate_bankroll_plot(sim_df["bankroll"], output_path=plot_path)
-        log_success(f"🖼️ Saved bankroll plot to {plot_path}")
-    except Exception as e:
-        log_error(f"❌ Simulation or saving failed: {e}")
+    # Save metadata
+    meta = {
+        "timestamp": datetime.now().isoformat(),
+        "model_type": algorithm,
+        "features": feature_cols,
+        "test_size": test_size,
+        "random_state": random_state,
+        "train_rows": int(len(train_idx)),
+        "test_rows": int(len(test_idx)),
+        "input_files": input_files,
+    }
+    meta_path = out_path.with_suffix(".json")
+    with open(meta_path, "w") as mf:
+        json.dump(meta, mf, indent=2)
+    log_success(f"📄 Saved metadata to {meta_path}")
 
 
-def main(args=None):
+def main():
     parser = argparse.ArgumentParser(
-        description="Train and evaluate win probability model, then simulate bankroll."
+        description="Train main evaluation model (no leakage)."
     )
     parser.add_argument(
-        "--train_csvs", nargs="+", required=True, help="List of CSVs for training"
-    )
-    parser.add_argument("--test_csv", required=True, help="CSV for model testing")
-    parser.add_argument(
-        "--value_bets_csv", required=True, help="Path to save filtered value bets"
-    )
-    parser.add_argument(
-        "--bankroll_csv", required=True, help="Path to save bankroll simulation CSV"
-    )
-    parser.add_argument(
-        "--features",
+        "--input_files",
         nargs="+",
-        default=[
-            "implied_prob_1",
-            "implied_prob_2",
-            "implied_prob_diff",
-            "odds_margin",
-        ],
-        help="Feature columns for model",
+        required=True,
+        help="One or more CSVs containing precomputed features and actual_winner.",
     )
     parser.add_argument(
         "--output_model",
-        default="modeling/win_model.pkl",
-        help="Where to save the trained win probability model",
+        required=True,
+        help="Path to write the trained model (joblib format).",
     )
     parser.add_argument(
-        "--ev_threshold",
+        "--algorithm",
+        choices=["rf", "random_forest", "lr", "logistic_regression"],
+        default="rf",
+        help="Which model to train.",
+    )
+    parser.add_argument(
+        "--test_size",
         type=float,
-        default=DEFAULT_EV_THRESHOLD,
-        help="EV threshold for filtering bets",
+        default=0.25,
+        help="Fraction of data to hold out for testing.",
     )
     parser.add_argument(
-        "--max_odds",
-        type=float,
-        default=DEFAULT_MAX_ODDS,
-        help="Maximum odds to include",
-    )
-    parser.add_argument(
-        "--max_margin",
-        type=float,
-        default=DEFAULT_MAX_MARGIN,
-        help="Maximum odds margin for bets",
-    )
-    parser.add_argument(
-        "--strategy",
-        choices=["flat", "kelly"],
-        default=DEFAULT_STRATEGY,
-        help="Staking strategy for simulation",
-    )
-    parser.add_argument(
-        "--fixed_stake",
-        type=float,
-        default=DEFAULT_FIXED_STAKE,
-        help="Fixed stake amount if using flat strategy",
+        "--random_state", type=int, default=42, help="Random seed for reproducibility."
     )
     add_common_flags(parser)
-    _args = parser.parse_args(args)
+    args = parser.parse_args()
+
     train_eval_model(
-        train_csvs=_args.train_csvs,
-        test_csv=_args.test_csv,
-        value_bets_csv=_args.value_bets_csv,
-        bankroll_csv=_args.bankroll_csv,
-        features=_args.features,
-        output_model=_args.output_model,
-        ev_threshold=_args.ev_threshold,
-        max_odds=_args.max_odds,
-        max_margin=_args.max_margin,
-        strategy=_args.strategy,
-        fixed_stake=_args.fixed_stake,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
+        input_files=args.input_files,
+        output_model=args.output_model,
+        algorithm=args.algorithm,
+        test_size=args.test_size,
+        random_state=args.random_state,
+        overwrite=args.overwrite,
+        dry_run=args.dry_run,
     )
 
 
