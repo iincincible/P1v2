@@ -1,89 +1,72 @@
 import argparse
-import logging
-
-import joblib
 import pandas as pd
+import joblib
+import logging
+from pathlib import Path
 
-from scripts.utils.cli_utils import (
-    add_common_flags,
-    assert_columns_exist,
-    assert_file_exists,
-    output_file_guard,
-)
-from scripts.utils.logger import (
-    log_info,
-    log_success,
-    log_warning,  # <-- Make sure this is included!
-)
-from scripts.utils.normalize_columns import enforce_canonical_columns, normalize_columns
-
-# Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
 
-@output_file_guard(output_arg="output_csv")
 def predict_win_probs(
-    model_file,
-    input_csv,
-    output_csv,
-    features,
-    overwrite=False,
-    dry_run=False,
+    model_file, input_csv, output_csv, overwrite=False, dry_run=False
 ):
-    assert_file_exists(model_file, "model_file")
-    assert_file_exists(input_csv, "input_csv")
+    output_path = Path(output_csv)
+    if output_path.exists() and not overwrite:
+        logging.info(f"[SKIP] {output_csv} exists and --overwrite not set")
+        return
 
+    # Load model
     model = joblib.load(model_file)
-    log_info(f"📥 Loaded model from {model_file}")
+    logging.info(f"📥 Loaded model from {model_file}")
 
+    # Load data
     df = pd.read_csv(input_csv)
-    log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
-    df = normalize_columns(df)
-    assert_columns_exist(df, features, context="prediction")
+    logging.info(f"📥 Loaded {len(df)} rows from {input_csv}")
 
-    df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
+    # Define features expected by the model
+    features = ["implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"]
 
-    # Refactor: Enforce canonical columns at output, if possible
+    # Drop rows with any NaNs in model features
+    initial_len = len(df)
+    df = df.dropna(subset=features)
+    logging.info(
+        f"Dropped {initial_len - len(df)} rows with NaN in model features before prediction. Remaining: {len(df)} rows."
+    )
+
+    if len(df) == 0:
+        logging.error("No rows left after dropping NaNs in model features. Exiting.")
+        return
+
+    # Predict win probabilities
     try:
-        enforce_canonical_columns(df, context="predict win probs")
+        df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
+        logging.info("✅ Added predicted_prob column.")
     except Exception as e:
-        log_warning(f"Canonical column check failed: {e}")
+        logging.error(f"Failed during prediction: {e}")
+        return
 
-    df.to_csv(output_csv, index=False)
-    log_success(f"✅ Saved predictions to {output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    logging.info(f"✅ Saved predictions to {output_csv}")
 
 
-def main(args=None):
+def main():
     parser = argparse.ArgumentParser(
-        description="Use trained model to predict win probabilities."
+        description="Predict win probabilities using trained model."
     )
-    parser.add_argument(
-        "--model_file", required=True, help="Trained sklearn model (joblib)"
-    )
-    parser.add_argument(
-        "--input_csv", required=True, help="Input CSV with feature columns"
-    )
-    parser.add_argument("--output_csv", required=True, help="Path to save predictions")
-    parser.add_argument(
-        "--features",
-        nargs="+",
-        default=[
-            "implied_prob_1",
-            "implied_prob_2",
-            "implied_prob_diff",
-            "odds_margin",
-        ],
-        help="Feature columns for prediction",
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
+    parser.add_argument("--model_file", required=True)
+    parser.add_argument("--input_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    args = parser.parse_args()
+
     predict_win_probs(
-        model_file=_args.model_file,
-        input_csv=_args.input_csv,
-        output_csv=_args.output_csv,
-        features=_args.features,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
+        model_file=args.model_file,
+        input_csv=args.input_csv,
+        output_csv=args.output_csv,
+        overwrite=args.overwrite,
+        dry_run=args.dry_run,
     )
 
 

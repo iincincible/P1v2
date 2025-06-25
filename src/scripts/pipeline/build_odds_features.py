@@ -1,61 +1,67 @@
 import argparse
-import logging
-
 import pandas as pd
+import numpy as np
+import logging
+from pathlib import Path
 
-from scripts.utils.cli_utils import add_common_flags, output_file_guard
-from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.normalize_columns import enforce_canonical_columns
-
-# Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
 
-@output_file_guard(output_arg="output_csv")
-def build_odds_features(
-    input_csv,
-    output_csv,
-    overwrite=False,
-    dry_run=False,
-):
+def build_odds_features(input_csv, output_csv, overwrite=False, dry_run=False):
+    output_path = Path(output_csv)
+    if output_path.exists() and not overwrite:
+        logging.info(f"[SKIP] {output_csv} exists and --overwrite not set")
+        return
+
     df = pd.read_csv(input_csv)
-    log_info(f"Loaded {len(df)} rows from {input_csv}")
+    logging.info(f"Loaded {len(df)} rows from {input_csv}")
 
-    # =============== BEGIN YOUR CUSTOM FEATURE LOGIC ===============
-    # Example: Always create 'odds' column if missing
-    if "odds" not in df.columns:
-        if "odds_player_1" in df.columns:
-            df["odds"] = df["odds_player_1"]
-            log_info("🔧 Created 'odds' column from 'odds_player_1'")
-        elif "odds_player_2" in df.columns:
-            df["odds"] = df["odds_player_2"]
-            log_info("🔧 Created 'odds' column from 'odds_player_2'")
-        else:
-            log_warning("No odds source found! 'odds' column missing in features.")
+    # Add implied probability features if LTP columns are present
+    if "ltp_player_1" in df.columns and "ltp_player_2" in df.columns:
+        # Convert to numeric (float), coerce errors to NaN
+        df["ltp_player_1"] = pd.to_numeric(df["ltp_player_1"], errors="coerce")
+        df["ltp_player_2"] = pd.to_numeric(df["ltp_player_2"], errors="coerce")
+        # Avoid divide-by-zero
+        df["implied_prob_1"] = 1 / df["ltp_player_1"].replace(0, np.nan)
+        df["implied_prob_2"] = 1 / df["ltp_player_2"].replace(0, np.nan)
+        df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
+        df["odds_margin"] = df["implied_prob_1"] + df["implied_prob_2"] - 1
+        logging.info(
+            "✅ Added implied_prob_1, implied_prob_2, implied_prob_diff, and odds_margin columns."
+        )
+    else:
+        logging.warning(
+            "⚠️ ltp_player_1 or ltp_player_2 not found. Can't build implied prob features."
+        )
 
-    # Refactor: Enforce canonical columns at output
-    try:
-        enforce_canonical_columns(df, context="odds features")
-    except Exception as e:
-        log_warning(f"Canonical column check failed: {e}")
+    # Optional: warn if NaNs
+    if ("implied_prob_1" in df.columns and df["implied_prob_1"].isnull().any()) or (
+        "implied_prob_2" in df.columns and df["implied_prob_2"].isnull().any()
+    ):
+        logging.warning(
+            "⚠️ Some implied probabilities are NaN (possibly due to missing or zero LTPs)."
+        )
 
-    df.to_csv(output_csv, index=False)
-    log_success(f"✅ Saved odds features to {output_csv}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    logging.info(f"✅ Saved odds features to {output_csv}")
 
 
-def main(args=None):
+def main():
     parser = argparse.ArgumentParser(
-        description="Build odds features for match predictions."
+        description="Build odds features from match/odds CSV"
     )
-    parser.add_argument("--input_csv", type=str, required=True)
-    parser.add_argument("--output_csv", type=str, required=True)
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
+    parser.add_argument("--input_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    args = parser.parse_args()
+
     build_odds_features(
-        input_csv=_args.input_csv,
-        output_csv=_args.output_csv,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
+        input_csv=args.input_csv,
+        output_csv=args.output_csv,
+        overwrite=args.overwrite,
+        dry_run=args.dry_run,
     )
 
 
