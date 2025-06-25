@@ -29,7 +29,9 @@ def summarize_value_bets_by_tournament(
 ):
     files = glob.glob(input_glob)
     if not files:
-        raise ValueError(f"❌ No match-level summary files found matching: {input_glob}")
+        raise ValueError(
+            f"❌ No match-level summary files found matching: {input_glob}"
+        )
 
     rows = []
     for filepath in files:

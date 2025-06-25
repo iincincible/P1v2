@@ -52,12 +52,16 @@ class SnapshotParser:
                         "market_id": mc.get("id", ""),
                         "market_time": md.get("marketTime"),
                         "market_name": md.get("name", ""),
-                        "runner_1": md["runners"][0]["name"]
-                        if len(md.get("runners", [])) >= 2
-                        else "",
-                        "runner_2": md["runners"][1]["name"]
-                        if len(md.get("runners", [])) >= 2
-                        else "",
+                        "runner_1": (
+                            md["runners"][0]["name"]
+                            if len(md.get("runners", [])) >= 2
+                            else ""
+                        ),
+                        "runner_2": (
+                            md["runners"][1]["name"]
+                            if len(md.get("runners", [])) >= 2
+                            else ""
+                        ),
                     }
                 ]
         return []

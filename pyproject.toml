@@ -1,49 +1,35 @@
-[project]
-name = "P1v2"
-version = "0.1.0"
-description = "Modern, modular pipeline for value betting on tennis matches"
-authors = [{ name = "Your Name", email = "your@email.com" }]
-requires-python = ">=3.10"
-readme = "README.md"
-
-# If you want to keep your requirements.txt, you can skip the dependencies block for now.
-
-[project.optional-dependencies]
-dev = [
-    "black==23.7.0",
-    "ruff==0.12.0",
-    "pytest>=8.0.0",
-    "pytest-cov>=6.0.0",
-    "mypy>=1.0.0"
-]
-# Add here any other dev tools you want (e.g., mkdocs, flake8, etc.)
-
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [tool.black]
 line-length = 88
-target-version = ["py310"]
+target-version = ["py311"]
+exclude = '''
+/(
+    \.venv
+  | build
+  | dist
+  | \.git
+  | \.tox
+  | data/tennis_atp/examples.*
+)/
+'''
 
 [tool.ruff]
-line-length = 88
-target-version = "py310"
-select = ["E", "F", "W", "I"]
-exclude = ["venv", ".venv", "tests/data"]
-
-[tool.mypy]
-python_version = "3.10"
-ignore_missing_imports = true
-strict = false
+src = ["src"]
 exclude = [
-    "venv/",
-    ".venv/",
-    "tests/data"
+  "build",
+  "dist",
+  ".venv",
+  "data/tennis_atp/examples"
 ]
 
-[tool.pytest.ini_options]
-addopts = "-v"
-testpaths = [
-    "tests"
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E501"]  # Let Black handle line length
+
+[tool.isort]
+profile = "black"
+skip = [
+    "build",
+    "dist",
+    ".venv",
+    "data/tennis_atp/examples"
 ]
