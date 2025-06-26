@@ -1,89 +1,120 @@
-import argparse
-import logging
+"""
+Build all tournaments defined in a YAML config by running the full pipeline:
+  1. Validate config
+  2. Parse Betfair snapshots
+  3. Build matches
+  4. Assign selection IDs
+  5. Merge results
+  6. Generate features
+  7. Predict win probabilities
+  8. Detect value bets
+  9. Simulate bankroll growth
+"""
+
+import pandas as pd
 from pathlib import Path
+from importlib import import_module
 
-from scripts.builders.build_clean_matches_generic import build_matches
-from scripts.utils.cli_utils import add_common_flags, should_run
-from scripts.utils.config_utils import load_tournament_configs
-from scripts.utils.config_validation import TOURNAMENTS_SCHEMA, config_validator
-from scripts.utils.logger import (
-    log_dryrun,
-    log_error,
-    log_info,
-    log_success,
-)
-from scripts.utils.paths import get_pipeline_paths, get_snapshot_csv_path
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
+from scripts.utils.config import load_and_validate_config
+from scripts.utils.snapshot_parser import SnapshotParser
 
-# Refactor: Add logging config
-logging.basicConfig(level=logging.INFO)
+logger = getLogger(__name__)
 
-
-def parse_snapshots_if_needed(conf, overwrite: bool, dry_run: bool) -> str:
-    label = conf.label
-    snapshot_csv = conf.snapshots_csv or get_snapshot_csv_path(label)
-    if Path(snapshot_csv).exists() and not overwrite:
-        log_info(f"📄 Using existing snapshots: {snapshot_csv}")
-        return snapshot_csv
-
-    if dry_run:
-        log_dryrun(f"Would generate snapshots for {label} → {snapshot_csv}")
-        return snapshot_csv
-
-    # Placeholder: insert call to snapshot parser here if needed
-    log_info(f"[SKIP:FAKE] Would parse raw Betfair data to generate {snapshot_csv}")
-    return snapshot_csv
+# Map pipeline stage names to their module paths
+STAGE_MODULES = {
+    "build": "scripts.builders.core",
+    "ids": "scripts.pipeline.match_selection_ids",
+    "merge": "scripts.pipeline.merge_final_ltps_into_matches",
+    "features": "scripts.pipeline.build_odds_features",
+    "predict": "scripts.pipeline.predict_win_probs",
+    "detect": "scripts.pipeline.detect_value_bets",
+    "simulate": "scripts.builders.simulate_bankroll_growth",
+}
 
 
-@config_validator(TOURNAMENTS_SCHEMA, "config")
-def main(args=None):
-    parser = argparse.ArgumentParser(
-        description="Build raw matches for all tournaments in YAML config."
-    )
-    parser.add_argument(
-        "--config",
-        default="configs/tournaments.yaml",
-        help="Path to tournaments YAML config",
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
+@guarded_run
+def main(
+    config_yaml: str,
+    output_dir: str,
+    dry_run: bool = False,
+    overwrite: bool = False,
+):
+    """
+    Run the full pipeline for all tournaments in a YAML config.
 
-    if _args.dry_run:
-        log_dryrun(f"Would build all tournaments from {_args.config}")
-
+    Args:
+        config_yaml: Path to the tournaments YAML file.
+        output_dir: Base directory to write pipeline outputs.
+        dry_run: If True, simulate without writing any files.
+        overwrite: If True, overwrite existing outputs.
+    """
+    # Load and validate config
     try:
-        configs = load_tournament_configs(_args.config)
+        app_cfg = load_and_validate_config(config_yaml)
     except Exception as e:
-        log_error(f"❌ Invalid YAML config {_args.config}: {e}")
-        return
+        logger.error("Config validation failed: %s", e)
+        raise
 
-    for conf in configs:
-        log_info(f"\n🏗️ Building: {conf.label}")
+    out_base = Path(output_dir)
+    out_base.mkdir(parents=True, exist_ok=True)
+
+    for tour in app_cfg.tournaments:
+        name = tour.name or tour.id
+        logger.info("Processing tournament: %s", name)
+        tour_out = out_base / name
+        tour_out.mkdir(parents=True, exist_ok=True)
+
+        # Step 1: Parse snapshots
+        snap_dir = Path(tour.snapshots_dir)
+        if not snap_dir.exists():
+            logger.error("Snapshots directory not found: %s", snap_dir)
+            continue
+        parser = SnapshotParser(mode=tour.mode)
         try:
-            snapshot_csv = parse_snapshots_if_needed(
-                conf, _args.overwrite, _args.dry_run
+            rows = parser.parse_directory(
+                snap_dir,
+                start=pd.to_datetime(tour.start_date),
+                end=pd.to_datetime(tour.end_date),
             )
-            paths = get_pipeline_paths(conf.label)
-            output_path = paths["raw_csv"]
-            if not should_run(output_path, _args.overwrite, _args.dry_run):
-                continue
+        except Exception:
+            logger.exception("Failed to parse snapshots for %s", name)
+            continue
+        if not rows:
+            logger.warning("No snapshots found for %s; skipping", name)
+            continue
+        df = pd.DataFrame(rows)
+        SchemaManager.patch_schema(df, "matches")
 
-            build_matches(
-                tour=conf.tour,
-                tournament=conf.tournament,
-                year=conf.year,
-                snapshots_csv=snapshot_csv,
-                output_csv=str(output_path),
-                sackmann_csv=conf.sackmann_csv,
-                alias_csv=conf.alias_csv,
-                player_stats_csv=conf.player_stats_csv,
-                snapshot_only=conf.snapshot_only,
-                fuzzy_match=conf.fuzzy_match,
-                overwrite=_args.overwrite,
-                dry_run=_args.dry_run,
-            )
-            log_success(f"✅ Finished building {conf.label}")
-        except Exception as e:
-            log_error(f"⚠️ Skipping {conf.label} due to error: {e}")
+        context = {"df": df}
+
+        # Execute each pipeline stage
+        for stage in app_cfg.pipeline.pipeline:
+            module_path = STAGE_MODULES.get(stage)
+            if not module_path:
+                logger.error("Unknown pipeline stage: %s", stage)
+                continue
+            module = import_module(module_path)
+            stage_fn = getattr(module, "run_stage", None) or getattr(module, "main")
+            stage_out = tour_out / f"{stage}.csv"
+            logger.info("Running stage '%s' -> %s", stage, stage_out)
+            try:
+                result = stage_fn(
+                    df=context["df"],
+                    output_path=str(stage_out),
+                    dry_run=dry_run,
+                    overwrite=overwrite,
+                )
+            except Exception:
+                logger.exception("Stage '%s' failed for %s", stage, name)
+                break
+
+            if isinstance(result, pd.DataFrame):
+                context["df"] = result
+
+    logger.info("Completed all tournaments.")
 
 
 if __name__ == "__main__":

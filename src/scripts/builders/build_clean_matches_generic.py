@@ -1,97 +1,58 @@
-import argparse
-import logging
+import pandas as pd
 from pathlib import Path
 
 from scripts.builders.core import build_matches_from_snapshots
-from scripts.utils.logging_config import setup_logging
-from scripts.utils.cli_utils import add_common_flags, guarded_run
-from scripts.utils.columns import validate_columns
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
+
+logger = getLogger(__name__)
 
 
-@guarded_run(output_arg="output_csv")
-def run():
-    parser = argparse.ArgumentParser(
-        description="Build matches from Betfair snapshots and optional results."
-    )
-    # dry-run & overwrite flags
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Parse and validate but do not write any output.",
-    )
-    parser.add_argument(
-        "--overwrite",
-        action="store_true",
-        help="Overwrite existing output file if present.",
-    )
+@guarded_run
+def main(
+    snapshots_csv: str,
+    output_csv: str,
+    dry_run: bool = False,
+    overwrite: bool = False,
+):
+    """
+    Build matches from Betfair snapshots and optional results.
 
-    # logging flags
-    parser.add_argument(
-        "--verbose", action="store_true", help="Enable DEBUG-level logging to console."
-    )
-    parser.add_argument(
-        "--log-file", type=str, default=None, help="Write a copy of all logs here."
-    )
-    parser.add_argument(
-        "--json-logs",
-        action="store_true",
-        help="Emit structured JSON logs (needs python-json-logger).",
-    )
+    Args:
+        snapshots_csv: Path to the input snapshot CSV file.
+        output_csv: Path to write the output matches CSV file.
+        dry_run: If True, parse and validate but do not write any output.
+        overwrite: If True, overwrite the output file if it exists.
+    """
+    snapshots_path = Path(snapshots_csv)
+    if not snapshots_path.exists():
+        logger.error("Snapshots CSV not found: %s", snapshots_path)
+        raise FileNotFoundError(snapshots_path)
 
-    # core inputs & outputs
-    parser.add_argument("--tour", required=True, help="Tour slug (e.g. 'atp', 'wta').")
-    parser.add_argument(
-        "--tournament", required=True, help="Tournament slug (e.g. 'ausopen')."
-    )
-    parser.add_argument(
-        "--year", required=True, type=int, help="Year of the tournament (e.g. 2023)."
-    )
-    parser.add_argument(
-        "--output_csv",
-        required=True,
-        type=Path,
-        help="Path for the resulting matches CSV.",
-    )
+    df_snapshots = pd.read_csv(snapshots_path)
+    logger.info("Loaded %d snapshots from %s", len(df_snapshots), snapshots_path)
 
-    add_common_flags(parser)
-    args = parser.parse_args()
+    # Build matches from snapshots
+    matches_df = build_matches_from_snapshots(df_snapshots)
 
-    # initialize centralized logging
-    setup_logging(
-        level="DEBUG" if args.verbose else "INFO",
-        log_file=args.log_file,
-        json_logs=args.json_logs,
-    )
-    logger = logging.getLogger(__name__)
+    # Enforce canonical schema for matches
+    matches_df = SchemaManager.patch_schema(matches_df, "matches")
 
-    # validate any upstream files
-    if getattr(args, "snapshots", None):
-        args.snapshots = Path(args.snapshots)
-        if not args.snapshots.exists():
-            logger.error("Snapshots file not found: %s", args.snapshots)
-            raise FileNotFoundError(args.snapshots)
-    if getattr(args, "results", None):
-        args.results = Path(args.results)
-        if not args.results.exists():
-            logger.error("Results file not found: %s", args.results)
-            raise FileNotFoundError(args.results)
+    output_path = Path(output_csv)
+    if output_path.exists() and not overwrite:
+        logger.info("Output exists and overwrite=False: %s", output_path)
+        return
 
-    logger.info(
-        "Building matches for %s / %s / %d", args.tour, args.tournament, args.year
-    )
-    df = build_matches_from_snapshots(
-        tour=args.tour,
-        tournament=args.tournament,
-        year=args.year,
-        snapshots_path=getattr(args, "snapshots", None),
-        results_path=getattr(args, "results", None),
-    )
-
-    # enforce canonical schema
-    validate_columns(df, "matches")
-
-    return args, df
+    if dry_run:
+        logger.info(
+            "Dry-run mode; would write %d matches to %s", len(matches_df), output_path
+        )
+    else:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        matches_df.to_csv(output_path, index=False)
+        logger.info("Matches written to %s", output_path)
 
 
 if __name__ == "__main__":
-    run()
+    main()

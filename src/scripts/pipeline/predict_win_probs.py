@@ -1,112 +1,91 @@
-# File: src/scripts/pipeline/predict_win_probs.py
+"""
+Predict win probabilities using a trained model.
+"""
 
-import argparse
 import pandas as pd
-import joblib
-import logging
 from pathlib import Path
+import joblib
 
-from scripts.utils.normalize_columns import (
-    CANONICAL_REQUIRED_COLUMNS,
-    normalize_and_patch_canonical_columns,
-    enforce_canonical_columns,
-)
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
 
-logging.basicConfig(level=logging.INFO)
+logger = getLogger(__name__)
+
+DEFAULT_FEATURES = [
+    "implied_prob_1",
+    "implied_prob_2",
+    "implied_prob_diff",
+    "odds_margin",
+]
 
 
-def predict_win_probs(
-    model_file, input_csv, output_csv, overwrite=False, dry_run=False
+@guarded_run
+def main(
+    model_file: str,
+    input_csv: str,
+    output_csv: str,
+    overwrite: bool = False,
+    dry_run: bool = False,
 ):
-    output_path = Path(output_csv)
-    if output_path.exists() and not overwrite:
-        logging.info(f"[SKIP] {output_csv} exists and --overwrite not set")
-        return
-
-    # Load model
+    """
+    Load model and predict win probabilities for each match.
+    """
+    model_path = Path(model_file)
+    if not model_path.exists():
+        logger.error("Model file not found: %s", model_path)
+        raise FileNotFoundError(model_path)
     try:
-        model = joblib.load(model_file)
-        logging.info(f"📥 Loaded model from {model_file}")
+        model = joblib.load(model_path)
+        logger.info("Loaded model from %s", model_path)
     except Exception as e:
-        logging.error(f"❌ Could not load model: {e}")
+        logger.error("Failed to load model: %s", e)
         return
 
-    # Load data
-    df = pd.read_csv(input_csv)
-    logging.info(f"📥 Loaded {len(df)} rows from {input_csv}")
+    data_path = Path(input_csv)
+    if not data_path.exists():
+        logger.error("Input CSV not found: %s", data_path)
+        raise FileNotFoundError(data_path)
+    df = pd.read_csv(data_path)
+    logger.info("Loaded %d rows from %s", len(df), data_path)
 
-    # Features the model expects
-    features = getattr(
-        model,
-        "feature_names_in_",
-        ["implied_prob_1", "implied_prob_2", "implied_prob_diff", "odds_margin"],
-    )
-    missing_features = [f for f in features if f not in df.columns]
-    if missing_features:
-        logging.warning(
-            f"⚠️ Model expects features missing in input: {missing_features}. Filling with NaN."
-        )
-        for f in missing_features:
-            df[f] = float("nan")
+    features = getattr(model, "feature_names_in_", DEFAULT_FEATURES)
+    missing = [f for f in features if f not in df.columns]
+    if missing:
+        logger.warning("Model expects missing features %s; filling with NaN", missing)
+        for f in missing:
+            df[f] = pd.NA
 
-    # Drop rows with NaNs in model features
     initial_len = len(df)
-    df = df.dropna(subset=features)
-    logging.info(
-        f"Dropped {initial_len - len(df)} rows with NaN in model features before prediction. Remaining: {len(df)} rows."
-    )
-    if len(df) == 0:
-        logging.error("No rows left after dropping NaNs in model features. Exiting.")
-        # But still write out empty canonical columns for downstream
-        empty_df = pd.DataFrame(columns=CANONICAL_REQUIRED_COLUMNS)
-        empty_df.to_csv(output_csv, index=False)
+    df_valid = df.dropna(subset=features)
+    dropped = initial_len - len(df_valid)
+    if dropped:
+        logger.warning("Dropped %d rows with NaN features", dropped)
+    if df_valid.empty:
+        logger.error("No rows left after dropping NaNs; writing empty output.")
+        empty_df = pd.DataFrame(columns=SchemaManager._schemas["predictions"]["order"])
+        df_out = SchemaManager.patch_schema(empty_df, "predictions")
+    else:
+        try:
+            if hasattr(model, "predict_proba"):
+                df_valid["predicted_prob"] = model.predict_proba(df_valid[features])[
+                    :, 1
+                ]
+            else:
+                df_valid["predicted_prob"] = model.predict(df_valid[features])
+            logger.info("Added predicted_prob column.")
+        except Exception as e:
+            logger.error("Prediction failed: %s", e)
+            df_valid["predicted_prob"] = pd.NA
+        df_out = SchemaManager.patch_schema(df_valid, "predictions")
+
+    out_path = Path(output_csv)
+    if out_path.exists() and not overwrite:
+        logger.info("Output exists and overwrite=False: %s", out_path)
         return
-
-    # Predict win probabilities
-    try:
-        if hasattr(model, "predict_proba"):
-            df["predicted_prob"] = model.predict_proba(df[features])[:, 1]
-        else:
-            df["predicted_prob"] = model.predict(df[features])
-        logging.info("✅ Added predicted_prob column.")
-    except Exception as e:
-        logging.error(f"Failed during prediction: {e}")
-        # Still patch output
-        df["predicted_prob"] = float("nan")
-
-    # Always patch/normalize all canonical columns for downstream
-    df = normalize_and_patch_canonical_columns(df, context="predict_win_probs")
-
-    # Output, ensuring canonical columns
-    try:
-        enforce_canonical_columns(df, context="predict_win_probs_output")
-    except Exception as e:
-        logging.warning(f"⚠️ Output missing canonical columns after patch: {e}")
-
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_path, index=False)
-    logging.info(f"✅ Saved predictions to {output_csv}")
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Predict win probabilities using trained model."
-    )
-    parser.add_argument("--model_file", required=True)
-    parser.add_argument("--input_csv", required=True)
-    parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
-    args = parser.parse_args()
-
-    predict_win_probs(
-        model_file=args.model_file,
-        input_csv=args.input_csv,
-        output_csv=args.output_csv,
-        overwrite=args.overwrite,
-        dry_run=args.dry_run,
-    )
-
-
-if __name__ == "__main__":
-    main()
+    if dry_run:
+        logger.info("Dry-run: would write %d rows to %s", len(df_out), out_path)
+    else:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        df_out.to_csv(out_path, index=False)
+        logger.info("Predictions written to %s", out_path)

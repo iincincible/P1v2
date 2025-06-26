@@ -1,154 +1,100 @@
-# File: src/scripts/pipeline/match_selection_ids.py
-
-import argparse
-import logging
+"""
+Match player names in matches to Betfair selection IDs using parsed snapshots.
+"""
 
 import pandas as pd
-from tqdm import tqdm
+from pathlib import Path
 
-from scripts.utils.cli_utils import (
-    add_common_flags,
-    assert_file_exists,
-    output_file_guard,
-)
-from scripts.utils.logger import (
-    log_error,
-    log_info,
-    log_success,
-    log_warning,
-)
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
 from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
 )
 
-logging.basicConfig(level=logging.INFO)
+logger = getLogger(__name__)
 
 
-@output_file_guard(output_arg="output_csv")
-def match_selection_ids(
-    merged_csv,
-    snapshots_csv,
-    output_csv,
-    max_missing_frac=0.1,  # If >10% IDs missing, halt unless --ignore_missing
-    drop_missing_rows=False,
-    ignore_missing=False,
-    overwrite=False,
-    dry_run=False,
+@guarded_run
+def main(
+    merged_csv: str,
+    snapshots_csv: str,
+    output_csv: str,
+    max_missing_frac: float = 0.1,
+    drop_missing_rows: bool = False,
+    ignore_missing: bool = False,
+    dry_run: bool = False,
+    overwrite: bool = False,
 ):
-    assert_file_exists(merged_csv, "merged_csv")
-    assert_file_exists(snapshots_csv, "snapshots_csv")
+    """
+    Assign selection IDs to matches based on snapshot data.
+    """
+    in_matches = Path(merged_csv)
+    in_snaps = Path(snapshots_csv)
+    if not in_matches.exists():
+        logger.error("Merged CSV not found: %s", in_matches)
+        raise FileNotFoundError(in_matches)
+    if not in_snaps.exists():
+        logger.error("Snapshots CSV not found: %s", in_snaps)
+        raise FileNotFoundError(in_snaps)
 
-    try:
-        df_matches = pd.read_csv(merged_csv)
-        log_info(f"📥 Loaded {len(df_matches)} matches from {merged_csv}")
-    except Exception as e:
-        log_error(f"❌ Failed to read {merged_csv}: {e}")
-        return
+    df_matches = pd.read_csv(in_matches)
+    logger.info("Loaded %d matches from %s", len(df_matches), in_matches)
+    df_snaps = pd.read_csv(in_snaps)
+    logger.info("Loaded %d snapshots from %s", len(df_snaps), in_snaps)
 
-    try:
-        df_snaps = pd.read_csv(snapshots_csv)
-        log_info(f"📥 Loaded {len(df_snaps)} snapshots from {snapshots_csv}")
-    except Exception as e:
-        log_error(f"❌ Failed to read {snapshots_csv}: {e}")
-        return
+    market_map = build_market_runner_map(df_snaps)
 
-    if "match_id" not in df_matches.columns:
-        log_error("❌ 'match_id' column is required in merged_csv")
-        return
-
-    # Build mapping from snapshots
-    log_info("🔍 Building market→runner map")
-    market_runner_map = build_market_runner_map(df_snaps)
-
-    # Apply matching
-    log_info("🔍 Matching selection IDs for each player")
-    tqdm.pandas(desc="Matching IDs")
-    df_matches["selection_id_1"] = df_matches.progress_apply(
-        lambda row: match_player_to_selection_id(
-            market_runner_map, row["market_id"], row["player_1"]
+    # Map player_1 and player_2 to IDs
+    df_matches["selection_id_1"] = df_matches.apply(
+        lambda r: match_player_to_selection_id(
+            market_map, r["market_id"], r["player_1"]
         ),
         axis=1,
     )
-    df_matches["selection_id_2"] = df_matches.progress_apply(
-        lambda row: match_player_to_selection_id(
-            market_runner_map, row["market_id"], row["player_2"]
+    df_matches["selection_id_2"] = df_matches.apply(
+        lambda r: match_player_to_selection_id(
+            market_map, r["market_id"], r["player_2"]
         ),
         axis=1,
     )
 
-    unmatched_1 = df_matches["selection_id_1"].isna().sum()
-    unmatched_2 = df_matches["selection_id_2"].isna().sum()
+    # Check missing IDs
     total = len(df_matches)
-    frac1 = unmatched_1 / total if total > 0 else 0
-    frac2 = unmatched_2 / total if total > 0 else 0
-
-    # Summary reporting
-    if unmatched_1 or unmatched_2:
-        log_warning(f"⚠️ Unmatched selection_id_1: {unmatched_1} ({frac1:.1%})")
-        log_warning(f"⚠️ Unmatched selection_id_2: {unmatched_2} ({frac2:.1%})")
-
-        halt = (frac1 > max_missing_frac) or (frac2 > max_missing_frac)
-        if halt and not ignore_missing:
-            log_error(
-                f"❌ Too many unmatched selection IDs (> {max_missing_frac:.0%}). Halting. Use --ignore_missing to proceed anyway."
+    miss1 = df_matches["selection_id_1"].isna().sum()
+    miss2 = df_matches["selection_id_2"].isna().sum()
+    frac1 = miss1 / total if total else 0
+    frac2 = miss2 / total if total else 0
+    if miss1 or miss2:
+        logger.warning(
+            "Unmatched IDs 1: %d (%.1%%), IDs 2: %d (%.1%%)", miss1, frac1, miss2, frac2
+        )
+        if (
+            frac1 > max_missing_frac or frac2 > max_missing_frac
+        ) and not ignore_missing:
+            logger.error(
+                "Too many unmatched IDs (> %.0%%). Use --ignore_missing to override.",
+                max_missing_frac,
             )
             return
-
-    # Optional: drop rows with missing selection IDs (if requested)
     if drop_missing_rows:
-        before = len(df_matches)
+        before = total
         df_matches = df_matches.dropna(subset=["selection_id_1", "selection_id_2"])
-        dropped = before - len(df_matches)
-        log_info(
-            f"🧹 Dropped {dropped} rows with missing selection IDs (now {len(df_matches)} rows)"
-        )
+        logger.info("Dropped %d rows with missing IDs", before - len(df_matches))
 
-    df_matches.to_csv(output_csv, index=False)
-    log_success(f"✅ Saved selection ID mappings to {output_csv}")
+    SchemaManager.patch_schema(df_matches, "matches_with_ids")
 
-
-def main(args=None):
-    parser = argparse.ArgumentParser(
-        description="Match player names to Betfair selection IDs."
-    )
-    parser.add_argument(
-        "--merged_csv", required=True, help="Input match CSV with player names"
-    )
-    parser.add_argument(
-        "--snapshots_csv", required=True, help="Parsed Betfair snapshots CSV"
-    )
-    parser.add_argument(
-        "--output_csv", required=True, help="Path to save selection ID mapping"
-    )
-    parser.add_argument(
-        "--max_missing_frac",
-        type=float,
-        default=0.1,
-        help="Halt if missing IDs above this fraction (default 0.1)",
-    )
-    parser.add_argument(
-        "--drop_missing_rows",
-        action="store_true",
-        help="Drop rows with missing selection IDs",
-    )
-    parser.add_argument(
-        "--ignore_missing",
-        action="store_true",
-        help="Ignore halt on missing IDs, just warn",
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
-    match_selection_ids(
-        merged_csv=_args.merged_csv,
-        snapshots_csv=_args.snapshots_csv,
-        output_csv=_args.output_csv,
-        max_missing_frac=_args.max_missing_frac,
-        drop_missing_rows=_args.drop_missing_rows,
-        ignore_missing=_args.ignore_missing,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
-    )
+    out = Path(output_csv)
+    if out.exists() and not overwrite:
+        logger.info("Output exists and overwrite=False: %s", out)
+        return
+    if dry_run:
+        logger.info("Dry-run: would write %d rows to %s", len(df_matches), out)
+    else:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        df_matches.to_csv(out, index=False)
+        logger.info("Saved selection IDs to %s", out)
 
 
 if __name__ == "__main__":

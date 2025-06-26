@@ -1,115 +1,75 @@
-# File: src/scripts/pipeline/detect_value_bets.py
+"""
+Filter predictions to find +EV value bets.
+"""
 
-import argparse
-import logging
 import pandas as pd
+from pathlib import Path
 
-from scripts.utils.cli_utils import add_common_flags, output_file_guard
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
-from scripts.utils.logger import log_info, log_success, log_warning
-from scripts.utils.normalize_columns import (
-    CANONICAL_REQUIRED_COLUMNS,
-    assert_required_columns,
-    enforce_canonical_columns,
-    normalize_and_patch_canonical_columns,  # still does EV/Kelly, may call normalization
-)
+from scripts.utils.value_metrics import compute_value_metrics
 
-logging.basicConfig(level=logging.INFO)
+logger = getLogger(__name__)
 
 
-@output_file_guard(output_arg="output_csv")
-def detect_value_bets(
-    input_csv,
-    output_csv,
-    ev_threshold=0.2,
-    confidence_threshold=0.4,
-    max_odds=6.0,
-    max_margin=DEFAULT_MAX_MARGIN,
-    overwrite=False,
-    dry_run=False,
+@guarded_run
+def main(
+    input_csv: str,
+    output_csv: str,
+    ev_threshold: float = 0.2,
+    confidence_threshold: float = 0.4,
+    max_odds: float = 6.0,
+    max_margin: float = DEFAULT_MAX_MARGIN,
+    overwrite: bool = False,
+    dry_run: bool = False,
 ):
-    df = pd.read_csv(input_csv)
-    log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
+    """
+    Identify value bets based on expected value and confidence thresholds.
+    """
+    in_path = Path(input_csv)
+    if not in_path.exists():
+        logger.error("Input CSV not found: %s", in_path)
+        raise FileNotFoundError(in_path)
+    df = pd.read_csv(in_path)
+    logger.info("Loaded %d rows from %s", len(df), in_path)
 
-    # Normalize and robustly patch all canonical columns
-    df = normalize_and_patch_canonical_columns(df, context="detect_value_bets")
-    try:
-        assert_required_columns(
-            df, CANONICAL_REQUIRED_COLUMNS, context="detect_value_bets"
-        )
-    except Exception as e:
-        log_warning(f"Patched DataFrame still missing columns: {e}")
+    # Ensure expected_value and kelly_fraction exist
+    if "expected_value" not in df.columns or "kelly_fraction" not in df.columns:
+        df = compute_value_metrics(df)
 
-    # Patch confidence_score if missing
+    # Ensure confidence_score column
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
-        log_info("🔧 Set confidence_score = predicted_prob")
+        logger.debug("Set confidence_score = predicted_prob")
 
-    # Filtering logic
     before = len(df)
-    filt = (
+    mask = (
         (df["expected_value"] >= ev_threshold)
         & (df["confidence_score"] >= confidence_threshold)
         & (df["odds"] <= max_odds)
     )
     if "odds_margin" in df.columns:
-        filt &= df["odds_margin"] <= max_margin
+        mask &= df["odds_margin"] <= max_margin
 
-    df_filtered = df[filt]
+    df_filtered = df[mask]
     after = len(df_filtered)
     if df_filtered.empty:
-        log_warning("⚠️ No value bets found after filtering.")
-        # Still output empty canonical columns for downstream
-        empty_df = pd.DataFrame(columns=df.columns)
-        enforce_canonical_columns(empty_df, context="detect_value_bets_output_empty")
-        empty_df.to_csv(output_csv, index=False)
+        logger.warning("No value bets found after filtering.")
+        df_out = pd.DataFrame(columns=SchemaManager._schemas["value_bets"]["order"])
+        df_out = SchemaManager.patch_schema(df_out, "value_bets")
+    else:
+        df_out = SchemaManager.patch_schema(df_filtered, "value_bets")
+        logger.info("Filtered %d of %d value bets.", after, before)
+
+    out_path = Path(output_csv)
+    if out_path.exists() and not overwrite:
+        logger.info("Output exists and overwrite=False: %s", out_path)
         return
-
-    enforce_canonical_columns(df_filtered, context="detect_value_bets_output")
-    df_filtered.to_csv(output_csv, index=False)
-    log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")
-    return df_filtered
-
-
-def main(args=None):
-    parser = argparse.ArgumentParser(
-        description="Filter predictions to find +EV value bets."
-    )
-    parser.add_argument("--input_csv", required=True, help="Predictions input CSV")
-    parser.add_argument(
-        "--output_csv", required=True, help="Path to save filtered value bets"
-    )
-    parser.add_argument(
-        "--ev_threshold", type=float, default=0.2, help="Minimum expected value"
-    )
-    parser.add_argument(
-        "--confidence_threshold",
-        type=float,
-        default=0.4,
-        help="Minimum confidence score",
-    )
-    parser.add_argument(
-        "--max_odds", type=float, default=6.0, help="Maximum allowed odds"
-    )
-    parser.add_argument(
-        "--max_margin",
-        type=float,
-        default=DEFAULT_MAX_MARGIN,
-        help="Maximum odds margin",
-    )
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
-    detect_value_bets(
-        input_csv=_args.input_csv,
-        output_csv=_args.output_csv,
-        ev_threshold=_args.ev_threshold,
-        confidence_threshold=_args.confidence_threshold,
-        max_odds=_args.max_odds,
-        max_margin=_args.max_margin,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
-    )
-
-
-if __name__ == "__main__":
-    main()
+    if dry_run:
+        logger.info("Dry-run: would write %d rows to %s", len(df_out), out_path)
+    else:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        df_out.to_csv(out_path, index=False)
+        logger.info("Value bets written to %s", out_path)

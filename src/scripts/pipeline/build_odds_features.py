@@ -1,37 +1,58 @@
-import argparse
+"""
+Generate implied probability and margin features from odds data.
+"""
+
 import pandas as pd
 import numpy as np
-import logging
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO)
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
+
+logger = getLogger(__name__)
 
 
-def build_odds_features(input_csv, output_csv, overwrite=False, dry_run=False):
-    output_path = Path(output_csv)
-    if output_path.exists() and not overwrite:
-        logging.info(f"[SKIP] {output_csv} exists and --overwrite not set")
+@guarded_run
+def main(
+    input_csv: str,
+    output_csv: str,
+    overwrite: bool = False,
+    dry_run: bool = False,
+):
+    """
+    Build odds-derived features for each match.
+
+    Args:
+        input_csv: Path to CSV containing 'ltp_player_1' and 'ltp_player_2' columns.
+        output_csv: Path to write the features CSV.
+        overwrite: If True, overwrite existing output file.
+        dry_run: If True, simulate without writing any files.
+    """
+    in_path = Path(input_csv)
+    if not in_path.exists():
+        logger.error("Input CSV not found: %s", in_path)
+        raise FileNotFoundError(in_path)
+
+    out_path = Path(output_csv)
+    if out_path.exists() and not overwrite:
+        logger.info("Output exists and overwrite=False: %s", out_path)
         return
 
-    df = pd.read_csv(input_csv)
-    logging.info(f"Loaded {len(df)} rows from {input_csv}")
+    df = pd.read_csv(in_path)
+    logger.info("Loaded %d rows from %s", len(df), in_path)
 
-    # Always create implied probability columns, filling with NaN where needed
+    # Feature engineering: implied probabilities and margin
     if "ltp_player_1" in df.columns and "ltp_player_2" in df.columns:
-        # Convert to numeric (float), coerce errors to NaN
+        # Convert odds to numeric and compute
         df["ltp_player_1"] = pd.to_numeric(df["ltp_player_1"], errors="coerce")
         df["ltp_player_2"] = pd.to_numeric(df["ltp_player_2"], errors="coerce")
-        # Avoid divide-by-zero
         df["implied_prob_1"] = 1 / df["ltp_player_1"].replace(0, np.nan)
         df["implied_prob_2"] = 1 / df["ltp_player_2"].replace(0, np.nan)
         df["implied_prob_diff"] = df["implied_prob_1"] - df["implied_prob_2"]
         df["odds_margin"] = df["implied_prob_1"] + df["implied_prob_2"]
-
-        logging.info(
-            "✅ Added implied_prob_1, implied_prob_2, implied_prob_diff, and odds_margin columns."
-        )
+        logger.info("Added implied probability and margin features.")
     else:
-        # Create the columns as all-NaN if missing
         for col in [
             "implied_prob_1",
             "implied_prob_2",
@@ -39,39 +60,26 @@ def build_odds_features(input_csv, output_csv, overwrite=False, dry_run=False):
             "odds_margin",
         ]:
             df[col] = np.nan
-        logging.warning(
-            "⚠️ ltp_player_1 or ltp_player_2 not found. Created implied prob columns as all-NaN."
+        logger.warning(
+            "Missing 'ltp_player_1' or 'ltp_player_2'; filled feature columns with NaN."
         )
 
-    # Warn if NaNs
-    if ("implied_prob_1" in df.columns and df["implied_prob_1"].isnull().any()) or (
-        "implied_prob_2" in df.columns and df["implied_prob_2"].isnull().any()
-    ):
-        logging.warning(
-            "⚠️ Some implied probabilities are NaN (possibly due to missing or zero LTPs)."
+    # Warn if any NaNs in implied probabilities
+    if df[["implied_prob_1", "implied_prob_2"]].isnull().any().any():
+        logger.warning(
+            "Some implied probabilities are NaN (possibly due to missing or zero LTPs)."
         )
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_path, index=False)
-    logging.info(f"✅ Saved odds features to {output_csv}")
+    # Enforce schema for features
+    df_out = SchemaManager.patch_schema(df, schema_name="features")
 
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Build odds features from match/odds CSV"
-    )
-    parser.add_argument("--input_csv", required=True)
-    parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
-    args = parser.parse_args()
-
-    build_odds_features(
-        input_csv=args.input_csv,
-        output_csv=args.output_csv,
-        overwrite=args.overwrite,
-        dry_run=args.dry_run,
-    )
+    # Write or simulate output
+    if dry_run:
+        logger.info("Dry-run: would write %d rows to %s", len(df_out), out_path)
+    else:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        df_out.to_csv(out_path, index=False)
+        logger.info("Features written to %s", out_path)
 
 
 if __name__ == "__main__":

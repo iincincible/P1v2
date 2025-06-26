@@ -1,99 +1,63 @@
-import logging
-from typing import Optional
-import traceback
-
 import pandas as pd
 
-from scripts.utils.logger import log_info
-from scripts.utils.matching import (
-    apply_alias_map,
-    fuzzy_match_players,
-    load_alias_map,
-    match_snapshots_to_results,
-)
+from scripts.utils.cli import guarded_run
+from scripts.utils.logger import getLogger
+from scripts.utils.schema import SchemaManager
 
-# Refactor: Add logging config
-logging.basicConfig(level=logging.INFO)
+logger = getLogger(__name__)
 
 
-def build_matches_from_snapshots(
-    snapshot_csv: str,
-    sackmann_csv: Optional[str] = None,
-    alias_csv: Optional[str] = None,
-    snapshot_only: bool = False,
-    fuzzy_match: bool = False,
-) -> pd.DataFrame:
+def build_matches_from_snapshots(snapshot_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Builds a clean match dataset from Betfair snapshot data.
+    Build a matches DataFrame from raw snapshot data.
+
+    Args:
+        snapshot_df: DataFrame containing raw snapshots with columns ['match_id', 'market', 'selection', ...].
+
+    Returns:
+        A DataFrame of matches with enforced schema.
     """
-    try:
-        log_info(f"📄 Reading snapshots from: {snapshot_csv}")
-        df = pd.read_csv(snapshot_csv)
-        df = df.dropna(subset=["runner_1", "runner_2"]).copy()
+    # Group raw snapshots into matches
+    grouped = snapshot_df.groupby(
+        ["match_id", "market", "selection"], as_index=False
+    ).agg(
+        ltp=("price", "last"), volume=("volume", "sum"), timestamp=("timestamp", "max")
+    )
 
-        df["match_key"] = (
-            df["market_time"].astype(str) + "_" + df["runner_1"] + "_" + df["runner_2"]
-        )
-        df = df.drop_duplicates(subset=["match_key", "selection_id", "timestamp"])
+    # Debug information
+    logger.debug("Columns returned: %s", grouped.columns.tolist())
+    logger.debug("Number of rows: %d", len(grouped))
+    logger.debug("First few rows:\n%s", grouped.head(3))
 
-        grouped = (
-            df.groupby("match_key")
-            .agg(
-                {
-                    "market_time": "first",
-                    "market_id": "first",
-                    "runner_1": "first",
-                    "runner_2": "first",
-                    "selection_id": list,
-                    "ltp": list,
-                    "timestamp": list,
-                    "runner_name": list,
-                }
-            )
-            .reset_index(drop=True)
-        )
+    # Enforce canonical schema for matches
+    matches_df = SchemaManager.patch_schema(grouped, schema_name="matches")
+    return matches_df
 
-        grouped["match_id"] = grouped.apply(
-            lambda row: f"{row['market_id']}_{row['runner_1']}_{row['runner_2']}",
-            axis=1,
-        )
 
-        alias_map = load_alias_map(alias_csv) if alias_csv else {}
-        if alias_map:
-            grouped = apply_alias_map(grouped, alias_csv)
+@guarded_run
+def main(input_path: str, output_path: str, dry_run: bool = False):
+    """
+    Entry point to build matches from snapshot CSV.
 
-        if fuzzy_match:
-            grouped = fuzzy_match_players(grouped)
+    Args:
+        input_path: Path to the input snapshot CSV file.
+        output_path: Path to write the output matches CSV.
+        dry_run: If True, process without writing the file.
+    """
+    # Load raw snapshots
+    df = pd.read_csv(input_path)
+    logger.info("Loaded %d snapshots from %s", len(df), input_path)
 
-        if not snapshot_only and sackmann_csv:
-            grouped = match_snapshots_to_results(
-                grouped, sackmann_csv, alias_map=alias_map, fuzzy=fuzzy_match
-            )
+    # Build matches
+    matches_df = build_matches_from_snapshots(df)
 
-        grouped["player_1"] = grouped["runner_1"]
-        grouped["player_2"] = grouped["runner_2"]
+    # Write or skip output
+    if dry_run:
+        logger.info("Dry-run mode active; no file written.")
+    else:
+        matches_df.to_csv(output_path, index=False)
+        logger.info("Matches written to %s", output_path)
 
-        # Order canonical columns first
-        canonical_order = [
-            "player_1",
-            "player_2",
-            "match_id",
-            "market_id",
-            "market_time",
-            "selection_id",
-            "ltp",
-            "timestamp",
-            "runner_name",
-        ]
-        others = [c for c in grouped.columns if c not in canonical_order]
-        grouped = grouped[canonical_order + others]
 
-        print("\n[DEBUG - core.py] Columns returned:", grouped.columns.tolist())
-        print("[DEBUG - core.py] Number of rows:", len(grouped))
-        print(grouped.head(3))
-
-        return grouped
-    except Exception:
-        print("[EXCEPTION CAUGHT IN build_matches_from_snapshots]")
-        traceback.print_exc()
-        raise
+if __name__ == "__main__":
+    main()
