@@ -33,6 +33,9 @@ tqdm==4.67.1
 tzdata==2025.2
 urllib3==2.4.0
 
+# New dependency to support structured JSON logging
+python-json-logger==2.0.7
+
 # --- Development and Testing Tools ---
 black==23.7.0
 flake8==6.1.0
