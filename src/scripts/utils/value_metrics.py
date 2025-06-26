@@ -1,32 +1,18 @@
-"""
-Utility for computing expected value and Kelly fraction for bets.
-"""
-
-import pandas as pd
-from scripts.utils.logger import getLogger
-
-logger = getLogger(__name__)
+import numpy as np
 
 
-def compute_value_metrics(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Add 'expected_value' and 'kelly_fraction' columns to the DataFrame.
-
-    Assumes input df has:
-      - 'odds': decimal odds for each bet
-      - 'probability': estimated win probability
-
-    Returns:
-        A new DataFrame with metrics appended.
-    """
+def compute_value_metrics(df):
     df = df.copy()
-    # Expected value: EV = p*b - (1-p)
-    b = df["odds"] - 1
-    p = df["probability"]
-    df["expected_value"] = p * b - (1 - p)
-
-    # Kelly fraction: k = (b*p - (1-p)) / b
-    df["kelly_fraction"] = (b * p - (1 - p)) / b
-
-    logger.debug("Computed 'expected_value' and 'kelly_fraction' for %d rows", len(df))
+    # Expected value: (prob * odds - (1 - prob)) for each bet
+    if "predicted_prob" in df.columns and "odds" in df.columns:
+        df["expected_value"] = df["predicted_prob"] * df["odds"] - (
+            1 - df["predicted_prob"]
+        )
+    # Kelly fraction: max(0, (prob * (odds-1) - (1 - prob)) / (odds-1))
+    if "predicted_prob" in df.columns and "odds" in df.columns:
+        with np.errstate(divide="ignore", invalid="ignore"):
+            numer = df["predicted_prob"] * (df["odds"] - 1) - (1 - df["predicted_prob"])
+            denom = df["odds"] - 1
+            kelly = np.where(denom > 0, numer / denom, 0.0)
+            df["kelly_fraction"] = np.maximum(0, kelly)
     return df

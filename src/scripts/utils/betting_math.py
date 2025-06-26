@@ -1,48 +1,23 @@
-import pandas as pd
+import numpy as np
 
 
-def compute_ev(prob: float, odds: float) -> float:
+def add_ev_and_kelly(df):
     """
-    Expected value = (probability of win * payout) - 1
+    Add expected value and Kelly fraction columns to a DataFrame.
     """
-    return (prob * odds) - 1
-
-
-def compute_kelly_stake(prob: pd.Series, odds: pd.Series) -> pd.Series:
-    """
-    Vectorized Kelly stake:
-    kelly_fraction = ((b * p) - q) / b, where:
-        - b = odds - 1
-        - p = win probability
-        - q = 1 - p
-    """
-    b = odds - 1
-    q = 1 - prob
-    edge = (b * prob - q) / b
-    return edge.clip(lower=0)
-
-
-def add_ev_and_kelly(
-    df: pd.DataFrame, prob_col="predicted_prob", odds_col="odds"
-) -> pd.DataFrame:
-    """
-    Adds expected_value and kelly_stake columns to a DataFrame using the specified prob and odds columns.
-    """
-    df["expected_value"] = compute_ev(df[prob_col], df[odds_col])
-    df["kelly_stake"] = compute_kelly_stake(df[prob_col], df[odds_col])
+    df = df.copy()
+    if "predicted_prob" in df.columns and "odds" in df.columns:
+        # EV = p*odds - (1-p)
+        df["expected_value"] = df["predicted_prob"] * df["odds"] - (
+            1 - df["predicted_prob"]
+        )
+        # Kelly: max(0, (p*(odds-1) - (1-p)) / (odds-1))
+        numer = df["predicted_prob"] * (df["odds"] - 1) - (1 - df["predicted_prob"])
+        denom = df["odds"] - 1
+        with np.errstate(divide="ignore", invalid="ignore"):
+            df["kelly_fraction"] = np.where(denom > 0, numer / denom, 0.0)
+        df["kelly_fraction"] = np.maximum(0, df["kelly_fraction"])
+    else:
+        df["expected_value"] = np.nan
+        df["kelly_fraction"] = np.nan
     return df
-
-
-def compute_kelly_stake_capped(
-    prob: float, odds: float, bankroll: float = 1.0, cap: float = 0.05
-) -> float:
-    """
-    Computes the Kelly stake (fraction of bankroll), capped at a maximum %.
-    """
-    b = odds - 1
-    q = 1 - prob
-    if b <= 0:
-        return 0
-    edge = (b * prob - q) / b
-    stake = edge * bankroll
-    return max(0, min(stake, bankroll * cap))

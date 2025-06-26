@@ -1,64 +1,97 @@
-import pandas as pd
-from scripts.utils.logger import getLogger
-
-logger = getLogger(__name__)
-
-
 class SchemaManager:
-    """
-    Central registry for CSV schemas.
-    Defines required/optional columns and enforces or patches DataFrames.
-    """
-
-    # Example schemas; extend as needed
     _schemas = {
         "matches": {
-            "required": [
-                "match_id",
-                "market",
-                "selection",
-                "ltp",
-                "volume",
-                "timestamp",
-            ],
-            # If you care about column order, list them here; otherwise keys order is fine.
-            "order": ["match_id", "market", "selection", "ltp", "volume", "timestamp"],
+            "order": ["match_id", "player_1", "player_2", "scheduled_time", "market_id"]
         },
-        # Add other schemas: "predictions", "value_bets", etc.
+        "matches_with_ids": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "selection_id_1",
+                "selection_id_2",
+            ]
+        },
+        "features": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "ltp_player_1",
+                "ltp_player_2",
+                "implied_prob_1",
+                "implied_prob_2",
+                "implied_prob_diff",
+                "odds_margin",
+            ]
+        },
+        "predictions": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "implied_prob_1",
+                "implied_prob_2",
+                "implied_prob_diff",
+                "odds_margin",
+                "predicted_prob",
+            ]
+        },
+        "value_bets": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "odds",
+                "predicted_prob",
+                "expected_value",
+                "kelly_fraction",
+                "confidence_score",
+                "winner",
+            ]
+        },
+        "simulations": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "odds",
+                "predicted_prob",
+                "expected_value",
+                "kelly_fraction",
+                "winner",
+                "bankroll",
+            ]
+        },
+        "merged_matches": {
+            "order": [
+                "match_id",
+                "player_1",
+                "player_2",
+                "scheduled_time",
+                "market_id",
+                "selection_id",
+                "final_ltp",
+            ]
+        },
     }
 
     @classmethod
-    def assert_schema(cls, df: pd.DataFrame, schema_name: str):
-        """Raise if the DataFrame is missing any required columns."""
-        schema = cls._schemas.get(schema_name)
-        if not schema:
-            raise ValueError(f"Unknown schema '{schema_name}'")
-        missing = set(schema["required"]) - set(df.columns)
-        if missing:
-            raise ValueError(
-                f"DataFrame for schema '{schema_name}' is missing columns: {missing}"
-            )
-
-    @classmethod
-    def patch_schema(cls, df: pd.DataFrame, schema_name: str) -> pd.DataFrame:
-        """
-        Ensure the DataFrame has the required columns,
-        adding them as NaN if missing, and reordering.
-        """
-        schema = cls._schemas.get(schema_name)
-        if not schema:
-            raise ValueError(f"Unknown schema '{schema_name}'")
-
-        # Add any missing required columns
-        for col in schema["required"]:
-            if col not in df.columns:
-                logger.debug(
-                    "Adding missing column '%s' to '%s' schema", col, schema_name
-                )
-                df[col] = pd.NA
-
-        # Reorder (extra columns will be appended at the end)
-        ordered = schema.get("order", schema["required"])
-        existing = [c for c in ordered if c in df.columns]
-        extras = [c for c in df.columns if c not in existing]
-        return df[existing + extras]
+    def patch_schema(cls, df, schema_name):
+        if schema_name not in cls._schemas:
+            raise ValueError(f"Schema not found: {schema_name}")
+        cols = cls._schemas[schema_name]["order"]
+        missing = [col for col in cols if col not in df.columns]
+        for col in missing:
+            df[col] = None
+        return df[cols]

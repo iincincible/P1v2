@@ -1,53 +1,47 @@
-import argparse
-import logging
-
-import matplotlib.pyplot as plt
 import pandas as pd
-
-from scripts.utils.cli_utils import (
-    add_common_flags,
-    assert_file_exists,
-    output_file_guard,
-)
+import matplotlib.pyplot as plt
+from scripts.utils.cli import guarded_run
 from scripts.utils.logger import (
-    log_error,
     log_info,
     log_success,
     log_warning,
+    log_error,
+    setup_logging,
 )
 
-# Refactor: Add logging config
-logging.basicConfig(level=logging.INFO)
 
-
-@output_file_guard(output_arg="output_png")
-def plot_tournament_leaderboard(
-    input_csv,
-    output_png=None,
-    sort_by="roi",
-    top_n=20,
-    show=False,
-    overwrite=False,
-    dry_run=False,
+@guarded_run
+def main(
+    input_csv: str,
+    output_png: str = None,
+    sort_by: str = "roi",
+    top_n: int = 20,
+    show: bool = False,
+    dry_run: bool = False,
+    overwrite: bool = False,
+    verbose: bool = False,
+    json_logs: bool = False,
 ):
-    assert_file_exists(input_csv, "input_csv")
-
+    """
+    Plot tournament leaderboard from summary CSV.
+    """
+    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
     try:
         df = pd.read_csv(input_csv)
-        log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
+        log_info(f"Loaded {len(df)} rows from {input_csv}")
     except Exception as e:
-        log_error(f"❌ Failed to read {input_csv}: {e}")
-        return
+        log_error(f"Failed to read {input_csv}: {e}")
+        raise
 
     if sort_by not in df.columns:
-        log_error(f"❌ Missing column to sort by: {sort_by}")
-        return
+        log_error(f"Missing column to sort by: {sort_by}")
+        raise ValueError(f"Missing sort column: {sort_by}")
 
     df = df.dropna(subset=[sort_by])
     df = df.sort_values(by=sort_by, ascending=False).head(top_n)
 
     if df.empty:
-        log_warning("⚠️ No data to plot after filtering.")
+        log_warning("No data to plot after filtering.")
         return
 
     plt.figure(figsize=(12, 6))
@@ -72,43 +66,10 @@ def plot_tournament_leaderboard(
 
     if output_png:
         plt.savefig(output_png)
-        log_success(f"🖼️ Saved leaderboard plot to {output_png}")
+        log_success(f"Saved leaderboard plot to {output_png}")
 
     if show:
         plt.show()
-
-
-def main(args=None):
-    parser = argparse.ArgumentParser(
-        description="Plot tournament leaderboard from summary CSV."
-    )
-    parser.add_argument(
-        "--input_csv", required=True, help="Path to tournament_leaderboard.csv"
-    )
-    parser.add_argument(
-        "--output_png", default=None, help="Optional path to save PNG plot"
-    )
-    parser.add_argument(
-        "--sort_by",
-        choices=["roi", "profit", "total_bets"],
-        default="roi",
-        help="Column to sort by",
-    )
-    parser.add_argument(
-        "--top_n", type=int, default=20, help="Number of top rows to display"
-    )
-    parser.add_argument("--show", action="store_true", help="Show plot interactively")
-    add_common_flags(parser)
-    _args = parser.parse_args(args)
-    plot_tournament_leaderboard(
-        input_csv=_args.input_csv,
-        output_png=_args.output_png,
-        sort_by=_args.sort_by,
-        top_n=_args.top_n,
-        show=_args.show,
-        overwrite=_args.overwrite,
-        dry_run=_args.dry_run,
-    )
 
 
 if __name__ == "__main__":

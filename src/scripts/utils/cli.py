@@ -1,68 +1,53 @@
+import functools
 import sys
 import argparse
-import functools
-
-from scripts.utils.logger import setup_logging, getLogger
+from scripts.utils.logger import log_info, log_error
 
 
-def guarded_run(func):
-    """
-    Decorator for CLI entry points.
-
-    - Inspects the decorated function’s signature to auto-generate argparse flags.
-    - Adds common flags: --dry-run, --overwrite, --verbose, --json-logs.
-    - Sets up logging before calling the function.
-    - Exits with code 0 on success, 1 on exception.
-    """
-    logger = getLogger(func.__module__)
-
-    @functools.wraps(func)
-    def wrapper():
-        # Build parser from function signature & docstring
-        parser = argparse.ArgumentParser(description=func.__doc__)
+def guarded_run(main_func):
+    @functools.wraps(main_func)
+    def wrapper(*args, **kwargs):
+        parser = argparse.ArgumentParser(description=main_func.__doc__ or "")
+        params = main_func.__code__.co_varnames[: main_func.__code__.co_argcount]
+        # Add common flags
         parser.add_argument(
-            "--dry-run",
-            action="store_true",
-            help="Run without writing output files",
+            "--dry_run", action="store_true", help="Dry run: do not write outputs"
         )
         parser.add_argument(
-            "--overwrite",
-            action="store_true",
-            help="Overwrite existing output files",
+            "--overwrite", action="store_true", help="Allow overwriting output files"
         )
+        parser.add_argument("--verbose", action="store_true", help="Verbose logging")
         parser.add_argument(
-            "--verbose",
-            action="store_true",
-            help="Enable debug-level logging",
+            "--json_logs", action="store_true", help="JSON-formatted logs"
         )
-        parser.add_argument(
-            "--json-logs",
-            action="store_true",
-            help="Output logs in JSON format",
-        )
-
-        # Inspect positional parameters of `func`
-        import inspect
-
-        sig = inspect.signature(func)
-        for name, param in sig.parameters.items():
-            if name in ("dry_run", "overwrite", "verbose", "json_logs"):
+        # Try to infer parameter types from defaults
+        for p in params:
+            if p in {"dry_run", "overwrite", "verbose", "json_logs"}:
                 continue
-            # treat all other params as required str args
-            parser.add_argument(name, type=str)
-
-        args = parser.parse_args()
-        # Configure logging
-        level = "DEBUG" if args.verbose else "INFO"
-        setup_logging(level=level, json=args.json_logs)
-
-        # Build kwargs for the function
-        func_kwargs = {k: v for k, v in vars(args).items() if k in sig.parameters}
+            default = main_func.__defaults__ or ()
+            idx = list(params).index(p)
+            dval = None
+            if idx >= len(params) - len(default):
+                dval = default[idx - (len(params) - len(default))]
+            t = type(dval) if dval is not None else str
+            arg_type = bool if t is bool else t
+            if t is bool:
+                parser.add_argument(
+                    f"--{p}", action="store_true", help=f"{p} (bool flag)"
+                )
+            else:
+                parser.add_argument(
+                    f"--{p}", required=dval is None, type=arg_type, default=dval
+                )
+        cli_args = parser.parse_args()
+        kwargs = vars(cli_args)
         try:
-            func(**func_kwargs)
-            sys.exit(0)
-        except Exception:
-            logger.exception("Uncaught exception in %s", func.__name__)
+            main_func(**kwargs)
+        except KeyboardInterrupt:
+            log_info("Interrupted.")
+            sys.exit(130)
+        except Exception as e:
+            log_error(f"Fatal error: {e}")
             sys.exit(1)
 
     return wrapper
