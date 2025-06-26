@@ -1,3 +1,5 @@
+# File: src/scripts/pipeline/match_selection_ids.py
+
 import argparse
 import logging
 
@@ -20,7 +22,6 @@ from scripts.utils.selection import (
     match_player_to_selection_id,
 )
 
-# Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
 
@@ -29,6 +30,9 @@ def match_selection_ids(
     merged_csv,
     snapshots_csv,
     output_csv,
+    max_missing_frac=0.1,  # If >10% IDs missing, halt unless --ignore_missing
+    drop_missing_rows=False,
+    ignore_missing=False,
     overwrite=False,
     dry_run=False,
 ):
@@ -75,11 +79,30 @@ def match_selection_ids(
 
     unmatched_1 = df_matches["selection_id_1"].isna().sum()
     unmatched_2 = df_matches["selection_id_2"].isna().sum()
-    if unmatched_1 or unmatched_2:
-        log_warning(f"⚠️ Unmatched selection_id_1: {unmatched_1}")
-        log_warning(f"⚠️ Unmatched selection_id_2: {unmatched_2}")
+    total = len(df_matches)
+    frac1 = unmatched_1 / total if total > 0 else 0
+    frac2 = unmatched_2 / total if total > 0 else 0
 
-    # No canonical contract for this stage, but if you want to enforce columns, do here.
+    # Summary reporting
+    if unmatched_1 or unmatched_2:
+        log_warning(f"⚠️ Unmatched selection_id_1: {unmatched_1} ({frac1:.1%})")
+        log_warning(f"⚠️ Unmatched selection_id_2: {unmatched_2} ({frac2:.1%})")
+
+        halt = (frac1 > max_missing_frac) or (frac2 > max_missing_frac)
+        if halt and not ignore_missing:
+            log_error(
+                f"❌ Too many unmatched selection IDs (> {max_missing_frac:.0%}). Halting. Use --ignore_missing to proceed anyway."
+            )
+            return
+
+    # Optional: drop rows with missing selection IDs (if requested)
+    if drop_missing_rows:
+        before = len(df_matches)
+        df_matches = df_matches.dropna(subset=["selection_id_1", "selection_id_2"])
+        dropped = before - len(df_matches)
+        log_info(
+            f"🧹 Dropped {dropped} rows with missing selection IDs (now {len(df_matches)} rows)"
+        )
 
     df_matches.to_csv(output_csv, index=False)
     log_success(f"✅ Saved selection ID mappings to {output_csv}")
@@ -90,19 +113,29 @@ def main(args=None):
         description="Match player names to Betfair selection IDs."
     )
     parser.add_argument(
-        "--merged_csv",
-        required=True,
-        help="Input match CSV with player names",
+        "--merged_csv", required=True, help="Input match CSV with player names"
     )
     parser.add_argument(
-        "--snapshots_csv",
-        required=True,
-        help="Parsed Betfair snapshots CSV",
+        "--snapshots_csv", required=True, help="Parsed Betfair snapshots CSV"
     )
     parser.add_argument(
-        "--output_csv",
-        required=True,
-        help="Path to save selection ID mapping",
+        "--output_csv", required=True, help="Path to save selection ID mapping"
+    )
+    parser.add_argument(
+        "--max_missing_frac",
+        type=float,
+        default=0.1,
+        help="Halt if missing IDs above this fraction (default 0.1)",
+    )
+    parser.add_argument(
+        "--drop_missing_rows",
+        action="store_true",
+        help="Drop rows with missing selection IDs",
+    )
+    parser.add_argument(
+        "--ignore_missing",
+        action="store_true",
+        help="Ignore halt on missing IDs, just warn",
     )
     add_common_flags(parser)
     _args = parser.parse_args(args)
@@ -110,6 +143,9 @@ def main(args=None):
         merged_csv=_args.merged_csv,
         snapshots_csv=_args.snapshots_csv,
         output_csv=_args.output_csv,
+        max_missing_frac=_args.max_missing_frac,
+        drop_missing_rows=_args.drop_missing_rows,
+        ignore_missing=_args.ignore_missing,
         overwrite=_args.overwrite,
         dry_run=_args.dry_run,
     )

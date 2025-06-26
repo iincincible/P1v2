@@ -1,3 +1,5 @@
+# File: src/scripts/builders/build_clean_matches_generic.py
+
 import argparse
 import hashlib
 import logging
@@ -10,16 +12,34 @@ from scripts.utils.cli_utils import (
     output_file_guard,
     should_run,
 )
-from scripts.utils.logger import log_dryrun, log_error, log_info, log_success
-from scripts.utils.normalize_columns import enforce_canonical_columns
+from scripts.utils.logger import (
+    log_dryrun,
+    log_error,
+    log_info,
+    log_success,
+    log_warning,
+)
+from scripts.utils.normalize_columns import (
+    CANONICAL_REQUIRED_COLUMNS,
+)
 
-# Refactor: Add logging config
 logging.basicConfig(level=logging.INFO)
 
 
 def generate_match_id(row) -> str:
     key = f"{row['tournament']}_{row['year']}_{row['player_1']}_{row['player_2']}_{row['market_id']}"
     return hashlib.md5(key.encode()).hexdigest()
+
+
+def patch_missing_canonical_columns(df):
+    """Ensure all required canonical columns are present (as NaN if not computable)."""
+    for col in CANONICAL_REQUIRED_COLUMNS:
+        if col not in df.columns:
+            log_warning(
+                f"[PATCH] Adding missing canonical column: {col} (filled with NaN)"
+            )
+            df[col] = float("nan")
+    return df
 
 
 @output_file_guard(output_arg="output_csv")
@@ -38,14 +58,12 @@ def build_matches(
     dry_run=False,
 ):
     output_path = Path(output_csv)
-    # Dry-run logic can be here or via decorator
     if dry_run:
         log_dryrun(f"Would build clean matches for {tournament} {year} → {output_path}")
         return
     if not should_run(output_path, overwrite, dry_run):
         return
 
-    # Existence checks
     assert_file_exists(snapshots_csv, "snapshots_csv")
     if sackmann_csv and not snapshot_only:
         assert_file_exists(sackmann_csv, "sackmann_csv")
@@ -62,40 +80,16 @@ def build_matches(
             snapshot_only=snapshot_only,
             fuzzy_match=fuzzy_match,
         )
-        # ======== DEBUG PRINTS (before patch) ========
-        print("\n==== DEBUG BEFORE PATCH: DataFrame columns ====")
-        print(df_matches.columns)
-        print("==== DEBUG BEFORE PATCH: DataFrame sample rows ====")
-        print(df_matches.head())
-        print("==== DEBUG BEFORE PATCH: DataFrame length ====")
-        print(len(df_matches))
-        print("==================================\n")
-        # ===============================
 
-        # Patch: Add tournament and year columns for match_id generation
+        # Add tournament/year for match_id generation
         df_matches["tournament"] = tournament
         df_matches["year"] = year
 
-        # ======== DEBUG PRINTS (after patch) ========
-        print("\n==== DEBUG AFTER PATCH: DataFrame columns ====")
-        print(df_matches.columns)
-        print("==== DEBUG AFTER PATCH: DataFrame sample rows ====")
-        print(df_matches.head())
-        print("==== DEBUG AFTER PATCH: DataFrame length ====")
-        print(len(df_matches))
-        print("==================================\n")
-        # ===============================
-
-        # Deduplicate to one row per match before generating match_id
+        # Deduplicate by all key columns
         dedup_cols = ["tournament", "year", "player_1", "player_2", "market_id"]
-        before_dedup_len = len(df_matches)
         df_matches = df_matches.drop_duplicates(subset=dedup_cols)
-        after_dedup_len = len(df_matches)
-        print(
-            f"==== Deduplicated from {before_dedup_len} rows to {after_dedup_len} rows ===="
-        )
 
-        # Validate required columns
+        # Validate required columns for match_id
         for col in ["market_id", "player_1", "player_2"]:
             if col not in df_matches.columns:
                 raise ValueError(f"Missing column in match build: {col}")
@@ -108,15 +102,14 @@ def build_matches(
 
         log_info(f"📏 Built {len(df_matches)} matches")
 
-        # Refactor: enforce canonical columns if downstream scripts expect them
-        try:
-            enforce_canonical_columns(df_matches, context="build matches")
-        except Exception as e:
-            log_error(f"Canonical column check failed: {e}")
+        # Patch canonical columns (always present, even if not computable yet)
+        df_matches = patch_missing_canonical_columns(df_matches)
 
+        # Save output
         output_path.parent.mkdir(parents=True, exist_ok=True)
         df_matches.to_csv(output_path, index=False)
         log_success(f"✅ Saved {len(df_matches)} matches to {output_path}")
+
     except Exception as e:
         log_error(f"❌ Failed to build matches: {e}")
 

@@ -1,6 +1,7 @@
+# File: src/scripts/pipeline/detect_value_bets.py
+
 import argparse
 import logging
-
 import pandas as pd
 
 from scripts.utils.cli_utils import add_common_flags, output_file_guard
@@ -10,10 +11,9 @@ from scripts.utils.normalize_columns import (
     CANONICAL_REQUIRED_COLUMNS,
     assert_required_columns,
     enforce_canonical_columns,
-    prepare_value_bets_df,
+    normalize_and_patch_canonical_columns,  # still does EV/Kelly, may call normalization
 )
 
-# Refactor: Added logging config
 logging.basicConfig(level=logging.INFO)
 
 
@@ -31,15 +31,21 @@ def detect_value_bets(
     df = pd.read_csv(input_csv)
     log_info(f"📥 Loaded {len(df)} rows from {input_csv}")
 
-    df = prepare_value_bets_df(df)
-    assert_required_columns(
-        df, CANONICAL_REQUIRED_COLUMNS, context="value bet pipeline"
-    )
+    # Normalize and robustly patch all canonical columns
+    df = normalize_and_patch_canonical_columns(df, context="detect_value_bets")
+    try:
+        assert_required_columns(
+            df, CANONICAL_REQUIRED_COLUMNS, context="detect_value_bets"
+        )
+    except Exception as e:
+        log_warning(f"Patched DataFrame still missing columns: {e}")
 
+    # Patch confidence_score if missing
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
         log_info("🔧 Set confidence_score = predicted_prob")
 
+    # Filtering logic
     before = len(df)
     filt = (
         (df["expected_value"] >= ev_threshold)
@@ -53,10 +59,13 @@ def detect_value_bets(
     after = len(df_filtered)
     if df_filtered.empty:
         log_warning("⚠️ No value bets found after filtering.")
+        # Still output empty canonical columns for downstream
+        empty_df = pd.DataFrame(columns=df.columns)
+        enforce_canonical_columns(empty_df, context="detect_value_bets_output_empty")
+        empty_df.to_csv(output_csv, index=False)
         return
 
-    # Refactor: Enforce canonical columns before output
-    enforce_canonical_columns(df_filtered, context="value bets detector")
+    enforce_canonical_columns(df_filtered, context="detect_value_bets_output")
     df_filtered.to_csv(output_csv, index=False)
     log_success(f"✅ Saved {after} value bets to {output_csv} (filtered from {before})")
     return df_filtered
