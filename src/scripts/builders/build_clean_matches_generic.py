@@ -81,9 +81,22 @@ def build_matches(
             fuzzy_match=fuzzy_match,
         )
 
+        # --- DEBUG: print columns and head ---
+        print(
+            "\n[DEBUG] Columns from build_matches_from_snapshots:",
+            df_matches.columns.tolist(),
+        )
+        print("[DEBUG] Number of rows:", len(df_matches))
+        print(df_matches.head(3))
+        # --- END DEBUG ---
+
         # Add tournament/year for match_id generation
         df_matches["tournament"] = tournament
         df_matches["year"] = year
+
+        # Map runner_1/runner_2 to player_1/player_2 before deduplication
+        df_matches["player_1"] = df_matches["runner_1"]
+        df_matches["player_2"] = df_matches["runner_2"]
 
         # Deduplicate by all key columns
         dedup_cols = ["tournament", "year", "player_1", "player_2", "market_id"]
@@ -111,6 +124,10 @@ def build_matches(
         log_success(f"✅ Saved {len(df_matches)} matches to {output_path}")
 
     except Exception as e:
+        import traceback
+
+        print("[EXCEPTION CAUGHT IN build_matches]")
+        traceback.print_exc()
         log_error(f"❌ Failed to build matches: {e}")
 
 
