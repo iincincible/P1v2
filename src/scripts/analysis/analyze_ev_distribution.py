@@ -1,18 +1,14 @@
 import glob
 import pandas as pd
 import matplotlib.pyplot as plt
-
-from scripts.utils.normalize_columns import (
-    normalize_and_patch_canonical_columns,
-    enforce_canonical_columns,
-)
-from scripts.utils.cli import guarded_run
-from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
+from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.cli_utils import cli_entrypoint
+from scripts.utils.logger import setup_logging, log_info, log_success, log_warning
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
 from scripts.utils.betting_math import add_ev_and_kelly
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     value_bets_glob: str,
     output_csv: str = None,
@@ -37,7 +33,7 @@ def main(
     for f in files:
         try:
             df = pd.read_csv(f)
-            df = normalize_and_patch_canonical_columns(df, context=f)
+            df = normalize_columns(df)
             df = add_ev_and_kelly(df)
             # Filtering
             df = df[(df["expected_value"] >= ev_threshold) & (df["odds"] <= max_odds)]
@@ -50,7 +46,7 @@ def main(
         raise ValueError("No valid value bet files after filtering.")
 
     all_bets = pd.concat(dfs, ignore_index=True)
-    enforce_canonical_columns(all_bets, context="analyze_ev_distribution")
+    enforce_schema(all_bets, "value_bets")
 
     log_info(f"Loaded {len(all_bets)} filtered value bets across {len(files)} files.")
 
@@ -104,5 +100,4 @@ def main(
         plt.show()
 
 
-if __name__ == "__main__":
-    main()
+# No __main__ guard needed; @cli_entrypoint handles script execution

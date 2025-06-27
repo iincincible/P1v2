@@ -1,90 +1,59 @@
+import argparse
 import functools
 import sys
-import logging
-from pathlib import Path
-from contextlib import contextmanager
-
-from .errors import ValidationError
+from typing import Callable
+from scripts.utils.logger import setup_logging, log_info, log_error
 
 
-def add_common_flags(parser):
+def cli_entrypoint(main_func: Callable):
     """
-    For scripts that take Betfair snapshots and/or results.
-    """
-    parser.add_argument(
-        "--snapshots",
-        type=str,
-        default=None,
-        help="Path to Betfair snapshots CSV (optional).",
-    )
-    parser.add_argument(
-        "--results",
-        type=str,
-        default=None,
-        help="Path to match results CSV (optional).",
-    )
-
-
-def assert_file_exists(path: str) -> None:
-    """
-    Raise FileNotFoundError if the given path does not exist.
-    """
-    p = Path(path)
-    if not p.exists():
-        raise FileNotFoundError(f"Required file not found: {p}")
-
-
-@contextmanager
-def output_file_guard(path: Path, overwrite: bool = False):
-    """
-    Ensure parent dirs exist; enforce overwrite policy.
-    Yields a Path that you can pass straight into pandas.to_csv().
-    """
-    p = Path(path)
-    if p.exists() and not overwrite:
-        raise FileExistsError(f"Output file already exists: {p}")
-    p.parent.mkdir(parents=True, exist_ok=True)
-    yield p
-
-
-def guarded_run(output_arg: str):
-    """
-    Decorator for entry-point `run()` functions. Handles:
-      - parsing args & returning (args, df)
-      - central logging setup
-      - --dry-run / --overwrite flags
-      - writing via output_file_guard
-      - exit codes: 0=ok, 2=validation error, 1=unexpected
+    Decorator for CLI entrypoints.
+    Adds --dry_run, --overwrite, --verbose, --json_logs.
+    Handles argument parsing and basic error handling.
     """
 
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper():
-            args, df = func()
-            logger = logging.getLogger(__name__)
+    @functools.wraps(main_func)
+    def wrapper():
+        parser = argparse.ArgumentParser(description=main_func.__doc__ or "")
+        params = main_func.__code__.co_varnames[: main_func.__code__.co_argcount]
+        defaults = main_func.__defaults__ or ()
+        for idx, param in enumerate(params):
+            if param in {"dry_run", "overwrite", "verbose", "json_logs"}:
+                continue  # added below
+            default_idx = idx - (len(params) - len(defaults))
+            if defaults and default_idx >= 0:
+                default = defaults[default_idx]
+                arg_type = type(default) if default is not None else str
+                if isinstance(default, bool):
+                    parser.add_argument(
+                        f"--{param}", action="store_true", default=default
+                    )
+                else:
+                    parser.add_argument(f"--{param}", type=arg_type, default=default)
+            else:
+                parser.add_argument(f"--{param}", required=True, type=str)
+        # Add common flags
+        parser.add_argument(
+            "--dry_run", action="store_true", help="Dry run: do not write outputs"
+        )
+        parser.add_argument(
+            "--overwrite", action="store_true", help="Allow overwriting output files"
+        )
+        parser.add_argument("--verbose", action="store_true", help="Verbose logging")
+        parser.add_argument(
+            "--json_logs", action="store_true", help="JSON-formatted logs"
+        )
+        args = parser.parse_args()
+        setup_logging(
+            level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs
+        )
+        try:
+            main_func(**vars(args))
+        except KeyboardInterrupt:
+            log_info("Interrupted.")
+            sys.exit(130)
+        except Exception as e:
+            log_error(f"Fatal error: {e}")
+            sys.exit(1)
 
-            if getattr(args, "dry_run", False):
-                logger.info("Dry run mode: exiting before write.")
-                sys.exit(0)
-
-            out_path = getattr(args, output_arg)
-            try:
-                with output_file_guard(
-                    out_path, overwrite=getattr(args, "overwrite", False)
-                ) as fp:
-                    # Pandas accepts a Path here
-                    df.to_csv(fp, index=False)
-                logger.info("Wrote output to %s", fp)
-                sys.exit(0)
-
-            except ValidationError as ve:
-                logger.error("Validation error: %s", ve)
-                sys.exit(2)
-
-            except Exception:
-                logger.exception("Unexpected failure")
-                sys.exit(1)
-
-        return wrapper
-
-    return decorator
+    return wrapper

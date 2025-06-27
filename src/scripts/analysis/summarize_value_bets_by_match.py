@@ -1,15 +1,12 @@
 import pandas as pd
 import glob
-from scripts.utils.normalize_columns import (
-    normalize_and_patch_canonical_columns,
-    enforce_canonical_columns,
-)
+from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     value_bets_glob: str,
     output_csv: str,
@@ -31,7 +28,7 @@ def main(
     for filepath in files:
         try:
             df = pd.read_csv(filepath)
-            df = normalize_and_patch_canonical_columns(df, context=filepath)
+            df = normalize_columns(df)
             df = add_ev_and_kelly(df)
             all_bets.append(df)
         except Exception as e:
@@ -43,7 +40,7 @@ def main(
         )
 
     combined = pd.concat(all_bets, ignore_index=True)
-    enforce_canonical_columns(combined, context="summarize_value_bets_by_match")
+    enforce_schema(combined, "value_bets")
     log_info(f"Loaded {len(combined)} total bets across all files.")
 
     grouped = combined.groupby("match_id").agg(
@@ -51,10 +48,16 @@ def main(
         avg_ev=("expected_value", "mean"),
         max_confidence=("predicted_prob", "max"),
         any_win=("winner", "max"),
-        total_staked=("kelly_stake", "sum"),
+        total_staked=(
+            ("kelly_stake", "sum")
+            if "kelly_stake" in combined.columns
+            else ("expected_value", "sum")
+        ),
         total_profit=lambda g: (
-            (g["winner"] * (g["odds"] - 1)) - (~g["winner"].astype(bool)) * 1.0
-        ).sum(),
+            ((g["winner"] * (g["odds"] - 1)) - (~g["winner"].astype(bool)) * 1.0).sum()
+            if "winner" in combined.columns and "odds" in combined.columns
+            else 0
+        ),
     )
 
     firsts = combined.drop_duplicates("match_id")[
@@ -78,9 +81,6 @@ def main(
             ].to_string(index=False)
         )
 
-    summary.to_csv(output_csv, index=False)
-    log_success(f"Saved match-level summary to {output_csv}")
-
-
-if __name__ == "__main__":
-    main()
+    if not dry_run:
+        summary.to_csv(output_csv, index=False)
+        log_success(f"Saved match-level summary to {output_csv}")

@@ -1,25 +1,20 @@
 import json
 from datetime import datetime
 from pathlib import Path
-
 import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 from sklearn.model_selection import GroupShuffleSplit
 
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_success, log_error
-from scripts.utils.normalize_columns import (
-    normalize_and_patch_canonical_columns,
-    patch_winner_column,
-    enforce_canonical_columns,
-)
+from scripts.utils.schema import normalize_columns, patch_winner_column, enforce_schema
 
 
-@guarded_run
+@cli_entrypoint
 def main(
-    input_files: str,  # Space-separated list of files (string from CLI)
+    input_files: str,
     output_model: str,
     min_ev: float = 0.2,
     overwrite: bool = False,
@@ -36,7 +31,7 @@ def main(
     for path in files:
         try:
             df = pd.read_csv(path)
-            df = normalize_and_patch_canonical_columns(df, context=path)
+            df = normalize_columns(df)
             df = patch_winner_column(df)
             df = df[df["expected_value"] >= min_ev]
             all_rows.append(df)
@@ -48,7 +43,7 @@ def main(
         raise ValueError("No valid input data found after filtering.")
 
     df = pd.concat(all_rows, ignore_index=True)
-    enforce_canonical_columns(df, context="train_ev_filter_model")
+    enforce_schema(df, "value_bets")
     log_success(f"Training on {len(df)} rows with EV ≥ {min_ev}")
 
     features = ["predicted_prob", "odds", "expected_value"]
@@ -89,7 +84,3 @@ def main(
         with open(output_path.with_suffix(".json"), "w") as f:
             json.dump(meta, f, indent=2)
         log_success(f"Saved metadata to {output_path.with_suffix('.json')}")
-
-
-if __name__ == "__main__":
-    main()

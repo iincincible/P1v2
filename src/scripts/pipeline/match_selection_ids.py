@@ -1,15 +1,15 @@
 import pandas as pd
 from pathlib import Path
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import SchemaManager
+from scripts.utils.schema import enforce_schema
 from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
 )
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     merged_csv: str,
     snapshots_csv: str,
@@ -73,7 +73,7 @@ def main(
         df_matches = df_matches.dropna(subset=["selection_id_1", "selection_id_2"])
         log_info(f"Dropped {before - len(df_matches)} rows with missing IDs.")
 
-    SchemaManager.patch_schema(df_matches, "matches_with_ids")
+    enforce_schema(df_matches, "matches_with_ids")
 
     out = Path(output_csv)
     if out.exists() and not overwrite:
@@ -83,7 +83,3 @@ def main(
         out.parent.mkdir(parents=True, exist_ok=True)
         df_matches.to_csv(out, index=False)
         log_info(f"Saved selection IDs to {out}")
-
-
-if __name__ == "__main__":
-    main()

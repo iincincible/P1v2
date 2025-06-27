@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 from pathlib import Path
-
 import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
@@ -9,18 +8,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score
 from sklearn.model_selection import GroupShuffleSplit
 
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_success, log_error
-from scripts.utils.normalize_columns import (
-    normalize_and_patch_canonical_columns,
-    patch_winner_column,
-    enforce_canonical_columns,
-)
+from scripts.utils.schema import normalize_columns, patch_winner_column, enforce_schema
 
 
-@guarded_run
+@cli_entrypoint
 def main(
-    input_files: str,  # Space-separated list of files
+    input_files: str,
     output_model: str,
     algorithm: str = "rf",
     test_size: float = 0.25,
@@ -39,9 +34,9 @@ def main(
     for path in files:
         try:
             df = pd.read_csv(path)
-            df = normalize_and_patch_canonical_columns(df, context=path)
+            df = normalize_columns(df)
             df = patch_winner_column(df)
-            enforce_canonical_columns(df, context=path)
+            enforce_schema(df, "value_bets")
             all_dfs.append(df)
             log_info(f"Loaded and validated {len(df)} rows from {path}")
         except Exception as e:
@@ -114,7 +109,3 @@ def main(
         with open(meta_path, "w") as mf:
             json.dump(meta, mf, indent=2)
         log_success(f"Saved metadata to {meta_path}")
-
-
-if __name__ == "__main__":
-    main()

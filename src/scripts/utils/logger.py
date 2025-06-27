@@ -21,10 +21,6 @@ def setup_logging(level="INFO", json_logs=False):
     )
 
 
-def getLogger(name=None):
-    return logging.getLogger(name)
-
-
 def log_info(msg, *args, **kwargs):
     logging.getLogger().info(msg, *args, **kwargs)
 

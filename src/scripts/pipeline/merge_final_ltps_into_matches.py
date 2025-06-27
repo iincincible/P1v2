@@ -1,11 +1,11 @@
 import pandas as pd
 from pathlib import Path
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info
-from scripts.utils.schema import SchemaManager
+from scripts.utils.schema import enforce_schema
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     matches_csv: str,
     snapshots_csv: str,
@@ -45,7 +45,7 @@ def main(
     )
     df_merged.rename(columns={"ltp_final": "final_ltp"}, inplace=True)
 
-    df_out = SchemaManager.patch_schema(df_merged, "merged_matches")
+    df_out = enforce_schema(df_merged, "merged_matches")
 
     out_path = Path(output_csv)
     if out_path.exists() and not overwrite:
@@ -56,7 +56,3 @@ def main(
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Merged matches written to {out_path}")
-
-
-if __name__ == "__main__":
-    main()

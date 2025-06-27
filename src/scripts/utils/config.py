@@ -1,39 +1,33 @@
 """
-Configuration loader and schema validation for tournament and pipeline YAML files.
+Unified configuration loader and schema validation.
+All config (pipeline/tournament) uses Pydantic models.
 """
 
 import yaml
 from pathlib import Path
-from pydantic import BaseModel, Field, ValidationError, validator, root_validator
-from typing import List, Literal, Optional
+from typing import List, Optional
+from pydantic import BaseModel, Field, ValidationError
 
 
 class TournamentConfig(BaseModel):
-    id: str
-    name: Optional[str]
-    snapshots_dir: str
-    start_date: str
-    end_date: str
-    mode: Literal["metadata", "ltp_only", "full"] = "full"
+    label: str
+    tour: str
+    tournament: str
+    year: int
+    snapshots_csv: Optional[str] = None
+    sackmann_csv: Optional[str] = None
     alias_csv: Optional[str] = None
-    fuzzy_match: bool = True
-
-    @validator("start_date", "end_date")
-    def validate_dates(cls, v):
-        # ensure YYYY-MM-DD format
-        try:
-            from datetime import datetime
-
-            datetime.strptime(v, "%Y-%m-%d")
-        except ValueError:
-            raise ValueError(f"Invalid date format for '{v}', expected YYYY-MM-DD")
-        return v
+    fuzzy_match: bool = False
+    snapshot_only: bool = False
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
 
 
 class PipelineConfig(BaseModel):
-    pipeline: List[
-        Literal["build", "ids", "merge", "features", "predict", "detect", "simulate"]
-    ] = Field(
+    label: Optional[str]
+    overwrite: bool = False
+    config: str = "configs/tournaments.yaml"
+    stages: List[str] = Field(
         default_factory=lambda: [
             "build",
             "ids",
@@ -50,27 +44,17 @@ class AppConfig(BaseModel):
     tournaments: List[TournamentConfig]
     pipeline: PipelineConfig
 
-    @root_validator(pre=True)
-    def unwrap_pipeline(cls, values):
-        # allow pipeline as list or under a pipeline key
-        if "pipeline" in values and not isinstance(values["pipeline"], dict):
-            values["pipeline"] = {"pipeline": values["pipeline"]}
-        return values
 
-
-def load_and_validate_config(path: str) -> AppConfig:
-    """
-    Load a YAML config file and validate it against the Pydantic models.
-
-    Raises ValidationError if config is invalid.
-    """
+def load_config(path: str) -> AppConfig:
     cfg_path = Path(path)
     if not cfg_path.exists():
         raise FileNotFoundError(f"Config file not found: {path}")
-    raw = yaml.safe_load(cfg_path.read_text())
+    with open(cfg_path, "r", encoding="utf-8") as f:
+        raw = yaml.safe_load(f)
+    # Support both {tournaments: [], pipeline: {}} and pipeline as a list
+    if "pipeline" in raw and not isinstance(raw["pipeline"], dict):
+        raw["pipeline"] = {"stages": raw["pipeline"]}
     try:
-        app_cfg = AppConfig(**raw)
+        return AppConfig(**raw)
     except ValidationError as e:
-        # rethrow with clearer message
-        raise ValidationError(f"Invalid configuration in {path}: {e}")
-    return app_cfg
+        raise ValueError(f"Invalid config {path}:\n{e}")

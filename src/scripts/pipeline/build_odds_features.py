@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import SchemaManager
+from scripts.utils.schema import enforce_schema
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     input_csv: str,
     output_csv: str,
@@ -56,12 +56,8 @@ def main(
             "Some implied probabilities are NaN (possibly due to missing or zero LTPs)."
         )
 
-    df_out = SchemaManager.patch_schema(df, schema_name="features")
+    df_out = enforce_schema(df, schema_name="features")
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Features written to {out_path}")
-
-
-if __name__ == "__main__":
-    main()

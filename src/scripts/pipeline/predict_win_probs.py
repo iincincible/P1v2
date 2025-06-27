@@ -1,9 +1,9 @@
 import pandas as pd
 from pathlib import Path
 import joblib
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import SchemaManager
+from scripts.utils.schema import enforce_schema
 
 DEFAULT_FEATURES = [
     "implied_prob_1",
@@ -13,7 +13,7 @@ DEFAULT_FEATURES = [
 ]
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     model_file: str,
     input_csv: str,
@@ -50,8 +50,10 @@ def main(
     df_valid = df.dropna(subset=features)
     if df_valid.empty:
         log_warning("No rows left after dropping NaNs; writing empty output.")
-        empty_df = pd.DataFrame(columns=SchemaManager._schemas["predictions"]["order"])
-        df_out = SchemaManager.patch_schema(empty_df, "predictions")
+        empty_df = pd.DataFrame(
+            columns=enforce_schema(pd.DataFrame(), "predictions").columns
+        )
+        df_out = enforce_schema(empty_df, "predictions")
     else:
         try:
             if hasattr(model, "predict_proba"):
@@ -64,7 +66,7 @@ def main(
         except Exception as e:
             log_warning(f"Prediction failed: {e}")
             df_valid["predicted_prob"] = pd.NA
-        df_out = SchemaManager.patch_schema(df_valid, "predictions")
+        df_out = enforce_schema(df_valid, "predictions")
 
     out_path = Path(output_csv)
     if out_path.exists() and not overwrite:
@@ -74,7 +76,3 @@ def main(
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Predictions written to {out_path}")
-
-
-if __name__ == "__main__":
-    main()

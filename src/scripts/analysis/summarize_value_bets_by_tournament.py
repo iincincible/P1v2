@@ -1,11 +1,11 @@
 import pandas as pd
 import glob
 from pathlib import Path
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     input_glob: str,
     output_csv: str,
@@ -59,13 +59,10 @@ def main(
         raise ValueError("No valid tournament summaries found.")
 
     df_out = pd.DataFrame(rows).sort_values(by="roi", ascending=False)
-    df_out.to_csv(output_csv, index=False)
-    log_success(f"Saved tournament-level summary to {output_csv}")
+    if not dry_run:
+        df_out.to_csv(output_csv, index=False)
+        log_success(f"Saved tournament-level summary to {output_csv}")
 
     log_info("\nTop 5 by ROI:")
     top5 = df_out[["tournament", "roi", "profit", "total_bets"]].head(5)
     log_info(top5.to_string(index=False))
-
-
-if __name__ == "__main__":
-    main()

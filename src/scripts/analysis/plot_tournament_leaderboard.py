@@ -1,16 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import (
+    setup_logging,
     log_info,
     log_success,
     log_warning,
     log_error,
-    setup_logging,
 )
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     input_csv: str,
     output_png: str = None,
@@ -70,7 +70,3 @@ def main(
 
     if show:
         plt.show()
-
-
-if __name__ == "__main__":
-    main()

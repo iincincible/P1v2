@@ -1,13 +1,13 @@
 import pandas as pd
 from pathlib import Path
-from scripts.utils.cli import guarded_run
+from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import SchemaManager
+from scripts.utils.schema import enforce_schema
 from scripts.utils.constants import DEFAULT_MAX_MARGIN
 from scripts.utils.value_metrics import compute_value_metrics
 
 
-@guarded_run
+@cli_entrypoint
 def main(
     input_csv: str,
     output_csv: str,
@@ -47,10 +47,11 @@ def main(
     df_filtered = df[mask]
     if df_filtered.empty:
         log_warning("No value bets found after filtering.")
-        df_out = pd.DataFrame(columns=SchemaManager._schemas["value_bets"]["order"])
-        df_out = SchemaManager.patch_schema(df_out, "value_bets")
+        df_out = pd.DataFrame(
+            columns=enforce_schema(pd.DataFrame(), "value_bets").columns
+        )
     else:
-        df_out = SchemaManager.patch_schema(df_filtered, "value_bets")
+        df_out = enforce_schema(df_filtered, "value_bets")
         log_info(f"Filtered {len(df_filtered)} of {len(df)} value bets.")
 
     out_path = Path(output_csv)
@@ -61,7 +62,3 @@ def main(
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Value bets written to {out_path}")
-
-
-if __name__ == "__main__":
-    main()
