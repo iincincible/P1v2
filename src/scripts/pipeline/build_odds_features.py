@@ -1,35 +1,22 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
+
+# ---- Canonical Imports ----
 from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import setup_logging, log_info, log_warning
 from scripts.utils.schema import enforce_schema
 
 
-@cli_entrypoint
-def main(
-    input_csv: str,
-    output_csv: str,
-    overwrite: bool = False,
-    dry_run: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
+# ---- Pure Function Core ----
+def build_odds_features(
+    df: pd.DataFrame,
+) -> pd.DataFrame:
     """
-    Build odds-derived features for each match.
+    Adds implied probabilities and margin features to a matches DataFrame.
+    Returns the result with enforced schema.
     """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    in_path = Path(input_csv)
-    if not in_path.exists():
-        raise FileNotFoundError(f"Input CSV not found: {in_path}")
-    out_path = Path(output_csv)
-    if out_path.exists() and not overwrite:
-        log_info(f"Output exists and overwrite=False: {out_path}")
-        return
-
-    df = pd.read_csv(in_path)
-    log_info(f"Loaded {len(df)} rows from {in_path}")
-
+    df = df.copy()
     # Feature engineering: implied probabilities and margin
     if "ltp_player_1" in df.columns and "ltp_player_2" in df.columns:
         df["ltp_player_1"] = pd.to_numeric(df["ltp_player_1"], errors="coerce")
@@ -50,13 +37,36 @@ def main(
         log_warning(
             "Missing 'ltp_player_1' or 'ltp_player_2'; filled feature columns with NaN."
         )
+    return enforce_schema(df, schema_name="features")
 
-    if df[["implied_prob_1", "implied_prob_2"]].isnull().any().any():
-        log_warning(
-            "Some implied probabilities are NaN (possibly due to missing or zero LTPs)."
-        )
 
-    df_out = enforce_schema(df, schema_name="features")
+# ---- CLI Entrypoint ----
+@cli_entrypoint
+def main(
+    input_csv: str,
+    output_csv: str,
+    overwrite: bool = False,
+    dry_run: bool = False,
+    verbose: bool = False,
+    json_logs: bool = False,
+):
+    """
+    CLI entrypoint for building odds-derived features for each match.
+    """
+    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
+    in_path = Path(input_csv)
+    out_path = Path(output_csv)
+    if not in_path.exists():
+        raise FileNotFoundError(f"Input CSV not found: {in_path}")
+    if out_path.exists() and not overwrite:
+        log_info(f"Output exists and overwrite=False: {out_path}")
+        return
+
+    df = pd.read_csv(in_path)
+    log_info(f"Loaded {len(df)} rows from {in_path}")
+
+    df_out = build_odds_features(df)
+
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)

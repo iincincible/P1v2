@@ -1,45 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
+
 from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import (
     setup_logging,
     log_info,
     log_success,
     log_warning,
-    log_error,
 )
 
 
-@cli_entrypoint
-def main(
-    input_csv: str,
-    output_png: str = None,
+def plot_leaderboard(
+    df: pd.DataFrame,
     sort_by: str = "roi",
     top_n: int = 20,
-    show: bool = False,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
+) -> None:
     """
-    Plot tournament leaderboard from summary CSV.
+    Plot tournament leaderboard from summary DataFrame (pure function).
     """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    try:
-        df = pd.read_csv(input_csv)
-        log_info(f"Loaded {len(df)} rows from {input_csv}")
-    except Exception as e:
-        log_error(f"Failed to read {input_csv}: {e}")
-        raise
-
-    if sort_by not in df.columns:
-        log_error(f"Missing column to sort by: {sort_by}")
-        raise ValueError(f"Missing sort column: {sort_by}")
-
     df = df.dropna(subset=[sort_by])
     df = df.sort_values(by=sort_by, ascending=False).head(top_n)
-
     if df.empty:
         log_warning("No data to plot after filtering.")
         return
@@ -61,12 +42,35 @@ def main(
             va="center",
             ha="left",
         )
-
     plt.tight_layout()
 
-    if output_png:
+
+@cli_entrypoint
+def main(
+    input_csv: str,
+    output_png: str = None,
+    sort_by: str = "roi",
+    top_n: int = 20,
+    show: bool = False,
+    dry_run: bool = False,
+    overwrite: bool = False,
+    verbose: bool = False,
+    json_logs: bool = False,
+):
+    """
+    CLI entrypoint: Plot tournament leaderboard from summary CSV.
+    """
+    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
+    input_csv = Path(input_csv)
+    if not input_csv.exists():
+        raise FileNotFoundError(f"Input CSV not found: {input_csv}")
+    df = pd.read_csv(input_csv)
+    log_info(f"Loaded {len(df)} rows from {input_csv}")
+
+    plot_leaderboard(df, sort_by=sort_by, top_n=top_n)
+
+    if output_png and not dry_run:
         plt.savefig(output_png)
         log_success(f"Saved leaderboard plot to {output_png}")
-
     if show:
         plt.show()
