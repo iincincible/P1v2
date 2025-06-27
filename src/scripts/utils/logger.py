@@ -26,15 +26,19 @@ def log_info(msg, *args, **kwargs):
 
 
 def log_success(msg, *args, **kwargs):
-    logging.getLogger().info(f"✔️ {msg}", *args, **kwargs)
+    logging.getLogger().info(f"✅ {msg}", *args, **kwargs)
 
 
 def log_warning(msg, *args, **kwargs):
-    logging.getLogger().warning(msg, *args, **kwargs)
+    logging.getLogger().warning(f"⚠️ {msg}", *args, **kwargs)
 
 
 def log_error(msg, *args, **kwargs):
-    logging.getLogger().error(msg, *args, **kwargs)
+    logging.getLogger().error(f"❌ {msg}", *args, **kwargs)
+
+
+def log_dryrun(msg, *args, **kwargs):
+    logging.getLogger().info(f"[DRY-RUN] {msg}", *args, **kwargs)
 
 
 class JsonLogFormatter(logging.Formatter):

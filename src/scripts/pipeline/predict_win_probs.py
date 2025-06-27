@@ -3,8 +3,8 @@ from pathlib import Path
 import joblib
 
 from scripts.utils.cli_utils import cli_entrypoint
-from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import enforce_schema
+from scripts.utils.logger import log_info, log_warning
+from scripts.utils.schema import normalize_columns, enforce_schema
 
 DEFAULT_FEATURES = [
     "implied_prob_1",
@@ -14,15 +14,8 @@ DEFAULT_FEATURES = [
 ]
 
 
-def predict_win_probs(
-    model,
-    df: pd.DataFrame,
-    features=None,
-) -> pd.DataFrame:
-    """
-    Use a trained model to predict win probabilities for each match.
-    Returns DataFrame with enforced schema.
-    """
+def predict_win_probs(model, df: pd.DataFrame, features=None) -> pd.DataFrame:
+    df = normalize_columns(df)
     if features is None:
         features = getattr(model, "feature_names_in_", DEFAULT_FEATURES)
     missing = [f for f in features if f not in df.columns]
@@ -58,30 +51,12 @@ def main(
     verbose: bool = False,
     json_logs: bool = False,
 ):
-    """
-    CLI entrypoint: Predict win probabilities for each match using a model.
-    """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    model_path = Path(model_file)
-    data_path = Path(input_csv)
-    out_path = Path(output_csv)
-
-    if not model_path.exists():
-        raise FileNotFoundError(f"Model file not found: {model_path}")
-    if not data_path.exists():
-        raise FileNotFoundError(f"Input CSV not found: {data_path}")
-    if out_path.exists() and not overwrite:
-        log_info(f"Output exists and overwrite=False: {out_path}")
-        return
-
-    model = joblib.load(model_path)
-    log_info(f"Loaded model from {model_path}")
-
-    df = pd.read_csv(data_path)
-    log_info(f"Loaded {len(df)} rows from {data_path}")
-
+    model = joblib.load(model_file)
+    log_info(f"Loaded model from {model_file}")
+    df = pd.read_csv(input_csv)
+    log_info(f"Loaded {len(df)} rows from {input_csv}")
     df_out = predict_win_probs(model, df)
-
+    out_path = Path(output_csv)
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)

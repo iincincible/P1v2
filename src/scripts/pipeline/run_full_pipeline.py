@@ -30,9 +30,6 @@ def main(
     verbose: bool = False,
     json_logs: bool = False,
 ):
-    """
-    Run full value betting pipeline for a tournament or all tournaments.
-    """
     app_cfg = load_config(config)
     stages = app_cfg.pipeline.stages
 

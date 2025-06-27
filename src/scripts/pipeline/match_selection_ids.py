@@ -2,8 +2,8 @@ import pandas as pd
 from pathlib import Path
 
 from scripts.utils.cli_utils import cli_entrypoint
-from scripts.utils.logger import setup_logging, log_info, log_warning
-from scripts.utils.schema import enforce_schema
+from scripts.utils.logger import log_info, log_warning
+from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
@@ -17,13 +17,10 @@ def assign_selection_ids(
     drop_missing_rows: bool = False,
     ignore_missing: bool = False,
 ) -> pd.DataFrame:
-    """
-    Assign selection IDs to matches based on snapshot data.
-    Returns DataFrame with enforced schema.
-    """
+    df_matches = normalize_columns(df_matches)
+    df_snaps = normalize_columns(df_snaps)
     market_map = build_market_runner_map(df_snaps)
     df_matches = df_matches.copy()
-
     df_matches["selection_id_1"] = df_matches.apply(
         lambda r: match_player_to_selection_id(
             market_map, r["market_id"], r["player_1"]
@@ -36,7 +33,6 @@ def assign_selection_ids(
         ),
         axis=1,
     )
-
     total = len(df_matches)
     miss1 = df_matches["selection_id_1"].isna().sum()
     miss2 = df_matches["selection_id_2"].isna().sum()
@@ -56,7 +52,6 @@ def assign_selection_ids(
         before = total
         df_matches = df_matches.dropna(subset=["selection_id_1", "selection_id_2"])
         log_info(f"Dropped {before - len(df_matches)} rows with missing IDs.")
-
     return enforce_schema(df_matches, "matches_with_ids")
 
 
@@ -73,27 +68,10 @@ def main(
     verbose: bool = False,
     json_logs: bool = False,
 ):
-    """
-    CLI entrypoint: Assign selection IDs to matches.
-    """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    in_matches = Path(merged_csv)
-    in_snaps = Path(snapshots_csv)
-    out_path = Path(output_csv)
-
-    if not in_matches.exists():
-        raise FileNotFoundError(f"Merged CSV not found: {in_matches}")
-    if not in_snaps.exists():
-        raise FileNotFoundError(f"Snapshots CSV not found: {in_snaps}")
-    if out_path.exists() and not overwrite:
-        log_info(f"Output exists and overwrite=False: {out_path}")
-        return
-
-    df_matches = pd.read_csv(in_matches)
-    log_info(f"Loaded {len(df_matches)} matches from {in_matches}")
-    df_snaps = pd.read_csv(in_snaps)
-    log_info(f"Loaded {len(df_snaps)} snapshots from {in_snaps}")
-
+    df_matches = pd.read_csv(merged_csv)
+    log_info(f"Loaded {len(df_matches)} matches from {merged_csv}")
+    df_snaps = pd.read_csv(snapshots_csv)
+    log_info(f"Loaded {len(df_snaps)} snapshots from {snapshots_csv}")
     df_out = assign_selection_ids(
         df_matches,
         df_snaps,
@@ -101,7 +79,7 @@ def main(
         drop_missing_rows=drop_missing_rows,
         ignore_missing=ignore_missing,
     )
-
+    out_path = Path(output_csv)
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)

@@ -1,6 +1,5 @@
 import pandas as pd
 
-# Single source of truth for all canonical schemas, names, and normalization
 CANONICAL_SCHEMAS = {
     "matches": ["match_id", "player_1", "player_2", "scheduled_time", "market_id"],
     "matches_with_ids": [
@@ -87,7 +86,6 @@ COLUMN_ALIASES = {
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    # Renames columns to canonical names
     rename_map = {
         col: COLUMN_ALIASES[col.lower()]
         for col in df.columns

@@ -2,14 +2,15 @@ import argparse
 import functools
 import sys
 from typing import Callable
+
 from scripts.utils.logger import setup_logging, log_info, log_error
 
 
 def cli_entrypoint(main_func: Callable):
     """
-    Decorator for CLI entrypoints.
+    Unified decorator for CLI entrypoints.
     Adds --dry_run, --overwrite, --verbose, --json_logs.
-    Handles argument parsing and basic error handling.
+    Handles arg parsing, error handling, logging.
     """
 
     @functools.wraps(main_func)
@@ -19,7 +20,7 @@ def cli_entrypoint(main_func: Callable):
         defaults = main_func.__defaults__ or ()
         for idx, param in enumerate(params):
             if param in {"dry_run", "overwrite", "verbose", "json_logs"}:
-                continue  # added below
+                continue
             default_idx = idx - (len(params) - len(defaults))
             if defaults and default_idx >= 0:
                 default = defaults[default_idx]
@@ -34,15 +35,13 @@ def cli_entrypoint(main_func: Callable):
                 parser.add_argument(f"--{param}", required=True, type=str)
         # Add common flags
         parser.add_argument(
-            "--dry_run", action="store_true", help="Dry run: do not write outputs"
+            "--dry_run", action="store_true", help="Dry run: no outputs"
         )
         parser.add_argument(
-            "--overwrite", action="store_true", help="Allow overwriting output files"
+            "--overwrite", action="store_true", help="Overwrite outputs"
         )
         parser.add_argument("--verbose", action="store_true", help="Verbose logging")
-        parser.add_argument(
-            "--json_logs", action="store_true", help="JSON-formatted logs"
-        )
+        parser.add_argument("--json_logs", action="store_true", help="JSON logs")
         args = parser.parse_args()
         setup_logging(
             level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs
