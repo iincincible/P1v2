@@ -1,7 +1,5 @@
 import pandas as pd
 from pathlib import Path
-
-from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_warning
 from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.constants import (
@@ -13,13 +11,17 @@ from scripts.utils.constants import (
 from scripts.utils.value_metrics import compute_value_metrics
 
 
-def detect_value_bets(
+def run_detect_value_bets(
     df: pd.DataFrame,
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
     max_odds: float = DEFAULT_MAX_ODDS,
     max_margin: float = DEFAULT_MAX_MARGIN,
 ) -> pd.DataFrame:
+    """
+    Detect value bets in a DataFrame, applying thresholds for EV, confidence, odds, and margin.
+    Returns filtered and schema-enforced DataFrame.
+    """
     df = normalize_columns(df)
     if "expected_value" not in df.columns or "kelly_fraction" not in df.columns:
         df = compute_value_metrics(df)
@@ -36,32 +38,40 @@ def detect_value_bets(
     return enforce_schema(df_filtered, "value_bets")
 
 
-@cli_entrypoint
-def main(
-    input_csv: str,
-    output_csv: str,
-    ev_threshold: float = DEFAULT_EV_THRESHOLD,
-    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
-    max_odds: float = DEFAULT_MAX_ODDS,
-    max_margin: float = DEFAULT_MAX_MARGIN,
-    overwrite: bool = False,
-    dry_run: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
-    df = pd.read_csv(input_csv)
-    log_info(f"Loaded {len(df)} rows from {input_csv}")
-    df_out = detect_value_bets(
-        df,
-        ev_threshold=ev_threshold,
-        confidence_threshold=confidence_threshold,
-        max_odds=max_odds,
-        max_margin=max_margin,
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Detect value bets from predictions")
+    parser.add_argument("--input_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument(
+        "--confidence_threshold", type=float, default=DEFAULT_CONFIDENCE_THRESHOLD
     )
-    out_path = Path(output_csv)
+    parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--max_margin", type=float, default=DEFAULT_MAX_MARGIN)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--json_logs", action="store_true")
+    args = parser.parse_args()
+    df = pd.read_csv(args.input_csv)
+    log_info(f"Loaded {len(df)} rows from {args.input_csv}")
+    df_out = run_detect_value_bets(
+        df,
+        ev_threshold=args.ev_threshold,
+        confidence_threshold=args.confidence_threshold,
+        max_odds=args.max_odds,
+        max_margin=args.max_margin,
+    )
+    out_path = Path(args.output_csv)
     if df_out.empty:
         log_warning("No value bets found after filtering.")
-    if not dry_run:
+    if not args.dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Value bets written to {out_path}")
+
+
+if __name__ == "__main__":
+    main_cli()

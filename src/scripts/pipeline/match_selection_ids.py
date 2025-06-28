@@ -1,7 +1,5 @@
 import pandas as pd
 from pathlib import Path
-
-from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_warning
 from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.selection import (
@@ -10,13 +8,16 @@ from scripts.utils.selection import (
 )
 
 
-def assign_selection_ids(
+def run_assign_selection_ids(
     df_matches: pd.DataFrame,
     df_snaps: pd.DataFrame,
     max_missing_frac: float = 0.1,
     drop_missing_rows: bool = False,
     ignore_missing: bool = False,
 ) -> pd.DataFrame:
+    """
+    Assigns Betfair selection IDs to matches based on snapshot data.
+    """
     df_matches = normalize_columns(df_matches)
     df_snaps = normalize_columns(df_snaps)
     market_map = build_market_runner_map(df_snaps)
@@ -55,32 +56,40 @@ def assign_selection_ids(
     return enforce_schema(df_matches, "matches_with_ids")
 
 
-@cli_entrypoint
-def main(
-    merged_csv: str,
-    snapshots_csv: str,
-    output_csv: str,
-    max_missing_frac: float = 0.1,
-    drop_missing_rows: bool = False,
-    ignore_missing: bool = False,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
-    df_matches = pd.read_csv(merged_csv)
-    log_info(f"Loaded {len(df_matches)} matches from {merged_csv}")
-    df_snaps = pd.read_csv(snapshots_csv)
-    log_info(f"Loaded {len(df_snaps)} snapshots from {snapshots_csv}")
-    df_out = assign_selection_ids(
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Assign Betfair selection IDs to matches"
+    )
+    parser.add_argument("--merged_csv", required=True)
+    parser.add_argument("--snapshots_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--max_missing_frac", type=float, default=0.1)
+    parser.add_argument("--drop_missing_rows", action="store_true")
+    parser.add_argument("--ignore_missing", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--json_logs", action="store_true")
+    args = parser.parse_args()
+    df_matches = pd.read_csv(args.merged_csv)
+    log_info(f"Loaded {len(df_matches)} matches from {args.merged_csv}")
+    df_snaps = pd.read_csv(args.snapshots_csv)
+    log_info(f"Loaded {len(df_snaps)} snapshots from {args.snapshots_csv}")
+    df_out = run_assign_selection_ids(
         df_matches,
         df_snaps,
-        max_missing_frac=max_missing_frac,
-        drop_missing_rows=drop_missing_rows,
-        ignore_missing=ignore_missing,
+        max_missing_frac=args.max_missing_frac,
+        drop_missing_rows=args.drop_missing_rows,
+        ignore_missing=args.ignore_missing,
     )
-    out_path = Path(output_csv)
-    if not dry_run:
+    out_path = Path(args.output_csv)
+    if not args.dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         df_out.to_csv(out_path, index=False)
         log_info(f"Saved selection IDs to {out_path}")
+
+
+if __name__ == "__main__":
+    main_cli()

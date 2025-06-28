@@ -1,27 +1,15 @@
 import pandas as pd
 import glob
 from pathlib import Path
-from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
 
 
-@cli_entrypoint
-def main(
-    input_glob: str,
-    output_csv: str,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
+def run_summarize_value_bets_by_tournament(
+    files, dry_run: bool = False
+) -> pd.DataFrame:
     """
     Summarize value bets by tournament from match-level summaries.
     """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    files = glob.glob(input_glob)
-    if not files:
-        raise ValueError(f"No match-level summary files found matching: {input_glob}")
-
     rows = []
     for filepath in files:
         try:
@@ -59,10 +47,38 @@ def main(
         raise ValueError("No valid tournament summaries found.")
 
     df_out = pd.DataFrame(rows).sort_values(by="roi", ascending=False)
-    if not dry_run:
-        df_out.to_csv(output_csv, index=False)
-        log_success(f"Saved tournament-level summary to {output_csv}")
+    return df_out
+
+
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Summarize value bets by tournament from match-level summaries."
+    )
+    parser.add_argument("--input_glob", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--json_logs", action="store_true")
+    args = parser.parse_args()
+    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
+    files = glob.glob(args.input_glob)
+    if not files:
+        raise ValueError(
+            f"No match-level summary files found matching: {args.input_glob}"
+        )
+
+    df_out = run_summarize_value_bets_by_tournament(files, dry_run=args.dry_run)
+    if not args.dry_run:
+        df_out.to_csv(args.output_csv, index=False)
+        log_success(f"Saved tournament-level summary to {args.output_csv}")
 
     log_info("\nTop 5 by ROI:")
     top5 = df_out[["tournament", "roi", "profit", "total_bets"]].head(5)
     log_info(top5.to_string(index=False))
+
+
+if __name__ == "__main__":
+    main_cli()

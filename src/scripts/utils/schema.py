@@ -1,117 +1,87 @@
-import pandas as pd
+"""
+Column normalization and schema enforcement.
+"""
 
-CANONICAL_SCHEMAS = {
-    "matches": ["match_id", "player_1", "player_2", "scheduled_time", "market_id"],
-    "matches_with_ids": [
-        "match_id",
-        "player_1",
-        "player_2",
-        "scheduled_time",
-        "market_id",
-        "selection_id_1",
-        "selection_id_2",
-    ],
+import pandas as pd
+from typing import Optional, Dict
+
+COLUMN_ALIASES: Dict[str, str] = {
+    "playerOne": "player_1",
+    "playerTwo": "player_2",
+    "winnerName": "winner",
+    # ...add all necessary mappings
+}
+
+SCHEMAS: Dict[str, list] = {
     "features": [
         "match_id",
         "player_1",
         "player_2",
-        "scheduled_time",
-        "market_id",
-        "ltp_player_1",
-        "ltp_player_2",
         "implied_prob_1",
         "implied_prob_2",
         "implied_prob_diff",
         "odds_margin",
-    ],
-    "predictions": [
-        "match_id",
-        "player_1",
-        "player_2",
-        "scheduled_time",
-        "market_id",
-        "implied_prob_1",
-        "implied_prob_2",
-        "implied_prob_diff",
-        "odds_margin",
-        "predicted_prob",
     ],
     "value_bets": [
         "match_id",
         "player_1",
         "player_2",
-        "scheduled_time",
-        "market_id",
         "odds",
         "predicted_prob",
         "expected_value",
         "kelly_fraction",
         "confidence_score",
-        "winner",
     ],
-    "simulations": [
+    "matches_with_ids": [
         "match_id",
         "player_1",
         "player_2",
-        "scheduled_time",
-        "market_id",
-        "odds",
-        "predicted_prob",
-        "expected_value",
-        "kelly_fraction",
-        "winner",
-        "bankroll",
+        "selection_id_1",
+        "selection_id_2",
     ],
     "merged_matches": [
         "match_id",
         "player_1",
         "player_2",
-        "scheduled_time",
-        "market_id",
-        "selection_id",
+        "selection_id_1",
+        "selection_id_2",
         "final_ltp",
     ],
-}
-
-COLUMN_ALIASES = {
-    "player1": "player_1",
-    "player2": "player_2",
-    "team1": "player_1",
-    "team2": "player_2",
-    "matchwinner": "winner",
-    "result": "winner",
-    "prob": "predicted_prob",
-    "probability": "predicted_prob",
+    "predictions": ["match_id", "player_1", "player_2", "predicted_prob"],
+    "simulations": ["match_id", "bankroll", "kelly_fraction", "winner", "odds"],
 }
 
 
-def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    rename_map = {
-        col: COLUMN_ALIASES[col.lower()]
-        for col in df.columns
-        if col.lower() in COLUMN_ALIASES
-    }
-    if rename_map:
-        df = df.rename(columns=rename_map)
+def normalize_columns(
+    df: pd.DataFrame, aliases: Optional[Dict[str, str]] = None
+) -> pd.DataFrame:
+    """
+    Standardize DataFrame columns to pipeline conventions.
+    """
+    if aliases is None:
+        aliases = COLUMN_ALIASES
+    df = df.rename(columns={k: v for k, v in aliases.items() if k in df.columns})
     return df
 
 
 def enforce_schema(df: pd.DataFrame, schema_name: str) -> pd.DataFrame:
-    expected_cols = CANONICAL_SCHEMAS[schema_name]
-    missing = [c for c in expected_cols if c not in df.columns]
-    for c in missing:
-        df[c] = None
-    return df[expected_cols]
+    """
+    Ensure DataFrame has all columns for the schema. Missing columns are added with NaN.
+    """
+    if schema_name not in SCHEMAS:
+        raise ValueError(f"Unknown schema: {schema_name}")
+    cols = SCHEMAS[schema_name]
+    for col in cols:
+        if col not in df.columns:
+            df[col] = pd.NA
+    return df[cols]
 
 
-def patch_winner_column(df: pd.DataFrame) -> pd.DataFrame:
-    # Winner must be 1 (player_1 wins), 0 (player_2 wins), or NaN
-    if "winner" in df.columns:
-        df["winner"] = df["winner"].map(
-            lambda x: (
-                1
-                if x in [1, "1", "A", "player_1"]
-                else 0 if x in [0, "0", "B", "player_2"] else pd.NA
-            )
-        )
+def patch_winner_column(df: pd.DataFrame, winner_col: str = "winner") -> pd.DataFrame:
+    """
+    Patch winner column to be 0/1 and fill missing with 0.
+    """
+    df = df.copy()
+    if winner_col in df.columns:
+        df[winner_col] = df[winner_col].fillna(0).astype(int)
     return df

@@ -1,53 +1,42 @@
+"""
+Logger utility for pipeline scripts.
+"""
+
 import logging
 import sys
-import json
 
 
-def setup_logging(level="INFO", json_logs=False):
-    root = logging.getLogger()
-    if root.hasHandlers():
-        root.handlers.clear()
-    handler = logging.StreamHandler(sys.stdout)
-    if json_logs:
-        formatter = JsonLogFormatter()
-    else:
-        formatter = logging.Formatter("[%(levelname)s] %(message)s")
-    handler.setFormatter(formatter)
-    root.addHandler(handler)
-    root.setLevel(
-        level
-        if isinstance(level, int)
-        else getattr(logging, level.upper(), logging.INFO)
+def setup_logging(level: str = "INFO", json_logs: bool = False) -> None:
+    """
+    Initialize logging. Optionally as JSON.
+    """
+    loglevel = getattr(logging, level.upper(), logging.INFO)
+    logging.basicConfig(
+        stream=sys.stdout,
+        level=loglevel,
+        format=(
+            "%(asctime)s %(levelname)s %(message)s"
+            if not json_logs
+            else '{"timestamp":"%(asctime)s","level":"%(levelname)s","msg":"%(message)s"}'
+        ),
     )
 
 
-def log_info(msg, *args, **kwargs):
-    logging.getLogger().info(msg, *args, **kwargs)
+def log_info(msg: str) -> None:
+    logging.info(msg)
 
 
-def log_success(msg, *args, **kwargs):
-    logging.getLogger().info(f"✅ {msg}", *args, **kwargs)
+def log_warning(msg: str) -> None:
+    logging.warning(msg)
 
 
-def log_warning(msg, *args, **kwargs):
-    logging.getLogger().warning(f"⚠️ {msg}", *args, **kwargs)
+def log_error(msg: str) -> None:
+    logging.error(msg)
 
 
-def log_error(msg, *args, **kwargs):
-    logging.getLogger().error(f"❌ {msg}", *args, **kwargs)
+def log_success(msg: str) -> None:
+    logging.info(f"SUCCESS: {msg}")
 
 
-def log_dryrun(msg, *args, **kwargs):
-    logging.getLogger().info(f"[DRY-RUN] {msg}", *args, **kwargs)
-
-
-class JsonLogFormatter(logging.Formatter):
-    def format(self, record):
-        log_record = {
-            "level": record.levelname,
-            "msg": record.getMessage(),
-            "time": self.formatTime(record, "%Y-%m-%d %H:%M:%S"),
-        }
-        if record.exc_info:
-            log_record["exception"] = self.formatException(record.exc_info)
-        return json.dumps(log_record)
+def log_debug(msg: str) -> None:
+    logging.debug(msg)

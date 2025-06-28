@@ -4,11 +4,10 @@ from pathlib import Path
 
 from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
 
 
-def summarize_value_bets_by_match(files, top_n: int = 10) -> pd.DataFrame:
+def run_summarize_value_bets_by_match(files, top_n: int = 10) -> pd.DataFrame:
     """
     Summarize value bets by match across multiple files (pure function).
     """
@@ -68,25 +67,30 @@ def summarize_value_bets_by_match(files, top_n: int = 10) -> pd.DataFrame:
     return summary
 
 
-@cli_entrypoint
-def main(
-    value_bets_glob: str,
-    output_csv: str,
-    top_n: int = 10,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
-    """
-    CLI entrypoint: Summarize value bets by match across multiple files.
-    """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    files = glob.glob(value_bets_glob)
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Summarize value bets by match across multiple files."
+    )
+    parser.add_argument("--value_bets_glob", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--top_n", type=int, default=10)
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--json_logs", action="store_true")
+    args = parser.parse_args()
+    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
+    files = glob.glob(args.value_bets_glob)
     if not files:
-        raise ValueError(f"No value bet files found matching: {value_bets_glob}")
-    summary = summarize_value_bets_by_match(files, top_n=top_n)
-    if not dry_run:
-        Path(output_csv).parent.mkdir(parents=True, exist_ok=True)
-        summary.to_csv(output_csv, index=False)
-        log_success(f"Saved match-level summary to {output_csv}")
+        raise ValueError(f"No value bet files found matching: {args.value_bets_glob}")
+    summary = run_summarize_value_bets_by_match(files, top_n=args.top_n)
+    if not args.dry_run:
+        Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
+        summary.to_csv(args.output_csv, index=False)
+        log_success(f"Saved match-level summary to {args.output_csv}")
+
+
+if __name__ == "__main__":
+    main_cli()

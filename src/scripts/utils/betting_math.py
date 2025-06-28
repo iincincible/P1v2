@@ -1,23 +1,26 @@
-import numpy as np
+"""
+Betting-related mathematical utilities.
+"""
+
+import pandas as pd
 
 
-def add_ev_and_kelly(df):
+def add_ev_and_kelly(
+    df: pd.DataFrame,
+    prob_col: str = "predicted_prob",
+    odds_col: str = "odds",
+    min_prob: float = 1e-8,
+    fillna: bool = True,
+) -> pd.DataFrame:
     """
-    Add expected value and Kelly fraction columns to a DataFrame.
+    Add expected value (EV) and Kelly fraction columns to the DataFrame.
+    Assumes that higher prob_col means higher likelihood of win for that bet.
     """
     df = df.copy()
-    if "predicted_prob" in df.columns and "odds" in df.columns:
-        # EV = p*odds - (1-p)
-        df["expected_value"] = df["predicted_prob"] * df["odds"] - (
-            1 - df["predicted_prob"]
-        )
-        # Kelly: max(0, (p*(odds-1) - (1-p)) / (odds-1))
-        numer = df["predicted_prob"] * (df["odds"] - 1) - (1 - df["predicted_prob"])
-        denom = df["odds"] - 1
-        with np.errstate(divide="ignore", invalid="ignore"):
-            df["kelly_fraction"] = np.where(denom > 0, numer / denom, 0.0)
-        df["kelly_fraction"] = np.maximum(0, df["kelly_fraction"])
-    else:
-        df["expected_value"] = np.nan
-        df["kelly_fraction"] = np.nan
+    prob = df[prob_col].clip(lower=min_prob, upper=1 - min_prob)
+    odds = df[odds_col]
+    df["expected_value"] = prob * (odds - 1) - (1 - prob)
+    df["kelly_fraction"] = (prob * (odds - 1) - (1 - prob)) / (odds - 1)
+    if fillna:
+        df.fillna(0, inplace=True)
     return df

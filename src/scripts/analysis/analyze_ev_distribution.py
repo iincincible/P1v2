@@ -7,10 +7,9 @@ from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.logger import setup_logging, log_info, log_success, log_warning
 from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
 from scripts.utils.betting_math import add_ev_and_kelly
-from scripts.utils.cli_utils import cli_entrypoint
 
 
-def analyze_ev_distribution(
+def run_analyze_ev_distribution(
     value_bets_files,
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     max_odds: float = DEFAULT_MAX_ODDS,
@@ -35,37 +34,38 @@ def analyze_ev_distribution(
     return all_bets
 
 
-@cli_entrypoint
-def main(
-    value_bets_glob: str,
-    output_csv: str = None,
-    ev_threshold: float = DEFAULT_EV_THRESHOLD,
-    max_odds: float = DEFAULT_MAX_ODDS,
-    plot: bool = False,
-    save_plot: bool = False,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
-    """
-    CLI entrypoint: Analyze and plot the EV distribution from value bet CSV files.
-    """
-    setup_logging(level="DEBUG" if verbose else "INFO", json_logs=json_logs)
-    files = glob.glob(value_bets_glob)
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Analyze EV distribution from value bet CSV files."
+    )
+    parser.add_argument("--value_bets_glob", required=True)
+    parser.add_argument("--output_csv", default=None)
+    parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
+    parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
+    parser.add_argument("--plot", action="store_true")
+    parser.add_argument("--save_plot", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--json_logs", action="store_true")
+    args = parser.parse_args()
+    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
+    files = glob.glob(args.value_bets_glob)
     if not files:
-        raise ValueError(f"No value bet files found matching: {value_bets_glob}")
-    all_bets = analyze_ev_distribution(
-        files, ev_threshold=ev_threshold, max_odds=max_odds
+        raise ValueError(f"No value bet files found matching: {args.value_bets_glob}")
+    all_bets = run_analyze_ev_distribution(
+        files, ev_threshold=args.ev_threshold, max_odds=args.max_odds
     )
     log_info(f"Loaded {len(all_bets)} filtered value bets across {len(files)} files.")
 
-    if output_csv and not dry_run:
-        all_bets.to_csv(output_csv, index=False)
-        log_success(f"Saved filtered bets to {output_csv}")
+    if args.output_csv and not args.dry_run:
+        all_bets.to_csv(args.output_csv, index=False)
+        log_success(f"Saved filtered bets to {args.output_csv}")
 
     # Optionally plot
-    if not all_bets.empty and (plot or save_plot):
+    if not all_bets.empty and (args.plot or args.save_plot):
         plt.figure(figsize=(10, 5))
         plt.hist(all_bets["expected_value"], bins=25, edgecolor="black")
         plt.title("EV Distribution (Filtered)")
@@ -73,17 +73,21 @@ def main(
         plt.ylabel("Number of Bets")
         plt.grid(True)
 
-        if save_plot:
-            if not output_csv:
+        if args.save_plot:
+            if not args.output_csv:
                 raise ValueError(
                     "--save_plot requires --output_csv to determine image path"
                 )
-            plot_path = Path(output_csv).with_name(
-                Path(output_csv).stem + "_ev_distribution.png"
+            plot_path = Path(args.output_csv).with_name(
+                Path(args.output_csv).stem + "_ev_distribution.png"
             )
             plot_path.parent.mkdir(parents=True, exist_ok=True)
             plt.savefig(plot_path)
             log_success(f"Saved EV distribution plot to {plot_path}")
 
-        if plot:
+        if args.plot:
             plt.show()
+
+
+if __name__ == "__main__":
+    main_cli()

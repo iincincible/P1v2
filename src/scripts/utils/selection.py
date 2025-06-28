@@ -1,24 +1,29 @@
+"""
+Logic for assigning selection IDs.
+"""
+
 import pandas as pd
-from collections import defaultdict
+from typing import Dict, Optional, Any
 
 
-def build_market_runner_map(df_snaps):
+def build_market_runner_map(df: pd.DataFrame) -> Dict[str, Dict[str, Any]]:
     """
-    Build mapping of (market_id, player_name) to selection_id.
+    Build a mapping from market_id to player_name -> selection_id.
     """
-    market_map = defaultdict(dict)
-    for _, row in df_snaps.iterrows():
+    mapping = {}
+    for _, row in df.iterrows():
         market = row.get("market_id")
-        selection_id = row.get("selection_id")
-        player = row.get("runner_name") or row.get("player") or row.get("player_name")
-        if pd.notnull(market) and pd.notnull(player):
-            market_map[market][player] = selection_id
-    return market_map
+        player = row.get("runner_name")
+        sel_id = row.get("selection_id")
+        if market and player:
+            mapping.setdefault(market, {})[player] = sel_id
+    return mapping
 
 
-def match_player_to_selection_id(market_map, market_id, player_name):
-    if market_id in market_map and player_name in market_map[market_id]:
-        return market_map[market_id][player_name]
-    # Fallback: try case-insensitive
-    candidates = {k.lower(): v for k, v in market_map.get(market_id, {}).items()}
-    return candidates.get(str(player_name).lower())
+def match_player_to_selection_id(
+    market_map: Dict[str, Dict[str, Any]], market_id: str, player_name: str
+) -> Optional[Any]:
+    """
+    Look up selection_id for a player in a given market.
+    """
+    return market_map.get(market_id, {}).get(player_name, None)

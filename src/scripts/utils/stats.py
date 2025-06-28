@@ -1,7 +1,18 @@
-import numpy as np
+"""
+Statistical utility functions.
+"""
+
+import pandas as pd
 
 
-def safe_mean(x):
-    if len(x) == 0:
-        return np.nan
-    return np.mean(x)
+def compute_roi(
+    df: pd.DataFrame, profit_col: str = "profit", stake_col: str = "stake"
+) -> float:
+    """
+    Compute return on investment.
+    """
+    total_profit = df[profit_col].sum()
+    total_staked = df[stake_col].sum()
+    if total_staked == 0:
+        return 0.0
+    return total_profit / total_staked

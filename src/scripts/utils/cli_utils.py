@@ -1,58 +1,27 @@
+"""
+CLI utilities for argument parsing, entrypoints, and logging.
+"""
+
 import argparse
-import functools
-import sys
+from functools import wraps
 from typing import Callable
 
-from scripts.utils.logger import setup_logging, log_info, log_error
 
-
-def cli_entrypoint(main_func: Callable):
+def cli_entrypoint(fn: Callable) -> Callable:
     """
-    Unified decorator for CLI entrypoints.
-    Adds --dry_run, --overwrite, --verbose, --json_logs.
-    Handles arg parsing, error handling, logging.
+    (Deprecated) Decorator for CLI entrypoints.
+    Prefer explicit argparse in your main scripts.
     """
 
-    @functools.wraps(main_func)
+    @wraps(fn)
     def wrapper():
-        parser = argparse.ArgumentParser(description=main_func.__doc__ or "")
-        params = main_func.__code__.co_varnames[: main_func.__code__.co_argcount]
-        defaults = main_func.__defaults__ or ()
-        for idx, param in enumerate(params):
-            if param in {"dry_run", "overwrite", "verbose", "json_logs"}:
-                continue
-            default_idx = idx - (len(params) - len(defaults))
-            if defaults and default_idx >= 0:
-                default = defaults[default_idx]
-                arg_type = type(default) if default is not None else str
-                if isinstance(default, bool):
-                    parser.add_argument(
-                        f"--{param}", action="store_true", default=default
-                    )
-                else:
-                    parser.add_argument(f"--{param}", type=arg_type, default=default)
-            else:
-                parser.add_argument(f"--{param}", required=True, type=str)
-        # Add common flags
+        parser = argparse.ArgumentParser(description=fn.__doc__ or "")
+        # It's better to manually define all arguments in scripts now.
         parser.add_argument(
-            "--dry_run", action="store_true", help="Dry run: no outputs"
+            "--help", action="help", help="Show this help message and exit"
         )
-        parser.add_argument(
-            "--overwrite", action="store_true", help="Overwrite outputs"
-        )
-        parser.add_argument("--verbose", action="store_true", help="Verbose logging")
-        parser.add_argument("--json_logs", action="store_true", help="JSON logs")
-        args = parser.parse_args()
-        setup_logging(
-            level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs
-        )
-        try:
-            main_func(**vars(args))
-        except KeyboardInterrupt:
-            log_info("Interrupted.")
-            sys.exit(130)
-        except Exception as e:
-            log_error(f"Fatal error: {e}")
-            sys.exit(1)
+        args, unknown = parser.parse_known_args()
+        # Pass args as dict if wanted; here, just call with no args.
+        fn()
 
     return wrapper

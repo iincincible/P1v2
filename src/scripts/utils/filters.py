@@ -1,15 +1,13 @@
+"""
+Simple utilities for row/column filtering.
+"""
+
 import pandas as pd
+from typing import List
 
 
-def filter_value_bets(
-    df: pd.DataFrame, ev_threshold: float, max_odds: float, max_margin: float
-) -> pd.DataFrame:
+def filter_by_columns(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     """
-    Filters a DataFrame of predictions based on EV, odds, and margin.
-    Returns a filtered copy of the DataFrame.
+    Return DataFrame with only specified columns (ignoring missing).
     """
-    return df[
-        (df["expected_value"] >= ev_threshold)
-        & (df["odds"] <= max_odds)
-        & (df["odds_margin"] <= max_margin)
-    ].copy()
+    return df[[col for col in columns if col in df.columns]]
