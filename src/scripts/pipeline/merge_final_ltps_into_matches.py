@@ -1,14 +1,13 @@
+# src/scripts/pipeline/merge_final_ltps_into_matches.py
+
 import pandas as pd
-from pathlib import Path
 from scripts.utils.logger import log_info
 from scripts.utils.schema import normalize_columns, enforce_schema
 
 
-def run_merge_final_ltps(
-    df_matches: pd.DataFrame, df_snaps: pd.DataFrame
-) -> pd.DataFrame:
+def merge_final_ltps(df_matches: pd.DataFrame, df_snaps: pd.DataFrame) -> pd.DataFrame:
     """
-    Merge the final Last Traded Prices (LTPs) into match DataFrame.
+    Merge final LTPs into matches.
     """
     df_matches = normalize_columns(df_matches)
     df_snaps = normalize_columns(df_snaps)
@@ -34,21 +33,16 @@ def main_cli():
     parser.add_argument("--matches_csv", required=True)
     parser.add_argument("--snapshots_csv", required=True)
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--json_logs", action="store_true")
     args = parser.parse_args()
     df_matches = pd.read_csv(args.matches_csv)
-    log_info(f"Loaded {len(df_matches)} matches from {args.matches_csv}")
     df_snaps = pd.read_csv(args.snapshots_csv)
-    log_info(f"Loaded {len(df_snaps)} snapshots from {args.snapshots_csv}")
-    df_merged = run_merge_final_ltps(df_matches, df_snaps)
-    out_path = Path(args.output_csv)
+    result = merge_final_ltps(df_matches, df_snaps)
     if not args.dry_run:
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        df_merged.to_csv(out_path, index=False)
-        log_info(f"Merged matches written to {out_path}")
+        result.to_csv(args.output_csv, index=False)
+        log_info(f"Merged matches written to {args.output_csv}")
 
 
 if __name__ == "__main__":

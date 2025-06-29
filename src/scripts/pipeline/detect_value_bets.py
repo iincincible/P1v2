@@ -1,17 +1,18 @@
+# src/scripts/pipeline/detect_value_bets.py
+
 import pandas as pd
-from pathlib import Path
-from scripts.utils.logger import log_info, log_warning
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.logger import log_info
 from scripts.utils.constants import (
     DEFAULT_EV_THRESHOLD,
     DEFAULT_CONFIDENCE_THRESHOLD,
     DEFAULT_MAX_ODDS,
     DEFAULT_MAX_MARGIN,
 )
+from scripts.utils.schema import normalize_columns, enforce_schema
 from scripts.utils.value_metrics import compute_value_metrics
 
 
-def run_detect_value_bets(
+def detect_value_bets(
     df: pd.DataFrame,
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
@@ -19,8 +20,7 @@ def run_detect_value_bets(
     max_margin: float = DEFAULT_MAX_MARGIN,
 ) -> pd.DataFrame:
     """
-    Detect value bets in a DataFrame, applying thresholds for EV, confidence, odds, and margin.
-    Returns filtered and schema-enforced DataFrame.
+    Detect value bets with thresholds for EV, confidence, odds, and margin.
     """
     df = normalize_columns(df)
     if "expected_value" not in df.columns or "kelly_fraction" not in df.columns:
@@ -41,7 +41,7 @@ def run_detect_value_bets(
 def main_cli():
     import argparse
 
-    parser = argparse.ArgumentParser(description="Detect value bets from predictions")
+    parser = argparse.ArgumentParser(description="Detect value bets")
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
     parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
@@ -53,24 +53,18 @@ def main_cli():
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--json_logs", action="store_true")
     args = parser.parse_args()
     df = pd.read_csv(args.input_csv)
-    log_info(f"Loaded {len(df)} rows from {args.input_csv}")
-    df_out = run_detect_value_bets(
+    result = detect_value_bets(
         df,
         ev_threshold=args.ev_threshold,
         confidence_threshold=args.confidence_threshold,
         max_odds=args.max_odds,
         max_margin=args.max_margin,
     )
-    out_path = Path(args.output_csv)
-    if df_out.empty:
-        log_warning("No value bets found after filtering.")
     if not args.dry_run:
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        df_out.to_csv(out_path, index=False)
-        log_info(f"Value bets written to {out_path}")
+        result.to_csv(args.output_csv, index=False)
+        log_info(f"Value bets written to {args.output_csv}")
 
 
 if __name__ == "__main__":

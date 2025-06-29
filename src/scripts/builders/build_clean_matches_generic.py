@@ -1,43 +1,43 @@
-import pandas as pd
-from pathlib import Path
+# src/scripts/builders/build_clean_matches_generic.py
 
+import pandas as pd
 from scripts.builders.core import build_matches_from_snapshots
-from scripts.utils.cli_utils import cli_entrypoint
 from scripts.utils.logger import log_info
 from scripts.utils.schema import normalize_columns, enforce_schema
 
 
 def build_clean_matches(df_snapshots: pd.DataFrame) -> pd.DataFrame:
+    """
+    Clean raw snapshots DataFrame into canonical matches DataFrame.
+    """
     df_snapshots = normalize_columns(df_snapshots)
     matches_df = build_matches_from_snapshots(df_snapshots)
     return enforce_schema(matches_df, "matches")
 
 
-@cli_entrypoint
-def main(
-    snapshots_csv: str,
-    output_csv: str,
-    dry_run: bool = False,
-    overwrite: bool = False,
-    verbose: bool = False,
-    json_logs: bool = False,
-):
-    snapshots_path = Path(snapshots_csv)
-    output_path = Path(output_csv)
-    if not snapshots_path.exists():
-        log_info(f"Snapshots CSV not found: {snapshots_path}")
-        raise FileNotFoundError(snapshots_path)
-    if output_path.exists() and not overwrite:
-        log_info(f"Output exists and overwrite=False: {output_path}")
-        return
-    df_snapshots = pd.read_csv(snapshots_path)
-    log_info(f"Loaded {len(df_snapshots)} snapshots from {snapshots_path}")
+def main_cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Build clean matches from snapshot CSV."
+    )
+    parser.add_argument("--snapshots_csv", required=True)
+    parser.add_argument("--output_csv", required=True)
+    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--dry_run", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    args = parser.parse_args()
+
+    df_snapshots = pd.read_csv(args.snapshots_csv)
     matches_df = build_clean_matches(df_snapshots)
-    if dry_run:
-        log_info(
-            f"Dry-run mode; would write {len(matches_df)} matches to {output_path}"
-        )
+    if not args.dry_run:
+        matches_df.to_csv(args.output_csv, index=False)
+        log_info(f"Wrote {len(matches_df)} matches to {args.output_csv}")
     else:
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        matches_df.to_csv(output_path, index=False)
-        log_info(f"Matches written to {output_path}")
+        log_info(
+            f"[DRY-RUN] Would write {len(matches_df)} matches to {args.output_csv}"
+        )
+
+
+if __name__ == "__main__":
+    main_cli()
