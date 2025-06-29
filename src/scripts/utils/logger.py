@@ -1,42 +1,39 @@
-"""
-Logger utility for pipeline scripts.
-"""
-
 import logging
-import sys
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
-def setup_logging(level: str = "INFO", json_logs: bool = False) -> None:
+def log_info(message: str) -> None:
     """
-    Initialize logging. Optionally as JSON.
+    Log an info-level message.
     """
-    loglevel = getattr(logging, level.upper(), logging.INFO)
-    logging.basicConfig(
-        stream=sys.stdout,
-        level=loglevel,
-        format=(
-            "%(asctime)s %(levelname)s %(message)s"
-            if not json_logs
-            else '{"timestamp":"%(asctime)s","level":"%(levelname)s","msg":"%(message)s"}'
-        ),
-    )
+    logger.info(message)
 
 
-def log_info(msg: str) -> None:
-    logging.info(msg)
+def log_success(message: str) -> None:
+    """
+    Log a success message prefixed with a checkmark.
+    """
+    logger.info(f"✅ {message}")
 
 
-def log_warning(msg: str) -> None:
-    logging.warning(msg)
+def log_warning(message: str) -> None:
+    """
+    Log a warning-level message prefixed with a warning sign.
+    """
+    logger.warning(f"⚠️ {message}")
 
 
-def log_error(msg: str) -> None:
-    logging.error(msg)
+def log_error(message: str) -> None:
+    """
+    Log an error-level message prefixed with an error sign.
+    """
+    logger.error(f"❌ {message}")
 
 
-def log_success(msg: str) -> None:
-    logging.info(f"SUCCESS: {msg}")
-
-
-def log_debug(msg: str) -> None:
-    logging.debug(msg)
+def log_dryrun(message: str) -> None:
+    """
+    Log a dry-run notification at INFO level.
+    """
+    logger.info(f"[DRY-RUN] {message}")

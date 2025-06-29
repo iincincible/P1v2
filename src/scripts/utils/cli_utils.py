@@ -1,27 +1,52 @@
 """
-CLI utilities for argument parsing, entrypoints, and logging.
+Common CLI utilities for file and DataFrame handling.
 """
 
-import argparse
-from functools import wraps
-from typing import Callable
+import os
 
 
-def cli_entrypoint(fn: Callable) -> Callable:
+def assert_file_exists(path: str, description: str) -> None:
     """
-    (Deprecated) Decorator for CLI entrypoints.
-    Prefer explicit argparse in your main scripts.
+    Ensure that the given file path exists, otherwise raise FileNotFoundError.
+    """
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{description} not found: {path}")
+
+
+def should_run(path: str, overwrite: bool = False, dry_run: bool = False) -> bool:
+    """
+    Determine if an operation should actually run.
+    - If dry_run is True, log and return False.
+    - If overwrite is True or the target does not exist, return True.
+    - Otherwise, skip by returning False.
+    """
+    if dry_run:
+        from scripts.utils.logger import log_dryrun
+
+        log_dryrun(f"Skipping actual run for {path}")
+        return False
+    if overwrite or not os.path.exists(path):
+        return True
+    return False
+
+
+def assert_columns_exist(df, columns, context: str = "") -> None:
+    """
+    Check that all specified columns exist in the DataFrame; raise ValueError otherwise.
+    """
+    missing = set(columns) - set(df.columns)
+    if missing:
+        prefix = f"{context}: " if context else ""
+        raise ValueError(f"{prefix}Missing columns: {sorted(missing)}")
+
+
+# Retain deprecated decorator for backward compatibility
+def cli_entrypoint(func):
+    """
+    Decorator marking a function as a CLI entrypoint (legacy).
     """
 
-    @wraps(fn)
     def wrapper():
-        parser = argparse.ArgumentParser(description=fn.__doc__ or "")
-        # It's better to manually define all arguments in scripts now.
-        parser.add_argument(
-            "--help", action="help", help="Show this help message and exit"
-        )
-        args, unknown = parser.parse_known_args()
-        # Pass args as dict if wanted; here, just call with no args.
-        fn()
+        return func()
 
     return wrapper

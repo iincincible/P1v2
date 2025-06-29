@@ -1,43 +1,82 @@
-# src/scripts/builders/build_clean_matches_generic.py
+"""
+CLI entrypoint for cleaning match snapshot CSVs.
+"""
 
+import argparse
+import sys
 import pandas as pd
-from scripts.builders.core import build_matches_from_snapshots
-from scripts.utils.logger import log_info
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.logger import log_dryrun
+from scripts.utils.normalize_columns import (
+    normalize_columns,
+    patch_winner_column,
+    assert_required_columns,
+)
 
 
-def build_clean_matches(df_snapshots: pd.DataFrame) -> pd.DataFrame:
+def process_snapshots(
+    snapshots_csv: str,
+    tour: str,
+    tournament: str,
+    year: int,
+    output_csv: str,
+    verbose: bool = False,
+) -> None:
     """
-    Clean raw snapshots DataFrame into canonical matches DataFrame.
+    Load, normalize, and write cleaned snapshots.
     """
-    df_snapshots = normalize_columns(df_snapshots)
-    matches_df = build_matches_from_snapshots(df_snapshots)
-    return enforce_schema(matches_df, "matches")
+    df = pd.read_csv(snapshots_csv)
+    if verbose:
+        print(f"Loaded {len(df)} rows from {snapshots_csv}")
+
+    df = normalize_columns(df)
+    df = patch_winner_column(df)
+    assert_required_columns(df, context=f"Cleaning {tour} {tournament} {year}")
+
+    df.to_csv(output_csv, index=False)
+    if verbose:
+        print(f"Wrote cleaned data ({len(df)} rows) to {output_csv}")
 
 
-def main_cli():
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Build clean matches from snapshot CSV."
+def main():
+    parser = argparse.ArgumentParser(description="Clean match snapshots CSV.")
+    parser.add_argument("--tour", required=True, help="Tour name, e.g., atp, wta")
+    parser.add_argument(
+        "--tournament", required=True, help="Tournament identifier, e.g., ausopen"
     )
-    parser.add_argument("--snapshots_csv", required=True)
-    parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
-    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument(
+        "--year", type=int, required=True, help="Year of the tournament"
+    )
+    parser.add_argument(
+        "--snapshots",
+        dest="snapshots_csv",
+        required=True,
+        help="Path to raw snapshots CSV",
+    )
+    parser.add_argument("--output_csv", required=True, help="Path to write cleaned CSV")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Perform a dry run without writing output",
+    )
+    parser.add_argument("--verbose", action="store_true", help="Print verbose logs")
     args = parser.parse_args()
 
-    df_snapshots = pd.read_csv(args.snapshots_csv)
-    matches_df = build_clean_matches(df_snapshots)
-    if not args.dry_run:
-        matches_df.to_csv(args.output_csv, index=False)
-        log_info(f"Wrote {len(matches_df)} matches to {args.output_csv}")
-    else:
-        log_info(
-            f"[DRY-RUN] Would write {len(matches_df)} matches to {args.output_csv}"
+    if args.dry_run:
+        log_dryrun(
+            f"Would process {args.snapshots_csv} for {args.tour} {args.tournament} {args.year} "
+            f"and write to {args.output_csv}"
         )
+        sys.exit(0)
+
+    process_snapshots(
+        args.snapshots_csv,
+        args.tour,
+        args.tournament,
+        args.year,
+        args.output_csv,
+        verbose=args.verbose,
+    )
 
 
 if __name__ == "__main__":
-    main_cli()
+    main()
