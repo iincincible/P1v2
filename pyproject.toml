@@ -25,3 +25,9 @@ exclude = [
 # E (pycodestyle), F (Pyflakes), I (isort)
 select = ["E", "F", "I"]
 ignore = ["E501"]  # Let Black handle line length
+
+[tool.mypy]
+# Tell mypy where to find source files
+mypy_path = "src"
+# Ignore missing imports for libraries that don't have stubs
+ignore_missing_imports = true

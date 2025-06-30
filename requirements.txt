@@ -74,6 +74,7 @@ numpy==2.2.6
     #   contourpy
     #   matplotlib
     #   pandas
+    #   pandas-stubs
     #   scikit-learn
     #   scipy
     #   seaborn
@@ -87,6 +88,8 @@ pandas==2.2.3
     # via
     #   -r requirements.in
     #   seaborn
+pandas-stubs==2.2.3.250527
+    # via -r requirements.in
 pathspec==0.12.1
     # via black
 pillow==11.2.1
@@ -154,6 +157,10 @@ threadpoolctl==3.6.0
     #   -r requirements.in
     #   scikit-learn
 tqdm==4.67.1
+    # via -r requirements.in
+types-pytz==2025.2.0.20250516
+    # via pandas-stubs
+types-pyyaml==6.0.12.20250516
     # via -r requirements.in
 typing-extensions==4.14.0
     # via mypy

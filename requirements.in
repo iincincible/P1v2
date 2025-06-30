@@ -43,3 +43,7 @@ mypy==1.10.0
 pytest==8.4.1
 pytest-cov==6.2.1
 ruff==0.4.4
+
+# --- Type Stubs for MyPy ---
+pandas-stubs
+types-PyYAML
