@@ -66,7 +66,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
     # Basic cleanup: strip, lowercase, underscores
     cleaned_cols = [col.strip().lower().replace(" ", "_") for col in df.columns]
-    df.columns = cleaned_cols
+    df.columns = cleaned_cols  # type: ignore[assignment]
 
     # Runner -> Player mapping via regex
     runner_map = {

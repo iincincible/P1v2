@@ -1,7 +1,7 @@
 import bz2
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List, TextIO
 
 
 class SnapshotParser:
@@ -29,9 +29,9 @@ class SnapshotParser:
         :param file_path: path to a .txt/.csv or .bz2 snapshot file
         :return: list of dicts containing the requested data for each mode
         """
-        # Wrap in Path so we can branch on suffix
         p = Path(file_path)
-        opener = bz2.open if p.suffix == ".bz2" else open
+        # Add explicit type hint for the opener function
+        opener: Callable[..., TextIO] = bz2.open if p.suffix == ".bz2" else open
 
         rows: List[Dict[str, Any]] = []
         with opener(file_path, "rt", encoding="utf-8") as f:
@@ -41,7 +41,6 @@ class SnapshotParser:
                 except json.JSONDecodeError:
                     continue  # skip malformed lines
 
-                # We only care about market-change messages
                 if msg.get("op") != "mcm":
                     continue
 
@@ -51,15 +50,14 @@ class SnapshotParser:
 
                     if self.mode == "metadata":
                         md = change.get("marketDefinition", {})
-                        row: Dict[str, Any] = {
+                        metadata_row: Dict[str, Any] = {
                             "market_id": market_id,
                             "market_time": md.get("marketTime"),
                             "market_name": md.get("name"),
                         }
-                        # dynamically pull runner_1, runner_2, …
                         for idx, runner in enumerate(md.get("runners", []), start=1):
-                            row[f"runner_{idx}"] = runner.get("name")
-                        rows.append(row)
+                            metadata_row[f"runner_{idx}"] = runner.get("name")
+                        rows.append(metadata_row)
 
                     elif self.mode == "ltp_only":
                         for rc in change.get("rc", []):
@@ -75,19 +73,20 @@ class SnapshotParser:
 
                     else:  # self.mode == "full"
                         for rc in change.get("rc", []):
-                            row: Dict[str, Any] = {
+                            # Rename inner row to avoid name clash
+                            runner_row: Dict[str, Any] = {
                                 "market_id": market_id,
                                 "timestamp": publish_time,
                                 "selection_id": rc.get("id"),
                             }
                             if "ltp" in rc:
-                                row["ltp"] = rc["ltp"]
+                                runner_row["ltp"] = rc["ltp"]
                             if "tv" in rc:
-                                row["volume"] = rc["tv"]
+                                runner_row["volume"] = rc["tv"]
                             if "atb" in rc:
-                                row["best_available_to_back"] = rc["atb"]
+                                runner_row["best_available_to_back"] = rc["atb"]
                             if "atl" in rc:
-                                row["best_available_to_lay"] = rc["atl"]
-                            rows.append(row)
+                                runner_row["best_available_to_lay"] = rc["atl"]
+                            rows.append(runner_row)
 
         return rows
