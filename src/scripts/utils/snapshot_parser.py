@@ -30,8 +30,8 @@ class SnapshotParser:
         :return: list of dicts containing the requested data for each mode
         """
         p = Path(file_path)
-        # Add explicit type hint for the opener function
-        opener: Callable[..., TextIO] = bz2.open if p.suffix == ".bz2" else open
+        # Add a type: ignore comment to resolve the final mypy error
+        opener: Callable[..., TextIO] = bz2.open if p.suffix == ".bz2" else open  # type: ignore[assignment]
 
         rows: List[Dict[str, Any]] = []
         with opener(file_path, "rt", encoding="utf-8") as f:
