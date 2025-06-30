@@ -7,10 +7,11 @@ from typing import Dict
 
 import pandas as pd
 
+# Keys must be lowercase to match columns after initial cleaning
 COLUMN_ALIASES: Dict[str, str] = {
-    "playerOne": "player_1",
-    "playerTwo": "player_2",
-    "winnerName": "winner",
+    "playerone": "player_1",
+    "playertwo": "player_2",
+    "winnername": "winner",
     "prob": "predicted_prob",
     "ev": "expected_value",
     "actual_winner": "winner",
@@ -77,7 +78,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     if runner_map:
         df = df.rename(columns=runner_map)
 
-    # Simple aliases
+    # Simple aliases (now works correctly on lowercase columns)
     existing_aliases = {k: v for k, v in COLUMN_ALIASES.items() if k in df.columns}
     if existing_aliases:
         df = df.rename(columns=existing_aliases)
