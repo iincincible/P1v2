@@ -31,3 +31,5 @@ ignore = ["E501"]  # Let Black handle line length
 mypy_path = "src"
 # Ignore missing imports for libraries that don't have stubs
 ignore_missing_imports = true
+# Prevent mypy from creating implicit namespace packages
+namespace_packages = false
