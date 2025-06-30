@@ -4,7 +4,7 @@ Configuration loading and validation utilities.
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import yaml
 
@@ -23,7 +23,9 @@ def _merge_with_defaults(config: dict, defaults: dict) -> dict:
     return merged
 
 
-def load_config(config_path: str, defaults: Dict[str, Any] = None) -> Dict[str, Any]:
+def load_config(
+    config_path: str, defaults: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
     """
     Load a configuration from a JSON or YAML file, optionally merged with defaults.
     :param config_path: path to a .json, .yaml, or .yml file

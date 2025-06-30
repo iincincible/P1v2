@@ -11,7 +11,8 @@ def build_market_runner_map(df: pd.DataFrame) -> Dict[str, Dict[str, Any]]:
     """
     Build a mapping from market_id to player_name -> selection_id.
     """
-    mapping = {}
+    # Add an explicit type hint for the dictionary
+    mapping: Dict[str, Dict[str, Any]] = {}
     for _, row in df.iterrows():
         market = row.get("market_id")
         player = row.get("runner_name")

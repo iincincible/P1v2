@@ -33,3 +33,5 @@ mypy_path = "src"
 ignore_missing_imports = true
 # Prevent mypy from creating implicit namespace packages
 namespace_packages = false
+# Exclude non-production code from type checking
+exclude = "src/scripts/debug"

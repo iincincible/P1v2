@@ -11,6 +11,8 @@ def setup_logging(level: str = "INFO", json_logs: bool = False):
     """
     log_handler = logging.StreamHandler()
 
+    # Use a more generic type hint for the formatter
+    formatter: logging.Formatter
     if json_logs:
         formatter = jsonlogger.JsonFormatter(
             "%(asctime)s %(name)s %(levelname)s %(message)s"
