@@ -37,8 +37,9 @@ urllib3
 python-json-logger
 
 # --- Development and Testing Tools ---
-black
-mypy
-pytest
-pytest-cov
-ruff
+# Pin versions to match .pre-commit-config.yaml
+black==24.4.2
+mypy==1.10.0
+pytest==8.4.1
+pytest-cov==6.2.1
+ruff==0.4.4
