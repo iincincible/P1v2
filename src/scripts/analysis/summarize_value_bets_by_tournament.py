@@ -1,11 +1,15 @@
-import pandas as pd
+import argparse
 import glob
 from pathlib import Path
-from scripts.utils.logger import log_info, log_success, log_warning, setup_logging
+
+import pandas as pd
+
+from scripts.utils.decorators import with_logging
+from scripts.utils.logger import log_info, log_success, log_warning
 
 
 def run_summarize_value_bets_by_tournament(
-    files, dry_run: bool = False
+    files: list, dry_run: bool = False
 ) -> pd.DataFrame:
     """
     Summarize value bets by tournament from match-level summaries.
@@ -50,20 +54,23 @@ def run_summarize_value_bets_by_tournament(
     return df_out
 
 
+@with_logging
 def main_cli():
-    import argparse
-
     parser = argparse.ArgumentParser(
         description="Summarize value bets by tournament from match-level summaries."
     )
-    parser.add_argument("--input_glob", required=True)
+    parser.add_argument(
+        "--input_glob",
+        required=True,
+        help="Glob pattern for match-level summary CSVs (e.g., 'data/*_by_match.csv').",
+    )
     parser.add_argument("--output_csv", required=True)
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--json_logs", action="store_true")
     args = parser.parse_args()
-    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
+
     files = glob.glob(args.input_glob)
     if not files:
         raise ValueError(

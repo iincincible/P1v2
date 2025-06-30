@@ -1,46 +1,47 @@
-import glob
-import pandas as pd
-import matplotlib.pyplot as plt
+import argparse
 from pathlib import Path
 
-from scripts.utils.schema import normalize_columns, enforce_schema
-from scripts.utils.logger import setup_logging, log_info, log_success, log_warning
-from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
+import matplotlib.pyplot as plt
+import pandas as pd
+
 from scripts.utils.betting_math import add_ev_and_kelly
+from scripts.utils.constants import DEFAULT_EV_THRESHOLD, DEFAULT_MAX_ODDS
+from scripts.utils.decorators import with_logging
+from scripts.utils.file_utils import load_dataframes
+from scripts.utils.logger import log_info, log_success
+from scripts.utils.schema import enforce_schema, normalize_columns
 
 
 def run_analyze_ev_distribution(
-    value_bets_files,
+    df: pd.DataFrame,
     ev_threshold: float = DEFAULT_EV_THRESHOLD,
     max_odds: float = DEFAULT_MAX_ODDS,
 ) -> pd.DataFrame:
     """
-    Analyze and return the EV distribution from value bet CSV files (pure function).
+    Analyze and return the EV distribution from a DataFrame of value bets (pure function).
     """
-    dfs = []
-    for f in value_bets_files:
-        try:
-            df = pd.read_csv(f)
-            df = normalize_columns(df)
-            df = add_ev_and_kelly(df)
-            df = df[(df["expected_value"] >= ev_threshold) & (df["odds"] <= max_odds)]
-            dfs.append(df)
-        except Exception as e:
-            log_warning(f"Skipping {f}: {e}")
-    if not dfs:
+    df = normalize_columns(df)
+    df = add_ev_and_kelly(df)
+    df_filtered = df[
+        (df["expected_value"] >= ev_threshold) & (df["odds"] <= max_odds)
+    ].copy()
+    if df_filtered.empty:
         raise ValueError("No valid value bet files after filtering.")
-    all_bets = pd.concat(dfs, ignore_index=True)
-    enforce_schema(all_bets, "value_bets")
-    return all_bets
+
+    enforce_schema(df_filtered, "value_bets")
+    return df_filtered
 
 
+@with_logging
 def main_cli():
-    import argparse
-
     parser = argparse.ArgumentParser(
         description="Analyze EV distribution from value bet CSV files."
     )
-    parser.add_argument("--value_bets_glob", required=True)
+    parser.add_argument(
+        "--value_bets_glob",
+        required=True,
+        help="Glob pattern for input value bet CSV files (e.g., 'data/*_value_bets.csv').",
+    )
     parser.add_argument("--output_csv", default=None)
     parser.add_argument("--ev_threshold", type=float, default=DEFAULT_EV_THRESHOLD)
     parser.add_argument("--max_odds", type=float, default=DEFAULT_MAX_ODDS)
@@ -51,14 +52,13 @@ def main_cli():
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--json_logs", action="store_true")
     args = parser.parse_args()
-    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
-    files = glob.glob(args.value_bets_glob)
-    if not files:
-        raise ValueError(f"No value bet files found matching: {args.value_bets_glob}")
+
+    all_bets_raw = load_dataframes(args.value_bets_glob)
+
     all_bets = run_analyze_ev_distribution(
-        files, ev_threshold=args.ev_threshold, max_odds=args.max_odds
+        all_bets_raw, ev_threshold=args.ev_threshold, max_odds=args.max_odds
     )
-    log_info(f"Loaded {len(all_bets)} filtered value bets across {len(files)} files.")
+    log_info(f"Loaded and filtered {len(all_bets)} value bets.")
 
     if args.output_csv and not args.dry_run:
         all_bets.to_csv(args.output_csv, index=False)
@@ -66,7 +66,7 @@ def main_cli():
 
     # Optionally plot
     if not all_bets.empty and (args.plot or args.save_plot):
-        plt.figure(figsize=(10, 5))
+        fig = plt.figure(figsize=(10, 5))
         plt.hist(all_bets["expected_value"], bins=25, edgecolor="black")
         plt.title("EV Distribution (Filtered)")
         plt.xlabel("Expected Value")
@@ -75,6 +75,7 @@ def main_cli():
 
         if args.save_plot:
             if not args.output_csv:
+                plt.close(fig)
                 raise ValueError(
                     "--save_plot requires --output_csv to determine image path"
                 )
@@ -87,6 +88,8 @@ def main_cli():
 
         if args.plot:
             plt.show()
+
+        plt.close(fig)  # Ensure figure is closed to free memory
 
 
 if __name__ == "__main__":

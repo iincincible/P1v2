@@ -1,15 +1,19 @@
 # src/scripts/pipeline/detect_value_bets.py
 
+import argparse
+
 import pandas as pd
-from scripts.utils.logger import log_info
+
+from scripts.utils.betting_math import add_ev_and_kelly
 from scripts.utils.constants import (
-    DEFAULT_EV_THRESHOLD,
     DEFAULT_CONFIDENCE_THRESHOLD,
-    DEFAULT_MAX_ODDS,
+    DEFAULT_EV_THRESHOLD,
     DEFAULT_MAX_MARGIN,
+    DEFAULT_MAX_ODDS,
 )
-from scripts.utils.schema import normalize_columns, enforce_schema
-from scripts.utils.value_metrics import compute_value_metrics
+from scripts.utils.logger import log_info
+from scripts.utils.schema import enforce_schema, normalize_columns
+from scripts.utils.validation import validate_value_bets
 
 
 def detect_value_bets(
@@ -20,13 +24,19 @@ def detect_value_bets(
     max_margin: float = DEFAULT_MAX_MARGIN,
 ) -> pd.DataFrame:
     """
-    Detect value bets with thresholds for EV, confidence, odds, and margin.
+    Validates and detects value bets with thresholds for EV, confidence, odds, and margin.
     """
     df = normalize_columns(df)
+
+    # Perform validation before calculations
+    validate_value_bets(df)
+
     if "expected_value" not in df.columns or "kelly_fraction" not in df.columns:
-        df = compute_value_metrics(df)
+        df = add_ev_and_kelly(df)
+
     if "confidence_score" not in df.columns and "predicted_prob" in df.columns:
         df["confidence_score"] = df["predicted_prob"]
+
     mask = (
         (df["expected_value"] >= ev_threshold)
         & (df["confidence_score"] >= confidence_threshold)
@@ -34,13 +44,12 @@ def detect_value_bets(
     )
     if "odds_margin" in df.columns:
         mask &= df["odds_margin"] <= max_margin
+
     df_filtered = df[mask].copy()
     return enforce_schema(df_filtered, "value_bets")
 
 
 def main_cli():
-    import argparse
-
     parser = argparse.ArgumentParser(description="Detect value bets")
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)

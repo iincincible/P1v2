@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
+
 import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
@@ -8,12 +9,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score
 from sklearn.model_selection import GroupShuffleSplit
 
-from scripts.utils.logger import log_info, log_success
-from scripts.utils.schema import normalize_columns, patch_winner_column, enforce_schema
+from scripts.utils.file_utils import load_dataframes
+from scripts.utils.git_utils import get_git_hash
+from scripts.utils.logger import log_info, log_success, setup_logging
+from scripts.utils.schema import enforce_schema, normalize_columns, patch_winner_column
 
 
 def run_train_eval_model(
-    dfs: list[pd.DataFrame],
+    df: pd.DataFrame,
     algorithm: str = "rf",
     test_size: float = 0.25,
     random_state: int = 42,
@@ -22,15 +25,12 @@ def run_train_eval_model(
     Train a classification model on value bets and evaluate.
     Returns (model, report, auc, meta_dict).
     """
-    all_dfs = []
-    for df in dfs:
-        df = normalize_columns(df)
-        df = patch_winner_column(df)
-        enforce_schema(df, "value_bets")
-        all_dfs.append(df)
-    if not all_dfs:
+    df = normalize_columns(df)
+    df = patch_winner_column(df)
+    enforce_schema(df, "value_bets")
+    if df.empty:
         raise ValueError("No valid data to train on after preprocessing.")
-    df = pd.concat(all_dfs, ignore_index=True)
+
     excluded = {"winner", "match_id"}
     feature_cols = [
         c
@@ -63,6 +63,7 @@ def run_train_eval_model(
     report = classification_report(y_test, y_pred, digits=3, output_dict=False)
     meta = {
         "timestamp": datetime.now().isoformat(),
+        "git_hash": get_git_hash(),
         "model_type": type(model).__name__,
         "features": feature_cols,
         "algorithm": algorithm,
@@ -73,29 +74,18 @@ def run_train_eval_model(
     return model, report, auc, meta
 
 
-def main_cli():
-    import argparse
+def main_cli(args):
+    """
+    Wrapper function to be called from the main CLI entrypoint.
+    """
+    setup_logging(level="DEBUG" if args.verbose else "INFO", json_logs=args.json_logs)
 
-    parser = argparse.ArgumentParser(
-        description="Train and evaluate a model on value bets"
-    )
-    parser.add_argument(
-        "--input_files", required=True, help="Space-separated list of CSVs"
-    )
-    parser.add_argument("--output_model", required=True)
-    parser.add_argument("--algorithm", choices=["rf", "logreg"], default="rf")
-    parser.add_argument("--test_size", type=float, default=0.25)
-    parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--dry_run", action="store_true")
-    parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--json_logs", action="store_true")
-    args = parser.parse_args()
-    files = args.input_files.split()
-    dfs = [pd.read_csv(path) for path in files]
+    df = load_dataframes(args.input_glob)
     model, report, auc, meta = run_train_eval_model(
-        dfs, algorithm=args.algorithm, test_size=args.test_size
+        df, algorithm=args.algorithm, test_size=args.test_size
     )
-    log_info(f"Evaluation on holdout set (AUC={auc:.3f}):")
+
+    log_info(f"Evaluation on holdout set (AUC={auc:.3f if auc else 'N/A'}):")
     log_info("\n" + str(report))
     output_path = Path(args.output_model)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -105,7 +95,3 @@ def main_cli():
         with open(output_path.with_suffix(".json"), "w") as f:
             json.dump(meta, f, indent=2)
         log_success(f"Saved metadata to {output_path.with_suffix('.json')}")
-
-
-if __name__ == "__main__":
-    main_cli()

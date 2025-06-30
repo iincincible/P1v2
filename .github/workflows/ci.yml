@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt         # core deps (includes python-json-logger) :contentReference[oaicite:0]{index=0}
-          pip install pytest pytest-cov flake8 ruff mypy
+          pip install -r requirements.txt         # core deps (includes python-json-logger)
+          pip install pytest pytest-cov ruff mypy
 
       - name: Lint with Black
         run: black --check src scripts
@@ -36,9 +36,6 @@ jobs:
       - name: Type-check with MyPy
         run: mypy src scripts
 
-      - name: Run tests
+      - name: Run tests and report coverage
         run: |
-          PYTHONPATH=src pytest --maxfail=1 --disable-warnings -q
-
-      - name: Test coverage report
-        run: pytest --cov=src --cov-report=term-missing
+          PYTHONPATH=src pytest --cov=src --cov-report=term-missing --maxfail=1 --disable-warnings -q

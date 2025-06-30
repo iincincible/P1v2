@@ -1,8 +1,9 @@
 # src/scripts/pipeline/match_selection_ids.py
 
 import pandas as pd
+
 from scripts.utils.logger import log_info
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.schema import enforce_schema, normalize_columns
 from scripts.utils.selection import (
     build_market_runner_map,
     match_player_to_selection_id,
@@ -10,28 +11,36 @@ from scripts.utils.selection import (
 
 
 def assign_selection_ids(
-    df_matches: pd.DataFrame, df_snaps: pd.DataFrame
+    matches_df: pd.DataFrame, snapshots_df: pd.DataFrame
 ) -> pd.DataFrame:
     """
-    Assign Betfair selection IDs to matches based on snapshot data.
+    Assigns Betfair selection IDs to players in a matches DataFrame.
+
+    It uses a snapshots DataFrame to create a mapping between player names and
+    their selection IDs for each market.
+
+    :param matches_df: DataFrame of matches, containing player names and market_id.
+    :param snapshots_df: DataFrame of raw snapshot data, used to build the mapping.
+    :return: The matches_df with 'selection_id_1' and 'selection_id_2' columns added.
     """
-    df_matches = normalize_columns(df_matches)
-    df_snaps = normalize_columns(df_snaps)
-    market_map = build_market_runner_map(df_snaps)
-    df_matches = df_matches.copy()
-    df_matches["selection_id_1"] = df_matches.apply(
+    matches_df = normalize_columns(matches_df)
+    snapshots_df = normalize_columns(snapshots_df)
+    market_map = build_market_runner_map(snapshots_df)
+
+    matches_df = matches_df.copy()
+    matches_df["selection_id_1"] = matches_df.apply(
         lambda r: match_player_to_selection_id(
             market_map, r["market_id"], r["player_1"]
         ),
         axis=1,
     )
-    df_matches["selection_id_2"] = df_matches.apply(
+    matches_df["selection_id_2"] = matches_df.apply(
         lambda r: match_player_to_selection_id(
             market_map, r["market_id"], r["player_2"]
         ),
         axis=1,
     )
-    return enforce_schema(df_matches, "matches_with_ids")
+    return enforce_schema(matches_df, "matches_with_ids")
 
 
 def main_cli():

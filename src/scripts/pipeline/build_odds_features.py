@@ -1,14 +1,18 @@
 # src/scripts/pipeline/build_odds_features.py
 
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 from scripts.utils.logger import log_info
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.schema import enforce_schema, normalize_columns
 
 
 def build_odds_features(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Adds implied probabilities and margin features to a matches DataFrame.
+    Adds implied probability and bookmaker margin features to a DataFrame.
+
+    :param df: The input DataFrame, expected to contain 'ltp_player_1' and 'ltp_player_2' columns.
+    :return: A new DataFrame with added feature columns.
     """
     df = normalize_columns(df)
     df = df.copy()

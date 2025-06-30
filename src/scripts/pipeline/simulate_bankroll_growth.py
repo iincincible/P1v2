@@ -1,19 +1,23 @@
 # src/scripts/pipeline/simulate_bankroll_growth.py
 
+import argparse
+
 import pandas as pd
+
+from scripts.utils.betting_math import add_ev_and_kelly
+from scripts.utils.constants import DEFAULT_INITIAL_BANKROLL
 from scripts.utils.logger import log_info
-from scripts.utils.value_metrics import compute_value_metrics
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.schema import enforce_schema, normalize_columns
 
 
 def simulate_bankroll_growth(
-    df: pd.DataFrame, initial_bankroll: float = 1000.0
+    df: pd.DataFrame, initial_bankroll: float = DEFAULT_INITIAL_BANKROLL
 ) -> pd.DataFrame:
     """
     Simulate bankroll growth from value bet DataFrame.
     """
     df = normalize_columns(df)
-    df_metrics = compute_value_metrics(df)
+    df_metrics = add_ev_and_kelly(df)
     df_metrics = df_metrics.copy()
     df_metrics.insert(0, "bankroll", initial_bankroll)
     for idx in df_metrics.index[1:]:
@@ -28,12 +32,15 @@ def simulate_bankroll_growth(
 
 
 def main_cli():
-    import argparse
-
     parser = argparse.ArgumentParser(description="Simulate bankroll growth")
     parser.add_argument("--input_csv", required=True)
     parser.add_argument("--output_csv", required=True)
-    parser.add_argument("--initial_bankroll", type=float, default=1000.0)
+    parser.add_argument(
+        "--initial_bankroll",
+        type=float,
+        default=DEFAULT_INITIAL_BANKROLL,
+        help="The starting bankroll for the simulation.",
+    )
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry_run", action="store_true")
     parser.add_argument("--verbose", action="store_true")

@@ -1,13 +1,12 @@
 import bz2
 import json
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 class SnapshotParser:
     """
     Parses Betfair snapshot files (plain text or .bz2) containing JSON lines.
-
     Modes:
       - "metadata": extracts marketDefinition metadata into a list of dicts
       - "ltp_only": extracts last-traded-price updates for each runner
@@ -27,7 +26,6 @@ class SnapshotParser:
         """
         Read the given file (plain text or .bz2) line by line, parse each JSON
         message, and return a list of row-dicts according to the selected mode.
-
         :param file_path: path to a .txt/.csv or .bz2 snapshot file
         :return: list of dicts containing the requested data for each mode
         """
@@ -69,9 +67,9 @@ class SnapshotParser:
                                 rows.append(
                                     {
                                         "market_id": market_id,
-                                        "market_time": publish_time,
-                                        "runner_id": rc.get("id"),
-                                        "last_traded_price": rc.get("ltp"),
+                                        "timestamp": publish_time,
+                                        "selection_id": rc.get("id"),
+                                        "ltp": rc.get("ltp"),
                                     }
                                 )
 
@@ -79,13 +77,13 @@ class SnapshotParser:
                         for rc in change.get("rc", []):
                             row: Dict[str, Any] = {
                                 "market_id": market_id,
-                                "market_time": publish_time,
-                                "runner_id": rc.get("id"),
+                                "timestamp": publish_time,
+                                "selection_id": rc.get("id"),
                             }
                             if "ltp" in rc:
-                                row["last_traded_price"] = rc["ltp"]
+                                row["ltp"] = rc["ltp"]
                             if "tv" in rc:
-                                row["total_matched"] = rc["tv"]
+                                row["volume"] = rc["tv"]
                             if "atb" in rc:
                                 row["best_available_to_back"] = rc["atb"]
                             if "atl" in rc:

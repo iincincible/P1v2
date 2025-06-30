@@ -1,0 +1,44 @@
+# --- Core Dependencies ---
+cerberus
+certifi
+charset-normalizer
+colorama
+contourpy
+cycler
+fonttools
+fuzzywuzzy
+idna
+joblib
+kiwisolver
+levenshtein
+matplotlib
+numpy
+packaging
+pandas
+pillow
+pyparsing
+python-dateutil
+python-levenshtein
+pytz
+pyyaml
+rapidfuzz
+requests
+scikit-learn
+scipy
+seaborn
+six
+thefuzz
+threadpoolctl
+tqdm
+tzdata
+urllib3
+
+# --- Logging ---
+python-json-logger
+
+# --- Development and Testing Tools ---
+black
+mypy
+pytest
+pytest-cov
+ruff

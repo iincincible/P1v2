@@ -13,26 +13,10 @@ def assert_file_exists(path: str, description: str) -> None:
         raise FileNotFoundError(f"{description} not found: {path}")
 
 
-def should_run(path: str, overwrite: bool = False, dry_run: bool = False) -> bool:
-    """
-    Determine if an operation should actually run.
-    - If dry_run is True, log and return False.
-    - If overwrite is True or the target does not exist, return True.
-    - Otherwise, skip by returning False.
-    """
-    if dry_run:
-        from scripts.utils.logger import log_dryrun
-
-        log_dryrun(f"Skipping actual run for {path}")
-        return False
-    if overwrite or not os.path.exists(path):
-        return True
-    return False
-
-
 def assert_columns_exist(df, columns, context: str = "") -> None:
     """
-    Check that all specified columns exist in the DataFrame; raise ValueError otherwise.
+    Check that all specified columns exist in the DataFrame;
+    raise ValueError otherwise.
     """
     missing = set(columns) - set(df.columns)
     if missing:

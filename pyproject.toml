@@ -22,14 +22,6 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-select = ["E", "F"]
+# E (pycodestyle), F (Pyflakes), I (isort)
+select = ["E", "F", "I"]
 ignore = ["E501"]  # Let Black handle line length
-
-[tool.isort]
-profile = "black"
-skip = [
-    "build",
-    "dist",
-    ".venv",
-    "data/tennis_atp/examples"
-]

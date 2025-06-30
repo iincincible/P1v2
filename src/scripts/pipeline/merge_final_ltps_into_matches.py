@@ -1,22 +1,29 @@
 # src/scripts/pipeline/merge_final_ltps_into_matches.py
 
 import pandas as pd
+
 from scripts.utils.logger import log_info
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.schema import enforce_schema, normalize_columns
 
 
-def merge_final_ltps(df_matches: pd.DataFrame, df_snaps: pd.DataFrame) -> pd.DataFrame:
+def merge_final_ltps(
+    matches_df: pd.DataFrame, snapshots_df: pd.DataFrame
+) -> pd.DataFrame:
     """
-    Merge final LTPs into matches.
+    Finds the last traded price (LTP) for each selection and merges it into the matches DataFrame.
+
+    :param matches_df: DataFrame of matches with selection_id.
+    :param snapshots_df: DataFrame of raw snapshot data containing LTPs over time.
+    :return: The matches_df with a 'final_ltp' column added.
     """
-    df_matches = normalize_columns(df_matches)
-    df_snaps = normalize_columns(df_snaps)
+    matches_df = normalize_columns(matches_df)
+    snapshots_df = normalize_columns(snapshots_df)
     final_snaps = (
-        df_snaps.sort_values(["match_id", "selection_id", "timestamp"])
+        snapshots_df.sort_values(["match_id", "selection_id", "timestamp"])
         .groupby(["match_id", "selection_id"], as_index=False)
         .last()[["match_id", "selection_id", "ltp"]]
     )
-    df_merged = df_matches.merge(
+    df_merged = matches_df.merge(
         final_snaps,
         on=["match_id", "selection_id"],
         how="left",
