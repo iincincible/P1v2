@@ -1,6 +1,7 @@
 import pandas as pd
+
 from scripts.utils.cli_utils import cli_entrypoint
-from scripts.utils.logger import setup_logging, log_info
+from scripts.utils.logger import log_info, setup_logging
 from scripts.utils.schema import enforce_schema
 
 

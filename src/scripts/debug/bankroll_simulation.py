@@ -1,5 +1,5 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 CSV_PATH = "data/processed/ausopen_2023_atp_value_bets.csv"
 STARTING_BANKROLL = 1000

@@ -1,5 +1,6 @@
-import yaml
 import sys
+
+import yaml
 
 # Replace with your pipeline label if running standalone, or get from args
 pipeline_label = "ausopen_2023_atp"

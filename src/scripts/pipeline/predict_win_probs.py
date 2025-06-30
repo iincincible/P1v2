@@ -1,8 +1,9 @@
 # src/scripts/pipeline/predict_win_probs.py
 
 import pandas as pd
+
 from scripts.utils.logger import log_info
-from scripts.utils.schema import normalize_columns, enforce_schema
+from scripts.utils.schema import enforce_schema, normalize_columns
 
 
 def predict_win_probs(model, df: pd.DataFrame, features=None) -> pd.DataFrame:
@@ -35,6 +36,7 @@ def predict_win_probs(model, df: pd.DataFrame, features=None) -> pd.DataFrame:
 
 def main_cli():
     import argparse
+
     import joblib
 
     parser = argparse.ArgumentParser(description="Predict win probabilities")

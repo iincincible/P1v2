@@ -2,8 +2,9 @@
 Logic for assigning selection IDs.
 """
 
+from typing import Any, Dict, Optional
+
 import pandas as pd
-from typing import Dict, Optional, Any
 
 
 def build_market_runner_map(df: pd.DataFrame) -> Dict[str, Dict[str, Any]]:
